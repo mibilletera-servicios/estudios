@@ -239,7 +239,7 @@ font-size: 14px;
 line-height: 1.6;
 }
 
-/* MODAL */
+/* MODAL INTERACTIVO */
 .modal{
 position:fixed;
 top:0;
@@ -257,7 +257,7 @@ z-index:999;
 .modal-content{
 background:white;
 width:95%;
-max-width:900px;
+max-width:950px;
 border-radius: 32px;
 padding:40px;
 max-height:85vh;
@@ -293,58 +293,65 @@ border-left: 5px solid #0284c7;
 padding-left: 12px;
 }
 
+/* DISTRIBUCIÓN EN 2 COLUMNAS INTERNAS PARA EL TRACKING PROFESIONAL */
+.tracking-grid {
+display: grid;
+grid-template-columns: 1.8fr 1.2fr;
+gap: 30px;
+}
+
+@media(max-width: 850px){
+    .tracking-grid { grid-template-columns: 1fr; }
+}
+
 .datos{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:18px;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:14px;
 margin-top:20px;
 margin-bottom:30px;
 }
 
 .box{
 background:#f8fafc;
-padding:18px 22px;
-border-radius: 18px;
+padding:14px 18px;
+border-radius: 14px;
 border: 1px solid #f1f5f9;
 }
 
 .box strong{
 display:block;
 color:#0284c7;
-font-size: 12px;
+font-size: 11px;
 text-transform: uppercase;
 letter-spacing: 0.8px;
-margin-bottom:6px;
+margin-bottom:4px;
 }
 
 .box span.val {
 color: #1e293b;
 font-weight: 500;
-font-size: 15px;
+font-size: 14px;
 }
 
-/* SECCIÓN FINANCIERA */
+/* SECCIÓN FINANCIERA MEJORADA */
 .checkout-box {
 background: #f0fdf4;
-border: 2px dashed #10b981;
+border: 1px solid #bbf7d0;
 border-radius: 20px;
-padding: 25px;
-margin-bottom: 35px;
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 20px;
-align-items: center;
+padding: 22px;
+margin-bottom: 25px;
 }
 
 .checkout-box.pending {
 background: #fff7ed;
-border-color: #f97316;
+border-color: #fed7aa;
 }
 
 .price-detail p {
 font-size: 14px;
 color: #475569;
-margin-bottom: 4px;
+margin-bottom: 6px;
 }
 
 .price-detail p span {
@@ -354,53 +361,103 @@ color: #0f172a;
 }
 
 .price-detail .total {
-font-size: 18px;
+font-size: 17px;
 font-weight: 700;
 color: #0f172a;
-border-top: 1px solid #e2e8f0;
-padding-top: 8px;
-margin-top: 8px;
-}
-
-.price-detail .total span {
-color: #0284c7;
-font-size: 20px;
-}
-
-.payment-status {
-text-align: center;
-padding: 10px;
-}
-
-.btn-pagar {
-background: #f97316;
-color: white;
-border: none;
-padding: 12px 24px;
-border-radius: 30px;
-font-weight: 600;
-cursor: pointer;
-transition: 0.2s;
-box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
-width: 100%;
+border-top: 1px dashed #cbd5e1;
+padding-top: 10px;
 margin-top: 10px;
 }
 
-.btn-pagar:hover {
-background: #ea580c;
+.price-detail .total span {
+color: #10b981;
+font-size: 19px;
 }
 
-/* TIMELINE LIMPIDA (SIN ROJOS NI TACHADOS) */
+.checkout-box.pending .price-detail .total span {
+color: #f97316;
+}
+
+.action-area {
+margin-top: 15px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.btn-action {
+width: 100%;
+padding: 12px;
+border-radius: 12px;
+font-weight: 600;
+font-size: 14px;
+cursor: pointer;
+transition: 0.2s;
+border: none;
+text-align: center;
+}
+
+.btn-pay { background: #f97316; color: white; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2); }
+.btn-pay:hover { background: #ea580c; }
+.btn-download { background: #e2e8f0; color: #334155; }
+.btn-download:hover { background: #cbd5e1; }
+.btn-support { background: #0284c7; color: white; }
+.btn-support:hover { background: #0369a1; }
+
+.legal-notice {
+font-size: 11px;
+color: #94a3b8;
+margin-top: 10px;
+text-align: center;
+line-height: 1.4;
+}
+
+/* SEGMENTO LATERAL DEL REPARTIDOR (QR SIMULADO) */
+.delivery-sidebar {
+background: #f8fafc;
+border-radius: 24px;
+padding: 25px;
+border: 1px solid #e2e8f0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+
+.qr-box {
+width: 140px;
+height: 140px;
+background: white;
+border: 4px solid #0f172a;
+border-radius: 12px;
+margin: 15px 0;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+}
+
+/* Elementos visuales que simulan un código QR de alta seguridad */
+.qr-box::before {
+content: 'QR LOGÍSTICO';
+font-size: 10px;
+font-weight: 800;
+color: #0f172a;
+letter-spacing: 0.5px;
+}
+
+/* TIMELINE LIMPIDA */
 .modal h3 {
 color: #0f172a;
-font-size: 20px;
+font-size: 18px;
 font-weight: 600;
-margin-bottom: 25px;
+margin-bottom: 20px;
 }
 
 .timeline{
 position:relative;
-margin-top:25px;
+margin-top:15px;
 padding-left: 10px;
 }
 
@@ -418,7 +475,7 @@ border-radius: 10px;
 .step{
 position:relative;
 padding-left:55px;
-margin-bottom:35px;
+margin-bottom:30px;
 }
 
 .circle{
@@ -434,16 +491,15 @@ box-shadow: 0 0 0 3px #e2e8f0;
 transition: .3s;
 }
 
-/* Estado activo: verde elegante de completado */
 .step.is-active .circle {
 background:#10b981;
 box-shadow: 0 0 0 4px #d1fae5;
 }
 
 .step h4{
-font-size: 16px;
+font-size: 15px;
 font-weight: 500;
-color: #94a3b8; /* Gris suave para pasos futuros pendientes sin ser agresivo */
+color: #94a3b8;
 }
 
 .step.is-active h4 {
@@ -453,9 +509,9 @@ font-weight: 600;
 
 .step small{
 color:#cbd5e1;
-font-size: 13px;
+font-size: 12px;
 display: block;
-margin-top: 4px;
+margin-top: 2px;
 }
 
 .step.is-active small {
@@ -466,9 +522,9 @@ color: #64748b;
 .pagado{
 background:#d1fae5;
 color:#065f46;
-padding:6px 16px;
+padding:4px 12px;
 border-radius: 20px;
-font-size: 12px;
+font-size: 11px;
 font-weight:600;
 display:inline-block;
 }
@@ -476,9 +532,9 @@ display:inline-block;
 .nopagado{
 background:#fee2e2;
 color:#991b1b;
-padding:6px 16px;
+padding:4px 12px;
 border-radius: 20px;
-font-size: 12px;
+font-size: 11px;
 font-weight:600;
 display:inline-block;
 }
@@ -671,7 +727,7 @@ fechasLog: {
     verificado: "03/06/2026 - 14:00 hs",
     viaje: "04/06/2026 - 06:15 hs",
     camino: "04/06/2026 - 11:30 hs",
-    entrega: "Pendiente"
+    entrega: "04/06/2026 - 13:20 hs"
 }
 }
 };
@@ -701,31 +757,29 @@ let totalAbonar = envio.precioProducto + envio.precioEnvio;
 // =========================================================================
 //  🎛️ PANEL DE CONTROL MANUAL (Modificá acá para encender/apagar estados avanzados)
 // =========================================================================
-let enViaje = true;             // true = activa "En viaje hacia centro de distribución..."
-let enCaminoDomicilio = true;   // true = activa "En camino al domicilio"
-let entregado = false;          // true = activa "Entregado"
+let enViaje = true;             // true = activa el viaje al nodo destino
+let enCaminoDomicilio = true;   // true = activa el reparto de última milla
+let entregado = false;          // true = activa la entrega completada exitosamente
 // =========================================================================
 
-// Construcción de la estructura de pasos según el flujo solicitado
+// Estructura de la línea de tiempo base
 let stepsConfig = [
-    { id: "creada", titulo: "Producto depositado por el vendedor en PANROD", fecha: envio.fechasLog.creada, autoActivo: true },
-    { id: "pago", titulo: "Pago total verificado en sistema", fecha: envio.fechasLog.pago, autoActivo: envio.pagado },
-    { id: "verificado", titulo: "Paquete verificado y empaquetado con datos del cliente (Listo para despacho)", fecha: envio.fechasLog.verificado, autoActivo: envio.pagado }
+    { id: "creada", titulo: "Producto depositado por el vendedor en casa central PANROD", fecha: envio.fechasLog.creada, autoActivo: true },
+    { id: "pago", titulo: "Pago total verificado y acreditado en sistema", fecha: envio.fechasLog.pago, autoActivo: envio.pagado },
+    { id: "verificado", titulo: "Paquete verificado y empaquetado con datos de entrega del cliente", fecha: envio.fechasLog.verificado, autoActivo: envio.pagado }
 ];
 
-// Si está abonado, le sumamos los pasos avanzados controlados por vos
+// Inyección de estados dinámicos controlados por vos si está pago
 if(envio.pagado) {
     stepsConfig.push(
-        { id: "viaje", titulo: `En viaje hacia centro de distribución de ${envio.destino}`, fecha: enViaje ? envio.fechasLog.viaje : "Pendiente", activoManual: enViaje },
-        { id: "camino", titulo: "En camino al domicilio del comprador", fecha: enCaminoDomicilio ? envio.fechasLog.camino : "Pendiente", activoManual: enCaminoDomicilio },
-        { id: "entrega", titulo: "Entregado exitosamente", fecha: entregado ? envio.fechasLog.entrega : "Pendiente", activoManual: entregado }
+        { id: "viaje", titulo: `En viaje hacia centro de distribución regional de ${envio.destino}`, fecha: enViaje ? envio.fechasLog.viaje : "Pendiente", activoManual: enViaje },
+        { id: "camino", titulo: "En camino al domicilio del comprador (Unidad de Reparto)", fecha: enCaminoDomicilio ? envio.fechasLog.camino : "Pendiente", activoManual: enCaminoDomicilio },
+        { id: "entrega", titulo: "Entregado exitosamente al destinatario", fecha: entregado ? envio.fechasLog.entrega : "Pendiente", activoManual: entregado }
     );
 }
 
 let timelineHTML = "";
-
 stepsConfig.forEach((step) => {
-    // Determinar si el paso actual debe brillar en verde (.is-active)
     let esActivo = step.autoActivo || (step.activoManual === true);
     let classStatus = esActivo ? "is-active" : "";
 
@@ -738,7 +792,7 @@ stepsConfig.forEach((step) => {
     `;
 });
 
-// CAJA FINANCIERA DINÁMICA
+// GENERADOR DE CAJA FINANCIERA INTERACTIVA
 let checkoutHTML = "";
 if(!envio.pagado) {
     checkoutHTML = `
@@ -746,12 +800,13 @@ if(!envio.pagado) {
         <div class="price-detail">
             <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
             <p>Costo de Envío PANROD: <span>$${envio.precioEnvio}</span></p>
-            <p class="total">Total Pendiente: <span>$${totalAbonar}</span></p>
+            <p class="total">Total Neto a Pagar: <span>$${totalAbonar}</span></p>
         </div>
-        <div class="payment-status">
-            <span class="nopagado" style="margin-bottom: 10px;">ESPERANDO PAGO</span>
-            <button class="btn-pagar" onclick="alert('Abriendo pasarela de cobro unificada...')">Abonar Producto y Envío</button>
+        <div class="action-area">
+            <button class="btn-action btn-pay" onclick="alert('Abriendo pasarela unificada de Mercado Pago...')">Abonar Producto y Envío</button>
+            <button class="btn-action btn-support" onclick="alert('Abriendo chat de soporte de ventas...')">💬 Contactar Soporte Técnico</button>
         </div>
+        <p class="legal-notice">⚠️ Los despachos físicos se bloquean de forma automatizada hasta la validación online del cobro de la mercadería por seguridad del proveedor.</p>
     </div>
     `;
 } else {
@@ -759,52 +814,32 @@ if(!envio.pagado) {
     <div class="checkout-box">
         <div class="price-detail">
             <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
-            <p>Costo de Envío PANROD: <span>${envio.precioEnvio === 0 ? '¡GRATIS!' : '$' + envio.precioEnvio}</span></p>
-            <p class="total">Total Cobrado: <span>$${totalAbonar}</span></p>
+            <p>Costo de Envío PANROD: <span>${envio.precioEnvio === 0 ? '¡Bonificado!' : '$' + envio.precioEnvio}</span></p>
+            <p class="total">Total Facturado: <span>$${totalAbonar}</span></p>
         </div>
-        <div class="payment-status">
-            <span class="pagado" style="margin-bottom: 10px;">✓ TOTALMENTE ABONADO</span>
-            <p style="font-size:12px; color:#1e293b; font-weight:500; margin-top:5px;">Medio: ${envio.modalidadPago}</p>
+        <div class="action-area">
+            <button class="btn-action btn-download" onclick="alert('Descargando comprobante fiscal electrónico PDF...')">📥 Descargar Comprobante Acreditado</button>
         </div>
+        <p class="legal-notice" style="color: #059669;">Acreditado vía ${envio.modalidadPago}.</p>
     </div>
     `;
 }
 
+// ARMAR EL HTML DENTRO DEL CONTENEDOR GRID EN DOS COLUMNAS
 resultado.innerHTML = `
-${checkoutHTML}
-<div class="datos">
-    <div class="box"><strong>Código de Rastreo</strong><span class="val">${codigo}</span></div>
-    <div class="box"><strong>Producto en Custodia</strong><span class="val">${envio.producto}</span></div>
-    <div class="box"><strong>Comprador / Destinatario</strong><span class="val">${envio.receptor}</span></div>
-    <div class="box"><strong>Dirección de Entrega</strong><span class="val">${envio.direccionEntrega}</span></div>
-    <div class="box"><strong>Ubicación Actual</strong><span class="val">${envio.origen}</span></div>
-    <div class="box"><strong>Destino Localidad</strong><span class="val">${envio.destino}</span></div>
-</div>
-<h3>Estado del Flujo Logístico</h3>
-<div class="timeline">${timelineHTML}</div>
-`;
-
-modal.style.display = "flex";
-}
-
-function cerrarModal(){
-modal.style.display = "none";
-}
-
-btnBuscar.addEventListener("click", buscarEnvio);
-inputCodigo.addEventListener("keypress", function(e) {
-if (e.key === "Enter") buscarEnvio();
-});
-inputCodigo.addEventListener("input", function() {
-errorInput.style.display = "none";
-this.style.borderColor = "transparent";
-});
-btnCerrar.addEventListener("click", cerrarModal);
-window.addEventListener("click", function(e) {
-if(e.target === modal) cerrarModal();
-});
-</script>
-
-</body>
-            </html>
-            
+<div class="tracking-grid">
+    <div class="left-side">
+        ${checkoutHTML}
+        <div class="datos">
+            <div class="box"><strong>Código Tracking</strong><span class="val">${codigo}</span></div>
+            <div class="box"><strong>Mercadería en Custodia</strong><span class="val">${envio.producto}</span></div>
+            <div class="box"><strong>Comprador Destinatario</strong><span class="val">${envio.receptor}</span></div>
+            <div class="box"><strong>Dirección de Destino</strong><span class="val">${envio.direccionEntrega}</span></div>
+            <div class="box"><strong>Nodo Origen</strong><span class="val">${envio.origen}</span></div>
+            <div class="box"><strong>Jurisdicción</strong><span class="val">${envio.destino}</span></div>
+        </div>
+        <h3>Historial de Movimientos Cruzados</h3>
+        <div class="timeline">${timelineHTML}</div>
+    </div>
+    <div class="right-side">
+        <div class="deliver
