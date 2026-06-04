@@ -3,423 +3,572 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PANROD - Seguimiento de Envíos</title>
+
+<title>PANROD | Seguimiento Nacional de Envíos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-    --azul:#1E3A8A;
-    --dorado:#F59E0B;
-    --gris:#F3F4F6;
-}
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Segoe UI, Arial, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-    background:#f5f5f5;
+background:#f5f7fb;
+color:#222;
 }
 
-.container{
-    max-width:700px;
-    margin:auto;
-    min-height:100vh;
-    background:white;
-}
+/* HEADER */
 
 header{
-    background:var(--azul);
-    color:white;
-    text-align:center;
-    padding:25px 20px;
+background:linear-gradient(135deg,#ff6b00,#ff9900);
+padding:25px;
+text-align:center;
+color:white;
+box-shadow:0 5px 20px rgba(0,0,0,.15);
 }
 
-header h1{
-    font-size:32px;
-    letter-spacing:2px;
+.logo{
+font-size:42px;
+font-weight:700;
+letter-spacing:2px;
 }
 
-header p{
-    color:var(--dorado);
-    font-size:13px;
-    margin-top:5px;
+.sub{
+opacity:.9;
 }
 
-.content{
-    padding:25px;
+/* HERO */
+
+.hero{
+padding:60px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.hero p{
+color:#666;
+margin-bottom:30px;
+}
+
+.search-box{
+max-width:700px;
+margin:auto;
+display:flex;
+gap:10px;
+}
+
+.search-box input{
+flex:1;
+padding:18px;
+border:none;
+border-radius:12px;
+font-size:16px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.search-box button{
+background:#ff6b00;
+color:white;
+border:none;
+padding:18px 30px;
+border-radius:12px;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+}
+
+.search-box button:hover{
+background:#e55f00;
+transform:translateY(-2px);
+}
+
+/* CARDS */
+
+.info{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:40px 20px;
 }
 
 .card{
-    border:1px solid #ddd;
-    border-radius:12px;
-    padding:20px;
+background:white;
+padding:25px;
+border-radius:15px;
+width:280px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+text-align:center;
 }
 
-label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:600;
+.card h3{
+color:#ff6b00;
+margin-bottom:10px;
 }
 
-select,
-input{
-    width:100%;
-    height:45px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    padding:10px;
-    margin-bottom:15px;
+/* MODAL */
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.65);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
 }
 
-.input-group{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-bottom:10px;
+.modal-content{
+background:white;
+width:95%;
+max-width:900px;
+border-radius:20px;
+padding:30px;
+max-height:90vh;
+overflow:auto;
+animation:fade .4s;
 }
 
-.prefix,
-.suffix{
-    width:70px;
-    height:45px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#F3F4F6;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-weight:bold;
-    color:var(--azul);
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
-#numero{
-    flex:1;
-    text-align:center;
-    font-size:18px;
-    font-weight:600;
-    letter-spacing:2px;
-    margin-bottom:0;
+.close{
+float:right;
+font-size:30px;
+cursor:pointer;
 }
 
-.help-text{
-    display:block;
-    font-size:12px;
-    color:#6B7280;
-    margin-bottom:15px;
+.datos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+margin-top:20px;
+margin-bottom:30px;
 }
 
-button{
-    width:100%;
-    height:48px;
-    border:none;
-    border-radius:25px;
-    background:var(--dorado);
-    font-weight:bold;
-    cursor:pointer;
-    font-size:15px;
-    transition:.2s;
+.box{
+background:#f6f6f6;
+padding:15px;
+border-radius:12px;
 }
 
-button:hover{
-    opacity:.9;
+.box strong{
+display:block;
+color:#ff6b00;
+margin-bottom:5px;
 }
 
-.loader{
-    display:none;
-    text-align:center;
-    margin-top:15px;
-    color:var(--azul);
-    font-weight:bold;
-}
-
-.resultado{
-    display:none;
-    margin-top:20px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    padding:18px;
-    background:#fafafa;
-}
-
-.codigo{
-    color:var(--azul);
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.estado{
-    display:inline-block;
-    color:white;
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
-    margin-bottom:15px;
-}
-
-.info{
-    margin:8px 0;
-}
+/* TIMELINE */
 
 .timeline{
-    margin-top:15px;
+position:relative;
+margin-top:30px;
 }
 
-.timeline div{
-    border-left:3px solid var(--azul);
-    padding-left:10px;
-    margin-bottom:10px;
-    font-size:14px;
+.timeline::before{
+content:'';
+position:absolute;
+left:20px;
+top:0;
+width:4px;
+height:100%;
+background:#ddd;
 }
 
-.error{
-    display:none;
-    margin-top:15px;
-    background:#FEE2E2;
-    color:#991B1B;
-    padding:12px;
-    border-radius:8px;
+.step{
+position:relative;
+padding-left:60px;
+margin-bottom:35px;
 }
+
+.circle{
+width:20px;
+height:20px;
+border-radius:50%;
+position:absolute;
+left:12px;
+top:5px;
+}
+
+.active{
+background:#00c853;
+box-shadow:0 0 15px #00c853;
+}
+
+.inactive{
+background:#cfcfcf;
+}
+
+.step h4{
+margin-bottom:5px;
+}
+
+.step small{
+color:#777;
+}
+
+/* PAGO */
+
+.pagado{
+background:#00c853;
+color:white;
+padding:8px 12px;
+border-radius:8px;
+font-weight:600;
+display:inline-block;
+}
+
+.nopagado{
+background:#999;
+color:white;
+padding:8px 12px;
+border-radius:8px;
+font-weight:600;
+display:inline-block;
+}
+
+/* FOOTER */
 
 footer{
-    text-align:center;
-    padding:20px;
-    color:#666;
-    font-size:12px;
+background:#111;
+color:white;
+padding:30px;
+text-align:center;
+margin-top:60px;
 }
+
+footer a{
+color:#ff9900;
+text-decoration:none;
+margin:0 10px;
+}
+
+@media(max-width:700px){
+
+.hero h1{
+font-size:30px;
+}
+
+.search-box{
+flex-direction:column;
+}
+
+}
+
 </style>
 </head>
-
 <body>
 
-<div class="container">
-
 <header>
-    <h1>PANROD</h1>
-    <p>Conectando destinos, entregando confianza</p>
+<div class="logo">PANROD</div>
+<div class="sub">Gestión y Seguimiento Nacional de Envíos</div>
 </header>
 
-<div class="content">
+<section class="hero">
+
+<h1>Seguí tu envío en tiempo real</h1>
+
+<p>Ingresá tu código de seguimiento para consultar el estado actualizado.</p>
+
+<div class="search-box">
+<input type="text" id="codigo" placeholder="Ej: PAN123456">
+<button onclick="buscarEnvio()">Consultar Estado</button>
+</div>
+
+</section>
+
+<section class="info">
 
 <div class="card">
-
-<label>Tipo de Servicio</label>
-
-<select>
-    <option>Servicio Estándar Nacional</option>
-    <option>Servicio Expreso Regional</option>
-</select>
-
-<label>Código de Seguimiento</label>
-
-<div class="input-group">
-
-    <div class="prefix">PR</div>
-
-    <input
-        type="text"
-        id="numero"
-        maxlength="9"
-        placeholder="100200300">
-
-    <div class="suffix">AR</div>
-
+<h3>📦 Gestión</h3>
+<p>Control completo de envíos nacionales.</p>
 </div>
 
-<small class="help-text">
-Ingrese únicamente los 9 dígitos del envío.
-Ejemplo: 100200300
-</small>
-
-<button onclick="buscarEnvio()">
-    Buscar Envío
-</button>
-
-<div id="loader" class="loader">
-    Consultando sistema PANROD...
+<div class="card">
+<h3>🚚 Distribución</h3>
+<p>Seguimiento detallado en tiempo real.</p>
 </div>
 
-<div id="error" class="error"></div>
+<div class="card">
+<h3>🔒 Seguridad</h3>
+<p>Trazabilidad total de cada paquete.</p>
+</div>
 
-<div id="resultado" class="resultado"></div>
+</section>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<span class="close" onclick="cerrarModal()">×</span>
+
+<h2>Información del Envío</h2>
+
+<div id="resultado"></div>
 
 </div>
 
 </div>
 
 <footer>
-    © 2026 PANROD Logística
-</footer>
 
-</div>
+<h3>PANROD</h3>
+
+<p>
+Seguimiento y logística nacional.
+</p>
+
+<br>
+
+<a href="#">Facebook</a>
+<a href="#">Instagram</a>
+<a href="#">WhatsApp</a>
+<a href="#">TikTok</a>
+
+<br><br>
+
+correo@panrod.com
+
+</footer>
 
 <script>
 
-const envios = [
+/*
+====================================================
+EDITAR AQUÍ LOS ENVÍOS
+====================================================
+*/
+
+const envios = {
+
+"PAN123456":{
+
+origen:"Buenos Aires",
+destino:"Córdoba",
+
+receptor:"Juan Pérez",
+
+pagado:true,
+
+timeline:[
 
 {
-codigo:"PR100200300AR",
-estado:"EN DISTRIBUCIÓN",
-origen:"Buenos Aires",
-destino:"Córdoba Capital",
-actualizacion:"03/06/2026 19:42 hs",
-historial:[
-"03/06/2026 08:15 hs - Recepcionado en origen",
-"03/06/2026 11:42 hs - Clasificado en centro logístico",
-"03/06/2026 15:20 hs - Despachado a destino",
-"03/06/2026 19:42 hs - En distribución"
-]
+activo:true,
+titulo:"Gestión creada",
+fecha:"04/06/2026 - 09:00"
 },
 
 {
-codigo:"123456789",
-estado:"ENTREGADO",
-origen:"Rosario",
-destino:"Mar del Plata",
-actualizacion:"03/06/2026 11:17 hs",
-historial:[
-"02/06/2026 07:50 hs - Recepcionado",
-"02/06/2026 10:30 hs - Clasificado",
-"02/06/2026 16:20 hs - En tránsito",
-"03/06/2026 11:17 hs - Entregado"
+activo:true,
+titulo:"Pago acreditado",
+fecha:"04/06/2026 - 09:05"
+},
+
+{
+activo:true,
+titulo:"Paquete recibido en depósito",
+fecha:"04/06/2026 - 10:20"
+},
+
+{
+activo:true,
+titulo:"Despachado a distribución",
+fecha:"04/06/2026 - 14:30"
+},
+
+{
+activo:false,
+titulo:"En tránsito",
+fecha:"Pendiente"
+},
+
+{
+activo:false,
+titulo:"En reparto",
+fecha:"Pendiente"
+},
+
+{
+activo:false,
+titulo:"Entregado",
+fecha:"Pendiente"
+}
+
 ]
+
+},
+
+"123456789":{
+
+origen:"Rosario",
+destino:"Mendoza",
+
+receptor:"María Gómez",
+
+pagado:false,
+
+timeline:[
+
+{
+activo:true,
+titulo:"Gestión creada",
+fecha:"03/06/2026 - 11:00"
+},
+
+{
+activo:false,
+titulo:"Pago acreditado",
+fecha:"Pendiente"
+},
+
+{
+activo:false,
+titulo:"Ingreso a depósito",
+fecha:"Pendiente"
+},
+
+{
+activo:false,
+titulo:"Despachado",
+fecha:"Pendiente"
+},
+
+{
+activo:false,
+titulo:"Entregado",
+fecha:"Pendiente"
 }
 
-];
+]
 
-document.addEventListener("DOMContentLoaded", ()=>{
-
-const numero =
-document.getElementById("numero");
-
-numero.addEventListener("input", function(){
-
-this.value =
-this.value.replace(/[^0-9]/g,"");
-
-});
-
-numero.addEventListener("keypress", function(e){
-
-if(e.key === "Enter"){
-buscarEnvio();
 }
 
-});
-
-});
+};
 
 function buscarEnvio(){
 
-const numero =
-document.getElementById("numero")
-.value
-.trim();
-
 const codigo =
-"PR" + numero + "AR";
+document.getElementById("codigo").value.trim();
 
-const loader =
-document.getElementById("loader");
-
-const resultado =
-document.getElementById("resultado");
-
-const error =
-document.getElementById("error");
-
-resultado.style.display = "none";
-error.style.display = "none";
-
-if(numero.length !== 9){
-
-error.style.display = "block";
-
-error.innerHTML = `
-<strong>CÓDIGO INVÁLIDO</strong><br>
-Debe ingresar exactamente 9 dígitos numéricos.
-`;
-
-return;
-}
-
-loader.style.display = "block";
-
-setTimeout(()=>{
-
-loader.style.display = "none";
-
-const envio =
-envios.find(e => e.codigo === codigo);
+const envio = envios[codigo];
 
 if(!envio){
 
-error.style.display = "block";
-
-error.innerHTML = `
-<strong>ENVÍO NO ENCONTRADO</strong><br>
-No se encontraron registros asociados al código ingresado.
-Verifique los datos e intente nuevamente.
-`;
-
+alert("Código no encontrado");
 return;
+
 }
 
-let badgeColor =
-envio.estado === "ENTREGADO"
-? "#2563EB"
-: "#10B981";
+let timelineHTML="";
 
-let historialHTML = "";
+envio.timeline.forEach(item=>{
 
-envio.historial.forEach(item=>{
+timelineHTML += `
 
-historialHTML += `
-<div>✓ ${item}</div>
+<div class="step">
+
+<div class="circle ${
+item.activo ? 'active' : 'inactive'
+}"></div>
+
+<h4>${item.titulo}</h4>
+
+<small>${item.fecha}</small>
+
+</div>
+
 `;
 
 });
 
-resultado.innerHTML = `
+document.getElementById("resultado").innerHTML=`
 
-<div class="codigo">
-${envio.codigo}
+<div class="datos">
+
+<div class="box">
+<strong>Código</strong>
+${codigo}
 </div>
 
-<span
-class="estado"
-style="background:${badgeColor}">
-${envio.estado}
-</span>
-
-<div class="info">
-<strong>Origen:</strong>
+<div class="box">
+<strong>Origen</strong>
 ${envio.origen}
 </div>
 
-<div class="info">
-<strong>Destino:</strong>
+<div class="box">
+<strong>Destino</strong>
 ${envio.destino}
 </div>
 
-<div class="info">
-<strong>Última actualización:</strong>
-${envio.actualizacion}
+<div class="box">
+<strong>Destinatario</strong>
+${envio.receptor}
 </div>
 
+<div class="box">
+<strong>Estado de Pago</strong>
+
+${
+envio.pagado
+?
+'<span class="pagado">ABONADO</span>'
+:
+'<span class="nopagado">PENDIENTE</span>'
+}
+
+</div>
+
+</div>
+
+<h3>Línea de Tiempo</h3>
+
 <div class="timeline">
-${historialHTML}
+
+${timelineHTML}
+
 </div>
 
 `;
 
-resultado.style.display = "block";
+document.getElementById("modal").style.display="flex";
 
-},1000);
+}
+
+function cerrarModal(){
+
+document.getElementById("modal").style.display="none";
+
+}
+
+window.onclick=function(e){
+
+if(e.target==document.getElementById("modal")){
+
+cerrarModal();
+
+}
 
 }
 
