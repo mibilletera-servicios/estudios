@@ -694,7 +694,6 @@ footer { text-align: center; border-radius: 0; }
 &copy; 2026 PANROD Logística Nacional. Todos los derechos reservados. Patrocinador oficial de la Selección de Fútbol de Argentina.
 </div>
 </footer>
-
 <script>
 // Base de datos simulada
 const envios = {
@@ -737,6 +736,13 @@ const errorInput = document.getElementById("errorInput");
 const modal = document.getElementById("modal");
 const btnCerrar = document.getElementById("btnCerrar");
 const resultado = document.getElementById("resultado");
+
+// Función para generar el código aleatorio de 3 - 3 dígitos
+function generarCodigoVerificacion() {
+    const part1 = Math.floor(100 + Math.random() * 900); // Genera un número entre 100 y 999
+    const part2 = Math.floor(100 + Math.random() * 900);
+    return `${part1}-${part2}`;
+}
 
 function buscarEnvio(){
 const codigo = inputCodigo.value.trim().toUpperCase();
@@ -824,6 +830,29 @@ if(!envio.pagado) {
     `;
 }
 
+// Lógica de Código de Verificación Seguro Dinámico (3 dígitos - 3 dígitos)
+let codigoVerificacionHTML = "";
+if (envio.pagado) {
+    const tokenDinamico = generarCodigoVerificacion();
+    codigoVerificacionHTML = `
+        <div style="font-size: 24px; font-weight: 800; color: #0f172a; letter-spacing: 2px; padding: 10px; border: 2px dashed #0284c7; background: #f0f9ff; border-radius: 10px; margin: 10px 0;">
+            ${tokenDinamico}
+        </div>
+        <p style="font-size: 11px; color: #64748b; line-height: 1.4; font-weight: 500; margin-top: 5px;">
+            <strong>Código de Recepción Asegurada:</strong> Este código dinámico será solicitado por el distribuidor antes de realizar la entrega para constatar la dirección de envío y validar la identidad del cliente.
+        </p>
+    `;
+} else {
+    codigoVerificacionHTML = `
+        <div style="font-size: 14px; font-weight: 700; color: #ef4444; padding: 15px; border: 2px dashed #fee2e2; background: #fff5f5; border-radius: 10px; margin: 10px 0;">
+            BLOQUEADO
+        </div>
+        <p style="font-size: 11px; color: #94a3b8; line-height: 1.4;">
+            El código de validación de entrega se activará automáticamente una vez que el pago se encuentre consolidado en el sistema.
+        </p>
+    `;
+}
+
 // ARMAR EL HTML DENTRO DEL CONTENEDOR GRID EN DOS COLUMNAS
 resultado.innerHTML = `
 <div class="tracking-grid">
@@ -841,13 +870,12 @@ resultado.innerHTML = `
         <div class="timeline">${timelineHTML}</div>
     </div>
     <div class="right-side">
-        <div class="delivery-sidebar">
-            <h3 style="margin-bottom: 5px;">Seguridad Digital</h3>
-            <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">Validación para el transportista en punto de entrega.</p>
-            <div class="qr-box"></div>
-            <p style="font-size: 11px; color: #94a3b8; line-height: 1.4; margin-top: 10px;">
-                Este código QR se regenera dinámicamente y certifica que los montos se encuentran validados por la empresa proveedora.
-            </p>
+    <div class="delivery-sidebar">
+            <h3 style="margin-bottom: 5px;">Verificación de Identidad</h3>
+            <p style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Validación para el transportista en punto de entrega.</p>
+            
+            ${codigoVerificacionHTML}
+            
             <hr style="width: 100%; border: 0; border-top: 1px dashed #e2e8f0; margin: 20px 0;">
             <div style="text-align: left; width: 100%;">
                 <span class="${envio.pagado ? 'pagado' : 'nopagado'}">${envio.pagado ? '✓ PAGO CONSOLIDADO' : '⚠ PENDIENTE DE PAGO'}</span>
@@ -882,7 +910,7 @@ window.addEventListener("click", function(e) {
     }
 });
 </script>
-
+            
 </body>
             </html>
             
