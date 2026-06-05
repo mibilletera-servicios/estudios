@@ -23,13 +23,13 @@ overflow-x: hidden;
 position: relative;
 }
 
-/* CINTA DE LA SELECCIÓN ARGENTINA ORIGINAL */
+/* 🏆 CINTA DE LA SELECCIÓN ARGENTINA CON 3 ESTRELLAS */
 .afa-ribbon {
 position: absolute;
 top: 0;
 right: 0;
-width: 220px;
-height: 220px;
+width: 250px;
+height: 250px;
 overflow: hidden;
 z-index: 99;
 pointer-events: none;
@@ -37,560 +37,42 @@ pointer-events: none;
 
 .afa-ribbon-content {
 font-family: 'Montserrat', sans-serif;
-font-size: 13px;
+font-size: 11px;
 font-weight: 800;
 color: #0f172a;
 text-align: center;
-line-height: 34px;
+line-height: 38px;
 transform: rotate(45deg);
 position: relative;
-padding: 6px 0;
-left: -10px;
-top: 50px;
-width: 320px;
+padding: 4px 0;
+left: -5px;
+top: 60px;
+width: 350px;
 background: linear-gradient(to bottom, #7dd3fc 0%, #7dd3fc 30%, #ffffff 30%, #ffffff 70%, #7dd3fc 70%, #7dd3fc 100%);
 box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 letter-spacing: 1.5px;
 text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+text-transform: uppercase;
 }
 
-.afa-ribbon-content span {
+.afa-ribbon-content .stars {
 color: #d97706;
-font-size: 18px;
-margin-left: 6px;
+font-size: 20px;
+margin-left: 5px;
+display: inline-block;
+line-height: 1;
 vertical-align: middle;
 text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* HEADER CON IMAGEN DE FONDO */
-header{
-position: relative;
-background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(14, 116, 144, 0.88)), 
-            url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1950&q=80');
-background-size: cover;
-background-position: center;
-padding: 80px 20px 120px 20px;
-text-align:center;
-color:white;
-box-shadow:0 10px 30px rgba(15, 23, 42, 0.15);
-border-bottom-left-radius: 50% 20px;
-border-bottom-right-radius: 50% 20px;
-}
-
-/* CONTENEDOR PARA TU LOGO EN IMAGEN */
-.brand-logo-img {
-width: 65px;
-height: auto;
-margin: 0 auto 15px auto;
-display: block;
-filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.2));
-}
-
-/* LOGO ORIGINAL CON ESTILO Y FUENTE CORREGIDA */
-.logo{
-font-family: 'Montserrat', sans-serif;
-font-size:56px;
-font-weight:800;
-letter-spacing:4px;
-background: linear-gradient(to right, #38bdf8, #bae6fd);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-text-shadow: 0 4px 12px rgba(0,0,0,0.1);
-line-height: 1.1;
-}
-
-.sponsor-badge {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-margin-top: 20px;
-background: rgba(255, 255, 255, 0.1);
-padding: 6px 16px;
-border-radius: 20px;
-border: 1px solid rgba(56, 189, 248, 0.4);
-font-size: 12px;
-font-weight: 500;
-letter-spacing: 1px;
-color: #bae6fd;
-font-family: 'Montserrat', sans-serif;
-}
-
-.sponsor-badge .flag {
-display: inline-block;
-width: 16px;
-height: 11px;
-background: linear-gradient(to bottom, #7dd3fc 33%, #ffffff 33%, #ffffff 66%, #7dd3fc 66%);
-border-radius: 1px;
-position: relative;
-}
-
-.sponsor-badge .flag::after {
-content: '';
-position: absolute;
-top: 4px;
-left: 6px;
-width: 3px;
-height: 3px;
-background: #d97706;
-border-radius: 50%;
-}
-
-.sponsor-badge strong {
-color: #ffffff;
-font-weight: 700;
-}
-
-/* HERO */
-.hero{
-margin-top: -45px;
-position: relative;
-z-index: 10;
-padding: 0 20px;
-text-align:center;
-}
-
-.search-container{
-max-width:700px;
-margin:auto;
-}
-
-.search-box{
-display:flex;
-gap:12px;
-background: white;
-padding: 10px;
-border-radius: 50px;
-box-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
-border: 1px solid #e2e8f0;
-}
-
-.search-box input{
-flex:1;
-padding:16px 25px;
-border:none;
-border-radius: 50px;
-font-size:16px;
-outline: none;
-color: #0f172a;
-background: #f8fafc;
-}
-
-.search-box button{
-background: linear-gradient(135deg, #0284c7, #0369a1);
-color:white;
-border:none;
-padding:16px 35px;
-border-radius: 50px;
-cursor:pointer;
-font-weight:600;
-font-size: 15px;
-transition:.3s cubic-bezier(0.4, 0, 0.2, 1);
-box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
-}
-
-.search-box button:hover{
-background: linear-gradient(135deg, #0369a1, #075985);
-transform: translateY(-2px) scale(1.02);
-box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
-}
-
-.error-message {
-color: #ef4444;
-font-size: 14px;
-text-align: center;
-margin-top: 12px;
-display: none;
-font-weight: 500;
-}
-
-/* CARDS */
-.info{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:30px;
-padding: 80px 20px;
-}
-
-.card{
-background:white;
-padding:35px 30px;
-border-radius: 24px;
-width:300px;
-box-shadow:0 10px 30px rgba(15, 23, 42, 0.03);
-text-align:center;
-border: 1px solid #eaf2f9;
-transition: .3s ease;
-}
-
-.card:hover {
-transform: translateY(-5px);
-box-shadow:0 20px 40px rgba(14, 116, 144, 0.08);
-}
-
-.card h3 {
-color: #0284c7;
-margin-bottom:12px;
-font-size: 22px;
-}
-
-.card p {
-color: #64748b;
-font-size: 14px;
-line-height: 1.6;
-}
-
-/* MODAL INTERACTIVO */
-.modal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(15, 23, 42, 0.6);
-backdrop-filter: blur(8px);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:999;
-}
-
-.modal-content{
-background:white;
-width:95%;
-max-width:950px;
-border-radius: 32px;
-padding:40px;
-max-height:85vh;
-overflow:auto;
-box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
-animation:fade .4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes fade{
-from{ opacity:0; transform:scale(0.95) translateY(10px); }
-to{ opacity:1; transform:scale(1) translateY(0); }
-}
-
-.close{
-float:right;
-font-size:32px;
-cursor:pointer;
-color: #94a3b8;
-transition: .2s;
-line-height: 1;
-}
-
-.close:hover {
-color: #0f172a;
-}
-
-.modal h2 {
-color: #0f172a;
-font-size: 26px;
-font-weight: 700;
-margin-bottom: 25px;
-border-left: 5px solid #0284c7;
-padding-left: 12px;
-}
-
-.tracking-grid {
-display: grid;
-grid-template-columns: 1.8fr 1.2fr;
-gap: 30px;
-}
-
-.datos{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:14px;
-margin-top:20px;
-margin-bottom:30px;
-}
-
-.box{
-background:#f8fafc;
-padding:14px 18px;
-border-radius: 14px;
-border: 1px solid #f1f5f9;
-}
-
-.box strong{
-display:block;
-color:#0284c7;
-font-size: 11px;
-text-transform: uppercase;
-letter-spacing: 0.8px;
-margin-bottom:4px;
-}
-
-.box span.val {
-color: #1e293b;
-font-weight: 500;
-font-size: 14px;
-}
-
-.checkout-box {
-background: #f0fdf4;
-border: 1px solid #bbf7d0;
-border-radius: 20px;
-padding: 22px;
-margin-bottom: 25px;
-}
-
-.checkout-box.pending {
-background: #fff7ed;
-border-color: #fed7aa;
-}
-
-.price-detail p {
-font-size: 14px;
-color: #475569;
-margin-bottom: 6px;
-}
-
-.price-detail p span {
-float: right;
-font-weight: 600;
-color: #0f172a;
-}
-
-.price-detail .total {
-font-size: 17px;
-font-weight: 700;
-color: #0f172a;
-border-top: 1px dashed #cbd5e1;
-padding-top: 10px;
-margin-top: 10px;
-}
-
-.price-detail .total span {
-color: #10b981;
-font-size: 19px;
-}
-
-.checkout-box.pending .price-detail .total span {
-color: #f97316;
-}
-
-.action-area {
-margin-top: 15px;
-display: flex;
-flex-direction: column;
-gap: 10px;
-}
-
-.btn-action {
-width: 100%;
-padding: 12px;
-border-radius: 12px;
-font-weight: 600;
-font-size: 14px;
-cursor: pointer;
-transition: 0.2s;
-border: none;
-text-align: center;
-}
-
-.btn-pay { background: #f97316; color: white; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2); }
-.btn-pay:hover { background: #ea580c; }
-.btn-download { background: #e2e8f0; color: #334155; }
-.btn-download:hover { background: #cbd5e1; }
-.btn-support { background: #0284c7; color: white; }
-.btn-support:hover { background: #0369a1; }
-
-.legal-notice {
-font-size: 11px;
-color: #94a3b8;
-margin-top: 10px;
-text-align: center;
-line-height: 1.4;
-}
-
-.delivery-sidebar {
-background: #f8fafc;
-border-radius: 24px;
-padding: 25px;
-border: 1px solid #e2e8f0;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-}
-
-.modal h3 {
-color: #0f172a;
-font-size: 18px;
-font-weight: 600;
-margin-bottom: 20px;
-}
-
-.timeline{
-position:relative;
-margin-top:15px;
-padding-left: 10px;
-}
-
-.timeline::before{
-content:'';
-position:absolute;
-left:22px;
-top:5px;
-width:4px;
-height:calc(100% - 30px);
-background:#e2e8f0;
-border-radius: 10px;
-}
-
-.step{
-position:relative;
-padding-left:55px;
-margin-bottom:30px;
-}
-
-.circle{
-width:18px;
-height:18px;
-border-radius:50%;
-position:absolute;
-left:15px;
-top:4px;
-background: #cbd5e1;
-border: 3px solid white;
-box-shadow: 0 0 0 3px #e2e8f0;
-transition: .3s;
-}
-
-.step.is-active .circle {
-background:#10b981;
-box-shadow: 0 0 0 4px #d1fae5;
-}
-
-.step h4{
-font-size: 15px;
-font-weight: 500;
-color: #94a3b8;
-}
-
-.step.is-active h4 {
-color: #0f172a;
-font-weight: 600;
-}
-
-.step small{
-color:#cbd5e1;
-font-size: 12px;
-display: block;
-margin-top: 2px;
-}
-
-.step.is-active small {
-color: #64748b;
-}
-
-.pagado{
-background:#d1fae5;
-color:#065f46;
-padding:4px 12px;
-border-radius: 20px;
-font-size: 11px;
-font-weight:600;
-display:inline-block;
-}
-
-.nopagado{
-background:#fee2e2;
-color:#991b1b;
-padding:4px 12px;
-border-radius: 20px;
-font-size: 11px;
-font-weight:600;
-display:inline-block;
-}
-
-footer{
-background: linear-gradient(135deg, #0f172a, #1e293b);
-color:#94a3b8;
-padding: 60px 20px 30px 20px;
-margin-top:100px;
-border-top-left-radius: 50% 20px;
-border-top-right-radius: 50% 20px;
-}
-
-.footer-content {
-max-width: 1100px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-gap: 40px;
-text-align: left;
-}
-
-.footer-section h3 {
-color: white;
-font-family: 'Montserrat', sans-serif;
-font-size: 20px;
-margin-bottom: 20px;
-}
-
-.footer-section p {
-font-size: 14px;
-line-height: 1.6;
-}
-
-.footer-section ul {
-list-style: none;
-}
-
-.footer-section ul li {
-margin-bottom: 10px;
-}
-
-.footer-section a {
-color: #38bdf8;
-text-decoration: none;
-transition: .2s;
-font-size: 14px;
-}
-
-.footer-section a:hover {
-color: #bae6fd;
-padding-left: 5px;
-}
-
-.footer-bottom {
-max-width: 1100px;
-margin: 40px auto 0 auto;
-padding-top: 20px;
-border-top: 1px solid #334155;
-text-align: center;
-font-size: 12px;
-color: #64748b;
-}
-
-/* RESPONSIVE OPTIMIZADO */
-@media(max-width:700px){
-.afa-ribbon { display: none !important; } /* Oculta la cinta de manera forzada en móviles */
-header { padding: 60px 20px 100px 20px; }
-.logo{ font-size:40px; }
-.search-box{ flex-direction:column; padding: 12px; border-radius: 24px; background: transparent; box-shadow: none; border: none;}
-.search-box input { background: white; border: 1px solid #e2e8f0; border-radius: 30px; margin-bottom: 8px; padding: 16px 20px;}
-.search-box button { width: 100%; border-radius: 30px;}
-.tracking-grid { grid-template-columns: 1fr; }
-footer { text-align: center; border-radius: 0; }
-.footer-content { text-align: center; }
-}
-
-
-/* HEADER RESPONSIVE CON IMAGEN DE FONDO */
+/* HEADER REESTRUCTURADO Y LIMPIO */
 header {
 position: relative;
 background: linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(14, 116, 144, 0.9)), 
             url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1950&q=80');
 background-size: cover;
 background-position: center;
-padding: 60px 20px 120px 20px;
+padding: 70px 20px 110px 20px;
 text-align: center;
 color: white;
 box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
@@ -598,9 +80,8 @@ border-bottom-left-radius: 50% 15px;
 border-bottom-right-radius: 50% 15px;
 }
 
-/* CONTENEDOR PARA TU LOGO EN IMAGEN */
 .brand-logo-img {
-width: 70px; /* Ajustá el tamaño a tu gusto */
+width: 70px;
 height: auto;
 margin: 0 auto 15px auto;
 display: block;
@@ -1101,10 +582,10 @@ font-size: 12px;
 color: #64748b;
 }
 
-/* 📱 SECCIÓN RESPONSIVE COMPLETA - REORDENAMIENTO */
+/* 📱 SECCIÓN RESPONSIVE OPTIMIZADA */
 @media(max-width: 700px){
     .afa-ribbon { 
-        display: none !important; /* Desaparece por completo en móviles */
+        display: none !important; /* Desaparece para no entorpecer la lectura en celulares */
     }
     header { 
         padding: 50px 20px 90px 20px; 
@@ -1149,141 +630,145 @@ color: #64748b;
         text-align: center; 
         gap: 25px;
     }
-            }
-            
+}
 </style>
+            </head>
+            <body>
+
+<!-- 🏆 CINTA ESQUINERA SELECCIÓN ARGENTINA DE 3 ESTRELLAS -->
+<div class="afa-ribbon">
+    <div class="afa-ribbon-content">
+        Sponsor Oficial <span class="stars">⭐⭐⭐</span>
+    </div>
+</div>
+
 <header>
-    <!-- ESPACIO PARA LOGO: Poné acá la URL de tu imagen de logotipo real -->
+    <!-- Imagen del isotipo central -->
     <img src="https://cdn-icons-png.flaticon.com/512/7541/7541900.png" alt="Logo Panrod" class="brand-logo-img">
     
+    <!-- Título y subtítulo únicos sin duplicaciones en cascada -->
     <div class="logo">PANROD</div>
+    <div class="sub">Logística Avanzada y Trazabilidad de Envíos</div>
     
     <div class="sponsor-badge">
         <span class="flag"></span> Patrocinador Oficial de la <strong>Selección Argentina</strong>
     </div>
 </header>
 
-
-<div class="logo">PANROD</div>
-<div class="sub">Logística Avanzada y Trazabilidad de Envíos</div>
-<div class="sponsor-badge">
-    <span class="flag"></span> Patrocinador Oficial de la <strong>Selección Argentina</strong>
-</div>
-            </header>
-            <section class="hero">
-<div class="search-container">
-<div class="search-box">
-<input type="text" id="codigo" placeholder="Ingresá código de rastreo (Ej: ALBUM10 / ALBUM30)" autocomplete="off">
-<button id="btnBuscar">Buscar Paquete</button>
-</div>
-<div id="errorInput" class="error-message">Código no encontrado. Verificá los caracteres e intentalo de nuevo.</div>
-</div>
+<section class="hero">
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="codigo" placeholder="Ingresá código de rastreo (Ej: ALBUM10 / ALBUM30)" autocomplete="off">
+            <button id="btnBuscar">Buscar Paquete</button>
+        </div>
+        <div id="errorInput" class="error-message">Código no encontrado. Verificá los caracteres e intentalo de nuevo.</div>
+    </div>
 </section>
 
 <section class="info">
-<div class="card">
-<h3>📦 Stock en Depósito</h3>
-<p>Tu hermano deposita los productos directamente en nuestras sucursales automatizadas.</p>
-</div>
-<div class="card">
-<h3>💳 Validación de Pago</h3>
-<p>El sistema verifica de forma automática el cobro del producto + envío para dar el alta física.</p>
-</div>
-<div class="card">
-<h3>🚚 Despacho Express</h3>
-<p>Una vez acreditado el 100%, el camión inicia la ruta hacia el domicilio del comprador.</p>
-</div>
+    <div class="card">
+        <h3>📦 Stock en Depósito</h3>
+        <p>Tu hermano deposita los productos directamente en nuestras sucursales automatizadas.</p>
+    </div>
+    <div class="card">
+        <h3>💳 Validación de Pago</h3>
+        <p>El sistema verifica de forma automática el cobro del producto + envío para dar el alta física.</p>
+    </div>
+    <div class="card">
+        <h3>🚚 Despacho Express</h3>
+        <p>Una vez acreditado el 100%, el camión inicia la ruta hacia el domicilio del comprador.</p>
+    </div>
 </section>
 
 <div class="modal" id="modal">
-<div class="modal-content">
-<span class="close" id="btnCerrar">×</span>
-<h2>Control de Entrega & Despacho Full</h2>
-<div id="resultado"></div>
-</div>
-</div>
-
-<footer>
-<div class="footer-content">
-<div class="footer-section">
-<h3>PANROD S.A.</h3>
-<p>Líderes en soluciones de distribución, almacenamiento y transporte de carga optimizada en todo el territorio nacional.</p>
-</div>
-<div class="footer-section">
-<h3>Enlaces Útiles</h3>
-<ul>
-<li><a href="#">Términos del Servicio</a></li>
-<li><a href="#">Políticas de Privacidad</a></li>
-<li><a href="#">Preguntas Frecuentes</a></li>
-<li><a href="#">Soporte Técnico</a></li>
-</ul>
-</div>
-<div class="footer-section">
-<h3>Redes Sociales</h3>
-<ul>
-<li><a href="#">Facebook Corporate</a></li>
-<li><a href="#">Instagram Logistics</a></li>
-<li><a href="#">WhatsApp Business</a></li>
-<li><a href="#">TikTok Oficial</a></li>
-</ul>
-</div>
-<div class="footer-section">
-<h3>Contacto</h3>
-<p>📍 Casa Central: Av. Logística 4200, CABA<br>
-📞 0810-555-PANROD<br>
-✉️ contacto@panrod.com</p>
-</div>
-</div>
-
-<div style="margin-top: 50px; padding-top: 25px; border-top: 1px dashed #334155; text-align: center;">
-    <p style="font-size: 11px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px; color: #64748b; margin-bottom: 15px; text-transform: uppercase;">Red de Distribución Integrada</p>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.4; filter: grayscale(100%);">
-        <span style="color: #cbd5e1; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px;">🇦🇷 CORREO ARGENTINO</span>
-        <span style="color: #cbd5e1; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px;">📦 ANDREANI</span>
-        <span style="color: #cbd5e1; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px;">⚡ OCA EXPRESS</span>
-        <span style="color: #cbd5e1; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px;">🚚 PANROD LOG TRUCKS</span>
+    <div class="modal-content">
+        <span class="close" id="btnCerrar">×</span>
+        <h2>Control de Entrega & Despacho Full</h2>
+        <div id="resultado"></div>
     </div>
 </div>
 
-<div class="footer-bottom">
-&copy; 2026 PANROD Logística Nacional. Todos los derechos reservados. Patrocinador oficial de la Selección de Fútbol de Argentina.
-</div>
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>PANROD S.A.</h3>
+            <p>Líderes en soluciones de distribución, almacenamiento y transporte de carga optimizada en todo el territorio nacional.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Enlaces Útiles</h3>
+            <ul>
+                <li><a href="#">Términos del Servicio</a></li>
+                <li><a href="#">Políticas de Privacidad</a></li>
+                <li><a href="#">Preguntas Frecuentes</a></li>
+                <li><a href="#">Soporte Técnico</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Redes Sociales</h3>
+            <ul>
+                <li><a href="#">Facebook Corporate</a></li>
+                <li><a href="#">Instagram Logistics</a></li>
+                <li><a href="#">WhatsApp Business</a></li>
+                <li><a href="#">TikTok Oficial</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Contacto</h3>
+            <p>📍 Casa Central: Av. Logística 4200, CABA<br>
+            📞 0810-555-PANROD<br>
+            ✉️ contacto@panrod.com</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px; padding-top: 25px; border-top: 1px dashed #334155; text-align: center;">
+        <p style="font-size: 11px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px; color: #64748b; margin-bottom: 15px; text-transform: uppercase;">Red de Distribución Integrada</p>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.4; filter: grayscale(100%);">
+            <span style="color: #cbd5e1; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px;">🇦🇷 CORREO ARGENTINO</span>
+            <span style="color: #cbd5e1; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px;">📦 ANDREANI</span>
+            <span style="color: #cbd5e1; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px;">⚡ OCA EXPRESS</span>
+            <span style="color: #cbd5e1; font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 1px;">🚚 PANROD LOG TRUCKS</span>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2026 PANROD Logística Nacional. Todos los derechos reservados. Patrocinador oficial de la Selección de Fútbol de Argentina.
+    </div>
 </footer>
 
 <script>
 // Base de datos simulada
 const envios = {
-"ALBUM10":{
-producto: "Combo: Álbum Oficial de la Selección + 50 Paquetes de Figuritas",
-precioProducto: 15000,
-precioEnvio: 3500,
-origen:"Depósito Central PANROD (Stock Proveedor)",
-destino:"Rosario, Santa Fe",
-direccionEntrega: "Pellegrini 1420, Piso 2 (CP 2000)",
-receptor:"Leo Medina",
-pagado: false,
-modalidadPago: null,
-fechasLog: { creada: "04/06/2026 - 08:30 hs", pago: "", verificado: "", viaje: "", camino: "", entrega: "" }
-},
-"ALBUM30":{
-producto: "Álbum de Figuritas Tapa Dura - Edición Especial Campeones del Mundo",
-precioProducto: 22000,
-precioEnvio: 0, 
-origen:"Depósito Central PANROD (Stock Proveedor)",
-destino:"Mar del Plata, Buenos Aires",
-direccionEntrega: "Av. Colón 2340 (CP 7600)",
-receptor:"Matías Rossi",
-pagado: true,
-modalidadPago: "Transferencia Bancaria (Mercado Pago)",
-fechasLog: { 
-    creada: "03/06/2026 - 10:00 hs", 
-    pago: "03/06/2026 - 10:12 hs", 
-    verificado: "03/06/2026 - 14:00 hs",
-    viaje: "04/06/2026 - 06:15 hs",
-    camino: "04/06/2026 - 11:30 hs",
-    entrega: "04/06/2026 - 13:20 hs"
-}
-}
+    "ALBUM10":{
+        producto: "Combo: Álbum Oficial de la Selección + 50 Paquetes de Figuritas",
+        precioProducto: 15000,
+        precioEnvio: 3500,
+        origen:"Depósito Central PANROD (Stock Proveedor)",
+        destino:"Rosario, Santa Fe",
+        direccionEntrega: "Pellegrini 1420, Piso 2 (CP 2000)",
+        receptor:"Leo Medina",
+        pagado: false,
+        modalidadPago: null,
+        fechasLog: { creada: "04/06/2026 - 08:30 hs", pago: "", verificado: "", viaje: "", camino: "", entrega: "" }
+    },
+    "ALBUM30":{
+        producto: "Álbum de Figuritas Tapa Dura - Edición Especial Campeones del Mundo",
+        precioProducto: 22000,
+        precioEnvio: 0, 
+        origen:"Depósito Central PANROD (Stock Proveedor)",
+        destino:"Mar del Plata, Buenos Aires",
+        direccionEntrega: "Av. Colón 2340 (CP 7600)",
+        receptor:"Matías Rossi",
+        pagado: true,
+        modalidadPago: "Transferencia Bancaria (Mercado Pago)",
+        fechasLog: { 
+            creada: "03/06/2026 - 10:00 hs", 
+            pago: "03/06/2026 - 10:12 hs", 
+            verificado: "03/06/2026 - 14:00 hs",
+            viaje: "04/06/2026 - 06:15 hs",
+            camino: "04/06/2026 - 11:30 hs",
+            entrega: "04/06/2026 - 13:20 hs"
+        }
+    }
 };
 
 const inputCodigo = document.getElementById("codigo");
@@ -1293,161 +778,150 @@ const modal = document.getElementById("modal");
 const btnCerrar = document.getElementById("btnCerrar");
 const resultado = document.getElementById("resultado");
 
-// Función para generar el código aleatorio de 3 - 3 dígitos
 function generarCodigoVerificacion() {
-    const part1 = Math.floor(100 + Math.random() * 900); // Genera un número entre 100 y 999
+    const part1 = Math.floor(100 + Math.random() * 900);
     const part2 = Math.floor(100 + Math.random() * 900);
     return `${part1}-${part2}`;
 }
 
 function buscarEnvio(){
-const codigo = inputCodigo.value.trim().toUpperCase();
-const envio = envios[codigo];
+    const codigo = inputCodigo.value.trim().toUpperCase();
+    const envio = envios[codigo];
 
-if(!envio){
-errorInput.style.display = "block";
-inputCodigo.style.borderColor = "#ef4444";
-return;
-}
+    if(!envio){
+        errorInput.style.display = "block";
+        inputCodigo.style.borderColor = "#ef4444";
+        return;
+    }
 
-errorInput.style.display = "none";
-inputCodigo.style.borderColor = "transparent";
+    errorInput.style.display = "none";
+    inputCodigo.style.borderColor = "transparent";
 
-let totalAbonar = envio.precioProducto + envio.precioEnvio;
+    let totalAbonar = envio.precioProducto + envio.precioEnvio;
 
-// =========================================================================
-//  🎛️ PANEL DE CONTROL MANUAL (Modificá acá para encender/apagar estados avanzados)
-// =========================================================================
-let enViaje = true;             // true = activa el viaje al nodo destino
-let enCaminoDomicilio = true;   // true = activa el reparto de última milla
-let entregado = false;          // true = activa la entrega completada exitosamente
-// =========================================================================
+    let enViaje = true;             
+    let enCaminoDomicilio = true;   
+    let entregado = false;          
 
-// Estructura de la línea de tiempo base
-let stepsConfig = [
-    { id: "creada", titulo: "Producto depositado por el vendedor en casa central PANROD", fecha: envio.fechasLog.creada, autoActivo: true },
-    { id: "pago", titulo: "Pago total verificado y acreditado en sistema", fecha: envio.fechasLog.pago, autoActivo: envio.pagado },
-    { id: "verificado", titulo: "Paquete verificado y empaquetado con datos de entrega del cliente", fecha: envio.fechasLog.verificado, autoActivo: envio.pagado }
-];
+    let stepsConfig = [
+        { id: "creada", titulo: "Producto depositado por el vendedor en casa central PANROD", fecha: envio.fechasLog.creada, autoActivo: true },
+        { id: "pago", titulo: "Pago total verificado y acreditado en sistema", fecha: envio.fechasLog.pago, autoActivo: envio.pagado },
+        { id: "verificado", titulo: "Paquete verificado y empaquetado con datos de entrega del cliente", fecha: envio.fechasLog.verificado, autoActivo: envio.pagado }
+    ];
 
-// Inyección de estados dinámicos controlados por vos si está pago
-if(envio.pagado) {
-    stepsConfig.push(
-        { id: "viaje", titulo: `En viaje hacia centro de distribución regional de ${envio.destino}`, fecha: enViaje ? envio.fechasLog.viaje : "Pendiente", activoManual: enViaje },
-        { id: "camino", titulo: "En camino al domicilio del comprador (Unidad de Reparto)", fecha: enCaminoDomicilio ? envio.fechasLog.camino : "Pendiente", activoManual: enCaminoDomicilio },
-        { id: "entrega", titulo: "Entregado exitosamente al destinatario", fecha: entregado ? envio.fechasLog.entrega : "Pendiente", activoManual: entregado }
-    );
-}
+    if(envio.pagado) {
+        stepsConfig.push(
+            { id: "viaje", titulo: `En viaje hacia centro de distribución regional de ${envio.destino}`, fecha: enViaje ? envio.fechasLog.viaje : "Pendiente", activoManual: enViaje },
+            { id: "camino", titulo: "En camino al domicilio del comprador (Unidad de Reparto)", fecha: enCaminoDomicilio ? envio.fechasLog.camino : "Pendiente", activoManual: enCaminoDomicilio },
+            { id: "entrega", titulo: "Entregado exitosamente al destinatario", fecha: entregado ? envio.fechasLog.entrega : "Pendiente", activoManual: entregado }
+        );
+    }
 
-let timelineHTML = "";
-stepsConfig.forEach((step) => {
-    let esActivo = step.autoActivo || (step.activoManual === true);
-    let classStatus = esActivo ? "is-active" : "";
+    let timelineHTML = "";
+    stepsConfig.forEach((step) => {
+        let esActivo = step.autoActivo || (step.activoManual === true);
+        let classStatus = esActivo ? "is-active" : "";
 
-    timelineHTML += `
-    <div class="step ${classStatus}">
-        <div class="circle"></div>
-        <h4>${step.titulo}</h4>
-        <small>${step.fecha}</small>
-    </div>
-    `;
-});
-
-// GENERADOR DE CAJA FINANCIERA INTERACTIVA
-let checkoutHTML = "";
-if(!envio.pagado) {
-    checkoutHTML = `
-    <div class="checkout-box pending">
-        <div class="price-detail">
-            <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
-            <p>Costo de Envío PANROD: <span>$${envio.precioEnvio}</span></p>
-            <p class="total">Total Neto a Pagar: <span>$${totalAbonar}</span></p>
+        timelineHTML += `
+        <div class="step ${classStatus}">
+            <div class="circle"></div>
+            <h4>${step.titulo}</h4>
+            <small>${step.fecha}</small>
         </div>
-        <div class="action-area">
-            <button class="btn-action btn-pay" onclick="alert('Abriendo pasarela unificada de Mercado Pago...')">Abonar Producto y Envío</button>
-            <button class="btn-action btn-support" onclick="alert('Abriendo chat de soporte de ventas...')">💬 Contactar Soporte Técnico</button>
-        </div>
-        <p class="legal-notice">⚠️ Los despachos físicos se bloquean de forma automatizada hasta la validación online del cobro de la mercadería por seguridad del proveedor.</p>
-    </div>
-    `;
-} else {
-    checkoutHTML = `
-    <div class="checkout-box">
-        <div class="price-detail">
-            <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
-            <p>Costo de Envío PANROD: <span>${envio.precioEnvio === 0 ? '¡Bonificado!' : '$' + envio.precioEnvio}</span></p>
-            <p class="total">Total Facturado: <span>$${totalAbonar}</span></p>
-        </div>
-        <div class="action-area">
-            <button class="btn-action btn-download" onclick="alert('Descargando comprobante fiscal electrónico PDF...')">📥 Descargar Comprobante Acreditado</button>
-        </div>
-        <p class="legal-notice" style="color: #059669;">Acreditado vía ${envio.modalidadPago}.</p>
-    </div>
-    `;
-}
+        `;
+    });
 
-// Lógica de Código de Verificación Seguro Dinámico (3 dígitos - 3 dígitos)
-let codigoVerificacionHTML = "";
-if (envio.pagado) {
-    const tokenDinamico = generarCodigoVerificacion();
-    codigoVerificacionHTML = `
-        <div style="font-size: 24px; font-weight: 800; color: #0f172a; letter-spacing: 2px; padding: 10px; border: 2px dashed #0284c7; background: #f0f9ff; border-radius: 10px; margin: 10px 0;">
-            ${tokenDinamico}
+    let checkoutHTML = "";
+    if(!envio.pagado) {
+        checkoutHTML = `
+        <div class="checkout-box pending">
+            <div class="price-detail">
+                <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
+                <p>Costo de Envío PANROD: <span>$${envio.precioEnvio}</span></p>
+                <p class="total">Total Neto a Pagar: <span>$${totalAbonar}</span></p>
+            </div>
+            <div class="action-area">
+                <button class="btn-action btn-pay" onclick="alert('Abriendo pasarela unificada de Mercado Pago...')">Abonar Producto y Envío</button>
+                <button class="btn-action btn-support" onclick="alert('Abriendo chat de soporte de ventas...')">💬 Contactar Soporte Técnico</button>
+            </div>
+            <p class="legal-notice">⚠️ Los despachos físicos se bloquean de forma automatizada hasta la validación online del cobro de la mercadería por seguridad del proveedor.</p>
         </div>
-        <p style="font-size: 11px; color: #64748b; line-height: 1.4; font-weight: 500; margin-top: 5px;">
-            <strong>Código de Recepción Asegurada:</strong> Este código dinámico será solicitado por el distribuidor antes de realizar la entrega para constatar la dirección de envío y validar la identidad del cliente.
-        </p>
-    `;
-} else {
-    codigoVerificacionHTML = `
-        <div style="font-size: 14px; font-weight: 700; color: #ef4444; padding: 15px; border: 2px dashed #fee2e2; background: #fff5f5; border-radius: 10px; margin: 10px 0;">
-            BLOQUEADO
+        `;
+    } else {
+        checkoutHTML = `
+        <div class="checkout-box">
+            <div class="price-detail">
+                <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
+                <p>Costo de Envío PANROD: <span>${envio.precioEnvio === 0 ? '¡Bonificado!' : '$' + envio.precioEnvio}</span></p>
+                <p class="total">Total Facturado: <span>$${totalAbonar}</span></p>
+            </div>
+            <div class="action-area">
+                <button class="btn-action btn-download" onclick="alert('Descargando comprobante fiscal electrónico PDF...')">📥 Descargar Comprobante Acreditado</button>
+            </div>
+            <p class="legal-notice" style="color: #059669;">Acreditado vía ${envio.modalidadPago}.</p>
         </div>
-        <p style="font-size: 11px; color: #94a3b8; line-height: 1.4;">
-            El código de validación de entrega se activará automáticamente una vez que el pago se encuentre consolidado en el sistema.
-        </p>
-    `;
-}
+        `;
+    }
 
-// ARMAR EL HTML DENTRO DEL CONTENEDOR GRID EN DOS COLUMNAS
-resultado.innerHTML = `
-<div class="tracking-grid">
-    <div class="left-side">
-        ${checkoutHTML}
-        <div class="datos">
-            <div class="box"><strong>Código Tracking</strong><span class="val">${codigo}</span></div>
-            <div class="box"><strong>Mercadería en Custodia</strong><span class="val">${envio.producto}</span></div>
-            <div class="box"><strong>Comprador Destinatario</strong><span class="val">${envio.receptor}</span></div>
-            <div class="box"><strong>Dirección de Destino</strong><span class="val">${envio.direccionEntrega}</span></div>
-            <div class="box"><strong>Nodo Origen</strong><span class="val">${envio.origen}</span></div>
-            <div class="box"><strong>Jurisdicción</strong><span class="val">${envio.destino}</span></div>
+    let codigoVerificacionHTML = "";
+    if (envio.pagado) {
+        const tokenDinamico = generarCodigoVerificacion();
+        codigoVerificacionHTML = `
+            <div style="font-size: 24px; font-weight: 800; color: #0f172a; letter-spacing: 2px; padding: 10px; border: 2px dashed #0284c7; background: #f0f9ff; border-radius: 10px; margin: 10px 0;">
+                ${tokenDinamico}
+            </div>
+            <p style="font-size: 11px; color: #64748b; line-height: 1.4; font-weight: 500; margin-top: 5px;">
+                <strong>Código de Recepción Asegurada:</strong> Este código dinámico será solicitado por el distribuidor antes de realizar la entrega para constatar la dirección de envío y validar la identidad del cliente.
+            </p>
+        `;
+    } else {
+        codigoVerificacionHTML = `
+            <div style="font-size: 14px; font-weight: 700; color: #ef4444; padding: 15px; border: 2px dashed #fee2e2; background: #fff5f5; border-radius: 10px; margin: 10px 0;">
+                BLOQUEADO
+            </div>
+            <p style="font-size: 11px; color: #94a3b8; line-height: 1.4;">
+                El código de validación de entrega se activará automáticamente una vez que el pago se encuentre consolidado en el sistema.
+            </p>
+        `;
+    }
+
+    resultado.innerHTML = `
+    <div class="tracking-grid">
+        <div class="left-side">
+            ${checkoutHTML}
+            <div class="datos">
+                <div class="box"><strong>Código Tracking</strong><span class="val">${codigo}</span></div>
+                <div class="box"><strong>Mercadería en Custodia</strong><span class="val">${envio.producto}</span></div>
+                <div class="box"><strong>Comprador Destinatario</strong><span class="val">${envio.receptor}</span></div>
+                <div class="box"><strong>Dirección de Destino</strong><span class="val">${envio.direccionEntrega}</span></div>
+                <div class="box"><strong>Nodo Origen</strong><span class="val">${envio.origen}</span></div>
+                <div class="box"><strong>Jurisdicción</strong><span class="val">${envio.destino}</span></div>
+            </div>
+            <h3>Historial de Movimientos Cruzados</h3>
+            <div class="timeline">${timelineHTML}</div>
         </div>
-        <h3>Historial de Movimientos Cruzados</h3>
-        <div class="timeline">${timelineHTML}</div>
-    </div>
-    <div class="right-side">
-    <div class="delivery-sidebar">
-            <h3 style="margin-bottom: 5px;">Verificación de Identidad</h3>
-            <p style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Validación para el transportista en punto de entrega.</p>
-            
-            ${codigoVerificacionHTML}
-            
-            <hr style="width: 100%; border: 0; border-top: 1px dashed #e2e8f0; margin: 20px 0;">
-            <div style="text-align: left; width: 100%;">
-                <span class="${envio.pagado ? 'pagado' : 'nopagado'}">${envio.pagado ? '✓ PAGO CONSOLIDADO' : '⚠ PENDIENTE DE PAGO'}</span>
-                <p style="font-size: 12px; color: #475569; margin-top: 10px;">
-                    <strong>Estado del Envío:</strong> ${envio.pagado ? (entregado ? 'Entregado' : 'En Distribución') : 'Retenido en Depósito'}
-                </p>
+        <div class="right-side">
+            <div class="delivery-sidebar">
+                <h3 style="margin-bottom: 5px;">Verificación de Identidad</h3>
+                <p style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Validación para el transportista en punto de entrega.</p>
+                
+                ${codigoVerificacionHTML}
+                
+                <hr style="width: 100%; border: 0; border-top: 1px dashed #e2e8f0; margin: 20px 0;">
+                <div style="text-align: left; width: 100%;">
+                    <span class="${envio.pagado ? 'pagado' : 'nopagado'}">${envio.pagado ? '✓ PAGO CONSOLIDADO' : '⚠ PENDIENTE DE PAGO'}</span>
+                    <p style="font-size: 12px; color: #475569; margin-top: 10px;">
+                        <strong>Estado del Envío:</strong> ${envio.pagado ? (entregado ? 'Entregado' : 'En Distribución') : 'Retenido en Depósito'}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-`;
+    `;
 
-modal.style.display = "flex";
+    modal.style.display = "flex";
 }
 
-// Event Listeners para controlar el ciclo de vida del modal
 btnBuscar.addEventListener("click", buscarEnvio);
 
 inputCodigo.addEventListener("keypress", function(e) {
@@ -1466,7 +940,6 @@ window.addEventListener("click", function(e) {
     }
 });
 </script>
-            
 </body>
             </html>
             
