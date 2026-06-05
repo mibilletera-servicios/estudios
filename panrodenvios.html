@@ -734,29 +734,37 @@ color: #64748b;
 
 <script>
 // Base de datos simulada
+// 1. BASE DE DATOS CONFIGURABLE
 const envios = {
-    "ALBUM10":{
+    "ALBUM10": {
         producto: "Combo: Álbum Oficial de la Selección + 50 Paquetes de Figuritas",
         precioProducto: 15000,
         precioEnvio: 3500,
-        origen:"Depósito Central PANROD (Stock Proveedor)",
-        destino:"Rosario, Santa Fe",
+        origen: "Depósito Central PANROD (Stock Proveedor)",
+        destino: "Rosario, Santa Fe",
         direccionEntrega: "Pellegrini 1420, Piso 2 (CP 2000)",
-        receptor:"Leo Medina",
-        pagado: false,
+        receptor: "Leo Medina",
+        pagado: false, // Al ser false, no mostrará los pasos de envío
         modalidadPago: null,
+        pasoActual: 1, // No afecta si pagado es false, pero por defecto inicia en 1
         fechasLog: { creada: "04/06/2026 - 08:30 hs", pago: "", verificado: "", viaje: "", camino: "", entrega: "" }
     },
-    "ALBUM30":{
+    "ALBUM30": {
         producto: "Álbum de Figuritas Tapa Dura - Edición Especial Campeones del Mundo",
         precioProducto: 22000,
         precioEnvio: 0, 
-        origen:"Depósito Central PANROD (Stock Proveedor)",
-        destino:"Mar del Plata, Buenos Aires",
+        origen: "Depósito Central PANROD (Stock Proveedor)",
+        destino: "Mar del Plata, Buenos Aires",
         direccionEntrega: "Av. Colón 2340 (CP 7600)",
-        receptor:"Matías Rossi",
+        receptor: "Matías Rossi",
         pagado: true,
         modalidadPago: "Transferencia Bancaria",
+        
+        // 🛠️ MODO DE USO: Cambiá este número del 1 al 6 para activar los pasos que quieras:
+        // 1 = Solo cargado | 2 = Pago verificado | 3 = Empaquetado 
+        // 4 = En viaje hacia la región | 5 = En camino al domicilio | 6 = Entregado exitosamente
+        pasoActual: 4, 
+
         fechasLog: { 
             creada: "03/06/2026 - 10:00 hs", 
             pago: "03/06/2026 - 10:12 hs", 
@@ -767,6 +775,7 @@ const envios = {
         }
     }
 };
+
 
 const inputCodigo = document.getElementById("codigo");
 const btnBuscar = document.getElementById("btnBuscar");
@@ -781,6 +790,7 @@ function generarCodigoVerificacion() {
     return `${part1}-${part2}`;
 }
 
+// 2. LÓGICA DE PROCESAMIENTO DINÁMICO
 function buscarEnvio(){
     const codigo = inputCodigo.value.trim().toUpperCase();
     const envio = envios[codigo];
@@ -795,35 +805,36 @@ function buscarEnvio(){
     inputCodigo.style.borderColor = "transparent";
 
     let totalAbonar = envio.precioProducto + envio.precioEnvio;
+    let progreso = envio.pasoActual;
 
-    let enViaje = true;             
-    let enCaminoDomicilio = true;   
-    let entregado = false;          
-
+    // Estructura secuencial de los 6 pasos posibles
     let stepsConfig = [
-        { id: "creada", titulo: "Producto depositado por el vendedor en casa central", fecha: envio.fechasLog.creada, autoActivo: true },
-        { id: "pago", titulo: "Pago total verificado y acreditado en sistema", fecha: envio.fechasLog.pago, autoActivo: envio.pagado },
-        { id: "verificado", titulo: "Paquete verificado y empaquetado con datos de entrega del cliente", fecha: envio.fechasLog.verificado, autoActivo: envio.pagado }
+        { num: 1, titulo: "Producto depositado por el vendedor en casa central", fecha: envio.fechasLog.creada },
+        { num: 2, titulo: "Pago total verificado y acreditado en sistema", fecha: envio.fechasLog.pago || "Pendiente" },
+        { num: 3, titulo: "Paquete verificado y empaquetado con datos de entrega del cliente", fecha: envio.fechasLog.verificado || "Pendiente" },
+        { num: 4, titulo: `En viaje hacia centro de distribución regional de ${envio.destino}`, fecha: envio.fechasLog.viaje || "Pendiente" },
+        { num: 5, titulo: "En camino al domicilio del comprador (Unidad de Reparto)", fecha: envio.fechasLog.camino || "Pendiente" },
+        { num: 6, titulo: "Entregado exitosamente al destinatario", fecha: envio.fechasLog.entrega || "Pendiente" }
     ];
 
-    if(envio.pagado) {
-        stepsConfig.push(
-            { id: "viaje", titulo: `En viaje hacia centro de distribución regional de ${envio.destino}`, fecha: enViaje ? envio.fechasLog.viaje : "Pendiente", activoManual: enViaje },
-            { id: "camino", titulo: "En camino al domicilio del comprador (Unidad de Reparto)", fecha: enCaminoDomicilio ? envio.fechasLog.camino : "Pendiente", activoManual: enCaminoDomicilio },
-            { id: "entrega", titulo: "Entregado exitosamente al destinatario", fecha: entregado ? envio.fechasLog.entrega : "Pendiente", activoManual: entregado }
-        );
+    // Si NO está pagado, forzamos a que solo muestre el paso 1 activo y recortamos la lista al paso 3 por interfaz limpia
+    if(!envio.pagado) {
+        progreso = 1;
+        stepsConfig = stepsConfig.slice(0, 3);
     }
 
     let timelineHTML = "";
     stepsConfig.forEach((step) => {
-        let esActivo = step.autoActivo || (step.activoManual === true);
+        // Un paso está activo si el progreso actual es mayor o igual a su número de orden
+        let esActivo = progreso >= step.num;
         let classStatus = esActivo ? "is-active" : "";
+        let fechaMostrar = esActivo ? step.fecha : "Pendiente";
 
         timelineHTML += `
         <div class="step ${classStatus}">
             <div class="circle"></div>
             <h4>${step.titulo}</h4>
-            <small>${step.fecha}</small>
+            <small>${fechaMostrar}</small>
         </div>
         `;
     });
@@ -882,6 +893,18 @@ function buscarEnvio(){
         `;
     }
 
+    // Determinar texto del estado general según el paso configurado
+    let estadoEnvioTexto = "Retenido en Depósito";
+    if (envio.pagado) {
+        if (progreso >= 6) {
+            estadoEnvioTexto = "Entregado";
+        } else if (progreso >= 4) {
+            estadoEnvioTexto = "En Distribución";
+        } else {
+            estadoEnvioTexto = "Procesando en Planta Central";
+        }
+    }
+
     resultado.innerHTML = `
     <div class="tracking-grid">
         <div class="left-side">
@@ -908,7 +931,7 @@ function buscarEnvio(){
                 <div style="text-align: left; width: 100%;">
                     <span class="${envio.pagado ? 'pagado' : 'nopagado'}">${envio.pagado ? '✓ PAGO CONSOLIDADO' : '⚠ PENDIENTE DE PAGO'}</span>
                     <p style="font-size: 12px; color: #475569; margin-top: 10px;">
-                        <strong>Estado del Envío:</strong> ${envio.pagado ? (entregado ? 'Entregado' : 'En Distribución') : 'Retenido en Depósito'}
+                        <strong>Estado del Envío:</strong> ${estadoEnvioTexto}
                     </p>
                 </div>
             </div>
@@ -917,7 +940,8 @@ function buscarEnvio(){
     `;
 
     modal.style.display = "flex";
-}
+       }
+                
 
 btnBuscar.addEventListener("click", buscarEnvio);
 
