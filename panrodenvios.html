@@ -1044,10 +1044,6 @@ function buscarEnvio(){
     inputCodigo.style.borderColor = "#ef4444";
     return;
 }
-        errorInput.style.display = "block";
-        inputCodigo.style.borderColor = "#ef4444";
-        return;
-    }
 
     errorInput.style.display = "none";
     inputCodigo.style.borderColor = "transparent";
@@ -1155,7 +1151,6 @@ onclick="window.open('https://wa.me/541136514766?text=' + encodeURIComponent('Ho
             estadoEnvioTexto = "En Distribución";
         } else {
             estadoEnvioTexto = "Procesando en Planta Central";
-         let fechaEstimada = "08/06/2026";
         }
     }
 
@@ -1220,13 +1215,6 @@ window.addEventListener("click", function(e) {
 function cerrarPago(){
     document.getElementById("modalPago").style.display = "none";
 }
-
-    const metodo =
-        document.getElementById("metodoPago").value;
-
-    document
-        .getElementById(metodo)
-        .classList.add("active");
 </script>
 </body>
             </html>
