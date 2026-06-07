@@ -1011,13 +1011,6 @@ function buscarEnvio(){
     document.getElementById("loadingModal").style.display = "flex";
 
     setTimeout(() => {
-
-        function buscarEnvio(){
-
-    document.getElementById("loadingModal").style.display = "flex";
-
-    setTimeout(() => {
-
         const codigo = inputCodigo.value.trim().toUpperCase();
         const envio = envios[codigo];
     if (!envio) {
@@ -1172,11 +1165,12 @@ onclick="window.open('https://wa.me/541136514766?text=' + encodeURIComponent('Ho
     `;
 document.getElementById("loadingModal").style.display = "none";
     modal.style.display = "flex";
-       }
-               document.getElementById("loadingModal").style.display = "none";
 
-    }, 1000);
-            }
+document.getElementById("loadingModal").style.display = "none";
+
+}, 1000);
+
+}
 btnBuscar.addEventListener("click", buscarEnvio);
 
 inputCodigo.addEventListener("keydown", function(e) {
@@ -1201,6 +1195,14 @@ window.addEventListener("click", function(e) {
 function cerrarPago(){
     document.getElementById("modalPago").style.display = "none";
 }
+            <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.getElementById("btnBuscar").addEventListener("click", () => {
+        alert("Botón funcionando");
+    });
+            });
+</script>
 </script>
 </body>
             </html>
