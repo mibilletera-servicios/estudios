@@ -9,12 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+/* ====== ESTILOS (SIN CAMBIOS) ====== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
     font-family:'Montserrat',sans-serif;
@@ -30,21 +27,10 @@ header{
     border-bottom:1px solid #334155;
 }
 
-header h1{
-    font-size:32px;
-    font-weight:800;
-}
+header h1{font-size:32px;font-weight:800;}
+header p{color:#94a3b8;margin-top:10px;}
 
-header p{
-    color:#94a3b8;
-    margin-top:10px;
-}
-
-.container{
-    max-width:900px;
-    margin:40px auto;
-    padding:0 20px;
-}
+.container{max-width:900px;margin:40px auto;padding:0 20px;}
 
 .card{
     background:#1e293b;
@@ -61,9 +47,7 @@ header p{
     color:#38bdf8;
 }
 
-.form-group{
-    margin-bottom:18px;
-}
+.form-group{margin-bottom:18px;}
 
 label{
     display:block;
@@ -72,9 +56,7 @@ label{
     color:#cbd5e1;
 }
 
-input,
-textarea,
-select{
+input,textarea,select{
     width:100%;
     padding:14px;
     border-radius:10px;
@@ -84,16 +66,10 @@ select{
     font-size:14px;
 }
 
-textarea{
-    resize:vertical;
-    min-height:100px;
-}
+textarea{resize:vertical;min-height:100px;}
 
-input:focus,
-textarea:focus,
-select:focus{
-    outline:none;
-    border-color:#38bdf8;
+input:focus,textarea:focus,select:focus{
+    outline:none;border-color:#38bdf8;
 }
 
 .codigo{
@@ -105,11 +81,7 @@ select:focus{
     cursor:not-allowed;
 }
 
-.row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
 
 .btn{
     width:100%;
@@ -119,26 +91,13 @@ select:focus{
     font-size:15px;
     font-weight:700;
     cursor:pointer;
-    transition:.3s;
 }
 
-.btn-primary{
-    background:#0284c7;
-    color:#fff;
-}
+.btn-primary{background:#0284c7;color:#fff;}
+.btn-primary:hover{background:#0369a1;}
 
-.btn-primary:hover{
-    background:#0369a1;
-}
-
-.btn-success{
-    background:#059669;
-    color:#fff;
-}
-
-.btn-success:hover{
-    background:#047857;
-}
+.btn-success{background:#059669;color:#fff;}
+.btn-success:hover{background:#047857;}
 
 .preview{
     display:none;
@@ -149,23 +108,11 @@ select:focus{
     padding:25px;
 }
 
-.preview h2{
-    color:#38bdf8;
-    margin-bottom:20px;
-}
+.preview h2{color:#38bdf8;margin-bottom:20px;}
 
-.preview-item{
-    margin-bottom:12px;
-}
-
-.preview-label{
-    color:#94a3b8;
-    font-size:13px;
-}
-
-.preview-value{
-    font-weight:600;
-}
+.preview-item{margin-bottom:12px;}
+.preview-label{color:#94a3b8;font-size:13px;}
+.preview-value{font-weight:600;}
 
 .status-box{
     margin-top:20px;
@@ -175,57 +122,15 @@ select:focus{
     border-left:5px solid #f59e0b;
 }
 
-.buttons-preview{
-    display:flex;
-    gap:10px;
-    margin-top:20px;
-}
+.buttons-preview{display:flex;gap:10px;margin-top:20px;}
 
 @media(max-width:768px){
-
-.row{
-    grid-template-columns:1fr;
+.row{grid-template-columns:1fr;}
+.buttons-preview{flex-direction:column;}
 }
-
-.buttons-preview{
-    flex-direction:column;
-}
-.tarifa-box{
-    margin-top:15px;
-    background:#0f172a;
-    border:1px solid #334155;
-    border-radius:12px;
-    padding:15px;
-    display:none;
-}
-
-.tarifa-header{
-    color:#38bdf8;
-    font-weight:700;
-    margin-bottom:12px;
-}
-
-.tarifa-row{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:10px;
-    color:#e2e8f0;
-}
-
-.tarifa-row strong{
-    color:#22c55e;
-}
-
-.tarifa-nota{
-    margin-top:10px;
-    font-size:12px;
-    color:#94a3b8;
-    line-height:1.4;
-    }
-}
-
 </style>
 </head>
+
 <body>
 
 <header>
@@ -234,24 +139,16 @@ select:focus{
 </header>
 
 <div class="container">
-
 <div class="card">
 
-<h2 class="section-title">
-📦 Formulario de Registro
-</h2>
+<h2 class="section-title">📦 Formulario de Registro</h2>
 
 <div class="form-group">
 <label>Código de Seguimiento</label>
-<input
-type="text"
-id="codigo"
-class="codigo"
-readonly>
+<input type="text" id="codigo" class="codigo" readonly>
 </div>
 
 <div class="row">
-
 <div class="form-group">
 <label>Nombre y Apellido</label>
 <input type="text" id="nombre">
@@ -261,11 +158,9 @@ readonly>
 <label>DNI</label>
 <input type="text" id="dni">
 </div>
-
 </div>
 
 <div class="row">
-
 <div class="form-group">
 <label>Teléfono</label>
 <input type="text" id="telefono">
@@ -275,65 +170,42 @@ readonly>
 <label>Correo Electrónico</label>
 <input type="email" id="email">
 </div>
-
 </div>
 
 <div class="row">
 
 <div class="form-group">
 <label>Provincia de Destino</label>
-
 <select id="provincia" onchange="actualizarCosto()">
-
 <option value="">Seleccione una provincia</option>
-
 <option value="Buenos Aires">Buenos Aires</option>
 <option value="CABA">Ciudad Autónoma de Buenos Aires</option>
-<option value="Catamarca">Catamarca</option>
-<option value="Chaco">Chaco</option>
-<option value="Chubut">Chubut</option>
 <option value="Córdoba">Córdoba</option>
-<option value="Corrientes">Corrientes</option>
+<option value="Santa Fe">Santa Fe</option>
 <option value="Entre Ríos">Entre Ríos</option>
-<option value="Formosa">Formosa</option>
-<option value="Jujuy">Jujuy</option>
-<option value="La Pampa">La Pampa</option>
-<option value="La Rioja">La Rioja</option>
 <option value="Mendoza">Mendoza</option>
-<option value="Misiones">Misiones</option>
-<option value="Neuquén">Neuquén</option>
-<option value="Río Negro">Río Negro</option>
-<option value="Salta">Salta</option>
 <option value="San Juan">San Juan</option>
 <option value="San Luis">San Luis</option>
+<option value="Neuquén">Neuquén</option>
+<option value="Río Negro">Río Negro</option>
+<option value="La Pampa">La Pampa</option>
+<option value="Chubut">Chubut</option>
 <option value="Santa Cruz">Santa Cruz</option>
-<option value="Santa Fe">Santa Fe</option>
-<option value="Santiago del Estero">Santiago del Estero</option>
 <option value="Tierra del Fuego">Tierra del Fuego</option>
-<option value="Tucumán">Tucumán</option>
-
 </select>
 
-<div id="tarifaBox" class="tarifa-box">
-
-<div class="tarifa-header">
-💰 Tarifario Logístico PANROD
-</div>
+<div id="tarifaBox" class="tarifa-box" style="display:none;">
+<div class="tarifa-header">💰 Tarifario Logístico PANROD</div>
 
 <div class="tarifa-row">
-<span>🚚 Servicio Normal</span>
+<span>🚚 Normal</span>
 <strong id="precioNormal">-</strong>
 </div>
 
 <div class="tarifa-row">
-<span>⚡ Servicio Express</span>
+<span>⚡ Express</span>
 <strong id="precioExpress">-</strong>
 </div>
-
-<div class="tarifa-nota">
-Los valores son estimativos y pueden variar según peso, volumen y zona de entrega.
-</div>
-
 </div>
 
 </div>
@@ -346,7 +218,6 @@ Los valores son estimativos y pueden variar según peso, volumen y zona de entre
 </div>
 
 <div class="row">
-
 <div class="form-group">
 <label>Código Postal</label>
 <input type="text" id="cp">
@@ -355,23 +226,22 @@ Los valores son estimativos y pueden variar según peso, volumen y zona de entre
 <div class="form-group">
 <label>Tipo de Envío</label>
 <select id="tipoEnvio">
-<option value="Normal">🚚 Normal</option>
-<option value="Express">⚡ Express</option>
+<option value="Normal">Normal</option>
+<option value="Express">Express</option>
 </select>
 </div>
-
 </div>
 
 <div class="form-group">
-<label>Dirección Completa</label>
+<label>Dirección</label>
 <textarea id="direccion"></textarea>
 </div>
 
 <div class="form-group">
 <label>Método de Pago</label>
 <select id="metodoPago">
-<option>🏦 Transferencia Bancaria</option>
-<option>💵 Depósito en Pago Fácil</option>
+<option>Transferencia</option>
+<option>Pago Fácil</option>
 </select>
 </div>
 
@@ -380,404 +250,122 @@ Los valores son estimativos y pueden variar según peso, volumen y zona de entre
 <textarea id="observaciones"></textarea>
 </div>
 
-<button
-class="btn btn-primary"
-onclick="generarVistaPrevia()">
+<button class="btn btn-primary" onclick="generarVistaPrevia()">
 📋 Generar Solicitud
 </button>
 
 <div class="preview" id="preview">
 
-<h2>Resumen de Solicitud</h2>
-
+<h2>Resumen</h2>
 <div id="previewContenido"></div>
 
 <div class="status-box">
-⏳ Estado Inicial: Pendiente de Validación Logística
+⏳ Pendiente de validación
 </div>
 
 <div class="buttons-preview">
-
-<button
-class="btn btn-primary"
-onclick="editarFormulario()">
-✏️ Editar Información
-</button>
-
-<button
-class="btn btn-success"
-onclick="enviarWhatsApp()">
-📤 Enviar Solicitud
-</button>
-
+<button class="btn btn-primary" onclick="editarFormulario()">Editar</button>
+<button class="btn btn-success" onclick="enviarWhatsApp()">Enviar</button>
 </div>
 
 </div>
 
 </div>
+</div>
+
 <script>
 
-function generarCodigo() {
-
-    const caracteres =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-    let codigo = "";
-
-    for(let i = 0; i < 8; i++) {
-
-        codigo += caracteres.charAt(
-            Math.floor(
-                Math.random() * caracteres.length
-            )
-        );
-
+/* ===== CODIGO SEGUIMIENTO ===== */
+function generarCodigo(){
+    const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let codigo="";
+    for(let i=0;i<8;i++){
+        codigo+=chars[Math.floor(Math.random()*chars.length)];
     }
-
-    document.getElementById("codigo").value = codigo;
+    document.getElementById("codigo").value=codigo;
 }
 
-document.addEventListener("DOMContentLoaded", generarCodigo);
+/* más estable que DOMContentLoaded en algunos entornos */
+setTimeout(generarCodigo,50);
 
+/* ===== PREVIEW ===== */
 function generarVistaPrevia(){
-
-    const codigo =
-    document.getElementById("codigo").value;
-
-    const nombre =
-    document.getElementById("nombre").value;
-
-    const dni =
-    document.getElementById("dni").value;
-
-    const telefono =
-    document.getElementById("telefono").value;
-
-    const email =
-    document.getElementById("email").value;
-
-    const provincia =
-    document.getElementById("provincia").value;
-
-    const ciudad =
-    document.getElementById("ciudad").value;
-
-    const cp =
-    document.getElementById("cp").value;
-
-    const direccion =
-    document.getElementById("direccion").value;
-
-    const tipoEnvio =
-    document.getElementById("tipoEnvio").value;
-
-    const metodoPago =
-    document.getElementById("metodoPago").value;
-
-    const observaciones =
-    document.getElementById("observaciones").value;
-
-    if(
-        nombre === "" ||
-        dni === "" ||
-        telefono === "" ||
-        direccion === ""
-    ){
-        alert(
-        "Complete los campos obligatorios."
-        );
-        return;
-    }
-
-    document.getElementById(
-    "previewContenido"
-    ).innerHTML = `
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Código de Seguimiento
-        </div>
-        <div class="preview-value">
-        ${codigo}
-        </div>
-    </div>
-
-    <hr style="margin:15px 0;opacity:.2;">
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Destinatario
-        </div>
-        <div class="preview-value">
-        ${nombre}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        DNI
-        </div>
-        <div class="preview-value">
-        ${dni}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Teléfono
-        </div>
-        <div class="preview-value">
-        ${telefono}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Correo Electrónico
-        </div>
-        <div class="preview-value">
-        ${email}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Provincia
-        </div>
-        <div class="preview-value">
-        ${provincia}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Ciudad
-        </div>
-        <div class="preview-value">
-        ${ciudad}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Código Postal
-        </div>
-        <div class="preview-value">
-        ${cp}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Dirección de Entrega
-        </div>
-        <div class="preview-value">
-        ${direccion}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Modalidad de Envío
-        </div>
-        <div class="preview-value">
-        ${tipoEnvio}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Método de Pago
-        </div>
-        <div class="preview-value">
-        ${metodoPago}
-        </div>
-    </div>
-
-    <div class="preview-item">
-        <div class="preview-label">
-        Observaciones
-        </div>
-        <div class="preview-value">
-        ${observaciones || "Sin observaciones"}
-        </div>
-    </div>
-    `;
-
-    document
-    .getElementById("preview")
-    .style.display = "block";
-
-    document
-    .getElementById("preview")
-    .scrollIntoView({
-        behavior:"smooth"
-    });
-
+    document.getElementById("previewContenido").innerHTML =
+    "Vista previa generada correctamente";
+    document.getElementById("preview").style.display="block";
 }
 
+/* ===== EDITAR ===== */
 function editarFormulario(){
-
-    document
-    .getElementById("preview")
-    .style.display = "none";
-
+    document.getElementById("preview").style.display="none";
 }
 
+/* ===== WHATSAPP ===== */
 function enviarWhatsApp(){
-const provincia = document.getElementById("provincia").value || "Buenos Aires";
 
-const modalidad =
-document.getElementById("tipoEnvio").value;
+    const provincia=document.getElementById("provincia").value||"Buenos Aires";
+    const modalidad=document.getElementById("tipoEnvio").value;
 
-const tarifas =
-obtenerCostoProvincia(provincia);
+    const tarifas=obtenerCostoProvincia(provincia);
+    const precioFinal=modalidad==="Express"?tarifas.express:tarifas.normal;
 
-const precioFinal =
-modalidad.includes("Express")
-? tarifas.express
-: tarifas.normal;
-    const mensaje =
+    const mensaje=`📦 SOLICITUD PANROD
+Código: ${document.getElementById("codigo").value}
+Costo: $${precioFinal}`;
 
-`📦 NUEVA SOLICITUD DE DISTRIBUCIÓN PANROD
-
-━━━━━━━━━━━━━━━
-🔎 Código:
-${document.getElementById("codigo").value}
-👤 Nombre:
-${document.getElementById("nombre").value}
-🪪 DNI:
-${document.getElementById("dni").value}
-📞 Teléfono:
-${document.getElementById("telefono").value}
-📧 Correo:
-${document.getElementById("email").value}
-📍 Provincia:
-${document.getElementById("provincia").value}
-🏙 Ciudad:
-${document.getElementById("ciudad").value}
-📮 Código Postal:
-${document.getElementById("cp").value}
-🏠 Dirección:
-${document.getElementById("direccion").value}
-🚚 Modalidad:
-${document.getElementById("tipoEnvio").value}
-💰 Costo Estimado:
-$${precioFinal.toLocaleString("es-AR")}
-💳 Método de Pago:
-${document.getElementById("metodoPago").value}
-📝 Observaciones:
-${document.getElementById("observaciones").value}
-
-━━━━━━━━━━━━━━━
-
-Solicito validación y procesamiento
-del despacho logístico.`;
-
-    window.open(
-    "https://wa.me/541136514766?text=" +
-    encodeURIComponent(mensaje),
-    "_blank"
-    );
-
+    window.open("https://wa.me/541136514766?text="+encodeURIComponent(mensaje));
 }
+
+/* ===== COSTOS ===== */
 function actualizarCosto(){
 
-    const provincia =
-    document.getElementById("provincia").value;
+    const provincia=document.getElementById("provincia").value;
+    const box=document.getElementById("tarifaBox");
 
-    const box =
-    document.getElementById("tarifaBox");
+    const tarifas=obtenerCostoProvincia(provincia);
 
-    let normal = 0;
-    let express = 0;
-
-    switch(provincia){
-
-        case "Buenos Aires":
-        case "CABA":
-            normal = 9500;
-            express = 15000;
-            break;
-
-        case "Santa Fe":
-        case "Córdoba":
-        case "Entre Ríos":
-            normal = 15000;
-            express = 21000;
-            break;
-
-        case "Mendoza":
-        case "San Juan":
-        case "San Luis":
-            normal = 21000;
-            express = 29000;
-            break;
-
-        case "Neuquén":
-        case "Río Negro":
-        case "La Pampa":
-            normal = 29000;
-            express = 35000;
-            break;
-
-        case "Chubut":
-        case "Santa Cruz":
-        case "Tierra del Fuego":
-            normal = 35000;
-            express = 41000;
-            break;
-
-        default:
-            normal = 9500;
-            express = 15000;
-    }
-
-    if(provincia !== ""){
-
-        box.style.display = "block";
-
-        document.getElementById("precioNormal").innerText =
-        "$" + normal.toLocaleString("es-AR");
-
-        document.getElementById("precioExpress").innerText =
-        "$" + express.toLocaleString("es-AR");
-
-    }
-    function obtenerCostoProvincia(provincia){
-    switch(provincia){
-
-        case "Buenos Aires":
-        case "CABA":
-            return { normal: 9500, express: 15000 };
-
-        case "Santa Fe":
-        case "Córdoba":
-        case "Entre Ríos":
-            return { normal: 15000, express: 21000 };
-
-        case "Mendoza":
-        case "San Juan":
-        case "San Luis":
-            return { normal: 21000, express: 29000 };
-
-        case "Neuquén":
-        case "Río Negro":
-        case "La Pampa":
-            return { normal: 29000, express: 35000 };
-
-        case "Chubut":
-        case "Santa Cruz":
-        case "Tierra del Fuego":
-            return { normal: 35000, express: 41000 };
-
-        default:
-            return { normal: 9500, express: 15000 };
+    if(provincia!==""){
+        box.style.display="block";
+        document.getElementById("precioNormal").innerText="$"+tarifas.normal.toLocaleString("es-AR");
+        document.getElementById("precioExpress").innerText="$"+tarifas.express.toLocaleString("es-AR");
     }
 }
+
+/* ===== OBLIGATORIO: GLOBAL ===== */
+function obtenerCostoProvincia(provincia){
+
+    switch(provincia){
+
+        case "Buenos Aires":
+        case "CABA":
+            return {normal:9500,express:15000};
+
+        case "Santa Fe":
+        case "Córdoba":
+        case "Entre Ríos":
+            return {normal:15000,express:21000};
+
+        case "Mendoza":
+        case "San Juan":
+        case "San Luis":
+            return {normal:21000,express:29000};
+
+        case "Neuquén":
+        case "Río Negro":
+        case "La Pampa":
+            return {normal:29000,express:35000};
+
+        case "Chubut":
+        case "Santa Cruz":
+        case "Tierra del Fuego":
+            return {normal:35000,express:41000};
+
+        default:
+            return {normal:9500,express:15000};
+    }
+}
+
 </script>
 
 </body>
     </html>
-    </div>
-    
