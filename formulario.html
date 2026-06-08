@@ -1,104 +1,605 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PANROD | Registro de Distribución</title><style>
-body{
-    font-family:Arial, sans-serif;
-    background:#f8fafc;
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PANROD | Registro de Distribución</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
     margin:0;
-    padding:30px;
-}
-
-.container{
-    max-width:800px;
-    margin:auto;
-    background:#fff;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-}
-
-h1{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-input, select, textarea{
-    width:100%;
-    padding:12px;
-    margin:8px 0 15px;
-    border:1px solid #d1d5db;
-    border-radius:8px;
+    padding:0;
     box-sizing:border-box;
 }
 
+body{
+    font-family:'Montserrat',sans-serif;
+    background:#0f172a;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    padding:40px 20px;
+    text-align:center;
+    border-bottom:1px solid #334155;
+}
+
+header h1{
+    font-size:32px;
+    font-weight:800;
+}
+
+header p{
+    color:#94a3b8;
+    margin-top:10px;
+}
+
+.container{
+    max-width:900px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+.card{
+    background:#1e293b;
+    border:1px solid #334155;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.section-title{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:20px;
+    color:#38bdf8;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    color:#cbd5e1;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #475569;
+    background:#0f172a;
+    color:#fff;
+    font-size:14px;
+}
+
 textarea{
+    resize:vertical;
     min-height:100px;
 }
 
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:bold;
+input:focus,
+textarea:focus,
+select:focus{
+    outline:none;
+    border-color:#38bdf8;
+}
+
+.codigo{
+    background:#020617 !important;
+    color:#38bdf8 !important;
+    font-weight:800;
+    text-align:center;
+    letter-spacing:3px;
+    cursor:not-allowed;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
 }
 
 .btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:#0284c7;
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:#0369a1;
+}
+
+.btn-success{
+    background:#059669;
+    color:#fff;
+}
+
+.btn-success:hover{
+    background:#047857;
+}
+
+.preview{
+    display:none;
+    margin-top:30px;
     background:#0f172a;
-    color:white;
+    border:2px solid #0284c7;
+    border-radius:15px;
+    padding:25px;
 }
-</style></head><body><div class="container"><h1>📦 Registro de Distribución PANROD</h1><input type="text" id="codigo" placeholder="Código de seguimiento"><input type="text" id="nombre" placeholder="Nombre y Apellido"><input type="text" id="dni" placeholder="DNI"><input type="text" id="telefono" placeholder="Teléfono"><input type="email" id="email" placeholder="Correo Electrónico"><input type="text" id="provincia" placeholder="Provincia"><input type="text" id="ciudad" placeholder="Ciudad"><input type="text" id="cp" placeholder="Código Postal"><textarea id="direccion" placeholder="Dirección completa"></textarea><select id="envio">
-    <option>🚚 Normal (72 hs)</option>
-    <option>⚡ Express (24 hs)</option>
-    <option>🔥 Prioritario</option>
-</select><select id="pago">
-    <option>🏦 Transferencia Bancaria</option>
-    <option>💳 Mercado Pago</option>
-    <option>💵 Efectivo</option>
-</select><textarea id="observaciones" placeholder="Observaciones para la entrega"></textarea><button class="btn" onclick="enviarFormulario()">
-🚚 Enviar Formulario para Distribución
-</button></div><script>
-function enviarFormulario(){
 
-const mensaje =
-`📦 NUEVO FORMULARIO DE DISTRIBUCIÓN PANROD
+.preview h2{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
 
-Código: ${document.getElementById('codigo').value}
+.preview-item{
+    margin-bottom:12px;
+}
 
-Nombre: ${document.getElementById('nombre').value}
+.preview-label{
+    color:#94a3b8;
+    font-size:13px;
+}
 
-DNI: ${document.getElementById('dni').value}
+.preview-value{
+    font-weight:600;
+}
 
-Teléfono: ${document.getElementById('telefono').value}
+.status-box{
+    margin-top:20px;
+    padding:15px;
+    border-radius:10px;
+    background:#1e293b;
+    border-left:5px solid #f59e0b;
+}
 
-Email: ${document.getElementById('email').value}
+.buttons-preview{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
 
-Provincia: ${document.getElementById('provincia').value}
+@media(max-width:768px){
 
-Ciudad: ${document.getElementById('ciudad').value}
+.row{
+    grid-template-columns:1fr;
+}
 
-CP: ${document.getElementById('cp').value}
-
-Dirección:
-${document.getElementById('direccion').value}
-
-Modalidad:
-${document.getElementById('envio').value}
-
-Método de Pago:
-${document.getElementById('pago').value}
-
-Observaciones:
-${document.getElementById('observaciones').value}`;
-
-window.open(
-'https://wa.me/541136594766?text=' + encodeURIComponent(mensaje),
-'_blank'
-);
+.buttons-preview{
+    flex-direction:column;
+}
 
 }
-</script></body>
-                                                                                                                                                                                                                                                                                                                                                                                                </html>
+
+</style>
+</head>
+<body>
+
+<header>
+    <h1>PANROD</h1>
+    <p>Recepción · Facturación · Distribución</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2 class="section-title">
+📦 Formulario de Registro Logístico
+</h2>
+
+<div class="form-group">
+<label>Código de Seguimiento</label>
+<input
+type="text"
+id="codigo"
+class="codigo"
+readonly>
+</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Nombre y Apellido</label>
+<input type="text" id="nombre">
+</div>
+
+<div class="form-group">
+<label>DNI</label>
+<input type="text" id="dni">
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Teléfono</label>
+<input type="text" id="telefono">
+</div>
+
+<div class="form-group">
+<label>Correo Electrónico</label>
+<input type="email" id="email">
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Provincia</label>
+<input type="text" id="provincia">
+</div>
+
+<div class="form-group">
+<label>Ciudad</label>
+<input type="text" id="ciudad">
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Código Postal</label>
+<input type="text" id="cp">
+</div>
+
+<div class="form-group">
+<label>Tipo de Envío</label>
+<select id="tipoEnvio">
+<option>🚚 Normal</option>
+<option>⚡ Express</option>
+</select>
+</div>
+
+</div>
+
+<div class="form-group">
+<label>Dirección Completa</label>
+<textarea id="direccion"></textarea>
+</div>
+
+<div class="form-group">
+<label>Método de Pago</label>
+<select id="metodoPago">
+<option>🏦 Transferencia Bancaria</option>
+<option>💵 Depósito en Pago Fácil</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Observaciones</label>
+<textarea id="observaciones"></textarea>
+</div>
+
+<button
+class="btn btn-primary"
+onclick="generarVistaPrevia()">
+📋 Generar Solicitud
+</button>
+
+<div class="preview" id="preview">
+
+<h2>Resumen de Solicitud</h2>
+
+<div id="previewContenido"></div>
+
+<div class="status-box">
+⏳ Estado Inicial: Pendiente de Validación Logística
+</div>
+
+<div class="buttons-preview">
+
+<button
+class="btn btn-primary"
+onclick="editarFormulario()">
+✏️ Editar Información
+</button>
+
+<button
+class="btn btn-success"
+onclick="enviarWhatsApp()">
+📤 Enviar Solicitud
+</button>
+
+</div>
+
+</div>
+
+</div>
+<script>
+
+function generarCodigo() {
+
+    const caracteres =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    let codigo = "";
+
+    for(let i = 0; i < 8; i++) {
+
+        codigo += caracteres.charAt(
+            Math.floor(
+                Math.random() * caracteres.length
+            )
+        );
+
+    }
+
+    document.getElementById("codigo").value = codigo;
+}
+
+window.onload = generarCodigo;
+
+function generarVistaPrevia(){
+
+    const codigo =
+    document.getElementById("codigo").value;
+
+    const nombre =
+    document.getElementById("nombre").value;
+
+    const dni =
+    document.getElementById("dni").value;
+
+    const telefono =
+    document.getElementById("telefono").value;
+
+    const email =
+    document.getElementById("email").value;
+
+    const provincia =
+    document.getElementById("provincia").value;
+
+    const ciudad =
+    document.getElementById("ciudad").value;
+
+    const cp =
+    document.getElementById("cp").value;
+
+    const direccion =
+    document.getElementById("direccion").value;
+
+    const tipoEnvio =
+    document.getElementById("tipoEnvio").value;
+
+    const metodoPago =
+    document.getElementById("metodoPago").value;
+
+    const observaciones =
+    document.getElementById("observaciones").value;
+
+    if(
+        nombre === "" ||
+        dni === "" ||
+        telefono === "" ||
+        direccion === ""
+    ){
+        alert(
+        "Complete los campos obligatorios."
+        );
+        return;
+    }
+
+    document.getElementById(
+    "previewContenido"
+    ).innerHTML = `
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Código de Seguimiento
+        </div>
+        <div class="preview-value">
+        ${codigo}
+        </div>
+    </div>
+
+    <hr style="margin:15px 0;opacity:.2;">
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Destinatario
+        </div>
+        <div class="preview-value">
+        ${nombre}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        DNI
+        </div>
+        <div class="preview-value">
+        ${dni}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Teléfono
+        </div>
+        <div class="preview-value">
+        ${telefono}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Correo Electrónico
+        </div>
+        <div class="preview-value">
+        ${email}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Provincia
+        </div>
+        <div class="preview-value">
+        ${provincia}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Ciudad
+        </div>
+        <div class="preview-value">
+        ${ciudad}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Código Postal
+        </div>
+        <div class="preview-value">
+        ${cp}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Dirección de Entrega
+        </div>
+        <div class="preview-value">
+        ${direccion}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Modalidad de Envío
+        </div>
+        <div class="preview-value">
+        ${tipoEnvio}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Método de Pago
+        </div>
+        <div class="preview-value">
+        ${metodoPago}
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <div class="preview-label">
+        Observaciones
+        </div>
+        <div class="preview-value">
+        ${observaciones || "Sin observaciones"}
+        </div>
+    </div>
+    `;
+
+    document
+    .getElementById("preview")
+    .style.display = "block";
+
+    document
+    .getElementById("preview")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+function editarFormulario(){
+
+    document
+    .getElementById("preview")
+    .style.display = "none";
+
+}
+
+function enviarWhatsApp(){
+
+    const mensaje =
+
+`📦 NUEVA SOLICITUD DE DISTRIBUCIÓN PANROD
+
+━━━━━━━━━━━━━━━
+
+🔎 Código:
+${document.getElementById("codigo").value}
+
+👤 Nombre:
+${document.getElementById("nombre").value}
+
+🪪 DNI:
+${document.getElementById("dni").value}
+
+📞 Teléfono:
+${document.getElementById("telefono").value}
+
+📧 Correo:
+${document.getElementById("email").value}
+
+📍 Provincia:
+${document.getElementById("provincia").value}
+
+🏙 Ciudad:
+${document.getElementById("ciudad").value}
+
+📮 Código Postal:
+${document.getElementById("cp").value}
+
+🏠 Dirección:
+${document.getElementById("direccion").value}
+
+🚚 Modalidad:
+${document.getElementById("tipoEnvio").value}
+
+💳 Método de Pago:
+${document.getElementById("metodoPago").value}
+
+📝 Observaciones:
+${document.getElementById("observaciones").value}
+
+━━━━━━━━━━━━━━━
+
+Solicito validación y procesamiento
+del despacho logístico.`;
+
+    window.open(
+    "https://wa.me/541136594766?text=" +
+    encodeURIComponent(mensaje),
+    "_blank"
+    );
+
+}
+
+</script>
+
+</body>
+    </html>
+    </div>
+    
