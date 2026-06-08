@@ -190,7 +190,38 @@ select:focus{
 .buttons-preview{
     flex-direction:column;
 }
+.tarifa-box{
+    margin-top:15px;
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:12px;
+    padding:15px;
+    display:none;
+}
 
+.tarifa-header{
+    color:#38bdf8;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.tarifa-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    color:#e2e8f0;
+}
+
+.tarifa-row strong{
+    color:#22c55e;
+}
+
+.tarifa-nota{
+    margin-top:10px;
+    font-size:12px;
+    color:#94a3b8;
+    line-height:1.4;
+    }
 }
 
 </style>
@@ -250,8 +281,61 @@ readonly>
 <div class="row">
 
 <div class="form-group">
-<label>Provincia</label>
-<input type="text" id="provincia">
+<label>Provincia de Destino</label>
+
+<select id="provincia" onchange="actualizarCosto()">
+
+<option value="">Seleccione una provincia</option>
+
+<option value="Buenos Aires">Buenos Aires</option>
+<option value="CABA">Ciudad Autónoma de Buenos Aires</option>
+<option value="Catamarca">Catamarca</option>
+<option value="Chaco">Chaco</option>
+<option value="Chubut">Chubut</option>
+<option value="Córdoba">Córdoba</option>
+<option value="Corrientes">Corrientes</option>
+<option value="Entre Ríos">Entre Ríos</option>
+<option value="Formosa">Formosa</option>
+<option value="Jujuy">Jujuy</option>
+<option value="La Pampa">La Pampa</option>
+<option value="La Rioja">La Rioja</option>
+<option value="Mendoza">Mendoza</option>
+<option value="Misiones">Misiones</option>
+<option value="Neuquén">Neuquén</option>
+<option value="Río Negro">Río Negro</option>
+<option value="Salta">Salta</option>
+<option value="San Juan">San Juan</option>
+<option value="San Luis">San Luis</option>
+<option value="Santa Cruz">Santa Cruz</option>
+<option value="Santa Fe">Santa Fe</option>
+<option value="Santiago del Estero">Santiago del Estero</option>
+<option value="Tierra del Fuego">Tierra del Fuego</option>
+<option value="Tucumán">Tucumán</option>
+
+</select>
+
+<div id="tarifaBox" class="tarifa-box">
+
+<div class="tarifa-header">
+💰 Tarifario Logístico PANROD
+</div>
+
+<div class="tarifa-row">
+<span>🚚 Servicio Normal</span>
+<strong id="precioNormal">-</strong>
+</div>
+
+<div class="tarifa-row">
+<span>⚡ Servicio Express</span>
+<strong id="precioExpress">-</strong>
+</div>
+
+<div class="tarifa-nota">
+Los valores son estimativos y pueden variar según peso, volumen y zona de entrega.
+</div>
+
+</div>
+
 </div>
 
 <div class="form-group">
@@ -596,7 +680,70 @@ del despacho logístico.`;
     );
 
 }
+function actualizarCosto(){
 
+    const provincia =
+    document.getElementById("provincia").value;
+
+    const box =
+    document.getElementById("tarifaBox");
+
+    let normal = 0;
+    let express = 0;
+
+    switch(provincia){
+
+        case "Buenos Aires":
+        case "CABA":
+            normal = 3500;
+            express = 6500;
+            break;
+
+        case "Santa Fe":
+        case "Córdoba":
+        case "Entre Ríos":
+            normal = 4500;
+            express = 7500;
+            break;
+
+        case "Mendoza":
+        case "San Juan":
+        case "San Luis":
+            normal = 5500;
+            express = 8500;
+            break;
+
+        case "Neuquén":
+        case "Río Negro":
+        case "La Pampa":
+            normal = 6500;
+            express = 9500;
+            break;
+
+        case "Chubut":
+        case "Santa Cruz":
+        case "Tierra del Fuego":
+            normal = 8500;
+            express = 12000;
+            break;
+
+        default:
+            normal = 7000;
+            express = 10000;
+    }
+
+    if(provincia !== ""){
+
+        box.style.display = "block";
+
+        document.getElementById("precioNormal").innerText =
+        "$" + normal.toLocaleString("es-AR");
+
+        document.getElementById("precioExpress").innerText =
+        "$" + express.toLocaleString("es-AR");
+
+    }
+    }
 </script>
 
 </body>
