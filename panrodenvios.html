@@ -1173,10 +1173,18 @@ onclick="window.open('https://wa.me/541136514766?text=' + encodeURIComponent('Ho
 `;
 
 modal.style.display = "flex";
-document.getElementById("loadingModal").style.display = "none"; 
-            function abrirPago() {
-    document.getElementById("modalPago").style.display = "flex";
-}
+document.getElementById("loadingModal").style.display = "none";
+
+    }, 1200); // cierre del setTimeout
+
+} // cierre de buscarEnvio
+            btnBuscar.addEventListener("click", buscarEnvio);
+
+inputCodigo.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        buscarEnvio();
+    }
+});
 
 function cerrarPago() {
     document.getElementById("modalPago").style.display = "none";
