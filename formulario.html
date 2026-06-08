@@ -194,7 +194,27 @@ input:focus,textarea:focus,select:focus{
 <option value="Tierra del Fuego">Tierra del Fuego</option>
 </select>
 
-<div id="tarifaBox" class="tarifa-box" style="display:none;">
+<div id="tarifaBox" class="tarifa-box" style="display:none; margin-top:15px;">
+
+    <div style="background:#0b1220; padding:12px; border-radius:12px; border:1px solid #334155;">
+
+        <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #1f2937;">
+            <span style="color:#cbd5e1;">🚚 Servicio Normal</span>
+            <strong id="precioNormal" style="color:#22c55e;">-</strong>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; padding:10px 0;">
+            <span style="color:#cbd5e1;">⚡ Servicio Express</span>
+            <strong id="precioExpress" style="color:#f59e0b;">-</strong>
+        </div>
+
+    </div>
+
+    <div style="margin-top:10px; font-size:12px; color:#94a3b8;">
+        Valores estimados sujetos a peso, volumen y zona de entrega.
+    </div>
+
+</div>
 <div class="tarifa-header">💰 Tarifario Logístico PANROD</div>
 
 <div class="tarifa-row">
@@ -276,23 +296,55 @@ input:focus,textarea:focus,select:focus{
 <script>
 
 /* ===== CODIGO SEGUIMIENTO ===== */
-function generarCodigo(){
-    const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let codigo="";
-    for(let i=0;i<8;i++){
-        codigo+=chars[Math.floor(Math.random()*chars.length)];
-    }
-    document.getElementById("codigo").value=codigo;
-}
-
-/* más estable que DOMContentLoaded en algunos entornos */
-setTimeout(generarCodigo,50);
-
-/* ===== PREVIEW ===== */
 function generarVistaPrevia(){
-    document.getElementById("previewContenido").innerHTML =
-    "Vista previa generada correctamente";
-    document.getElementById("preview").style.display="block";
+
+    const codigo = document.getElementById("codigo").value;
+    const nombre = document.getElementById("nombre").value;
+    const dni = document.getElementById("dni").value;
+    const telefono = document.getElementById("telefono").value;
+    const email = document.getElementById("email").value;
+    const provincia = document.getElementById("provincia").value;
+    const ciudad = document.getElementById("ciudad").value;
+    const cp = document.getElementById("cp").value;
+    const direccion = document.getElementById("direccion").value;
+    const tipoEnvio = document.getElementById("tipoEnvio").value;
+    const metodoPago = document.getElementById("metodoPago").value;
+    const observaciones = document.getElementById("observaciones").value;
+
+    document.getElementById("previewContenido").innerHTML = `
+
+<div style="background:#0b1220; padding:15px; border-radius:12px; border:1px solid #334155;">
+
+    <div style="font-size:14px; color:#38bdf8; font-weight:800; margin-bottom:10px;">
+        🔎 Código de Seguimiento: ${codigo}
+    </div>
+
+    <hr style="border:0; border-top:1px solid #1f2937; margin:10px 0;">
+
+    <div style="display:grid; gap:8px; font-size:14px;">
+
+        <div><span style="color:#94a3b8;">👤 Cliente:</span> <strong>${nombre}</strong></div>
+        <div><span style="color:#94a3b8;">🪪 DNI:</span> <strong>${dni}</strong></div>
+        <div><span style="color:#94a3b8;">📞 Teléfono:</span> <strong>${telefono}</strong></div>
+        <div><span style="color:#94a3b8;">📧 Email:</span> <strong>${email}</strong></div>
+
+        <div><span style="color:#94a3b8;">📍 Provincia:</span> <strong>${provincia}</strong></div>
+        <div><span style="color:#94a3b8;">🏙 Ciudad:</span> <strong>${ciudad}</strong></div>
+        <div><span style="color:#94a3b8;">📮 CP:</span> <strong>${cp}</strong></div>
+
+        <div><span style="color:#94a3b8;">🏠 Dirección:</span> <strong>${direccion}</strong></div>
+
+        <div><span style="color:#94a3b8;">🚚 Envío:</span> <strong>${tipoEnvio}</strong></div>
+        <div><span style="color:#94a3b8;">💳 Pago:</span> <strong>${metodoPago}</strong></div>
+
+        <div><span style="color:#94a3b8;">📝 Observaciones:</span> <strong>${observaciones || "Sin observaciones"}</strong></div>
+
+    </div>
+
+</div>
+`;
+
+    document.getElementById("preview").style.display = "block";
 }
 
 /* ===== EDITAR ===== */
@@ -303,17 +355,50 @@ function editarFormulario(){
 /* ===== WHATSAPP ===== */
 function enviarWhatsApp(){
 
-    const provincia=document.getElementById("provincia").value||"Buenos Aires";
-    const modalidad=document.getElementById("tipoEnvio").value;
+    const provincia = document.getElementById("provincia").value || "Buenos Aires";
+    const modalidad = document.getElementById("tipoEnvio").value;
 
-    const tarifas=obtenerCostoProvincia(provincia);
-    const precioFinal=modalidad==="Express"?tarifas.express:tarifas.normal;
+    const tarifas = obtenerCostoProvincia(provincia);
+    const precioFinal = modalidad === "Express" ? tarifas.express : tarifas.normal;
 
-    const mensaje=`📦 SOLICITUD PANROD
-Código: ${document.getElementById("codigo").value}
-Costo: $${precioFinal}`;
+    const mensaje = `📦 *NUEVA SOLICITUD LOGÍSTICA - PANROD*
 
-    window.open("https://wa.me/541136514766?text="+encodeURIComponent(mensaje));
+━━━━━━━━━━━━━━━━━━
+🔎 *Código de seguimiento:*
+${document.getElementById("codigo").value}
+
+👤 *Datos del cliente*
+• Nombre: ${document.getElementById("nombre").value}
+• DNI: ${document.getElementById("dni").value}
+• Teléfono: ${document.getElementById("telefono").value}
+• Email: ${document.getElementById("email").value}
+
+📍 *Destino*
+• Provincia: ${document.getElementById("provincia").value}
+• Ciudad: ${document.getElementById("ciudad").value}
+• CP: ${document.getElementById("cp").value}
+• Dirección: ${document.getElementById("direccion").value}
+
+🚚 *Envío*
+• Modalidad: ${document.getElementById("tipoEnvio").value}
+
+💰 *Costo estimado:*
+$${precioFinal.toLocaleString("es-AR")}
+
+💳 *Pago:*
+${document.getElementById("metodoPago").value}
+
+📝 *Observaciones:*
+${document.getElementById("observaciones").value || "Sin observaciones"}
+
+━━━━━━━━━━━━━━━━━━
+📌 Solicito validación y despacho correspondiente.
+Sistema PANROD - Logística Automatizada`;
+
+    window.open(
+        "https://wa.me/541136514766?text=" + encodeURIComponent(mensaje),
+        "_blank"
+    );
 }
 
 /* ===== COSTOS ===== */
