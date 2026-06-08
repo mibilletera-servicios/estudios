@@ -625,46 +625,48 @@ function editarFormulario(){
 }
 
 function enviarWhatsApp(){
+const provincia =
+document.getElementById("provincia").value;
 
+const modalidad =
+document.getElementById("tipoEnvio").value;
+
+const tarifas =
+obtenerCostoProvincia(provincia);
+
+const precioFinal =
+modalidad.includes("Express")
+? tarifas.express
+: tarifas.normal;
     const mensaje =
 
 `📦 NUEVA SOLICITUD DE DISTRIBUCIÓN PANROD
 
 ━━━━━━━━━━━━━━━
-
 🔎 Código:
 ${document.getElementById("codigo").value}
-
 👤 Nombre:
 ${document.getElementById("nombre").value}
-
 🪪 DNI:
 ${document.getElementById("dni").value}
-
 📞 Teléfono:
 ${document.getElementById("telefono").value}
-
 📧 Correo:
 ${document.getElementById("email").value}
-
 📍 Provincia:
 ${document.getElementById("provincia").value}
-
 🏙 Ciudad:
 ${document.getElementById("ciudad").value}
-
 📮 Código Postal:
 ${document.getElementById("cp").value}
-
 🏠 Dirección:
 ${document.getElementById("direccion").value}
-
 🚚 Modalidad:
 ${document.getElementById("tipoEnvio").value}
-
+💰 Costo Estimado:
+$${precioFinal.toLocaleString("es-AR")}
 💳 Método de Pago:
 ${document.getElementById("metodoPago").value}
-
 📝 Observaciones:
 ${document.getElementById("observaciones").value}
 
