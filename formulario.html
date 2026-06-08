@@ -272,6 +272,29 @@ input:focus,textarea:focus,select:focus{
 </div>
 
 <script>
+let costoActual = {
+    normal: 0,
+    express: 0
+};
+/* 👇 AGREGAR ESTO ARRIBA DE TODO EN EL SCRIPT */
+function generarCodigoSeguimiento() {
+    const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numeros = "0123456789";
+
+    let codigo = "PAN-";
+
+    for (let i = 0; i < 3; i++) {
+        codigo += letras.charAt(Math.floor(Math.random() * letras.length));
+    }
+
+    codigo += "-";
+
+    for (let i = 0; i < 5; i++) {
+        codigo += numeros.charAt(Math.floor(Math.random() * numeros.length));
+    }
+
+    return codigo;
+}
 
 /* ===== CODIGO SEGUIMIENTO ===== */
 function generarVistaPrevia(){
@@ -290,7 +313,14 @@ function generarVistaPrevia(){
     const observaciones = document.getElementById("observaciones").value;
 
     document.getElementById("previewContenido").innerHTML = `
-
+<div><span style="color:#94a3b8;">💰 Costo:</span> 
+<strong>
+$${(
+    document.getElementById("tipoEnvio").value === "Express"
+        ? costoActual.express
+        : costoActual.normal
+).toLocaleString("es-AR")}
+</strong></div>
 <div style="background:#0b1220; padding:15px; border-radius:12px; border:1px solid #334155;">
 
     <div style="font-size:14px; color:#38bdf8; font-weight:800; margin-bottom:10px;">
@@ -333,11 +363,11 @@ function editarFormulario(){
 /* ===== WHATSAPP ===== */
 function enviarWhatsApp(){
 
-    const provincia = document.getElementById("provincia").value || "Buenos Aires";
     const modalidad = document.getElementById("tipoEnvio").value;
 
-    const tarifas = obtenerCostoProvincia(provincia);
-    const precioFinal = modalidad === "Express" ? tarifas.express : tarifas.normal;
+const precioFinal = modalidad === "Express"
+    ? costoActual.express
+    : costoActual.normal;
 
     const mensaje = `📦 *NUEVA SOLICITUD LOGÍSTICA - PANROD*
 
@@ -382,17 +412,23 @@ Sistema PANROD - Logística Automatizada`;
 /* ===== COSTOS ===== */
 function actualizarCosto(){
 
-    const provincia=document.getElementById("provincia").value;
-    const box=document.getElementById("tarifaBox");
+    const provincia = document.getElementById("provincia").value;
+    const box = document.getElementById("tarifaBox");
 
-    const tarifas=obtenerCostoProvincia(provincia);
+    const tarifas = obtenerCostoProvincia(provincia);
 
-    if(provincia!==""){
-        box.style.display="block";
-        document.getElementById("precioNormal").innerText="$"+tarifas.normal.toLocaleString("es-AR");
-        document.getElementById("precioExpress").innerText="$"+tarifas.express.toLocaleString("es-AR");
+    costoActual = tarifas; // 🔥 guardamos global
+
+    if(provincia !== ""){
+        box.style.display = "block";
+
+        document.getElementById("precioNormal").innerText =
+            "$" + tarifas.normal.toLocaleString("es-AR");
+
+        document.getElementById("precioExpress").innerText =
+            "$" + tarifas.express.toLocaleString("es-AR");
     }
-}
+    }
 
 /* ===== OBLIGATORIO: GLOBAL ===== */
 function obtenerCostoProvincia(provincia){
@@ -426,8 +462,9 @@ function obtenerCostoProvincia(provincia){
         default:
             return {normal:9500,express:15000};
     }
-}
-
+window.onload = function () {
+    document.getElementById("codigo").value = generarCodigoSeguimiento();
+};
 </script>
 
 </body>
