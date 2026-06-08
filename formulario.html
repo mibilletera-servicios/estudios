@@ -437,7 +437,7 @@ function generarCodigo() {
     document.getElementById("codigo").value = codigo;
 }
 
-window.onload = generarCodigo;
+document.addEventListener("DOMContentLoaded", generarCodigo);
 
 function generarVistaPrevia(){
 
@@ -745,7 +745,6 @@ function actualizarCosto(){
 
     }
     function obtenerCostoProvincia(provincia){
-
     switch(provincia){
 
         case "Buenos Aires":
@@ -775,7 +774,7 @@ function actualizarCosto(){
         default:
             return { normal: 9500, express: 15000 };
     }
-    }
+}
 </script>
 
 </body>
