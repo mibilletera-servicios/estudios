@@ -819,7 +819,7 @@ animation:spin 1s linear infinite;
     <p>Los productos son depositados en nuestras oficinas de despacho, donde son recepcionados, registrados y almacenados bajo control logístico. Cada ingreso es validado y preparado para su posterior procesamiento dentro de nuestra red de distribución.</p>
 </div><div class="card">
     <h3>🧾 Facturación y Validación</h3>
-    <p>Una vez registrada la mercadería, el sistema genera automáticamente un código de seguimiento único y habilita la operación para su facturación. El comprador podrá consultar el estado del envío y efectuar el pago correspondiente para autorizar el inicio del proceso logístico.</p>
+    <p>Una vez registrada la mercadería, el sistema genera automáticamente un código de seguimiento único y habilita la operation para su facturación. El comprador podrá consultar el estado del envío y efectuar el pago correspondiente para autorizar el inicio del proceso logístico.</p>
 </div><div class="card">
     <h3>🚚 Distribución y Entrega</h3>
     <p>Tras la acreditación y validación del pago, se autoriza el despacho de la mercadería y se activa la distribución. Desde ese momento, el envío inicia su recorrido hacia el domicilio de destino con seguimiento actualizado en cada etapa del trayecto.</p>
@@ -1006,6 +1006,11 @@ function generarCodigoVerificacion() {
     return `${part1}-${part2}`;
 }
 
+// NUEVA FUNCIÓN AGREGADA PARA REPARAR EL BOTÓN DE PAGO
+function abrirPago() {
+    document.getElementById("modalPago").style.display = "flex";
+}
+
 // 2. LÓGICA DE PROCESAMIENTO DINÁMICO
 function buscarEnvio(){
 
@@ -1081,7 +1086,7 @@ onclick="window.open('https://wa.me/541136514766?text=' + encodeURIComponent('Ho
         </div>
         `;
     } else {
-        checkoutHTML = `
+checkoutHTML = `
         <div class="checkout-box">
             <div class="price-detail">
                 <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
@@ -1195,7 +1200,7 @@ function copiarTexto(id) {
         btn.innerHTML = "✅ Copiado";
 
         setTimeout(() => {
-            btn.innerHTML = original;
+btn.innerHTML = original;
         }, 1500);
     });
             }
@@ -1215,6 +1220,6 @@ window.addEventListener("click", (e) => {
         modal.style.display = "none";
     }
 });
-</script>​​
-</body>​​
-            </html>​​
+</script>
+</body>
+</html>
