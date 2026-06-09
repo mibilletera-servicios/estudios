@@ -861,10 +861,10 @@ animation:spin 1s linear infinite;
         <div class="footer-section">
     <h3>Redes Sociales</h3>
     <ul>
-        <li><a href="#" onclick="return false;">Facebook Corporate</a></li>
-        <li><a href="#" onclick="return false;">Instagram Logistics</a></li>
-        <li><a href="#" onclick="return false;">WhatsApp Business</a></li>
-        <li><a href="#" onclick="return false;">TikTok Oficial</a></li>
+        <li><a href="#" onclick="return false;">Facebook</a></li>
+        <li><a href="#" onclick="return false;">Instagram</a></li>
+        <li><a href="#" onclick="return false;">WhatsApp</a></li>
+        <li><a href="#" onclick="return false;">TikTok</a></li>
     </ul>
         </div>
         <div class="footer-section">
@@ -894,7 +894,7 @@ animation:spin 1s linear infinite;
 <div class="modal" id="modalPago">
     <div class="modal-content" style="max-width:750px;">
         <span class="close" onclick="cerrarPago()">×</span>
-        <h2>Métodos de Pago Disponibles</h2>
+        <h2>Método de Pago Disponible</h2>
 
         <div id="transferencia" class="payment-method active">
 
@@ -902,7 +902,7 @@ animation:spin 1s linear infinite;
 
             <div class="box">
     <strong>Alias</strong>
-    <span class="val" id="alias">PANROD.LOGISTICA</span>
+    <span class="val" id="alias">ESTANPERFECTO.OK</span>
     <button onclick="copiarTexto('alias')">📋 Copiar</button>
 </div>
 
@@ -920,7 +920,7 @@ animation:spin 1s linear infinite;
 
 <div class="box">
     <strong>Titular</strong>
-    <span class="val" id="titular">PANROD</span>
+    <span class="val" id="titular">CAMILA CALOGERO</span>
     <button onclick="copiarTexto('titular')">📋 Copiar</button>
 </div>
 
@@ -934,7 +934,7 @@ animation:spin 1s linear infinite;
                 onclick="window.open(
                 'https://wa.me/541136514766?text=' +
                 encodeURIComponent(
-                'Hola. Ya visualicé los datos bancarios y deseo informar una transferencia.'
+                'Hola!. Ya visualicé los datos bancarios y deseo informar una transferencia para iniciar el proceso de distribución.'
                 ),
                 '_blank'
                 )">
@@ -1038,7 +1038,7 @@ function buscarEnvio(){
         { num: 2, titulo: "Pago total verificado y acreditado en sistema", fecha: envio.fechasLog.pago || "Pendiente" },
         { num: 3, titulo: "Paquete verificado y empaquetado con datos de entrega del cliente", fecha: envio.fechasLog.verificado || "Pendiente" },
         { num: 4, titulo: `En viaje hacia centro de distribución regional de ${envio.destino}`, fecha: envio.fechasLog.viaje || "Pendiente" },
-        { num: 5, titulo: "En camino al domicilio del comprador (Unidad de Reparto)", fecha: envio.fechasLog.camino || "Pendiente" },
+        { num: 5, titulo: "En camino al domicilio (En tránsito)", fecha: envio.fechasLog.camino || "Pendiente" },
         { num: 6, titulo: "Entregado exitosamente al destinatario", fecha: envio.fechasLog.entrega || "Pendiente" }
     ];
 
@@ -1069,9 +1069,9 @@ function buscarEnvio(){
         checkoutHTML = `
         <div class="checkout-box pending">
             <div class="price-detail">
-                <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
-                <p>Costo de Envío EXPRESS: <span>$${envio.precioEnvio}</span></p>
-                <p class="total">Total Neto a Pagar: <span>$${totalAbonar}</span></p>
+                <p>Valor del Paquete/Producto: <span>$${envio.precioProducto}</span></p>
+                <p>Costo de Envío: <span>$${envio.precioEnvio}</span></p>
+                <p class="total">Total a Pagar: <span>$${totalAbonar}</span></p>
             </div>
             <div class="action-area">
                 <button class="btn-action btn-pay" onclick="abrirPago()">
@@ -1089,8 +1089,8 @@ onclick="window.open('https://wa.me/541136514766?text=' + encodeURIComponent('Ho
 checkoutHTML = `
         <div class="checkout-box">
             <div class="price-detail">
-                <p>Valor del Álbum / Figuritas: <span>$${envio.precioProducto}</span></p>
-                <p>Costo de Envío EXPRESS: <span>${envio.precioEnvio === 0 ? '¡Bonificado!' : '$' + envio.precioEnvio}</span></p>
+                <p>Valor del Paquete/Producto: <span>$${envio.precioProducto}</span></p>
+                <p>Costo de Envío: <span>${envio.precioEnvio === 0 ? '¡Bonificado!' : '$' + envio.precioEnvio}</span></p>
                 <p class="total">Total Facturado: <span>$${totalAbonar}</span></p>
             </div>
             <div class="action-area">
@@ -1141,15 +1141,15 @@ checkoutHTML = `
         ${checkoutHTML}
 
         <div class="datos">
-            <div class="box"><strong>Código Tracking</strong><span class="val">${codigo}</span></div>
-            <div class="box"><strong>Mercadería en Custodia</strong><span class="val">${envio.producto}</span></div>
+            <div class="box"><strong>Código de Seguimiento</strong><span class="val">${codigo}</span></div>
+            <div class="box"><strong>Paquete en Custodia</strong><span class="val">${envio.producto}</span></div>
             <div class="box"><strong>Comprador Destinatario</strong><span class="val">${envio.receptor}</span></div>
             <div class="box"><strong>Dirección de Destino</strong><span class="val">${envio.direccionEntrega}</span></div>
             <div class="box"><strong>Origen</strong><span class="val">${envio.origen}</span></div>
-            <div class="box"><strong>Jurisdicción</strong><span class="val">${envio.destino}</span></div>
+            <div class="box"><strong>Entrega</strong><span class="val">${envio.destino}</span></div>
         </div>
 
-        <h3>Historial de Movimientos Cruzados</h3>
+        <h3>Historial de Movimientos</h3>
         <div class="timeline">
             ${timelineHTML}
         </div>
@@ -1158,14 +1158,14 @@ checkoutHTML = `
     <div class="right-side">
         <div class="delivery-sidebar">
             <h3>Verificación de Identidad</h3>
-            <p>Validación para el transportista en punto de entrega.</p>
+            <p>Validación para el transportista.</p>
 
             ${codigoVerificacionHTML}
 
             <hr>
 
             <span class="${envio.pagado ? 'pagado' : 'nopagado'}">
-                ${envio.pagado ? '✓ PAGO CONSOLIDADO' : '⚠ PENDIENTE DE PAGO'}
+                ${envio.pagado ? '✓ PAGO EFECTUADO' : '⚠ PENDIENTE DE PAGO'}
             </span>
         </div>
     </div>
