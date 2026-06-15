@@ -69,7 +69,6 @@ margin:auto;
 
 h1{font-size:22px;margin-bottom:10px;}
 .subtitle{color:#666;font-size:14px;margin-bottom:20px;}
-
 .card{
 background:#fff;
 border-radius:16px;
@@ -465,7 +464,6 @@ background:#3b33cc;
 <div class="header">
 <span class="back-btn" id="backBtn" onclick="volverHome()"></span>
 </div>
-
 <div class="container" id="home">
 
 <h1 id="saludo">¡Hola!</h1>
@@ -536,6 +534,7 @@ Gestioná trámites, sacá turnos y accedé a tus credenciales.
 <div class="container" id="verLicencia">
 <h2>Licencia de conducir digital (LNC)</h2>
 
+<div id="licenciaContenido">
 <div class="licencia-box">
 <div class="licencia-top">Licencia Nacional de Conducir</div>
 
@@ -581,6 +580,8 @@ Si te retuvieron o inhabilitaron la licencia física, no podés circular con la 
 <span>Ministerio de Transporte de la Nación.</span>
 </div>
 </div>
+</div>
+<div id="licenciaAviso" class="no-dni" style="display:none;">LICENCIA NO DISPONIBLE</div>
 </div>
 
 <div class="container" id="verTitulo">
@@ -717,12 +718,19 @@ function mostrarLicencia(){
 seccionDocumentos.style.display="none";
 verLicencia.style.display="block";
 
+if(usuarioActual.estadoLicencia === "no disponible"){
+document.getElementById("licenciaContenido").style.display="none";
+document.getElementById("licenciaAviso").style.display="block";
+} else {
+document.getElementById("licenciaContenido").style.display="block";
+document.getElementById("licenciaAviso").style.display="none";
 licNombre.innerText=usuarioActual.nombre;
 licApellido.innerText=usuarioActual.apellido;
 licDni.innerText=usuarioActual.dni;
 licVence.innerText=usuarioActual.vencimiento;
 qrImg.src=usuarioActual.qr;
 licEstado.innerText=usuarioActual.estadoLicencia;
+}
 }
 
 function mostrarDni(){
@@ -761,3 +769,4 @@ window.open(usuarioActual.analitico);
 
 </body>
   </html>
+  
