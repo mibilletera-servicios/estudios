@@ -714,24 +714,33 @@ verTitulo.style.display="none";
 backBtn.style.display="none";
 }
 
-function mostrarLicencia(){
-seccionDocumentos.style.display="none";
-verLicencia.style.display="block";
+function mostrarLicencia() {
+    seccionDocumentos.style.display = "none";
+    verLicencia.style.display = "block";
 
-if(usuarioActual.estadoLicencia === "no disponible"){
-document.getElementById("licenciaContenido").style.display="none";
-document.getElementById("licenciaAviso").style.display="block";
-} else {
-document.getElementById("licenciaContenido").style.display="block";
-document.getElementById("licenciaAviso").style.display="none";
-licNombre.innerText=usuarioActual.nombre;
-licApellido.innerText=usuarioActual.apellido;
-licDni.innerText=usuarioActual.dni;
-licVence.innerText=usuarioActual.vencimiento;
-qrImg.src=usuarioActual.qr;
-licEstado.innerText=usuarioActual.estadoLicencia;
+    // Validamos si la licencia está disponible y tiene datos
+    const esValida = usuarioActual.estadoLicencia && usuarioActual.estadoLicencia !== "no disponible";
+
+    if (!esValida) {
+        // Ocultamos el contenido y mostramos el aviso
+        document.getElementById("licenciaContenido").style.display = "none";
+        const aviso = document.getElementById("licenciaAviso");
+        aviso.style.display = "block";
+        aviso.innerText = "LICENCIA NO DISPONIBLE";
+    } else {
+        // Mostramos el contenido y llenamos los datos
+        document.getElementById("licenciaContenido").style.display = "block";
+        document.getElementById("licenciaAviso").style.display = "none";
+        
+        licNombre.innerText = usuarioActual.nombre;
+        licApellido.innerText = usuarioActual.apellido;
+        licDni.innerText = usuarioActual.dni;
+        licVence.innerText = usuarioActual.vencimiento || "N/A";
+        qrImg.src = usuarioActual.qr;
+        licEstado.innerText = usuarioActual.estadoLicencia;
+    }
 }
-}
+
 
 function mostrarDni(){
 seccionDocumentos.style.display="none";
