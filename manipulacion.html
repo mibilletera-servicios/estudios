@@ -3,18 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carnet de Manipulador de Alimentos - Editable</title>
+    <title>Carnet de Manipulador de Alimentos - Avanzado</title>
+    <!-- Librería para generar el PDF de forma limpia -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 
         body {
             background-color: #f0f2f5;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             font-family: "Arimo", sans-serif;
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Botón de descarga */
+        .btn-descargar {
+            background-color: #2383c4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+        .btn-descargar:hover {
+            background-color: #1a6699;
         }
 
         /* Contenedor de la credencial */
@@ -29,7 +52,6 @@
             padding: 25px;
             overflow: hidden;
             border: 1px solid #dcdcdc;
-            user-select: none;
         }
 
         /* Borde interno azul grueso */
@@ -46,7 +68,7 @@
             z-index: 10;
         }
 
-        /* Fondo sutil de la bandera argentina (ondas celestes y sol) */
+        /* Fondo sutil de la bandera argentina */
         .fondo-patrio {
             position: absolute;
             top: 15px;
@@ -104,13 +126,29 @@
             gap: 12px;
         }
 
-        /* Icono abstracto simulando el logo de BA */
-        .logo-ba-grafico {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #2fa4db, #7fd1f7);
-            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-            opacity: 0.8;
+        /* Contenedor del Logo de Buenos Aires seleccionable */
+        .logo-ba-subir {
+            width: 60px;
+            height: 60px;
+            border: 1px dashed #b3b3b3;
+            background-color: #f7f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .logo-ba-subir img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .logo-ba-subir span {
+            font-size: 9px;
+            color: #888;
+            text-align: center;
+            padding: 2px;
         }
 
         .texto-gobierno {
@@ -182,16 +220,22 @@
             overflow: hidden;
             box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: opacity 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        .foto-contenedor:hover {
-            opacity: 0.8;
-        }
-
         .foto-contenedor img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: none; /* Se muestra solo cuando hay foto */
+        }
+        .foto-contenedor span {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            font-weight: bold;
         }
 
         /* Textos de datos */
@@ -224,10 +268,17 @@
             letter-spacing: 0.5px;
         }
 
-        /* Código QR */
+        /* Recuadro para Código QR */
         .qr-contenedor {
-            width: 105px;
-            height: 105px;
+            width: 110px;
+            height: 110px;
+            border: 1px dashed #b3b3b3;
+            background-color: #f7f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
             margin-bottom: 15px;
         }
 
@@ -235,13 +286,24 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            display: none;
+        }
+        .qr-contenedor span {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            font-weight: 500;
         }
 
-        /* Indicador de edición en vivo (sutil ayuda visual al pasar el mouse) */
+        /* Inputs ocultos para la carga de archivos */
+        .input-oculto {
+            display: none;
+        }
+
+        /* Indicador visual de edición */
         [contenteditable="true"]:hover {
             background-color: rgba(35, 131, 196, 0.08);
             border-radius: 4px;
-            cursor: text;
         }
         [contenteditable="true"]:focus {
             background-color: rgba(35, 131, 196, 0.15);
@@ -252,7 +314,11 @@
 </head>
 <body>
 
-    <div class="credencial">
+    <!-- Botón superior -->
+    <button class="btn-descargar" onclick="descargarPDF()">Descargar Carnet en PDF</button>
+
+    <!-- Estructura de la Credencial -->
+    <div class="credencial" id="credencial-archivo">
         <div class="fondo-patrio">
             <div class="onda-celeste"></div>
             <div class="sol-mayo"></div>
@@ -261,14 +327,18 @@
         <div class="contenido">
             <div class="header">
                 <div class="logos-izq">
-                    <div class="logo-ba-grafico"></div>
+                    <!-- Contenedor del Logo de la provincia -->
+                    <div class="logo-ba-subir" onclick="document.getElementById('input-logo').click()">
+                        <span id="txt-logo">Clic para logo</span>
+                        <img id="img-logo" alt="Logo BA">
+                    </div>
                     <div class="texto-gobierno">
                         GOBIERNO DE LA PROVINCIA DE
                         <span contenteditable="true">BUENOS AIRES</span>
                     </div>
                 </div>
                 <div class="ministerio" contenteditable="true">
-                    Ministerio de<br>Desarrollo Agrario
+                    MINISTERIO DE<br>DESARROLLO AGRARIO
                 </div>
             </div>
 
@@ -278,33 +348,64 @@
             </div>
 
             <div class="bloque-datos">
-                <div class="foto-contenedor" title="Haz clic para cambiar la imagen por URL" onclick="cambiarImagen()">
-                    <img id="fotoPerfil" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop" alt="Foto de perfil">
+                <!-- Foto de Perfil Local -->
+                <div class="foto-contenedor" onclick="document.getElementById('input-foto').click()">
+                    <span id="txt-foto">Clic para<br>subir foto</span>
+                    <img id="img-foto" alt="Foto de perfil">
                 </div>
 
                 <div class="datos-personales">
                     <div class="linea-dato">Carnet Nº <span class="editable-num" contenteditable="true">02-102-0000167</span></div>
-                    <div class="linea-dato">Vence <span contenteditable="true">28/06/2029</span></div>
+                    <div class="linea-dato">Vence <span contenteditable="true">xx/xx/xxxx</span></div>
                 </div>
 
-                <div class="qr-contenedor">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.gba.gob.index" alt="Código QR">
+                <!-- Recuadro de Código QR Local -->
+                <div class="qr-contenedor" onclick="document.getElementById('input-qr').click()">
+                    <span id="txt-qr">Clic para<br>subir QR</span>
+                    <img id="img-qr" alt="Código QR">
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Inputs de archivo ocultos controlados por JavaScript -->
+    <input type="file" id="input-foto" class="input-oculto" accept="image/*" onchange="cargarImagen(event, 'img-foto', 'txt-foto')">
+    <input type="file" id="input-logo" class="input-oculto" accept="image/*" onchange="cargarImagen(event, 'img-logo', 'txt-logo')">
+    <input type="file" id="input-qr" class="input-oculto" accept="image/*" onchange="cargarImagen(event, 'img-qr', 'txt-qr')">
+
     <script>
-        // Función interactiva para cambiar la foto de perfil en vivo
-        function cambiarImagen() {
-            const urlActual = document.getElementById('fotoPerfil').src;
-            const nuevaUrl = prompt("Introduce la URL de la nueva foto de perfil:", urlActual);
-            if (nuevaUrl && nuevaUrl.trim() !== "") {
-                document.getElementById('fotoPerfil').src = nuevaUrl;
+        // Función universal para procesar y mostrar las imágenes subidas localmente
+        function cargarImagen(event, imgId, txtId) {
+            const archivo = event.target.files[0];
+            if (archivo) {
+                const lector = new FileReader();
+                lector.onload = function(e) {
+                    const imagen = document.getElementById(imgId);
+                    const texto = document.getElementById(txtId);
+                    
+                    imagen.src = e.target.result;
+                    imagen.style.display = 'block';
+                    if(texto) texto.style.display = 'none';
+                }
+                lector.readAsDataURL(archivo);
             }
+        }
+
+        // Función para exportar la credencial a formato PDF sin perder calidad
+        function descargarPDF() {
+            const elemento = document.getElementById('credencial-archivo');
+            const opciones = {
+                margin:       0,
+                filename:     'carnet-manipulador-alimentos.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'px', format: [780, 500], orientation: 'landscape' }
+            };
+
+            html2pdf().set(opciones).from(elemento).save();
         }
     </script>
 
 </body>
-                  </html>
-              
+    </html>
+                    
