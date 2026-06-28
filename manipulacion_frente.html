@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Credencial - Frente</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        /* Estilos base extraídos del código original */
+        .fondo-patrio {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .onda-celeste {
+            position: absolute;
+            width: 120%;
+            height: 160px;
+            background: linear-gradient(180deg, rgba(135, 206, 250, 0.18) 0%, rgba(255,255,255,0) 100%);
+            transform: rotate(-10deg);
+            top: 180px;
+            left: -40px;
+        }
+        .sol-mayo {
+            position: absolute;
+            right: 120px;
+            bottom: 60px;
+            width: 140px;
+            height: 140px;
+            opacity: 0.12;
+            background: radial-gradient(circle, #f4b41a 20%, transparent 60%);
+        }
+        .contenido {
+            position: relative;
+            z-index: 5;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        /* --- ESTILOS DEL FRENTE --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 10px;
+            padding: 0 15px;
+        }
+        .logos-izq {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-ba-subir {
+            width: 60px;
+            height: 60px;
+            border: 1px dashed #b3b3b3;
+            background-color: #f7f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .logo-ba-subir img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+        .logo-ba-subir span {
+            font-size: 9px;
+            color: #888;
+            text-align: center;
+            padding: 2px;
+        }
+        .texto-gobierno {
+            font-size: 11px;
+            color: #777777;
+            font-weight: bold;
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+        }
+        .texto-gobierno span {
+            display: block;
+            font-size: 18px;
+            color: #1994d1;
+            font-weight: 800;
+            letter-spacing: 0px;
+        }
+        .ministerio {
+            font-size: 11px;
+            color: #555;
+            font-weight: bold;
+            text-align: right;
+            line-height: 1.2;
+        }
+        .titulo-principal {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .titulo-principal h1 {
+            font-size: 22px;
+            color: #0b5a8c;
+            margin: 0;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .titulo-principal p {
+            font-size: 12px;
+            color: #666;
+            margin: 2px 0 0 0;
+        }
+        .bloque-datos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px 20px 25px;
+        }
+        .foto-contenedor {
+            width: 100px;
+            height: 125px;
+            border: 1px dashed #b3b3b3;
+            background-color: #f7f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .foto-contenedor img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        .foto-contenedor span {
+            font-size: 11px;
+            color: #777;
+            text-align: center;
+        }
+        .datos-personales {
+            flex-grow: 1;
+            padding-left: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .linea-dato {
+            font-size: 15px;
+            color: #333;
+            font-weight: bold;
+        }
+        .editable-num {
+            color: #d32f2f;
+        }
+        .qr-contenedor {
+            width: 90px;
+            height: 90px;
+            border: 1px dashed #b3b3b3;
+            background-color: #f7f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .qr-contenedor img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+        .qr-contenedor span {
+            font-size: 11px;
+            color: #777;
+            text-align: center;
+        }
+        /* Elementos Técnicos y Comunes */
+        .credencial {
+            position: relative;
+            width: 780px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+        .input-oculto {
+            display: none;
+        }
+        [contenteditable="true"]:hover {
+            background-color: rgba(35, 131, 196, 0.08);
+            border-radius: 4px;
+        }
+        [contenteditable="true"]:focus {
+            background-color: rgba(35, 131, 196, 0.15);
+            outline: 2px dashed #2383c4;
+            border-radius: 4px;
+        }
+        .panel-control {
+            margin-bottom: 15px;
+        }
+        .btn-descargar {
+            padding: 10px 20px;
+            background-color: #1994d1;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panel-control">
+        <button class="btn-descargar" onclick="descargarPDF()">Descargar Frente (PDF)</button>
+    </div>
+
+    <div class="contenedor-impresion" id="documento-completo">
+        
+        <div class="credencial">
+            <div class="fondo-patrio">
+                <div class="onda-celeste"></div>
+                <div class="sol-mayo"></div>
+            </div>
+
+            <div class="contenido">
+                <div class="header">
+                    <div class="logos-izq">
+                        <div class="logo-ba-subir" onclick="document.getElementById('input-logo').click()">
+                            <span id="txt-logo">Clic para logo</span>
+                            <img id="img-logo" alt="Logo BA">
+                        </div>
+                        <div class="texto-gobierno">
+                            GOBIERNO DE LA PROVINCIA DE
+                            <span contenteditable="true">BUENOS AIRES</span>
+                        </div>
+                    </div>
+                    <div class="ministerio" contenteditable="true">
+                        MINISTERIO DE<br>DESARROLLO AGRARIO
+                    </div>
+                </div>
+
+                <div class="titulo-principal">
+                    <h1 contenteditable="true">Carnet de Manipulador de Alimentos</h1>
+                    <p contenteditable="true">Válido en todo el territorio de la República Argentina</p>
+                </div>
+
+                <div class="bloque-datos">
+                    <div class="foto-contenedor" onclick="document.getElementById('input-foto').click()">
+                        <span id="txt-foto">Clic para<br>subir foto</span>
+                        <img id="img-foto" alt="Foto de perfil">
+                    </div>
+
+                    <div class="datos-personales">
+                        <div class="linea-dato">Carnet Nº <span class="editable-num" contenteditable="true">02-102-0000167</span></div>
+                        <div class="linea-dato">Vence <span contenteditable="true">xx/xx/xxxx</span></div>
+                    </div>
+
+                    <div class="qr-contenedor" onclick="document.getElementById('input-qr').click()">
+                        <span id="txt-qr">Clic para<br>subir QR</span>
+                        <img id="img-qr" alt="Código QR">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <input type="file" id="input-foto" class="input-oculto" accept="image/*" onchange="cargarImagen(event, 'img-foto', 'txt-foto')">
+    <input type="file" id="input-logo" class="input-oculto" accept="image/*" onchange="cargarImagen(event, 'img-logo', 'txt-logo')">
+    <input type="file" id="input-qr" class="input-oculto" accept="image/*" onchange="cargarImagen(event, 'img-qr', 'txt-qr')">
+
+    <script>
+        function cargarImagen(event, imgId, txtId) {
+            const archivo = event.target.files[0];
+            if (archivo) {
+                const lector = new FileReader();
+                lector.onload = function(e) {
+                    const imagen = document.getElementById(imgId);
+                    const texto = document.getElementById(txtId);
+                    
+                    imagen.src = e.target.result;
+                    imagen.style.display = 'block';
+                    if(texto) texto.style.display = 'none';
+                }
+                lector.readAsDataURL(archivo);
+            }
+        }
+
+        function descargarPDF() {
+            const elemento = document.getElementById('documento-completo');
+            const opciones = {
+                margin:       0,
+                filename:     'credencial-frente.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'px', format: [780, 500], orientation: 'landscape' }
+            };
+
+            html2pdf().set(opciones).from(elemento).save();
+        }
+    </script>
+
+</body>
+          </html>
+                      
