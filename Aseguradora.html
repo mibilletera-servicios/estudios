@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Certificado de Cobertura - Seguros Rivadavia</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #000;
+            font-size: 11px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 35px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        /* Indicador visual al editar */
+        [contenteditable="true"]:focus {
+            outline: 2px dashed #005A9C;
+            background-color: #f7faff;
+        }
+
+        /* Panel de Control Interactivo */
+        .actions-panel {
+            max-width: 800px;
+            margin: 0 auto 15px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #005A9C;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+        }
+        .actions-panel h3 {
+            margin: 0;
+            font-size: 13px;
+            font-weight: normal;
+        }
+        .btn-download {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-download:hover {
+            background-color: #218838;
+        }
+
+        /* Cabecera */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .logo-area {
+            width: 50%;
+            vertical-align: middle;
+        }
+        .logo-placeholder {
+            display: flex;
+            align-items: center;
+        }
+        .logo-symbol {
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #005A9C, #7ec0ee);
+            border-radius: 4px 15px 4px 15px;
+            margin-right: 12px;
+        }
+        .logo-text h1 {
+            font-size: 22px;
+            margin: 0;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .logo-text h2 {
+            font-size: 16px;
+            margin: 2px 0 0 0;
+            color: #444;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+        .header-bar {
+            background-color: #b3b3b3;
+            height: 5px;
+            margin-top: 8px;
+        }
+        .header-title-main {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0 12px 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* Bloques Superiores Escindidos */
+        .top-blocks {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .top-blocks td {
+            width: 50%;
+            vertical-align: top;
+            border: 1px solid #000;
+            padding: 8px;
+            font-size: 9.5px;
+            line-height: 1.3;
+        }
+        .top-blocks td:first-child {
+            border-right: none;
+        }
+        .block-title {
+            font-weight: bold;
+            text-align: center;
+            background-color: #e6f2ff;
+            border-bottom: 1px solid #000;
+            margin: -8px -8px 8px -8px;
+            padding: 4px;
+            font-size: 9.5px;
+            text-transform: uppercase;
+        }
+
+        /* Certificado Cuerpo */
+        .certificate-title {
+            text-align: center;
+            font-size: 19px;
+            font-weight: bold;
+            margin: 20px 0 12px 0;
+        }
+
+        /* Grilla Central de Datos */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #000;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .data-table th {
+            background-color: #f2f2f2;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 4px 8px;
+        }
+        .data-value {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11.5px;
+            font-weight: bold;
+            min-height: 15px;
+            line-height: 1.3;
+        }
+
+        /* Pie de Página y Firmas */
+        .footer-row {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .footer-text {
+            width: 60%;
+            font-size: 10.5px;
+            line-height: 1.4;
+        }
+        .signature-area {
+            width: 220px;
+            text-align: center;
+        }
+        .signature-img {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 17px;
+            color: #222;
+            margin-bottom: 2px;
+        }
+        .signature-line {
+            border-top: 1px dashed #666;
+            padding-top: 4px;
+            font-size: 10.5px;
+        }
+        .scissors-line {
+            border-top: 1px dashed #777;
+            margin: 35px 0 10px 0;
+            position: relative;
+        }
+        .scissors-line::before {
+            content: "✂";
+            position: absolute;
+            top: -8px;
+            left: 15px;
+            background: white;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+
+        /* Reglas de Impresión para Exportar a PDF Impecable */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .actions-panel {
+                display: none;
+            }
+            .container {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="actions-panel">
+        <h3>📝 <strong>Modo Editor En Vivo:</strong> Haz clic en cualquier texto del documento para modificarlo.</h3>
+        <button class="btn-download" onclick="window.print()">Descargar / Imprimir PDF</button>
+    </div>
+
+    <div class="container">
+        
+        <table class="header-table">
+            <tr>
+                <td class="logo-area">
+                    <div class="logo-placeholder">
+                        <div class="logo-symbol"></div>
+                        <div class="logo-text">
+                            <h1>SEGUROS</h1>
+                            <h2>RIVADAVIA</h2>
+                        </div>
+                    </div>
+                    <div class="header-bar"></div>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div class="header-title-main" contenteditable="true">SEGURO DE VEHICULOS AUTOMOTORES Y/O REMOLCADOS</div>
+
+        <table class="top-blocks">
+            <tr>
+                <td>
+                    <div class="block-title" contenteditable="true">Datos del Vehículo Asegurado</div>
+                    <div contenteditable="true">
+                        <strong>Asegurado:</strong> CASTAÑO VIVIANA<br>
+                        <strong>Póliza:</strong> 28/931304 &nbsp;&nbsp;&nbsp;&nbsp; <strong>Patente:</strong> FCZ519<br>
+                        <strong>Marca:</strong> VOLKSWAGEN GOL 1.6 3 P. COMFORTLINE<br>
+                        <strong>Modelo:</strong> 2005 &nbsp;&nbsp;&nbsp;&nbsp; <strong>Uso:</strong> AUTO PARTICULAR<br>
+                        <strong>Motor:</strong> UBF237064<br>
+                        <strong>Chasis:</strong> 9BWCB05X25T1550CC<br>
+                        <strong>Vigencia:</strong> desde las 12 hs. del 05/01/2012<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hasta las 12 hs. del 05/07/2012<br>
+                        <strong>Débito automático por Tarjeta de Crédito</strong><br>
+                        <strong>Póliza totalmente abonada</strong>
+                    </div>
+                </td>
+                <td>
+                    <div class="block-title" contenteditable="true">Seguro Obligatorio Automotor - Decreto 1716/08</div>
+                    <div contenteditable="true" style="text-align: justify;">
+                        La posesión de este comprobante obligatorio será prueba suficiente del seguro obligatorio de automotores exigido por el art. 68 de la Ley Nº 24.449. Conforme al Art.2 de la Disp.SSN Nº 70/2009 de la SUPERINTENDENCIA DE SEGUROS DE LA NACIÓN, la falta de portación del recibo de pago de la prima obligatoria por parte del conductor del vehículo no podrá ser alegada por la autoridad de constatación para determinar el incumplimiento de los requisitos para la circulación.
+                    </div>
+                    <div style="margin-top: 6px; text-align: center; border-top: 1px solid #ccc; padding-top: 4px; font-size: 8.5px;" contenteditable="true">
+                        <strong>SEGUROS BERNARDINO RIVADAVIA COOPERATIVA LTDA.</strong><br>
+                        Casa Central: Av. 7 Nº 755 - LA PLATA - Teléf.: (0221) 513-3200 y 427-0350
+                    </div>
+                    <table style="width: 100%; margin-top: 5px; font-size: 8px; border-collapse: collapse; text-align: center;">
+                        <tr>
+                            <td style="border: 1px solid #aaa; padding: 2px; font-weight: bold; background: #f9f9f9;">Asistencia al Vehículo y al viajero (*)</td>
+                            <td style="border: 1px solid #aaa; padding: 2px; font-weight: bold; background: #f9f9f9;">Siniestros con lesionados o fallecidos</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #aaa; padding: 3px; font-weight: bold; font-size: 10px; color: #005A9C;">0800-666-6789</td>
+                            <td style="border: 1px solid #aaa; padding: 3px; font-weight: bold; font-size: 10px; color: #005A9C;">0810-222-3456 opc. 4</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="certificate-title" contenteditable="true">Certificado de Cobertura</div>
+
+        <table class="data-table">
+            <tr>
+                <th style="width: 28%;">Póliza Número</th>
+                <th style="width: 44%;">Asegurado</th>
+                <th style="width: 28%;">Certificado Número</th>
+            </tr>
+            <tr>
+                <td><div class="data-value" contenteditable="true">28/931304</div></td>
+                <td><div class="data-value" contenteditable="true">CASTAÑO VIVIANA</div></td>
+                <td><div class="data-value" contenteditable="true">28/931304</div></td>
+            </tr>
+            
+            <tr>
+                <th>Matrícula</th>
+                <th colspan="2">Domicilio</th>
+            </tr>
+            <tr>
+                <td><div class="data-value" contenteditable="true">1457222.5</div></td>
+                <td colspan="2"><div class="data-value" contenteditable="true">BOGADO NRO 1184<br>(1615) GRAND BOURG BS. AS.</div></td>
+            </tr>
+
+            <tr>
+                <th colspan="3">Vigencias</th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="data-value" contenteditable="true">Vigencia desde las 12 hs. del 05/01/2012 hasta las 12 hs. del 05/07/2012<br>Con prórroga automática mensual hasta las 12hs. del 05/07/2012</div>
+                </td>
+            </tr>
+
+            <tr>
+                <th colspan="3">Objeto del Seguro</th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="data-value" contenteditable="true">AUTO SEDAN Modelo: 2005 Marca: VOLKSWAGEN GOL 1.6 3 P. COMFORTLINE<br>Motor: UBF237064 Chasis: 9BWCB05X25T1550CC Pat.: FCZ519 Uso: AUTO PARTICULAR</div>
+                </td>
+            </tr>
+
+            <tr>
+                <th colspan="3">Coberturas</th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="data-value" contenteditable="true" style="font-size: 10.5px; line-height: 1.5; font-weight: normal;">
+                        Coberturas al 31/01/2012 &nbsp;&nbsp;&nbsp;&nbsp; <strong>1- Responsabilidad Civil hacia Terceros Transportados y No Transportados:</strong><br>
+                        Suma Máxima por Acontecimiento : $ 2.000.000<br>
+                        <strong>I- Robo/Hurto:</strong> Total y Parcial &nbsp;&nbsp;&nbsp;&nbsp; <strong>Incendio:</strong> Total y Parcial<br>
+                        Destrucción Total por Acc. $ 24.500<br>
+                        Ajuste automático hasta 20 %<br><br>
+                        Sin perjuicio de la entrega de la póliza específica, podrá consultar la misma en la página Web: www.segurosrivadavia.com ingresando a Servicios online - Asegurados.
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="footer-row">
+            <div class="footer-text" contenteditable="true">
+                La Plata, 31 de enero de 2012.<br>
+                El importe se debitará de su Tarjeta ARGENCARD/MASTERCARD
+            </div>
+            <div class="signature-area">
+                <div class="signature-img" contenteditable="true">Andrés J. Cardella</div>
+                <div class="signature-line" contenteditable="true">Andrés J. Cardella<br><small>Presidente</small></div>
+            </div>
+        </div>
+
+        <div class="scissors-line"></div>
+
+    </div>
+
+</body>
+  </html>
+  
