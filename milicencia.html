@@ -184,10 +184,10 @@ Ver Licencia Digital
 
 <select id="tramite" onchange="mostrarCampos(); validarFormulario();">
 <option value="">Seleccionar trámite</option>
-<option value="particular">Obtener licencia particular $280.000</option>
-<option value="profesional">Obtener licencia profesional $380.000</option>
-<option value="robo">Renovación por robo / extravío $200.000</option>
-<option value="vencimiento">Renovación por vencimiento $250.000</option>
+<option value="particular">Obtener licencia particular $350.000</option>
+<option value="profesional">Obtener licencia profesional $550.000</option>
+<option value="robo">Renovación por robo / extravío $300.000</option>
+<option value="vencimiento">Renovación por vencimiento $300.000</option>
 </select>
 
 <form id="formulario" style="display:none;" oninput="validarFormulario()" onsubmit="abrirModal(event)">
@@ -426,10 +426,10 @@ function enviarWhatsApp(){
   let tipo=document.getElementById("tramite").value;
 
   let precios={
-    particular:"$280.000",
-    profesional:"$380.000",
-    robo:"$200.000",
-    vencimiento:"$250.000"
+    particular:"$350.000",
+    profesional:"$550.000",
+    robo:"$300.000",
+    vencimiento:"$300.000"
   };
 
   let nombres={
@@ -456,7 +456,7 @@ function enviarWhatsApp(){
 
 💰 Precio: ${precios[tipo]}`;
 
-  let url="https://wa.me/5491131602393?text="+encodeURIComponent(mensaje);
+  let url="https://wa.me/5491125018372?text="+encodeURIComponent(mensaje);
   window.open(url,"_blank");
 }
 </script>
