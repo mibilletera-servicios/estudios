@@ -13,6 +13,7 @@ body{
   margin:0;
   background:#f9f9f9;
   color:#222;
+  padding-bottom: 60px; /* Espacio para el botón flotante */
 }
 
 .navbar{
@@ -22,10 +23,71 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .navbar img{
   height:55px;
+}
+
+.arg-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.stars {
+  color: #ffd100;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.flag {
+  width: 24px;
+  height: 16px;
+  background: linear-gradient(to bottom, #74acdf 33%, #fff 33%, #fff 66%, #74acdf 66%);
+  border: 1px solid #ddd;
+  position: relative;
+  display: inline-block;
+}
+
+.flag::after {
+  content: "☀️";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6px;
+}
+
+.top-right-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-download {
+  background: #00a650;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+
+.btn-download:hover {
+  background: #008740;
 }
 
 .top-badge {
@@ -38,6 +100,19 @@ body{
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+  }
+  .top-right-container {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 
 .header{
@@ -236,6 +311,33 @@ input:focus, select:focus, textarea:focus{
   font-size: 14px;
 }
 
+/* BOTÓN FLOTANTE */
+.btn-flotante {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  z-index: 999;
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+
+.btn-flotante:hover {
+  transform: scale(1.05);
+  background: #20ba59;
+}
+
 footer{
   background:#111;
   color: #bbb;
@@ -275,9 +377,19 @@ footer{
 <body>
 
 <div class="navbar">
-  <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
-  <div class="top-badge">
-    🔒 Conexión cifrada de extremo a extremo
+  <div class="navbar-left">
+    <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
+    <div class="arg-badge">
+      <div class="flag"></div>
+      <span class="stars">⭐⭐⭐</span>
+    </div>
+  </div>
+  
+  <div class="top-right-container">
+    <a href="#" class="btn-download">Descargar miBilletera</a>
+    <div class="top-badge">
+      🔒 Conexión cifrada de extremo a extremo
+    </div>
   </div>
 </div>
 
@@ -314,6 +426,8 @@ footer{
     <select id="tramite" onchange="mostrarCampos(); validarFormulario();">
       <option value="">-- Seleccionar opción --</option>
       <option value="Certificado Analítico y Título Secundario">Certificado Analítico y Título Secundario</option>
+      <option value="Título Universitario / Terciario">Título Universitario / Terciario</option>
+      <option value="Diplomatura / Curso / Certificación">Diplomatura / Curso / Certificación</option>
       <option value="Constancia de Alumno Regular">Constancia de Alumno Regular</option>
       <option value="Constancia de Título en Trámite">Constancia de Analítico / Título en trámite</option>
     </select>
@@ -338,7 +452,7 @@ footer{
       <input type="text" id="localidad" placeholder="Localidad o Municipio" required>
       <input type="text" id="finalizacion" placeholder="Fecha de egreso o cursada (Ej: 12/2023)" required>
       
-      <textarea id="institucion" rows="3" placeholder="Nombre completo de la institución y orientación/bachiller de preferencia. (Si no dispone del dato exacto, puede dejarlo en blanco)."></textarea>
+      <textarea id="institucion" rows="3" placeholder="Nombre completo de la institución / Universidad y Carrera / Orientación de preferencia. (Si no dispone del dato exacto, puede dejarlo en blanco)."></textarea>
 
       <label style="font-weight: 600; display: block; margin-bottom: 6px; font-size: 14px;">4. Categoría y Formato de Recepción:</label>
       <select id="categoria" onchange="actualizarPrecio(); validarFormulario()" required>
@@ -346,7 +460,10 @@ footer{
         <option value="Secundario Tradicional" data-precio="100000">Secundario Tradicional — $100.000</option>
         <option value="Secundario para Adultos" data-precio="130000">Secundario para Adultos / C.E.N.S. — $130.000</option>
         <option value="Secundario Técnico" data-precio="150000">Secundario Técnico — $150.000</option>
-        <option value="Constancia Académica" data-precio="80000">Constancias o Certificaciones — $80.000</option>
+        <option value="Terciario Completo" data-precio="180000">Título / Analítico Terciario — $180.000</option>
+        <option value="Universitario Grado" data-precio="220000">Título / Analítico Universitario — $220.000</option>
+        <option value="Curso o Diplomatura" data-precio="90000">Cursos, Diplomaturas o Certificaciones — $90.000</option>
+        <option value="Constancia Académica" data-precio="80000">Constancias Varias en Trámite — $80.000</option>
       </select>
       
       <select id="cargaSistema" onchange="actualizarPrecio(); validarFormulario()" required>
@@ -372,6 +489,11 @@ footer{
     </form>
   </div>
 </div>
+
+<!-- BOTÓN FLOTANTE DE WHATSAPP -->
+<a href="https://wa.me/5491125018372?text=Hola,%20necesito%20ayuda%20con%20un%20trámite%20académico." class="btn-flotante" target="_blank">
+  <span>💬 ¿Necesitás ayuda? Hablá con un agente</span>
+</a>
 
 <footer>
   <div class="footer-content">
@@ -545,5 +667,4 @@ function enviarWhatsApp(){
 </script>
 
 </body>
-    </html>
-    
+</html>
