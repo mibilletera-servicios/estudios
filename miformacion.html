@@ -24,6 +24,7 @@ body{
   align-items: center;
   justify-content: space-between;
   position: relative;
+  overflow: hidden; /* Para contener la bandera diagonal si se expande */
 }
 
 .navbar-left {
@@ -36,41 +37,41 @@ body{
   height:55px;
 }
 
-.arg-badge {
+/* Rediseño de la bandera diagonal con estrellas */
+.arg-badge-diagonal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, 
+    #74acdf 0%, #74acdf 33%, 
+    #ffffff 33%, #ffffff 66%, 
+    #74acdf 66%, #74acdf 100%
+  );
+  transform: translate(35px, -35px) rotate(45deg);
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 14px;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  z-index: 10;
 }
 
-.stars {
+.stars-inside {
   color: #ffd100;
   font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.flag {
-  width: 24px;
-  height: 16px;
-  background: linear-gradient(to bottom, #74acdf 33%, #fff 33%, #fff 66%, #74acdf 66%);
-  border: 1px solid #ddd;
-  position: relative;
-  display: inline-block;
-}
-
-.flag::after {
-  content: "☀️";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 6px;
+  letter-spacing: 1px;
+  font-size: 11px;
+  transform: rotate(-45deg);
+  margin-top: 40px; /* Ajuste para centrar visualmente en el corte visible */
+  text-shadow: 0px 1px 2px rgba(0,0,0,0.2);
 }
 
 .top-right-container {
   display: flex;
   align-items: center;
   gap: 15px;
+  margin-right: 90px; /* Espacio para no superponerse con la bandera diagonal */
 }
 
 .btn-download {
@@ -88,6 +89,25 @@ body{
 
 .btn-download:hover {
   background: #008740;
+}
+
+/* Botón Iniciar Sesión */
+.btn-login {
+  background: transparent;
+  color: #0072bb;
+  border: 2px solid #0072bb;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+
+.btn-login:hover {
+  background: #0072bb;
+  color: #fff;
 }
 
 .top-badge {
@@ -108,10 +128,12 @@ body{
     gap: 10px;
     align-items: center;
     text-align: center;
+    padding-top: 40px; /* Espacio por la bandera diagonal arriba */
   }
   .top-right-container {
     flex-direction: column;
     gap: 8px;
+    margin-right: 0;
   }
 }
 
@@ -379,17 +401,19 @@ footer{
 <div class="navbar">
   <div class="navbar-left">
     <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
-    <div class="arg-badge">
-      <div class="flag"></div>
-      <span class="stars">⭐⭐⭐</span>
-    </div>
   </div>
   
   <div class="top-right-container">
+    <a href="https://mibilletera-servicios.com.ar/login.html" class="btn-login">Iniciar Sesión</a>
     <a href="#" class="btn-download">Descargar miBilletera</a>
     <div class="top-badge">
       🔒 Conexión cifrada de extremo a extremo
     </div>
+  </div>
+
+  <!-- Bandera en diagonal con estrellas en la parte superior derecha -->
+  <div class="arg-badge-diagonal">
+    <span class="stars-inside">⭐⭐⭐</span>
   </div>
 </div>
 
@@ -661,7 +685,7 @@ function enviarWhatsApp(){
 💰 Adicional miBilletera: $${extra.toLocaleString("es-AR")}
 💰 TOTAL: $${total.toLocaleString("es-AR")}`;
 
-  let url = "https://wa.me/5492215736665?text=" + encodeURIComponent(mensaje);
+  let url = "https://wa.me/5491157500959?text=" + encodeURIComponent(mensaje);
   window.open(url, "_blank");
 }
 </script>
