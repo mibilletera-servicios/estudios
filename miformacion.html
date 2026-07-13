@@ -14,6 +14,35 @@ body{
   background:#f9f9f9;
   color:#222;
   padding-bottom: 60px; /* Espacio para el botón flotante */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Franja diagonal en la esquina superior derecha */
+.diagonal-flag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #74acdf 33%, #fff 33%, #fff 66%, #74acdf 66%);
+  transform: translate(35%, -35%) rotate(45deg);
+  transform-origin: center;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diagonal-stars {
+  color: #ffd100;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 14px;
+  transform: rotate(-45deg);
+  margin-top: 15px;
+  text-shadow: 0px 0px 2px rgba(0,0,0,0.2);
 }
 
 .navbar{
@@ -24,7 +53,7 @@ body{
   align-items: center;
   justify-content: space-between;
   position: relative;
-  overflow: hidden; /* Para contener la bandera diagonal si se expande */
+  padding-right: 120px; /* Espacio para no superponerse con la diagonal */
 }
 
 .navbar-left {
@@ -37,41 +66,10 @@ body{
   height:55px;
 }
 
-/* Rediseño de la bandera diagonal con estrellas */
-.arg-badge-diagonal {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 120px;
-  height: 120px;
-  background: linear-gradient(135deg, 
-    #74acdf 0%, #74acdf 33%, 
-    #ffffff 33%, #ffffff 66%, 
-    #74acdf 66%, #74acdf 100%
-  );
-  transform: translate(35px, -35px) rotate(45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-  z-index: 10;
-}
-
-.stars-inside {
-  color: #ffd100;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-size: 11px;
-  transform: rotate(-45deg);
-  margin-top: 40px; /* Ajuste para centrar visualmente en el corte visible */
-  text-shadow: 0px 1px 2px rgba(0,0,0,0.2);
-}
-
 .top-right-container {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-right: 90px; /* Espacio para no superponerse con la bandera diagonal */
 }
 
 .btn-download {
@@ -93,11 +91,11 @@ body{
 
 /* Botón Iniciar Sesión */
 .btn-login {
-  background: transparent;
-  color: #0072bb;
-  border: 2px solid #0072bb;
+  background: #0072bb;
+  color: #fff;
+  border: none;
   border-radius: 20px;
-  padding: 6px 14px;
+  padding: 8px 16px;
   font-size: 12px;
   font-weight: 700;
   text-decoration: none;
@@ -106,8 +104,7 @@ body{
 }
 
 .btn-login:hover {
-  background: #0072bb;
-  color: #fff;
+  background: #005a96;
 }
 
 .top-badge {
@@ -128,12 +125,14 @@ body{
     gap: 10px;
     align-items: center;
     text-align: center;
-    padding-top: 40px; /* Espacio por la bandera diagonal arriba */
+    padding-right: 20px;
   }
   .top-right-container {
     flex-direction: column;
     gap: 8px;
-    margin-right: 0;
+  }
+  .diagonal-flag {
+    display: none; /* Se oculta en móviles para no romper el layout */
   }
 }
 
@@ -398,6 +397,11 @@ footer{
 
 <body>
 
+<!-- Esquina diagonal de bandera argentina con estrellas -->
+<div class="diagonal-flag">
+  <div class="diagonal-stars">⭐⭐⭐</div>
+</div>
+
 <div class="navbar">
   <div class="navbar-left">
     <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
@@ -409,11 +413,6 @@ footer{
     <div class="top-badge">
       🔒 Conexión cifrada de extremo a extremo
     </div>
-  </div>
-
-  <!-- Bandera en diagonal con estrellas en la parte superior derecha -->
-  <div class="arg-badge-diagonal">
-    <span class="stars-inside">⭐⭐⭐</span>
   </div>
 </div>
 
@@ -487,7 +486,7 @@ footer{
         <option value="Terciario Completo" data-precio="220000">Título / Analítico Terciario — $220.000</option>
         <option value="Universitario Grado" data-precio="250000">Título / Analítico Universitario — $250.000</option>
         <option value="Curso o Diplomatura" data-precio="310000">Cursos, Diplomaturas o Certificaciones — $310.000</option>
-        <option value="Constancia Académica" data-precio="80000">Constancias Varias en Trámite — $80.000</option>
+        <option value="Constancia Académica" data-precio="500000">Matrículas — $500.000</option>
       </select>
       
       <select id="cargaSistema" onchange="actualizarPrecio(); validarFormulario()" required>
@@ -655,8 +654,6 @@ function enviarWhatsApp(){
   let carga = document.getElementById("cargaSistema");
 
   let tramiteTexto = tramite.options[tramite.selectedIndex].text;
-  let nivel = categoria.value;
-  let modalidad = carga.options[carga.selectedIndex].text;
 
   let precioBase = parseInt(categoria.options[categoria.selectedIndex].getAttribute("data-precio"));
   let extra = carga.value === "miBilletera" ? 50000 : 0;
