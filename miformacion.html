@@ -655,6 +655,11 @@ function enviarWhatsApp(){
 
   let tramiteTexto = tramite.options[tramite.selectedIndex].text;
 
+  // --- SOLUCIÓN: Definición de las variables faltantes ---
+  let nivel = categoria.options[categoria.selectedIndex].text;
+  let modalidad = carga.options[carga.selectedIndex].text;
+  // --------------------------------------------------------
+
   let precioBase = parseInt(categoria.options[categoria.selectedIndex].getAttribute("data-precio"));
   let extra = carga.value === "miBilletera" ? 50000 : 0;
   let total = precioBase + extra;
@@ -685,6 +690,7 @@ function enviarWhatsApp(){
   let url = "https://wa.me/5491157500959?text=" + encodeURIComponent(mensaje);
   window.open(url, "_blank");
 }
+
 </script>
 
 </body>
