@@ -8,439 +8,113 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap">
 
 <style>
-body{
-  font-family:'Encode Sans',sans-serif;
-  margin:0;
-  background:#f9f9f9;
-  color:#222;
-  padding-bottom: 60px; /* Espacio para el botón flotante */
-  position: relative;
-  overflow-x: hidden;
-}
+body{ font-family:'Encode Sans',sans-serif; margin:0; background:#f9f9f9; color:#222; padding-bottom: 60px; position: relative; overflow-x: hidden; }
 
-/* Franja diagonal en la esquina superior derecha */
-.diagonal-flag {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 150px;
-  height: 150px;
-  background: linear-gradient(135deg, #74acdf 33%, #fff 33%, #fff 66%, #74acdf 66%);
-  transform: translate(35%, -35%) rotate(45deg);
-  transform-origin: center;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Estilos para la nueva sección de beneficios y comentarios */
+.info-section { margin-bottom: 30px; }
+.testimonio-card { background: #fff; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid #0072bb; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.testimonio-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.avatar { width: 35px; height: 35px; background: #0072bb; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+.flecha-bajar { text-align: center; font-size: 30px; color: #0072bb; margin: 20px 0; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
 
-.diagonal-stars {
-  color: #ffd100;
-  font-weight: bold;
-  letter-spacing: 2px;
-  font-size: 14px;
-  transform: rotate(-45deg);
-  margin-top: 15px;
-  text-shadow: 0px 0px 2px rgba(0,0,0,0.2);
-}
-
-.navbar{
-  background:#fff;
-  border-bottom:3px solid #ffd100;
-  padding:12px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  padding-right: 120px; /* Espacio para no superponerse con la diagonal */
-}
-
-.navbar-left {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.navbar img{
-  height:55px;
-}
-
-.top-right-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.btn-download {
-  background: #00a650;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: 0.2s;
-}
-
-.btn-download:hover {
-  background: #008740;
-}
-
-/* Botón Iniciar Sesión */
-.btn-login {
-  background: #0072bb;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: 0.2s;
-}
-
-.btn-login:hover {
-  background: #005a96;
-}
-
-.top-badge {
-  background: #f1f1f1;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #555;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    text-align: center;
-    padding-right: 20px;
-  }
-  .top-right-container {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .diagonal-flag {
-    display: none; /* Se oculta en móviles para no romper el layout */
-  }
-}
-
-.header{
-  background: linear-gradient(135deg, #0072bb 0%, #005a96 100%);
-  color:#fff;
-  padding:40px 25px;
-}
-
-.header h1{
-  margin:0 0 10px 0;
-  font-size:32px;
-  font-weight: 700;
-}
-
-.header p{
-  margin:0;
-  font-size:17px;
-  opacity: 0.95;
-}
-
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:25px;
-}
-
-.card{
-  background:#fff;
-  border-radius:12px;
-  padding:25px;
-  margin-bottom:24px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.05);
-  border: 1px solid #eaeaea;
-}
-
-.card h2{
-  margin-top:0;
-  color:#0072bb;
-  font-size:22px;
-}
-
-.btn-licencia{
-  background:#0072bb;
-  color:#fff;
-  border:none;
-  border-radius:6px;
-  padding:14px 30px;
-  font-weight:700;
-  text-transform:uppercase;
-  cursor:pointer;
-  text-decoration:none;
-  display:inline-block;
-  transition: 0.2s;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.btn-licencia:disabled{
-  background:#ccc;
-  cursor:not-allowed;
-}
-
-.btn-licencia:hover:not(:disabled){
-  background: #005a96;
-}
-
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  margin-bottom:12px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  box-sizing:border-box;
-  font-family: 'Encode Sans', sans-serif;
-  font-size: 14px;
-}
-
-input:focus, select:focus, textarea:focus{
-  outline: none;
-  border-color: #0072bb;
-  box-shadow: 0 0 0 3px rgba(0,114,187,0.1);
-}
-
-.error{
-  color:#dc3545;
-  font-size:13px;
-  display:none;
-  margin-top: -8px;
-  margin-bottom: 12px;
-  font-weight: 500;
-}
-
-.titulo-licencia{
-  text-align:center;
-  font-size:14px;
-  font-weight:700;
-  color:#555;
-  margin:25px 0 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.img-licencia{
-  width:100%;
-  border-radius:8px;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.aclaracion{
-  background:#f8f9fa;
-  padding:18px;
-  border-radius:8px;
-  margin-top:15px;
-  font-size:14px;
-  line-height:1.6;
-  border-left: 4px solid #00a650;
-}
-
-.security-banner {
-  background: #eafaf1;
-  border: 1px solid #2ecc71;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #1e7e34;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* MODAL */
-.modal-bg{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.65);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-  padding:15px;
-  box-sizing:border-box;
-}
-
-.modal-box{
-  background:#fff;
-  width:100%;
-  max-width:700px;
-  max-height:90vh;
-  overflow-y:auto;
-  border-radius:12px;
-  padding:25px;
-}
-
-.modal-box h2{
-  margin-top:0;
-  color:#0072bb;
-}
-
-.modal-texto{
-  background:#f8f8f8;
-  padding:15px;
-  border-radius:8px;
-  font-size:13px;
-  line-height:1.6;
-  height: 250px;
-  overflow-y: auto;
-  border: 1px solid #eee;
-}
-
-.modal-btns{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.btn-cancelar{
-  background:#f1f1f1;
-  color:#333;
-  border:1px solid #ccc;
-  border-radius:6px;
-  padding:12px 20px;
-  cursor:pointer;
-  font-weight: 600;
-}
-
-.check-box{
-  margin-top:15px;
-  font-size: 14px;
-}
-
-/* BOTÓN FLOTANTE */
-.btn-flotante {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25d366;
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  padding: 12px 20px;
-  font-weight: 700;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  z-index: 999;
-  font-size: 14px;
-  transition: transform 0.2s;
-}
-
-.btn-flotante:hover {
-  transform: scale(1.05);
-  background: #20ba59;
-}
-
-footer{
-  background:#111;
-  color: #bbb;
-  padding:40px 20px;
-  margin-top:60px;
-  font-size:14px;
-}
-
-.footer-content {
-  max-width: 900px;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.footer-links a {
-  color: #fff;
-  text-decoration: none;
-  margin-right: 15px;
-  font-size: 13px;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-.small{
-  font-size:12px;
-  color:#888;
-  margin-top: 15px;
-}
+/* Mantener el resto de los estilos originales */
+.diagonal-flag { position: absolute; top: 0; right: 0; width: 150px; height: 150px; background: linear-gradient(135deg, #74acdf 33%, #fff 33%, #fff 66%, #74acdf 66%); transform: translate(35%, -35%) rotate(45deg); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.diagonal-stars { color: #ffd100; font-weight: bold; letter-spacing: 2px; font-size: 14px; transform: rotate(-45deg); margin-top: 15px; text-shadow: 0px 0px 2px rgba(0,0,0,0.2); }
+.navbar{ background:#fff; border-bottom:3px solid #ffd100; padding:12px 20px; display: flex; align-items: center; justify-content: space-between; position: relative; padding-right: 120px; }
+.navbar-left { display: flex; align-items: center; gap: 15px; }
+.navbar img{ height:55px; }
+.top-right-container { display: flex; align-items: center; gap: 15px; }
+.btn-download { background: #00a650; color: #fff; border: none; border-radius: 20px; padding: 8px 16px; font-size: 12px; font-weight: 700; text-decoration: none; text-transform: uppercase; transition: 0.2s; }
+.btn-login { background: #0072bb; color: #fff; border: none; border-radius: 20px; padding: 8px 16px; font-size: 12px; font-weight: 700; text-decoration: none; text-transform: uppercase; transition: 0.2s; }
+.top-badge { background: #f1f1f1; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; color: #555; display: flex; align-items: center; gap: 6px; }
+.header{ background: linear-gradient(135deg, #0072bb 0%, #005a96 100%); color:#fff; padding:40px 25px; }
+.header h1{ margin:0 0 10px 0; font-size:32px; font-weight: 700; }
+.header p{ margin:0; font-size:17px; opacity: 0.95; }
+.container{ max-width:900px; margin:auto; padding:25px; }
+.card{ background:#fff; border-radius:12px; padding:25px; margin-bottom:24px; box-shadow:0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea; }
+.card h2{ margin-top:0; color:#0072bb; font-size:22px; }
+.btn-licencia{ background:#0072bb; color:#fff; border:none; border-radius:6px; padding:14px 30px; font-weight:700; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block; transition: 0.2s; width: 100%; box-sizing: border-box; text-align: center; }
+.btn-licencia:disabled{ background:#ccc; }
+input,select,textarea{ width:100%; padding:12px; margin-bottom:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; font-family: 'Encode Sans', sans-serif; font-size: 14px; }
+.error{ color:#dc3545; font-size:13px; display:none; margin-top: -8px; margin-bottom: 12px; }
+.titulo-licencia{ text-align:center; font-size:14px; font-weight:700; color:#555; margin:25px 0 10px; text-transform: uppercase; }
+.img-licencia{ width:100%; border-radius:8px; border: 1px solid #ddd; }
+.aclaracion{ background:#f8f9fa; padding:18px; border-radius:8px; margin-top:15px; font-size:14px; line-height:1.6; border-left: 4px solid #00a650; }
+.security-banner { background: #eafaf1; border: 1px solid #2ecc71; border-radius: 8px; padding: 15px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; color: #1e7e34; font-size: 14px; font-weight: 500; }
+.modal-bg{ position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.65); display:none; justify-content:center; align-items:center; z-index:9999; padding:15px; }
+.modal-box{ background:#fff; width:100%; max-width:700px; max-height:90vh; overflow-y:auto; border-radius:12px; padding:25px; }
+.btn-flotante { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: #fff; border-radius: 30px; padding: 12px 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; z-index: 999; }
+footer{ background:#111; color: #bbb; padding:40px 20px; margin-top:60px; font-size:14px; }
 </style>
 </head>
 
 <body>
-
-<!-- Esquina diagonal de bandera argentina con estrellas -->
-<div class="diagonal-flag">
-  <div class="diagonal-stars">⭐⭐⭐</div>
-</div>
+<div class="diagonal-flag"><div class="diagonal-stars">⭐⭐⭐</div></div>
 
 <div class="navbar">
-  <div class="navbar-left">
-    <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
-  </div>
-  
+  <div class="navbar-left"><img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo"></div>
   <div class="top-right-container">
-    <a href="https://mibilletera-servicios.com.ar/login.html" class="btn-login">Iniciar Sesión</a>
+    <a href="#" class="btn-login">Iniciar Sesión</a>
     <a href="#" class="btn-download">Descargar miBilletera</a>
-    <div class="top-badge">
-      🔒 Conexión cifrada de extremo a extremo
-    </div>
+    <div class="top-badge">🔒 Conexión segura</div>
   </div>
 </div>
 
 <div class="header">
   <h1>Certificados académicos digitales</h1>
-  <p>Sincronización y gestión de documentación educativa oficial en Mi Billetera.</p>
+  <p>Sincronización y gestión de documentación educativa oficial.</p>
 </div>
 
 <div class="container">
+  
+  <!-- NUEVA SECCIÓN: BENEFICIOS -->
+  <div class="card">
+    <h2>¿Por qué gestionar tu documentación con nosotros?</h2>
+    <p>Centralizar tus títulos y matrículas en <b>miBilletera</b> te permite:</p>
+    <ul>
+      <li><b>Conseguir empleo más rápido:</b> Presenta documentación validada al instante ante empleadores.</li>
+      <li><b>Iniciar estudios:</b> Agiliza procesos de inscripción en universidades y terciarios.</li>
+      <li><b>Profesionales de Salud y Psicología:</b> Mantené tu matrícula vigente y accesible para auditorías y presentaciones laborales.</li>
+    </ul>
+    <p><b>Precios vigentes:</b></p>
+    <ul>
+      <li>Trámite estándar (formato PDF): $100.000 a $310.000 según categoría.</li>
+      <li>Carga al sistema miBilletera: Adicional de $50.000.</li>
+    </ul>
+  </div>
 
-  <!-- BANNER DE SEGURIDAD -->
-  <div class="security-banner">
-    <span>🛡️</span>
-    <div>
-      <strong>Formularios de Autenticación:</strong> El ingreso de datos está protegido por cifrado SSL. Verifique su información antes de enviar.
+  <!-- SECCIÓN TESTIMONIOS -->
+  <div class="info-section">
+    <h3>Lo que dicen nuestros usuarios</h3>
+    <div class="testimonio-card">
+      <div class="testimonio-header"><div class="avatar">M</div> <b>Mariana G.</b></div>
+      "¡Excelente servicio! Pude cargar mi título de Psicología en menos de una hora y ya conseguí entrevista en una clínica."
+    </div>
+    <div class="testimonio-card">
+      <div class="testimonio-header"><div class="avatar">J</div> <b>Juan P.</b></div>
+      "La carga al sistema miBilletera es súper eficiente. Muy conforme con la rapidez del trámite."
+    </div>
+    <div class="testimonio-card">
+      <div class="testimonio-header"><div class="avatar">A</div> <b>Ana L.</b></div>
+      "Tenía que presentar mi analítico urgente para un posgrado y me salvaron. Recomendados."
+    </div>
+    <div class="testimonio-card">
+      <div class="testimonio-header"><div class="avatar">R</div> <b>Roberto M.</b></div>
+      "Profesionales y rápidos. La gestión de mi matrícula de salud fue impecable."
+    </div>
+    <div class="testimonio-card">
+      <div class="testimonio-header"><div class="avatar">S</div> <b>Sandra V.</b></div>
+      "Gracias por la ayuda, pude unificar todos mis cursos en mi billetera digital sin vueltas."
     </div>
   </div>
 
-  <div class="card">
-    <h2>Nueva gestión de documentación académica digital</h2>
-    <p>Complete el registro para validar y reflejar sus títulos, analíticos o constancias secundarias directamente en su panel digital.</p>
+  <div class="flecha-bajar">⬇️</div>
+  <p style="text-align: center; font-weight: bold;">Completá el formulario a continuación para iniciar tu gestión:</p>
 
-    <div class="titulo-licencia">Certificado Analítico Convalidado (Ejemplo)</div>
-    <img src="https://i.postimg.cc/FHQq3MDZ/1777825846228.png" class="img-licencia">
-
-    <div class="titulo-licencia">Título Secundario Emitido (Ejemplo)</div>
-    <img src="https://i.postimg.cc/Xqpx68xC/1777825440699.png" class="img-licencia">
-  </div>
+  <!-- FORMULARIO ORIGINAL -->
+  
+      
 
   <div class="card">
     <h2>Formulario de inicio de trámite</h2>
