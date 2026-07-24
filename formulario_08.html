@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario 08-D Motovehículo - DNRPA</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f5;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #006633;
+            padding: 15px 20px;
+            border-radius: 6px;
+            color: white;
+        }
+        .toolbar h2 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .btn-pdf {
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-pdf:hover {
+            background-color: #e6b800;
+        }
+        
+        /* Form 08 layout styling */
+        .form-sheet {
+            border: 3px solid #009933;
+            padding: 15px;
+            background: #ffffff;
+            position: relative;
+        }
+        .form-header {
+            border-bottom: 2px solid #009933;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .form-header-left {
+            font-size: 8pt;
+            max-width: 70%;
+            line-height: 1.2;
+        }
+        .form-header-right {
+            border: 2px solid #009933;
+            background: #d4edda;
+            padding: 5px 15px;
+            font-weight: bold;
+            font-size: 10pt;
+            text-align: center;
+        }
+        .title-box {
+            text-align: center;
+            background: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 6px;
+            font-weight: bold;
+            font-size: 9pt;
+            margin-bottom: 10px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .section-box {
+            border: 1px solid #009933;
+            padding: 8px;
+            position: relative;
+            background: #fff;
+            min-height: 120px;
+        }
+        .section-title {
+            font-size: 8pt;
+            font-weight: bold;
+            color: #006633;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #a3d9b1;
+            padding-bottom: 2px;
+        }
+        .field-group {
+            margin-bottom: 6px;
+        }
+        .field-group label {
+            display: block;
+            font-size: 7.5pt;
+            color: #444;
+            margin-bottom: 1px;
+        }
+        .field-group input, .field-group select {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #666;
+            padding: 3px 2px;
+            font-size: 9pt;
+            background: #fff;
+            outline: none;
+        }
+        .field-group input:focus, .field-group select:focus {
+            background: #eef9f2;
+            border-bottom: 2px solid #009933;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        .checkbox-row {
+            display: flex;
+            gap: 15px;
+            font-size: 8pt;
+            margin-top: 4px;
+            align-items: center;
+        }
+        .vehicle-section {
+            border: 1px solid #009933;
+            padding: 10px;
+            margin-top: 10px;
+            background: #fdfdfd;
+        }
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .legal-text {
+            font-size: 6.5pt;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.1;
+            border-top: 1px dashed #ccc;
+            padding-top: 5px;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .toolbar {
+                display: none;
+            }
+            .form-sheet {
+                border: 2px solid #000;
+            }
+            input, select {
+                border-bottom: 1px solid #000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="toolbar">
+        <h2>Formulario 08-D Motovehículo (Editable en Vivo)</h2>
+        <button class="btn-pdf" onclick="window.print()">📥 Imprimir / Guardar como PDF</button>
+    </div>
+
+    <div class="form-sheet">
+        <div class="form-header">
+            <div class="form-header-left">
+                <strong>MINISTERIO DE JUSTICIA Y DERECHOS HUMANOS</strong><br>
+                REGISTRO NACIONAL DE LA PROPIEDAD DEL AUTOMOTOR<br>
+                <strong>CONTRATO DE TRANSFERENCIA - INSCRIPCIÓN DE DOMINIO</strong><br>
+                (DEC. LEY 6582/58 Y SUS MODIFICACIONES)
+            </div>
+            <div class="form-header-right">
+                08<br>
+                <span style="font-size: 7pt; font-weight: normal;">ORIGINAL PARA LEGAJO "B"</span>
+            </div>
+        </div>
+
+        <div class="title-box">
+            CONTRATO DE TRANSFERENCIA DE MOTOVEHÍCULOS
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 5px;">
+            <div class="field-group" style="grid-column: span 2;">
+                <label>LUGAR Y FECHA DE CELEBRACIÓN DEL CONTRATO</label>
+                <input type="text" placeholder="Ej: Buenos Aires, 24 de Octubre de 2026">
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- SECCION A: VENDEDOR -->
+            <div class="section-box">
+                <div class="section-title">“A” - VENDEDOR O TITULAR ACTUAL</div>
+                <div class="field-group">
+                    <label>APELLIDO Y NOMBRE / DENOMINACIÓN</label>
+                    <input type="text" placeholder="Ingrese apellido y nombre del titular">
+                </div>
+                <div class="field-group">
+                    <label>DOMICILIO REAL (Calle, Número, Localidad, Provincia)</label>
+                    <input type="text" placeholder="Calle, Nro, Piso, Depto, Localidad">
+                </div>
+                <div class="grid-2" style="gap:5px; margin-bottom: 4px;">
+                    <div class="field-group">
+                        <label>TIPO Y N° DE DOCUMENTO</label>
+                        <input type="text" placeholder="DNI 00000000">
+                    </div>
+                    <div class="field-group">
+                        <label>CUIT / CUIL</label>
+                        <input type="text" placeholder="20-00000000-0">
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>ESTADO CIVIL</label>
+                    <div class="checkbox-row">
+                        <label><input type="checkbox"> Soltero/a</label>
+                        <label><input type="checkbox"> Casado/a</label>
+                        <label><input type="checkbox"> Divorciado/a</label>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>APELLIDO Y NOMBRE DEL CÓNYUGE (si corresponde)</label>
+                    <input type="text" placeholder="Nombre del cónyuge">
+                </div>
+            </div>
+
+            <!-- SECCION B: COMPRADOR -->
+            <div class="section-box">
+                <div class="section-title">“D” - COMPRADOR O ADQUIRENTE</div>
+                <div class="field-group">
+                    <label>APELLIDO Y NOMBRE / DENOMINACIÓN</label>
+                    <input type="text" placeholder="Ingrese apellido y nombre del comprador">
+                </div>
+                <div class="field-group">
+                    <label>DOMICILIO REAL (Calle, Número, Localidad, Provincia)</label>
+                    <input type="text" placeholder="Calle, Nro, Piso, Depto, Localidad">
+                </div>
+                <div class="grid-2" style="gap:5px; margin-bottom: 4px;">
+                    <div class="field-group">
+                        <label>TIPO Y N° DE DOCUMENTO</label>
+                        <input type="text" placeholder="DNI 00000000">
+                    </div>
+                    <div class="field-group">
+                        <label>CUIT / CUIL</label>
+                        <input type="text" placeholder="20-00000000-0">
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>ESTADO CIVIL</label>
+                    <div class="checkbox-row">
+                        <label><input type="checkbox"> Soltero/a</label>
+                        <label><input type="checkbox"> Casado/a</label>
+                        <label><input type="checkbox"> Divorciado/a</label>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>APELLIDO Y NOMBRE DEL CÓNYUGE (si corresponde)</label>
+                    <input type="text" placeholder="Nombre del cónyuge">
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCION VEHICULO -->
+        <div class="vehicle-section">
+            <div class="section-title">“F” - MOTOVEHÍCULOS QUE SE TRANSFIERE</div>
+            <div class="vehicle-grid">
+                <div class="field-group">
+                    <label>DOMINIO (PATENTE) / N° DE CHASIS</label>
+                    <input type="text" placeholder="Ej: 123ABC o N° de chasis">
+                </div>
+                <div class="field-group">
+                    <label>MARCA MOTOR</label>
+                    <input type="text" placeholder="Marca del motor">
+                </div>
+                <div class="field-group">
+                    <label>MARCA</label>
+                    <input type="text" placeholder="Ej: Honda, Yamaha, Zanella">
+                </div>
+                <div class="field-group">
+                    <label>N° DE MOTOR</label>
+                    <input type="text" placeholder="Número de motor">
+                </div>
+                <div class="field-group">
+                    <label>TIPO</label>
+                    <input type="text" placeholder="Ej: Motocicleta / Scooter">
+                </div>
+                <div class="field-group">
+                    <label>N° DE CUADRO</label>
+                    <input type="text" placeholder="Número de cuadro">
+                </div>
+                <div class="field-group">
+                    <label>MODELO (Año)</label>
+                    <input type="text" placeholder="Ej: 2023">
+                </div>
+                <div class="field-group">
+                    <label>VALOR DE TRANSFERENCIA ($)</label>
+                    <input type="text" placeholder="$ 0,00">
+                </div>
+            </div>
+        </div>
+
+        <div class="legal-text">
+            <strong>AVISO LEGAL:</strong> "Ley N° 22.977 - Será reprimido con prisión de uno a seis años, siempre que el hecho no importe un delito más severamente penado, el que insertare o hiciere insertar declaraciones falsas en el instrumento público..." La firma de los peticionarios reviste carácter de declaración jurada.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
