@@ -142,7 +142,7 @@
             object-fit: contain;
         }
         .dni-header .title-text {
-            font-size: 11.5px;
+            font-size: 9.5px;
             font-weight: 700;
             color: #0b2545;
             letter-spacing: 0.8px;
@@ -175,12 +175,13 @@
             object-fit: cover;
         }
 
-        .fields-grid {
+                .fields-grid {
             display: flex;
             flex-direction: column;
             gap: 3px;
-            position: relative;
+            position: relative; /* Necesario para que la firma respete este contenedor */
         }
+
 
         .field-group label {
             display: block;
@@ -200,13 +201,14 @@
             gap: 15px;
         }
 
-        .signature-box {
+                .signature-box {
             position: absolute;
-            right: 10px;
-            bottom: 35px;
-            width: 110px;
+            left: 130px;  /* Ubicación alineada a la columna de datos */
+            bottom: 35px; /* Distancia desde la parte inferior */
+            width: 130px;
             height: 35px;
         }
+
         .signature-box img {
             width: 100%;
             height: 100%;
