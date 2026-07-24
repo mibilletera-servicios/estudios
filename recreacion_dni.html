@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recreación DNI Digital - Diseño Privado</title>
-    <!-- html2pdf library for client-side PDF generation -->
+    <title>Recreación DNI Digital - Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --primary-color: #0077c8;
-            --dni-bg: #e6f4f8;
-            --text-color: #1a1a1a;
         }
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             background-color: #12161c;
             color: #ffffff;
             margin: 0;
@@ -29,15 +27,28 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             display: flex;
+            flex-wrap: wrap;
             gap: 15px;
             align-items: center;
+            max-width: 920px;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 11px;
+            color: #8b949e;
+        }
+        .control-group input[type="file"] {
+            color: #fff;
+            font-size: 11px;
         }
         .btn {
             background-color: #238636;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 14px;
+            padding: 8px 16px;
+            font-size: 13px;
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
@@ -50,7 +61,6 @@
         }
         .toggle-edit-btn:hover { background-color: #388bfd; }
 
-        /* App Container wrapper matching the screenshot */
         .app-container {
             background-color: #1e242b;
             border-radius: 12px;
@@ -79,7 +89,9 @@
         .dni-card {
             width: 420px;
             height: 265px;
-            background: linear-gradient(135deg, #bfe3ed 0%, #e1f4f8 50%, #c4e7f2 100%);
+            background-size: cover;
+            background-position: center;
+            background-color: #bfe3ed;
             border-radius: 12px;
             position: relative;
             box-shadow: 0 6px 20px rgba(0,0,0,0.4);
@@ -89,19 +101,18 @@
             font-size: 11px;
         }
 
-        /* Editable elements styling */
+        /* Editable elements styling - visible solo en modo edición activa */
+        .editing [contenteditable="true"] {
+            border: 1px dashed #0077c8;
+            background: rgba(255,255,255,0.7);
+            border-radius: 3px;
+            padding: 1px 3px;
+        }
         [contenteditable="true"] {
             border: 1px dashed transparent;
             padding: 1px 3px;
             border-radius: 3px;
             transition: all 0.2s;
-        }
-        .editing [contenteditable="true"] {
-            border-color: #0077c8;
-            background: rgba(255,255,255,0.7);
-        }
-        [contenteditable="true"]:hover {
-            border-color: #1f6feb;
         }
 
         /* Front Card Specifics */
@@ -117,19 +128,29 @@
             padding-bottom: 4px;
             margin-bottom: 8px;
         }
-        .dni-header img.escudo {
+        .escudo-box {
             width: 25px;
             height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .escudo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         .dni-header .title-text {
-            font-size: 11px;
-            font-weight: bold;
+            font-size: 11.5px;
+            font-weight: 700;
             color: #0b2545;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
         .dni-header .sub-title {
-            font-size: 6px;
-            color: #333;
+            font-size: 6.5px;
+            font-weight: 500;
+            color: #222;
         }
 
         .dni-body {
@@ -156,7 +177,8 @@
         .fields-grid {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
+            position: relative;
         }
 
         .field-group label {
@@ -164,11 +186,11 @@
             font-size: 7px;
             color: #444;
             text-transform: uppercase;
-            font-weight: bold;
+            font-weight: 700;
         }
         .field-group .val {
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 12.5px;
+            font-weight: 700;
             color: #0b2545;
         }
 
@@ -177,26 +199,19 @@
             gap: 15px;
         }
 
-        .sun-bg {
+        .signature-box {
             position: absolute;
-            right: 20px;
-            top: 30px;
-            width: 120px;
-            height: 120px;
-            opacity: 0.15;
-            z-index: 0;
-            pointer-events: none;
+            right: 10px;
+            bottom: 35px;
+            width: 110px;
+            height: 35px;
+        }
+        .signature-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
-        .mini-photo-top {
-            position: absolute;
-            right: 50px;
-            top: 5px;
-            width: 30px;
-            height: 38px;
-            border: 1px solid #555;
-            background: #bbb;
-        }
         .mini-photo-bottom {
             position: absolute;
             right: 15px;
@@ -205,14 +220,12 @@
             height: 48px;
             border: 1px solid #555;
             background: #bbb;
+            overflow: hidden;
         }
-        .mapa-arg {
-            position: absolute;
-            right: 15px;
-            top: 45px;
-            width: 45px;
-            opacity: 0.3;
-            pointer-events: none;
+        .mini-photo-bottom img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Back Card Specifics */
@@ -243,24 +256,25 @@
             background: white;
             padding: 3px;
             border: 1px solid #ccc;
+            overflow: hidden;
         }
         .qr-code img {
             width: 100%;
             height: 100%;
+            object-fit: contain;
         }
 
         .mrz {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
             color: #0b2545;
-            background: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.5);
             padding: 4px;
             border-radius: 4px;
         }
 
-        /* App Banner / Footer UI */
         .app-banner {
             background: #e1e4e8;
             color: #24292e;
@@ -307,7 +321,35 @@
     <div class="controls">
         <button class="btn toggle-edit-btn" onclick="toggleEditMode()">Bloquear / Desbloquear Edición</button>
         <button class="btn" onclick="downloadPDF()">Descargar en PDF</button>
-        <span style="font-size: 12px; color: #8b949e;">Haz clic sobre cualquier texto o imagen para editarlo en vivo.</span>
+        
+        <div class="control-group">
+            <label>Escudo:</label>
+            <input type="file" id="upload-escudo" accept="image/*" onchange="loadEscudo(event)">
+        </div>
+        <div class="control-group">
+            <label>Foto Principal:</label>
+            <input type="file" id="upload-photo" accept="image/*" onchange="loadMainPhoto(event)">
+        </div>
+        <div class="control-group">
+            <label>Foto Chiquita:</label>
+            <input type="file" id="upload-mini-photo" accept="image/*" onchange="loadMiniPhoto(event)">
+        </div>
+        <div class="control-group">
+            <label>Firma:</label>
+            <input type="file" id="upload-signature" accept="image/*" onchange="loadSignature(event)">
+        </div>
+        <div class="control-group">
+            <label>Código QR:</label>
+            <input type="file" id="upload-qr" accept="image/*" onchange="loadQR(event)">
+        </div>
+        <div class="control-group">
+            <label>Fondo Frente:</label>
+            <input type="file" id="upload-bg-front" accept="image/*" onchange="loadBgFront(event)">
+        </div>
+        <div class="control-group">
+            <label>Fondo Dorso:</label>
+            <input type="file" id="upload-bg-back" accept="image/*" onchange="loadBgBack(event)">
+        </div>
     </div>
 
     <div class="app-container" id="dni-app-capture">
@@ -315,11 +357,12 @@
             <div class="dni-cards-row">
                 
                 <!-- TARJETA FRENTE -->
-                <div class="dni-card dni-front">
+                <div class="dni-card dni-front" id="card-front-bg">
                     <div class="dni-header">
                         <div style="display:flex; align-items: center; gap: 6px;">
-                            <!-- Escudo placeholder SVG / base64 -->
-                            <svg class="escudo" viewBox="0 0 24 24" fill="#0b2545"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3m0 2.18l7 2.33v4.99c0 4.54-3.2 8.82-7 9.88-3.8-1.06-7-5.34-7-9.88V7.51l7-2.33z"/></svg>
+                            <div class="escudo-box">
+                                <img id="escudo-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230b2545'><path d='M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3m0 2.18l7 2.33v4.99c0 4.54-3.2 8.82-7 9.88-3.8-1.06-7-5.34-7-9.88V7.51l7-2.33z'/></svg>" alt="Escudo">
+                            </div>
                             <div>
                                 <div class="sub-title" contenteditable="true">REPÚBLICA ARGENTINA - MERCOSUR</div>
                                 <div class="sub-title" contenteditable="true">REGISTRO NACIONAL DE LAS PERSONAS</div>
@@ -329,81 +372,78 @@
                     </div>
 
                     <div class="dni-body">
-                        <div class="photo-box" contenteditable="false" title="Haz clic para cambiar foto (puedes pegar una URL o arrastrar)">
-                            <!-- Foto principal simulada con placeholder o imagen -->
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80" alt="Foto DNI" id="main-photo" style="width:100%; height:100%; object-fit:cover;">
+                        <div class="photo-box">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80" alt="Foto DNI" id="main-photo">
                         </div>
 
                         <div class="fields-grid">
                             <div class="field-group">
-                                <label>Apellido / Surname</label>
+                                <label contenteditable="true">Apellido / Surname</label>
                                 <div class="val" contenteditable="true">GONZALEZ RODRIGUEZ</div>
                             </div>
                             <div class="field-group">
-                                <label>Nombres / Names</label>
+                                <label contenteditable="true">Nombres / Names</label>
                                 <div class="val" contenteditable="true">MARIANA FLORENCIA</div>
                             </div>
                             <div class="row-fields">
                                 <div class="field-group" style="flex:1;">
-                                    <label>Sexo / Sex</label>
+                                    <label contenteditable="true">Sexo / Sex</label>
                                     <div class="val" contenteditable="true">F</div>
                                 </div>
                                 <div class="field-group" style="flex:3;">
-                                    <label>Nacionalidad / Nationality</label>
+                                    <label contenteditable="true">Nacionalidad / Nationality</label>
                                     <div class="val" contenteditable="true">ARGENTINA</div>
                                 </div>
                             </div>
                             <div class="field-group">
-                                <label>Documento / Document N°</label>
+                                <label contenteditable="true">Documento / Document N°</label>
                                 <div class="val" contenteditable="true">99.999.999</div>
                             </div>
                             <div class="row-fields">
                                 <div class="field-group" style="flex:1;">
-                                    <label>Fecha de emisión</label>
+                                    <label contenteditable="true">Fecha de emisión</label>
                                     <div class="val" style="font-size:10px;" contenteditable="true">30.10.2020</div>
                                 </div>
                                 <div class="field-group" style="flex:1;">
-                                    <label>Ejemplar</label>
+                                    <label contenteditable="true">Ejemplar</label>
                                     <div class="val" contenteditable="true">A</div>
                                 </div>
+                            </div>
+                            <div class="signature-box">
+                                <img id="signature-img" src="" alt="" style="display:none;">
                             </div>
                         </div>
                     </div>
 
-                    <!-- Elementos decorativos / fondo -->
                     <div style="position: absolute; right: 10px; bottom: 8px; font-size: 8px; color: #555;" contenteditable="true">123456</div>
                     <div style="position: absolute; right: 80px; bottom: 8px; font-size: 8px; color: #555;" contenteditable="true">000122334</div>
-                    <div style="position: absolute; right: 15px; bottom: 45px;" class="mini-photo-bottom" contenteditable="false">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div style="position: absolute; right: 55px; top: 40px;" class="mini-photo-top" contenteditable="false">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" style="width:100%;height:100%;object-fit:cover;">
+                    <div class="mini-photo-bottom">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Mini Foto" id="mini-photo">
                     </div>
                 </div>
 
                 <!-- TARJETA DORSO -->
-                <div class="dni-card dni-back">
+                <div class="dni-card dni-back" id="card-back-bg">
                     <div class="back-top">
                         <div class="back-fields">
                             <div class="field-group">
-                                <label>Domicilio / Address</label>
+                                <label contenteditable="true">Domicilio / Address</label>
                                 <div class="val" style="font-size:11px;" contenteditable="true">SAN MARTIN 2538<br>CAÑUELAS - CAÑUELAS - BUENOS AIRES</div>
                             </div>
                             <div class="field-group">
-                                <label>Lugar de nacimiento / Place of birth</label>
+                                <label contenteditable="true">Lugar de nacimiento / Place of birth</label>
                                 <div class="val" style="font-size:11px;" contenteditable="true">PROVINCIA DE BUENOS AIRES</div>
                             </div>
                         </div>
                         <div class="qr-code">
-                            <!-- Simulación QR -->
-                            <svg viewBox="0 0 24 24" fill="black"><path d="M3 3h8v8H3V3m2 2v4h4V5H5m8-2h8v8h-8V3m2 2v4h4V5h-4M3 13h8v8H3v-8m2 2v4h4v-4H5m13-2h3v2h-3v-2m-3 0h2v3h-2v-3m3 3h3v3h-3v-3m-6 3h2v2h-2v-2m3 0h3v3h-3v-3z"/></svg>
+                            <img id="qr-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M3 3h8v8H3V3m2 2v4h4V5H5m8-2h8v8h-8V3m2 2v4h4V5h-4M3 13h8v8H3v-8m2 2v4h4v-4H5m13-2h3v2h-3v-2m-3 0h2v3h-2v-3m3 3h3v3h-3v-3m-6 3h2v2h-2v-2m3 0h3v3h-3v-3z'/></svg>" alt="QR">
                         </div>
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center; margin: 5px 0;">
                         <div style="font-size: 8px;" contenteditable="true">CPN Diego César Santilli<br>Ministro del Interior</div>
-                        <div style="font-size: 9px;">CUIL: <span contenteditable="true">27-99999999-0</span></div>
-                        <div style="font-size: 9px;">Trámite N°: <span contenteditable="true">00570060060</span></div>
+                        <div style="font-size: 9px;" contenteditable="true">CUIL: 27-99999999-0</div>
+                        <div style="font-size: 9px;" contenteditable="true">Trámite N°: 00570060060</div>
                     </div>
 
                     <div class="mrz" contenteditable="true">
@@ -446,39 +486,112 @@
             const body = document.body;
             if (body.classList.contains('editing')) {
                 body.classList.remove('editing');
-                alert('Modo edición BLOQUEADO. Ahora puedes descargar el PDF.');
+                alert('Modo edición BLOQUEADO. Las líneas punteadas desaparecen para una vista natural y lista para PDF.');
             } else {
                 body.classList.add('editing');
-                alert('Modo edición DESBLOQUEADO. Puedes hacer clic en cualquier texto o campo para editarlo.');
+                alert('Modo edición DESBLOQUEADO.');
             }
         }
 
         function downloadPDF() {
-            // Desbloquear temporalmente si estaba bloqueado para asegurar que se capture bien o simplemente capturar
+            const wasEditing = document.body.classList.contains('editing');
+            if (wasEditing) {
+                document.body.classList.remove('editing');
+            }
             const element = document.getElementById('dni-app-capture');
             const opt = {
                 margin:       10,
-                filename:     'dni_argentina_recreacion.pdf',
+                filename:     'dni_argentina_profesional.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true, logging: false },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
             };
-
-            // Generar PDF usando html2pdf
-            html2pdf().from(element).set(opt).save();
+            html2pdf().from(element).set(opt).save().then(() => {
+                if (wasEditing) {
+                    document.body.classList.add('editing');
+                }
+            });
         }
 
-        // Permitir cambiar la foto principal haciendo clic en ella
-        document.getElementById('main-photo').addEventListener('click', function() {
-            const newUrl = prompt('Ingresa la URL de la nueva foto:', this.src);
-            if (newUrl) {
-                this.src = newUrl;
-                document.querySelectorAll('.mini-photo-top img, .mini-photo-bottom img').forEach(img => {
-                    img.src = newUrl;
-                });
+        function loadEscudo(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('escudo-img').src = e.target.result;
+                     }
+                reader.readAsDataURL(file);
             }
-        });
+        }
+
+        function loadMainPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('main-photo').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function loadMiniPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('mini-photo').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function loadSignature(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const sigImg = document.getElementById('signature-img');
+                    sigImg.src = e.target.result;
+                    sigImg.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function loadQR(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('qr-img').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function loadBgFront(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('card-front-bg').style.backgroundImage = `url('${e.target.result}')`;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function loadBgBack(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('card-back-bg').style.backgroundImage = `url('${e.target.result}')`;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
     </script>
 </body>
 </html>
-
+     
