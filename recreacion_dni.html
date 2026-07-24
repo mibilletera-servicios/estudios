@@ -147,15 +147,26 @@
             letter-spacing: 0.8px;  
         }  
 
+        .dni-header-textos {  
+            display: flex;  
+            flex-direction: column;  
+            gap: 1px;  
+        }  
         .dni-header .main-sub {  
-            font-size: 7.5px;  
+            font-size: 8px;  
+            font-weight: 900;  
+            color: #0b2545;  
+            letter-spacing: 0.2px;  
+        }  
+        .dni-header .secondary-sub {  
+            font-size: 6.5px;  
             font-weight: 700;  
             color: #0b2545;  
         }  
-        .dni-header .secondary-sub {  
-            font-size: 5px;  
-            font-weight: 500;  
-            color: #333;  
+        .dni-header .third-sub {  
+            font-size: 6px;  
+            font-weight: 700;  
+            color: #0055a5;  
         }  
 
         .dni-body {  
@@ -333,9 +344,10 @@
                         <div class="escudo-box">  
                             <img id="escudo-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230b2545'><path d='M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3m0 2.18l7 2.33v4.99c0 4.54-3.2 8.82-7 9.88-3.8-1.06-7-5.34-7-9.88V7.51l7-2.33z'/></svg>" alt="Escudo">  
                         </div>  
-                        <div>  
+                        <div class="dni-header-textos">  
                             <div class="main-sub" contenteditable="true">REPÚBLICA ARGENTINA - MERCOSUR</div>  
                             <div class="secondary-sub" contenteditable="true">REGISTRO NACIONAL DE LAS PERSONAS</div>  
+                            <div class="third-sub" contenteditable="true">MINISTERIO DEL INTERIOR</div>  
                         </div>  
                     </div>  
                     <div class="title-text" contenteditable="true">DOCUMENTO NACIONAL DE IDENTIDAD</div>  
@@ -540,4 +552,4 @@
 </script>  
 
 </body>  
-</html>
+</html>  
