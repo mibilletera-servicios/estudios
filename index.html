@@ -7,91 +7,123 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        /* Configuración de colores oficiales del Estado Argentino (Sistema Poncho) */
+        /* Configuración de paleta optimizada y moderna */
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        argAzul: '#232D4F',     /* Azul institucional principal */
-                        argCeleste: '#75AADB',  /* Celeste bandera oficial */
-                        argAzulClaro: '#F0F4F8',/* Fondo suave institucional */
-                        argGrisTexto: '#333333' /* Gris oscuro para lectura óptima */
+                        argAzul: '#1B2A4A',     /* Azul institucional profundo */
+                        argAzulHover: '#131F36',/* Tono más oscuro para estados hover */
+                        argCeleste: '#3B82F6',  /* Azul dinámico moderno / Celeste institucional */
+                        argFondo: '#F8FAFC',    /* Fondo gris muy suave y limpio */
+                        argTexto: '#1E293B'     /* Texto principal de alta legibilidad */
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-argAzulClaro text-argGrisTexto font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-argFondo text-argTexto font-sans min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
 
-    <!-- Franja superior institucional (Estilo Argentina.gob.ar) -->
-    <div class="bg-argCeleste h-2 w-full"></div>
+    <!-- Franja superior institucional con degradado -->
+    <div class="h-1.5 w-full bg-gradient-to-r from-blue-600 via-sky-400 to-indigo-900"></div>
 
     <!-- Encabezado del Portal -->
-    <header class="bg-argAzul text-white shadow-md">
-        <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between">
+    <header class="bg-argAzul text-white shadow-lg border-b border-blue-900/50">
+        <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-                <span class="text-xs uppercase tracking-widest bg-blue-900 text-argCeleste px-2 py-1 rounded font-semibold">Portal Oficial de Accesos</span>
-                <h1 class="text-3xl font-bold mt-2">Panel de Servicios</h1>
+                <div class="inline-flex items-center gap-2 bg-blue-900/80 border border-blue-700/50 text-sky-300 text-xs uppercase tracking-wider px-3 py-1 rounded-full font-medium mb-3 shadow-inner">
+                    <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                    Portal Oficial de Accesos
+                </div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white">Panel de Servicios</h1>
             </div>
-            <div class="mt-4 sm:mt-0 text-sm text-blue-200">
+            <div class="text-sm text-slate-300 bg-slate-800/60 px-4 py-2 rounded-lg border border-slate-700/50 backdrop-blur-sm">
                 Plataforma integrada de gestión
             </div>
         </div>
     </header>
 
     <!-- Contenido Principal -->
-    <main class="max-w-5xl mx-auto px-6 py-12 flex-grow w-full">
+    <main class="max-w-5xl mx-auto px-6 py-14 flex-grow w-full">
         <div class="grid md:grid-cols-2 gap-8">
 
             <!-- Tarjeta SISA-RTE -->
-            <div class="bg-white rounded-lg shadow-md border-t-4 border-argAzul p-8 flex flex-col justify-between transition hover:shadow-lg">
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
                 <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-argAzulClaro text-argAzul p-3 rounded-lg font-bold text-xl">🇦🇷</div>
-                        <h2 class="text-xl font-bold text-argAzul">SISA-RTE</h2>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-argAzul flex items-center justify-center font-bold text-2xl shadow-sm border border-blue-100">
+                            🇦🇷
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-md">Salud y Trayectorias</span>
                     </div>
-                    <p class="text-sm text-gray-600 mb-2 font-semibold">
-                        Sistema Integrado de Información Sanitaria Argentino — Registro de Trayectorias y Excepciones.
+                    
+                    <h2 class="text-2xl font-bold text-argAzul mb-2">SISA-RTE</h2>
+                    <p class="text-xs text-blue-600 font-semibold uppercase tracking-wider mb-4">
+                        Sistema Integrado de Información Sanitaria Argentino
                     </p>
-                    <p class="text-gray-600 mb-6 leading-relaxed text-sm">
-                        Herramienta oficial destinada a la gestión, seguimiento y validación de trayectorias formativas y excepciones dentro del ámbito de la salud. Permite a los profesionales y entidades verificar registros de manera centralizada bajo las normativas nacionales vigentes.
+                    <p class="text-slate-600 mb-6 leading-relaxed text-sm">
+                        Herramienta oficial destinada a la gestión, seguimiento y validación de trayectorias formativas y excepciones dentro del ámbito de la salud. Permite verificar registros de manera centralizada bajo normativas vigentes.
                     </p>
                 </div>
+                
                 <a href="https://mibilletera-servicios.com.ar/sisarte.html" target="_blank" rel="noopener noreferrer" 
-                   class="block text-center bg-argAzul hover:bg-blue-900 text-white font-medium py-3 px-6 rounded transition duration-200 shadow text-sm">
-                    Ingresar a SISA-RTE
+                   class="group relative inline-flex items-center justify-center bg-argAzul hover:bg-argAzulHover text-white font-medium py-3.5 px-6 rounded-xl transition-all duration-200 shadow-md shadow-blue-900/20 text-sm overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-2">
+                        Ingresar a SISA-RTE
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
                 </a>
             </div>
 
             <!-- Tarjeta miBilletera / miArgentina -->
-            <div class="bg-white rounded-lg shadow-md border-t-4 border-argCeleste p-8 flex flex-col justify-between transition hover:shadow-lg">
+            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
                 <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-sky-50 text-sky-700 p-3 rounded-lg font-bold text-xl">📱</div>
-                        <h2 class="text-xl font-bold text-argAzul">miBilletera / miArgentina</h2>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-xl shadow-sm border border-sky-100">
+                            📱
+                        </div>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-sky-50 text-sky-700 rounded-md">Identidad Digital</span>
                     </div>
-                    <p class="text-sm text-gray-600 mb-2 font-semibold">
-                        Accedé a tus documentos digitales con total validez.
+
+                    <h2 class="text-2xl font-bold text-argAzul mb-2">miBilletera / miArgentina</h2>
+                    <p class="text-xs text-sky-600 font-semibold uppercase tracking-wider mb-4">
+                        Documentación digital con validez oficial
                     </p>
-                    <p class="text-gray-600 mb-4 leading-relaxed text-sm">
-                        A través del portal de consulta ágil podés visualizar, verificar y gestionar tus credenciales personales con total validez digital desde cualquier dispositivo móvil las 24 horas del día.
+                    <p class="text-slate-600 mb-6 leading-relaxed text-sm">
+                        Visualizá, verificá y gestioná tus credenciales personales de forma ágil y segura desde cualquier dispositivo móvil las 24 horas del día.
                     </p>
                     
                     <!-- Lista de servicios habilitados -->
-                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 mb-6">
-                        <p class="text-xs font-bold text-argAzul uppercase tracking-wider mb-2">Servicios de consulta habilitados:</p>
-                        <ul class="text-xs text-gray-600 space-y-1.5">
-                            <li class="flex items-center">✓ Sincronización inmediata del DNI Digital</li>
-                            <li class="flex items-center">✓ Visualización de Certificados Académicos, Títulos y Analíticos</li>
-                            <li class="flex items-center">✓ Carnet de Manipulación de Alimentos habilitado</li>
-                            <li class="flex items-center">✓ Licencia Nacional de Conducir digital</li>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mb-6">
+                        <p class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Servicios habilitados:</p>
+                        <ul class="text-xs text-slate-600 space-y-2">
+                            <li class="flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-[10px]">✓</span> 
+                                Sincronización inmediata del DNI Digital
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-[10px]">✓</span> 
+                                Certificados Académicos, Títulos y Analíticos
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-[10px]">✓</span> 
+                                Carnet de Manipulación de Alimentos
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-[10px]">✓</span> 
+                                Licencia Nacional de Conducir digital
+                            </li>
                         </ul>
                     </div>
                 </div>
+
                 <a href="https://mibilletera-servicios.com.ar/mibilletera.html" target="_blank" rel="noopener noreferrer" 
-                   class="block text-center bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-6 rounded transition duration-200 shadow text-sm">
-                    Ingresar a miBilletera
+                   class="group relative inline-flex items-center justify-center bg-sky-600 hover:bg-sky-700 text-white font-medium py-3.5 px-6 rounded-xl transition-all duration-200 shadow-md shadow-sky-600/20 text-sm overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-2">
+                        Ingresar a miBilletera
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
                 </a>
             </div>
 
@@ -99,12 +131,13 @@
     </main>
 
     <!-- Pie de página institucional -->
-    <footer class="bg-argAzul text-blue-200 py-6 text-center text-xs">
-        <div class="max-w-6xl mx-auto px-6 space-y-2">
-            <p>Gestión centralizada de accesos y herramientas digitales.</p>
-            <p class="text-gray-400">&copy; 2026 - Todos los derechos reservados.</p>
+    <footer class="bg-argAzul text-slate-400 py-8 text-xs border-t border-blue-900/40">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <p>Gestión centralizada de accesos y herramientas digitales del Estado.</p>
+            <p class="text-slate-500">&copy; 2026 - Todos los derechos reservados.</p>
         </div>
     </footer>
 
 </body>
-</html>
+    </html>
+                        
