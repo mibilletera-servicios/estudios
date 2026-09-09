@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Acceso - Servicios</title>
+    <!-- Incluyendo Tailwind CSS para un diseño moderno y rápido -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Encabezado del Portal -->
+    <header class="bg-blue-700 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-6 py-6 text-center">
+            <h1 class="text-3xl font-bold">Portal de Servicios Integrados</h1>
+            <p class="text-blue-100 mt-2">Acceso rápido a las plataformas de gestión y herramientas financieras.</p>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-5xl mx-auto px-6 py-12 flex-grow w-full">
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- Tarjeta SISA-RTE -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8 flex flex-col justify-between transition hover:shadow-xl">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="bg-blue-100 text-blue-700 p-3 rounded-lg font-bold text-xl">🏥</div>
+                        <h2 class="text-2xl font-bold text-gray-900">SISA-RTE</h2>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        El <strong>Sistema Integrado de Información Sanitaria Argentino (SISA)</strong>, en su módulo <strong>RTE (Registro de Títulos y Establecimientos)</strong>, permite a los profesionales de la salud consultar, validar y gestionar sus matrículas, títulos y habilitaciones de manera oficial y centralizada.
+                    </p>
+                </div>
+                <a href="https://sisa.msal.gov.ar/" target="_blank" rel="noopener noreferrer" 
+                   class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow">
+                    Ingresar a SISA-RTE
+                </a>
+            </div>
+
+            <!-- Tarjeta miBilletera -->
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8 flex flex-col justify-between transition hover:shadow-xl">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="bg-emerald-100 text-emerald-700 p-3 rounded-lg font-bold text-xl">💳</div>
+                        <h2 class="text-2xl font-bold text-gray-900">miBilletera</h2>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        <strong>miBilletera</strong> es tu herramienta financiera digital personal. Desde aquí puedes administrar tus saldos, realizar pagos de forma rápida y segura, consultar movimientos recientes y gestionar tus tarjetas o métodos de cobro vinculados en un solo lugar.
+                    </p>
+                </div>
+                <a href="#enlace-a-tu-billetera" target="_blank" rel="noopener noreferrer" 
+                   class="block text-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow">
+                    Ingresar a miBilletera
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white border-t border-gray-200 py-6 text-center text-sm text-gray-500">
+        <p>&copy; 2026 Tu Portal de Servicios. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
