@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Acceso - Servicios</title>
-    <!-- Incluyendo Tailwind CSS para un diseño moderno y rápido -->
+    <title>Portal de Acceso - Servicios Digitales</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        /* Configuración de colores oficiales del Estado Argentino (Sistema Poncho) */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        argAzul: '#232D4F',     /* Azul institucional principal */
+                        argCeleste: '#75AADB',  /* Celeste bandera oficial */
+                        argAzulClaro: '#F0F4F8',/* Fondo suave institucional */
+                        argGrisTexto: '#333333' /* Gris oscuro para lectura óptima */
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-argAzulClaro text-argGrisTexto font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Franja superior institucional (Estilo Argentina.gob.ar) -->
+    <div class="bg-argCeleste h-2 w-full"></div>
 
     <!-- Encabezado del Portal -->
-    <header class="bg-blue-700 text-white shadow-md">
-        <div class="max-w-6xl mx-auto px-6 py-6 text-center">
-            <h1 class="text-3xl font-bold">Portal de Servicios Integrados</h1>
-            <p class="text-blue-100 mt-2">Acceso rápido a las plataformas de gestión y herramientas financieras.</p>
+    <header class="bg-argAzul text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between">
+            <div>
+                <span class="text-xs uppercase tracking-widest bg-blue-900 text-argCeleste px-2 py-1 rounded font-semibold">Portal Oficial de Accesos</span>
+                <h1 class="text-3xl font-bold mt-2">Panel de Servicios</h1>
+            </div>
+            <div class="mt-4 sm:mt-0 text-sm text-blue-200">
+                Plataforma integrada de gestión
+            </div>
         </div>
     </header>
 
@@ -22,35 +45,41 @@
         <div class="grid md:grid-cols-2 gap-8">
 
             <!-- Tarjeta SISA-RTE -->
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8 flex flex-col justify-between transition hover:shadow-xl">
+            <div class="bg-white rounded-lg shadow-md border-t-4 border-argAzul p-8 flex flex-col justify-between transition hover:shadow-lg">
                 <div>
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-blue-100 text-blue-700 p-3 rounded-lg font-bold text-xl">🏥</div>
-                        <h2 class="text-2xl font-bold text-gray-900">SISA-RTE</h2>
+                        <div class="bg-argAzulClaro text-argAzul p-3 rounded-lg font-bold text-xl">🇦🇷</div>
+                        <h2 class="text-xl font-bold text-argAzul">SISA-RTE</h2>
                     </div>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        El <strong>Sistema Integrado de Información Sanitaria Argentino (SISA)</strong>, en su módulo <strong>RTE (Registro de Títulos y Establecimientos)</strong>, permite a los profesionales de la salud consultar, validar y gestionar sus matrículas, títulos y habilitaciones de manera oficial y centralizada.
+                    <p class="text-sm text-gray-600 mb-2 font-semibold">
+                        Sistema Integrado de Información Sanitaria Argentino — Registro de Trayectorias y Excepciones.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                        Herramienta oficial destinada a la gestión, seguimiento y validación de trayectorias formativas y excepciones dentro del ámbito de la salud. Permite a los Muni/Profesionales y entidades verificar registros de manera centralizada bajo las normativas nacionales vigentes.
                     </p>
                 </div>
                 <a href="https://sisa.msal.gov.ar/" target="_blank" rel="noopener noreferrer" 
-                   class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow">
+                   class="block text-center bg-argAzul hover:bg-blue-900 text-white font-medium py-3 px-6 rounded transition duration-200 shadow text-sm">
                     Ingresar a SISA-RTE
                 </a>
             </div>
 
             <!-- Tarjeta miBilletera -->
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-8 flex flex-col justify-between transition hover:shadow-xl">
+            <div class="bg-white rounded-lg shadow-md border-t-4 border-argCeleste p-8 flex flex-col justify-between transition hover:shadow-lg">
                 <div>
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-emerald-100 text-emerald-700 p-3 rounded-lg font-bold text-xl">💳</div>
-                        <h2 class="text-2xl font-bold text-gray-900">miBilletera</h2>
+                        <div class="bg-sky-50 text-sky-700 p-3 rounded-lg font-bold text-xl">💳</div>
+                        <h2 class="text-xl font-bold text-argAzul">miBilletera</h2>
                     </div>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        <strong>miBilletera</strong> es tu herramienta financiera digital personal. Desde aquí puedes administrar tus saldos, realizar pagos de forma rápida y segura, consultar movimientos recientes y gestionar tus tarjetas o métodos de cobro vinculados en un solo lugar.
+                    <p class="text-sm text-gray-600 mb-2 font-semibold">
+                        Solución de pagos y finanzas digitales personales.
+                    </p>
+                    <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                        Plataforma ágil para administrar tus fondos, efectuar transacciones, abonar servicios y chequear el historial de movimientos de manera segura. Centraliza tus métodos de pago cotidianos en una interfaz simple y rápida.
                     </p>
                 </div>
                 <a href="#enlace-a-tu-billetera" target="_blank" rel="noopener noreferrer" 
-                   class="block text-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow">
+                   class="block text-center bg-sky-600 hover:bg-sky-700 text-white font-medium py-3 px-6 rounded transition duration-200 shadow text-sm">
                     Ingresar a miBilletera
                 </a>
             </div>
@@ -58,9 +87,12 @@
         </div>
     </main>
 
-    <!-- Pie de página -->
-    <footer class="bg-white border-t border-gray-200 py-6 text-center text-sm text-gray-500">
-        <p>&copy; 2026 Tu Portal de Servicios. Todos los derechos reservados.</p>
+    <!-- Pie de página institucional -->
+    <footer class="bg-argAzul text-blue-200 py-6 text-center text-xs">
+        <div class="max-w-6xl mx-auto px-6 space-y-2">
+            <p>Gestión centralizada de accesos y herramientas digitales.</p>
+            <p class="text-gray-400">&copy; 2026 - Todos los derechos reservados.</p>
+        </div>
     </footer>
 
 </body>
