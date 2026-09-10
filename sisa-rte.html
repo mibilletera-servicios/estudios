@@ -32,13 +32,13 @@
         }
 
         .splash-logo {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             object-fit: contain;
             margin-bottom: 20px;
             border-radius: 50%;
             background: #ffffff;
-            padding: 5px;
+            padding: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
@@ -154,7 +154,7 @@
         .gob-alert {
             background-color: #e8f4fd;
             border-left: 4px solid var(--gob-celeste);
-            padding: 16px;
+            padding: 14px 16px;
             margin-bottom: 25px;
             font-size: 13.5px;
             color: #084298;
@@ -217,7 +217,7 @@
             display: flex;
             gap: 10px;
             margin-top: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         input[type="text"] {
@@ -263,23 +263,21 @@
             opacity: 0.7;
         }
 
-        .art12-box {
-            background-color: #fcf8e3;
-            border: 1px solid #faebcc;
-            border-left: 4px solid #f0ad4e;
-            padding: 18px;
+        /* Estilo sutil y no invasivo para Artículo 12 */
+        .art12-subtle-note {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-left: 3px solid #f0ad4e;
+            padding: 12px 15px;
             border-radius: 4px;
-            margin-top: 25px;
-            font-size: 13.5px;
-            color: #8a6d3b;
-            line-height: 1.6;
+            font-size: 13px;
+            color: #6c757d;
+            line-height: 1.5;
+            margin-top: 15px;
         }
 
-        .art12-box h4 {
-            margin: 0 0 8px 0;
+        .art12-subtle-note strong {
             color: #8a6d3b;
-            font-size: 15px;
-            font-weight: 700;
         }
 
         .info-section {
@@ -589,6 +587,22 @@
             background-color: #31b0d5;
         }
 
+        .info-modal-item {
+            margin-bottom: 15px;
+        }
+
+        .info-modal-item h4 {
+            margin: 0 0 5px 0;
+            color: var(--gob-azul);
+            font-size: 14px;
+        }
+
+        .info-modal-item p {
+            margin: 0;
+            font-size: 13px;
+            color: #555;
+        }
+
         .gob-footer {
             background-color: #1a1a1a;
             color: #cccccc;
@@ -632,8 +646,7 @@
     <!-- PANTALLA DE CARGA / SPLASH SCREEN INICIAL  -->
     <!-- ========================================== -->
     <div id="splash-screen">
-        <!-- Reemplaza el link de la imagen por el enlace de tu logo -->
-        <img src="https://i.postimg.cc/G2sY9Xc7/September6-120616AM.png" alt="Logo SISA-RTE" class="splash-logo">
+        <img src="https://i.postimg.cc/N0jqr15f/1000066135.png" alt="Logo SISA-RTE" class="splash-logo">
         <div class="splash-title">SISA-RTE • Sistema Integrado</div>
         <div class="splash-subtitle">Ingresando al sistema seguro...</div>
         <div class="splash-spinner"></div>
@@ -662,8 +675,30 @@
             <div class="gob-alert">
                 <strong>Garantía de Legalidad y Validez Oficial:</strong> Este portal complementario opera bajo directivas de sincronización segura del <strong>SISA-RTE</strong>. Todo perfil registrado cuenta con respaldo documental legalizado para su ejercicio profesional en todo el territorio nacional.
             </div>
-            <h4>ℹ️ ¿Qué es el proceso por Artículo 12 y cuál es su validez legal?</h4>
-                <p>El encuadre legal bajo el <strong>Artículo 12</strong> corresponde al régimen de regularización excepcional de trayectorias académicas y profesionales. Este mecanismo administrativo permite sanear demoras burocráticas o convalidar historiales de formación ante las direcciones de contralor sanitario. <strong>Una vez aprobado y cargado en el sistema SISA-RTE, el título adquiere plena vigencia jurídica</strong>, habilitando al profesional para la emisión de constancias, matrículas y presentaciones formales ante cualquier institución pública o privada.</p>
+
+            <div class="system-status-bar">
+                <div>
+                    <span class="status-indicator"></span><strong>Servidor Operativo:</strong> Sincronización en línea con bases de datos jurisdiccionales.
+                </div>
+                <div id="currentDateDisplay" style="font-weight: 500;"></div>
+            </div>
+
+            <h2>Consulta de Registro y Trayectorias Profesionales</h2>
+            <p>Ingrese el número de Documento Nacional de Identidad (DNI) sin puntos para verificar el estado de habilitación, títulos registrados y constancias asociadas.</p>
+
+            <div class="search-group">
+                <input type="text" id="dniInput" placeholder="Ingrese número de DNI (Ej: 27640034)" maxlength="8">
+                <button class="btn-search" id="btnConsultar" onclick="buscarDNI()">
+                    <span id="btnText">Consultar</span>
+                    <div class="spinner" id="btnSpinner"></div>
+                </button>
+            </div>
+
+            <div id="errorMsg" class="msg-error"></div>
+
+            <!-- Nota menos invasiva sobre el Artículo 12 -->
+            <div class="art12-subtle-note">
+                <strong>ℹ️ Nota sobre Art. 12:</strong> Los expedientes bajo este régimen de regularización excepcional cuentan con plena validez jurídica federal una vez asentados en los registros oficiales del SISA-RTE.
             </div>
 
             <div class="info-section">
@@ -776,12 +811,13 @@
     <div id="ayudaModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
+                <h3>Mesa de Ayuda y Contacto</h3>
                 <button class="close-btn" onclick="cerrarModalGeneral('ayudaModal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="info-modal-item">
                     <h4>Atención Telefónica Institucional</h4>
-                    <p>Línea exclusiva para consultas de organismos y validación de expedientes: <strong>0800-333-SISA (7472)</strong>, de lunes a viernes de 09:00 a 17:00 hs.</p>
+                    <p>Línea exclusiva para consultas de organismos y validación de expedientes: <strong>0800-333-SISA (7472)</strong>, de lunes a viernes de 08:00 a 19:00 hs.</p>
                 </div>
                 <div class="info-modal-item">
                     <h4>Correo Electrónico de Soporte</h4>
@@ -791,6 +827,10 @@
                     <h4>Asistencia Presencial (Trámites Excepcionales)</h4>
                     <p>Mesa de entradas central habilitada en Av. 9 de Julio 1925, Ciudad Autónoma de Buenos Aires, bajo turno previo gestionado electrónicamente.</p>
                 </div>
+            </div>
+            <div class="modal-footer" style="justify-content: flex-end;">
+                <button class="btn-close-modal" onclick="cerrarModalGeneral('ayudaModal')">Cerrar</button>
+            </div>
         </div>
     </div>
 
@@ -879,7 +919,7 @@
                 expediente: "Regularización Excepcional por Artículo 12 / Vía Administrativa",
                 estado: "ACTIVO",
                 hash: "SISA-RTE-2026-9F8A4B2C1E",
-                qrPersonalizado: "https://i.postimg.cc/G2sY9Xc7/September6-120616AM.png"
+                qrPersonalizado: "https://i.postimg.cc/N0jqr15f/1000066135.png"
             },
             {
                 dni: "20267760",
@@ -892,7 +932,7 @@
                 expediente: "Validación Extraordinaria por Artículo 12",
                 estado: "ACTIVO",
                 hash: "SISA-RTE-2026-3C7D2E9F8A",
-                qrPersonalizado: "https://i.postimg.cc/G2sY9Xc7/September6-120616AM.png"
+                qrPersonalizado: "https://i.postimg.cc/N0jqr15f/1000066135.png"
             }
         ];
 
@@ -1019,4 +1059,4 @@
         }
     </script>
 </body>
-    </html>
+</html>
