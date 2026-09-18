@@ -45,16 +45,8 @@
         }
 
         .logo-container img {
-    max-height: 40px; /* Puedes ajustar este valor si prefieres que se vea más grande o más chico */
-    width: auto;
-}
-
-        .logo-fallback {
-            font-size: 22px;
-            font-style: italic;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: white;
+            max-height: 40px;
+            width: auto;
         }
 
         .currency-lang {
@@ -550,15 +542,15 @@
 <body>
 
     <header>
-    <div class="logo-container">
-        <a href="index.html">
-            <img src="https://i.postimg.cc/cLrfW3N1/IMG-20260918-WA0032.jpg" alt="Logo VIA MORENO">
-        </a>
-    </div>
-    <div class="currency-lang">
-        ARS 🇦🇷
-    </div>
-</header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="https://i.postimg.cc/cLrfW3N1/IMG-20260918-WA0032.jpg" alt="Logo VIA MORENO">
+            </a>
+        </div>
+        <div class="currency-lang">
+            ARS 🇦🇷
+        </div>
+    </header>
 
     <div class="stepper-container">
         <div class="step active" id="step-1"><div class="step-icon">1</div><span>Viaje</span></div>
@@ -581,35 +573,32 @@
         <div class="search-card">
             <div class="form-row">
                 <div class="form-group">
-    <label for="origen">Terminal de Origen</label>
-    <select id="origen">
-        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
-        <option value="Buenos Aires - Terminal Liniers">Buenos Aires - Terminal Liniers</option>
-        <option value="Buenos Aires - Terminal Dellepiane">Buenos Aires - Terminal Dellepiane</option>
-        <option value="Buenos Aires - Terminal Constitución">Buenos Aires - Terminal Constitución</option>
-        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
-        <option value="Rosario - Terminal Mariano Moreno">Rosario - Terminal Mariano Moreno</option>
-        <option value="Córdoba - Terminal Bimodal">Córdoba - Terminal Bimodal</option>
-    </select>
-</div>
-<div class="form-group">
-    <label for="destino">Terminal de Destino</label>
-    <select id="destino">
-        <option value="Mar del Plata - Terminal Ferroautomotora">Mar del Plata - Terminal Ferroautomotora</option>
-        <option value="San Carlos de Bariloche - Terminal San Carlos">San Carlos de Bariloche - Terminal</option>
-        <option value="Mendoza - Terminal del Sol">Mendoza - Terminal del Sol</option>
-        <option value="Córdoba - Terminal Bimodal">Córdoba - Terminal Bimodal</option>
-        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
-        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
-        <!-- Nuevos destinos turísticos de terminales de ómnibus -->
-        <option value="Salta - Terminal de Ómnibus de Salta">Salta - Terminal de Ómnibus</option>
-        <option value="San Miguel de Tucumán - Estación Central">San Miguel de Tucumán - Estación Central</option>
-        <option value="Puerto Iguazú - Terminal de Buses">Puerto Iguazú - Terminal de Buses</option>
-        <option value="Neuquén - Terminal de Ómnibus de Neuquén">Neuquén - Terminal de Ómnibus</option>
-        <option value="Ushuaia - Terminal de Ómnibus de Ushuaia">Ushuaia - Terminal de Ómnibus</option>
-    </select>
-</div>
-
+                    <label for="origen">Terminal de Origen</label>
+                    <select id="origen">
+                        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
+                        <option value="Buenos Aires - Terminal Liniers">Buenos Aires - Terminal Liniers</option>
+                        <option value="Buenos Aires - Terminal Dellepiane">Buenos Aires - Terminal Dellepiane</option>
+                        <option value="Buenos Aires - Terminal Constitución">Buenos Aires - Terminal Constitución</option>
+                        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
+                        <option value="Rosario - Terminal Mariano Moreno">Rosario - Terminal Mariano Moreno</option>
+                        <option value="Córdoba - Terminal Bimodal">Córdoba - Terminal Bimodal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="destino">Terminal de Destino</label>
+                    <select id="destino">
+                        <option value="Mar del Plata - Terminal Ferroautomotora">Mar del Plata - Terminal Ferroautomotora</option>
+                        <option value="San Carlos de Bariloche - Terminal San Carlos">San Carlos de Bariloche - Terminal</option>
+                        <option value="Mendoza - Terminal del Sol">Mendoza - Terminal del Sol</option>
+                        <option value="Córdoba - Terminal Bimodal">Córdoba - Terminal Bimodal</option>
+                        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
+                        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
+                        <option value="Salta - Terminal de Ómnibus de Salta">Salta - Terminal de Ómnibus</option>
+                        <option value="San Miguel de Tucumán - Estación Central">San Miguel de Tucumán - Estación Central</option>
+                        <option value="Puerto Iguazú - Terminal de Buses">Puerto Iguazú - Terminal de Buses</option>
+                        <option value="Neuquén - Terminal de Ómnibus de Neuquén">Neuquén - Terminal de Ómnibus</option>
+                        <option value="Ushuaia - Terminal de Ómnibus de Ushuaia">Ushuaia - Terminal de Ómnibus</option>
+                    </select>
                 </div>
             </div>
 
@@ -794,16 +783,75 @@
 
         const tarifasDestinos = {
             "Mar del Plata - Terminal Ferroautomotora": 45000,
-    "San Carlos de Bariloche - Terminal San Carlos": 135000,
-    "Mendoza - Terminal del Sol": 90000,
-    "Córdoba - Terminal Bimodal": 52000,
-    "Buenos Aires - Terminal Retiro": 40000,
-    "La Plata - Terminal Central": 38000,
-    "Salta - Terminal de Ómnibus de Salta": 115000,
-    "San Miguel de Tucumán - Estación Central": 98000,
-    "Puerto Iguazú - Terminal de Buses": 125000,
-    "Neuquén - Terminal de Ómnibus de Neuquén": 110000,
-    "Ushuaia - Terminal de Ómnibus de Ushuaia": 210000
+            "San Carlos de Bariloche - Terminal San Carlos": 135000,
+            "Mendoza - Terminal del Sol": 90000,
+            "Córdoba - Terminal Bimodal": 52000,
+            "Buenos Aires - Terminal Retiro": 40000,
+            "La Plata - Terminal Central": 38000,
+            "Salta - Terminal de Ómnibus de Salta": 115000,
+            "San Miguel de Tucumán - Estación Central": 98000,
+            "Puerto Iguazú - Terminal de Buses": 125000,
+            "Neuquén - Terminal de Ómnibus de Neuquén": 110000,
+            "Ushuaia - Terminal de Ómnibus de Ushuaia": 210000
+        };
+
+        // Horarios reales específicos y únicos configurados para cada destino
+        const horariosPorDestino = {
+            "Mar del Plata - Terminal Ferroautomotora": [
+                { empresa: "VIA MORENO - Semicama", salida: "06:00", llegada: "11:30", duracion: "05h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "13:30", llegada: "19:00", duracion: "05h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Mantas.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "23:00", llegada: "04:30", duracion: "05h 30m", tipo: "Suite Total", desc: "Asiento convertible en cama plana, pantallas individuales, Puertos USB.", mult: 1.6 }
+            ],
+            "San Carlos de Bariloche - Terminal San Carlos": [
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "08:30", llegada: "01:30", duracion: "17h 00m", tipo: "Cama", desc: "Servicio largo de larga distancia, catering a bordo, pantallas individuales.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "15:00", llegada: "08:00", duracion: "17h 00m", tipo: "Suite Total", desc: "Asiento cama total, merienda, cena y desayuno incluidos, wi-fi satelital.", mult: 1.6 },
+                { empresa: "VIA MORENO - Semicama", salida: "21:00", llegada: "14:00", duracion: "17h 00m", tipo: "Semi-Cama", desc: "Unidad reforzada, calefacción central, aire acondicionado, baños.", mult: 1.0 }
+            ],
+            "Mendoza - Terminal del Sol": [
+                { empresa: "VIA MORENO - Semicama", salida: "07:00", llegada: "19:00", duracion: "12h 00m", tipo: "Semi-Cama", desc: "Paradas estratégicas, aire acondicionado, bar bordo.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "16:30", llegada: "04:30", duracion: "12h 00m", tipo: "Cama", desc: "Reclinación 160°, puertos USB, mantas y almohadas sanitizadas.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "22:00", llegada: "10:00", duracion: "12h 00m", tipo: "Suite Total", desc: "Experiencia ejecutiva superior, servicio de catering completo.", mult: 1.6 }
+            ],
+            "Córdoba - Terminal Bimodal": [
+                { empresa: "VIA MORENO - Semicama", salida: "06:30", llegada: "15:30", duracion: "09h 00m", tipo: "Semi-Cama", desc: "Confortable diseño, aire acondicionado, pantallas multimedia.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "12:00", llegada: "21:00", duracion: "09h 00m", tipo: "Cama", desc: "Posa piernas ajustable, conectividad USB en cada asiento.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "23:30", llegada: "08:30", duracion: "09h 00m", tipo: "Suite Total", desc: "Privacidad absoluta, atención personalizada y desayuno.", mult: 1.6 }
+            ],
+            "Buenos Aires - Terminal Retiro": [
+                { empresa: "VIA MORENO - Semicama", salida: "08:00", llegada: "09:15", duracion: "01h 15m", tipo: "Semi-Cama", desc: "Conexión directa metropolitana, aire acondicionado.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "14:00", llegada: "15:15", duracion: "01h 15m", tipo: "Cama", desc: "Asientos confortables para tramos cortos.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "19:30", llegada: "20:45", duracion: "01h 15m", tipo: "Suite Total", desc: "Máximo confort ejecutivo.", mult: 1.6 }
+            ],
+            "La Plata - Terminal Central": [
+                { empresa: "VIA MORENO - Semicama", salida: "09:00", llegada: "10:00", duracion: "01h 00m", tipo: "Semi-Cama", desc: "Viaje rápido y directo.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "15:00", llegada: "16:00", duracion: "01h 00m", tipo: "Cama", desc: "Comodidad superior.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "20:00", llegada: "21:00", duracion: "01h 00m", tipo: "Suite Total", desc: "Servicio ejecutivo express.", mult: 1.6 }
+            ],
+            "Salta - Terminal de Ómnibus de Salta": [
+                { empresa: "VIA MORENO - Semicama", salida: "10:00", llegada: "06:00", duracion: "20h 00m", tipo: "Semi-Cama", desc: "Larga distancia, entretenimiento y climatización.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "17:00", llegada: "13:00", duracion: "20h 00m", tipo: "Cama", desc: "Catering a bordo, asientos ergonómicos reclinables.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "21:30", llegada: "17:30", duracion: "20h 00m", tipo: "Suite Total", desc: "Camas totalmente reclinables, atención preferencial.", mult: 1.6 }
+            ],
+            "San Miguel de Tucumán - Estación Central": [
+                { empresa: "VIA MORENO - Semicama", salida: "07:30", llegada: "21:30", duracion: "14h 00m", tipo: "Semi-Cama", desc: "Servicio diario equipado con aire y calefacción.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "14:30", llegada: "04:30", duracion: "14h 00m", tipo: "Cama", desc: "Enchufes 220v y puertos USB individuales.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "22:30", llegada: "12:30", duracion: "14h 00m", tipo: "Suite Total", desc: "Máxima comodidad para descanso nocturno.", mult: 1.6 }
+            ],
+            "Puerto Iguazú - Terminal de Buses": [
+                { empresa: "VIA MORENO - Semicama", salida: "11:00", llegada: "07:00", duracion: "20h 00m", tipo: "Semi-Cama", desc: "Ruta al Litoral, climatización y entretenimiento a bordo.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "16:00", llegada: "12:00", duracion: "20h 00m", tipo: "Cama", desc: "Catering incluido, asientos anchos ejecutivos.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "20:00", llegada: "16:00", duracion: "20h 00m", tipo: "Suite Total", desc: "Experiencia premium de larga distancia.", mult: 1.6 }
+            ],
+            "Neuquén - Terminal de Ómnibus de Neuquén": [
+                { empresa: "VIA MORENO - Semicama", salida: "08:00", llegada: "20:00", duracion: "12h 00m", tipo: "Semi-Cama", desc: "Destino al Alto Valle, unidades modernas.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "13:00", llegada: "01:00", duracion: "12h 00m", tipo: "Cama", desc: "Posa pies y conectividad total.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "21:00", llegada: "09:00", duracion: "12h 00m", tipo: "Suite Total", desc: "Descanso absoluto en categoría suite.", mult: 1.6 }
+            ],
+            "Ushuaia - Terminal de Ómnibus de Ushuaia": [
+                { empresa: "VIA MORENO - Semicama", salida: "05:00", llegada: "15:00", duracion: "34h 00m", tipo: "Semi-Cama", desc: "Travesía Austral, calefacción reforzada.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "10:00", llegada: "20:00", duracion: "34h 00m", tipo: "Cama", desc: "Servicios especiales de larga duración y comidas completas.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "18:00", llegada: "04:00", duracion: "34h 00m", tipo: "Suite Total", desc: "El máximo lujo en rutas patagónicas.", mult: 1.6 }
+            ]
         };
 
         function buscarViajes() {
@@ -816,14 +864,14 @@
             precioBaseViaje = tarifasDestinos[destino] || 50000;
             if (tipoViaje === 'Ida y vuelta') precioBaseViaje *= 1.8;
 
-            const horariosSimulados = [
-                { empresa: "VIA MORENO - Semicama", salida: "06:30", llegada: "12:30", duracion: "06hs", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "14:00", llegada: "20:00", duracion: "06hs", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Mantas, Baños y TV.", mult: 1.3 },
-                { empresa: "VIA MORENO - Cama Suite", salida: "23:30", llegada: "05:30", duracion: "06hs", tipo: "Suite Total", desc: "Asiento convertible en cama plana, pantallas individuales, Puertos USB, Atención de abordo, Cortinas de privacidad.", mult: 1.6 }
+            // Obtener horarios reales específicos del destino seleccionado
+            const horariosDisponibles = horariosPorDestino[destino] || [
+                { empresa: "VIA MORENO - Semicama", salida: "08:00", llegada: "14:00", duracion: "06hs", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
+                { empresa: "VIA MORENO - Cama/Ejecutivo", salida: "14:00", llegada: "20:00", duracion: "06hs", tipo: "Cama", desc: "Asientos reclinables, USB y Enchufes.", mult: 1.3 },
+                { empresa: "VIA MORENO - Cama Suite", salida: "22:00", llegada: "04:00", duracion: "06hs", tipo: "Suite Total", desc: "Asiento cama plana, pantallas individuales.", mult: 1.6 }
             ];
-
             let html = "";
-            horariosSimulados.forEach(h => {
+            horariosDisponibles.forEach(h => {
                 const precioCalc = Math.round(precioBaseViaje * h.mult);
                 html += `
                     <div class="result-card">
