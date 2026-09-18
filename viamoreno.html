@@ -182,6 +182,11 @@
             background-color: #c2131b;
         }
 
+        .btn-main:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
         .route-header-info {
             background: white;
             padding: 12px 15px;
@@ -261,7 +266,6 @@
             color: var(--primary-red);
         }
 
-        /* Selector de cantidad de pasajeros */
         .passenger-selector-box {
             background: #fff;
             padding: 15px;
@@ -283,6 +287,47 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
             max-width: 400px;
             margin: 0 auto;
+        }
+
+        /* Indicadores Superiores de Servicio */
+        .service-indicators {
+            display: flex;
+            justify-content: space-around;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 10px 5px;
+            margin-bottom: 15px;
+        }
+
+        .indicator-item {
+            text-align: center;
+            font-size: 11px;
+            color: #475569;
+        }
+
+        .indicator-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 13px;
+            margin: 0 auto 4px auto;
+        }
+
+        .badge-free {
+            background: #e2e8f0;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+        }
+
+        .badge-occupied {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
         }
 
         .floor-tabs {
@@ -320,17 +365,16 @@
             display: block;
         }
 
-        /* Grilla estilo Flechabus (Distribución 1 y 3 por fila con pasillo lateral) */
         .seats-grid-flecha {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 8px;
             justify-items: center;
         }
 
         .seat {
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             background: var(--seat-free);
             border: 1px solid #94a3b8;
             border-radius: 8px;
@@ -360,39 +404,12 @@
             grid-column: span 4;
             text-align: center;
             font-size: 11px;
-            color: #555;
+            color: #475569;
             background: #edf2f7;
             padding: 6px;
             border-radius: 6px;
-            margin-bottom: 8px;
-        }
-
-        .seat-legend {
-            display: flex;
-            justify-content: space-around;
-            margin: 15px 0;
-            font-size: 12px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .legend-box {
-            width: 14px;
-            height: 14px;
-            border-radius: 3px;
-        }
-
-        .service-amenities {
-            background: #eef2f7;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-bottom: 15px;
-            color: var(--dark-blue);
+            margin-bottom: 6px;
+            border: 1px dashed #cbd5e1;
         }
 
         .passenger-card {
@@ -493,7 +510,7 @@
         <div id="listaResultadosHorarios"></div>
     </div>
 
-    <!-- PASO 3: BUTACAS Y CANTIDAD DE PASAJEROS -->
+    <!-- PASO 3: BUTACAS Y INDICADORES -->
     <div id="view-3" class="view-section">
         <div class="route-header-info">
             <div>
@@ -519,7 +536,17 @@
         </div>
 
         <div class="bus-container">
-            <div id="contenedorAmenidades" class="service-amenities"></div>
+            <!-- Botones Indicadores Superiores de Servicio -->
+            <div class="service-indicators">
+                <div class="indicator-item">
+                    <div class="indicator-badge badge-free" id="indDisp">5</div>
+                    <span id="txtLabelDisp">Semi Cama Disp.</span>
+                </div>
+                <div class="indicator-item">
+                    <div class="indicator-badge badge-occupied" id="indOcup">3</div>
+                    <span id="txtLabelOcup">Semi Cama Ocup.</span>
+                </div>
+            </div>
 
             <div class="floor-tabs">
                 <div class="floor-tab active-floor" onclick="cambiarPiso('alta')">Planta Alta</div>
@@ -534,22 +561,16 @@
                 <div class="seats-grid-flecha" id="gridPlantaBaja"></div>
             </div>
 
-            <div class="seat-legend">
-                <div class="legend-item"><div class="legend-box" style="background:var(--seat-free); border:1px solid #94a3b8;"></div> Libre</div>
-                <div class="legend-item"><div class="legend-box" style="background:var(--seat-selected)"></div> Seleccionada</div>
-                <div class="legend-item"><div class="legend-box" style="background:var(--seat-occupied)"></div> Ocupada</div>
-            </div>
-
             <button class="btn-main" onclick="confirmarButacas()" style="margin-top: 15px;">CONFIRMAR BUTACAS</button>
         </div>
     </div>
 
-    <!-- PASO 4: DATOS DE PASAJEROS MÚLTIPLES -->
+    <!-- PASO 4: DATOS DE PASAJEROS CON VALIDACIÓN -->
     <div id="view-4" class="view-section">
         <div class="search-card" style="max-width: 600px;">
             <h2 style="font-size: 16px; margin-bottom: 15px; color: var(--dark-blue);">Completar Datos de los Pasajeros</h2>
             <div id="contenedorFormulariosPasajeros"></div>
-            <button class="btn-main" onclick="irPaso(5)">CONTINUAR AL PAGO</button>
+            <button id="btnContinuarPago" class="btn-main" onclick="irPaso(5)" disabled>CONTINUAR AL PAGO</button>
         </div>
     </div>
 
@@ -622,9 +643,9 @@
             if (tipoViaje === 'idaVuelta') precioBaseViaje *= 1.8;
 
             const horariosSimulados = [
-                { empresa: "Vía Moreno - Ejecutivo", salida: "06:30", llegada: "12:30", duracion: "06hs", tipo: "Semi-Cama", desc: "Incluye: Refrigerio a bordo, Wi-Fi y puertos USB.", mult: 1.0 },
-                { empresa: "Vía Moreno - Directo", salida: "14:00", llegada: "20:00", duracion: "06hs", tipo: "Cama", desc: "Incluye: Catering caliente, asientos reclinables 160°, Wi-Fi y Mantas.", mult: 1.3 },
-                { empresa: "Vía Moreno - Suite", salida: "23:30", llegada: "05:30", duracion: "06hs", tipo: "Suite Total", desc: "Incluye: Servicio VIP, pantallas individuales, catering premium y bebida.", mult: 1.6 }
+                { empresa: "Vía Moreno - Ejecutivo", salida: "06:30", llegada: "12:30", duracion: "06hs", tipo: "Semi-Cama", desc: "Refrigerio a bordo, Wi-Fi y puertos USB.", mult: 1.0 },
+                { empresa: "Vía Moreno - Directo", salida: "14:00", llegada: "20:00", duracion: "06hs", tipo: "Cama", desc: "Catering caliente, asientos reclinables 160°, Wi-Fi y Mantas.", mult: 1.3 },
+                { empresa: "Vía Moreno - Suite", salida: "23:30", llegada: "05:30", duracion: "06hs", tipo: "Suite Total", desc: "Servicio VIP, pantallas individuales, catering premium y bebida.", mult: 1.6 }
             ];
 
             let html = "";
@@ -641,10 +662,10 @@
                             <div class="duration"><span>⏱ ${h.duracion}</span></div>
                             <div class="time-block"><span class="time">${h.llegada}</span><span style="font-size:11px;">Llegada</span></div>
                         </div>
-                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">${h.desc}</div>
+                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>
                         <div class="result-footer">
                             <span class="price">$ ${precioCalc.toLocaleString('es-AR')}</span>
-                            <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}', '${h.desc}', ${precioCalc})">Elegir</button>
+                            <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}', ${precioCalc})">Elegir</button>
                         </div>
                     </div>
                 `;
@@ -654,10 +675,16 @@
             irPaso(2);
         }
 
-        function seleccionarHorario(tipoServicio, descServicio, precio) {
+        function seleccionarHorario(tipoServicio, precio) {
             viajeSeleccionado = { tipoServicio, precio };
             document.getElementById('infoSeleccionButacas').innerText = `Servicio ${tipoServicio}`;
-            document.getElementById('contenedorAmenidades').innerText = descServicio;
+            
+            // Actualizar textos dinámicos de los indicadores superiores según el servicio elegido
+            document.getElementById('txtLabelDisp').innerText = `${tipoServicio} Disp.`;
+            document.getElementById('txtLabelOcup').innerText = `${tipoServicio} Ocup.`;
+            document.getElementById('indDisp').innerText = "6";
+            document.getElementById('indOcup').innerText = "3";
+
             generarAsientos();
             asientosSeleccionados = [];
             document.getElementById('cantidadPasajerosTotal').value = "1";
@@ -679,14 +706,15 @@
         }
 
         function generarAsientos() {
-            let htmlAlta = `<div class="bus-element">📺 Pantalla Principal</div>`;
+            // Estructura realista con pasillo lateral (bloque de 1 y bloque de 3, o espejo)
+            let htmlAlta = `<div class="bus-element">📺 Pantalla Principal / Frente</div>`;
             for (let i = 1; i <= 24; i++) {
-                const ocupado = (i === 4 || i === 9) ? 'occupied' : '';
+                const ocupado = (i === 4 || i === 9 || i === 14) ? 'occupied' : '';
                 htmlAlta += `<div class="seat ${ocupado}" id="seat-${i}" onclick="toggleAsiento(${i})">${i}</div>`;
             }
             document.getElementById('gridPlantaAlta').innerHTML = htmlAlta;
 
-            let htmlBaja = `<div class="bus-element">🚻 Baño / 🚪 Entrada</div>`;
+            let htmlBaja = `<div class="bus-element">🚻 Baño / 🚪 Entrada Escalera</div>`;
             for (let i = 25; i <= 32; i++) {
                 const ocupado = (i === 28) ? 'occupied' : '';
                 htmlBaja += `<div class="seat ${ocupado}" id="seat-${i}" onclick="toggleAsiento(${i})">${i}</div>`;
@@ -697,7 +725,6 @@
         function actualizarCantidadPasajeros() {
             maxPasajeros = parseInt(document.getElementById('cantidadPasajerosTotal').value);
             if (asientosSeleccionados.length > maxPasajeros) {
-                // Desmarcar excedentes
                 while (asientosSeleccionados.length > maxPasajeros) {
                     let numRemovido = asientosSeleccionados.pop();
                     document.getElementById(`seat-${numRemovido}`).classList.remove('selected');
@@ -728,25 +755,44 @@
                 return;
             }
 
-            // Generar formularios dinámicos para cada pasajero
             let htmlForm = "";
             for (let i = 0; i < asientosSeleccionados.length; i++) {
                 htmlForm += `
                     <div class="passenger-card">
                         <strong>Pasajero ${i + 1} (Butaca N° ${asientosSeleccionados[i]})</strong>
                         <div class="form-row" style="margin-top: 10px;">
-                            <div class="form-group"><label>Nombre y Apellido</label><input type="text" id="nombre_${i}" required placeholder="Nombre completo"></div>
-                            <div class="form-group"><label>DNI / Pasaporte</label><input type="text" id="dni_${i}" required placeholder="N° de documento"></div>
+                            <div class="form-group"><label>Nombre y Apellido *</label><input type="text" class="input-valido" id="nombre_${i}" oninput="validarFormularioPasajeros()" placeholder="Nombre completo"></div>
+                            <div class="form-group"><label>DNI / Pasaporte *</label><input type="text" class="input-valido" id="dni_${i}" oninput="validarFormularioPasajeros()" placeholder="N° de documento"></div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group"><label>Correo Electrónico</label><input type="text" id="email_${i}" required placeholder="correo@dominio.com"></div>
-                            <div class="form-group"><label>Teléfono de Contacto</label><input type="text" id="tel_${i}" required placeholder="Ej. 1123456789"></div>
+                            <div class="form-group"><label>Correo Electrónico *</label><input type="text" class="input-valido" id="email_${i}" oninput="validarFormularioPasajeros()" placeholder="correo@dominio.com"></div>
+                            <div class="form-group"><label>Teléfono de Contacto *</label><input type="text" class="input-valido" id="tel_${i}" oninput="validarFormularioPasajeros()" placeholder="Ej. 1123456789"></div>
                         </div>
                     </div>
                 `;
             }
             document.getElementById('contenedorFormulariosPasajeros').innerHTML = htmlForm;
+            validarFormularioPasajeros(); // Evaluar estado inicial del botón
             irPaso(4);
+        }
+
+        // Función para validar que todos los campos obligatorios estén llenos y desbloquear el botón
+        function validarFormularioPasajeros() {
+            let inputs = document.querySelectorAll('.input-valido');
+            let botonContinuar = document.getElementById('btnContinuarPago');
+            let todoCompleto = true;
+
+            inputs.forEach(input => {
+                if (input.value.trim() === "") {
+                    todoCompleto = false;
+                }
+            });
+
+            if (todoCompleto && inputs.length > 0) {
+                botonContinuar.removeAttribute('disabled');
+            } else {
+                botonContinuar.setAttribute('disabled', 'true');
+            }
         }
 
         const originalIrPaso = irPaso;
@@ -756,8 +802,8 @@
                 let total = viajeSeleccionado.precio * asientosSeleccionados.length;
                 
                 for (let i = 0; i < asientosSeleccionados.length; i++) {
-                    let nombre = document.getElementById(`nombre_${i}`).value || "Sin nombre";
-                    let tel = document.getElementById(`tel_${i}`).value || "Sin teléfono";
+                    let nombre = document.getElementById(`nombre_${i}`).value;
+                    let tel = document.getElementById(`tel_${i}`).value;
                     resumenPasajeros += `• ${nombre} (Tel: ${tel}) - Butaca N° <strong>${asientosSeleccionados[i]}</strong><br>`;
                 }
 
