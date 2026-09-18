@@ -6,13 +6,14 @@
     <title>Vía Moreno - Pasajes de Micro</title>
     <style>
         :root {
-            --primary-red: #e31b23;
+            --primary-orange: #ff6600;
             --dark-blue: #0b1d3a;
-            --light-bg: #f4f5f7;
-            --gray-border: #ccd0d5;
+            --accent-blue: #1e3a8a;
+            --light-bg: #f8fafc;
+            --gray-border: #cbd5e1;
             --seat-free: #e2e8f0;
-            --seat-selected: #0b1d3a;
-            --seat-occupied: #cbd5e1;
+            --seat-selected: #ff6600;
+            --seat-occupied: #94a3b8;
         }
 
         * {
@@ -28,24 +29,40 @@
         }
 
         header {
-            background-color: var(--primary-red);
+            background-color: var(--dark-blue);
             color: white;
-            padding: 15px 20px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 4px solid var(--primary-orange);
         }
 
-        .logo-container h1 {
+        .logo-container a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            max-height: 40px;
+            width: auto;
+        }
+
+        .logo-fallback {
             font-size: 22px;
             font-style: italic;
             font-weight: bold;
             letter-spacing: 1px;
+            color: white;
         }
 
         .currency-lang {
             font-size: 14px;
             font-weight: bold;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 6px;
         }
 
         .stepper-container {
@@ -71,7 +88,7 @@
         .step.active {
             opacity: 1;
             font-weight: bold;
-            color: var(--primary-red);
+            color: var(--primary-orange);
         }
 
         .step-icon {
@@ -87,42 +104,63 @@
         }
 
         .step.active .step-icon {
-            background: var(--primary-red);
+            background: var(--primary-orange);
             color: white;
         }
 
         .view-section {
             display: none;
-            padding: 15px;
+            padding: 20px 15px;
         }
 
         .view-section.active-view {
             display: block;
         }
 
-        .banner-section {
+        /* Carrusel Automático de Imágenes */
+        .carousel-section {
             background: white;
-            padding: 15px;
-            text-align: center;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 2px dashed var(--primary-red);
-            background: #fff5f5;
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            position: relative;
         }
 
-        .banner-section img {
-            max-width: 100%;
-            max-height: 180px;
-            border-radius: 6px;
+        .carousel-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            object-fit: cover;
             display: none;
-            margin-top: 10px;
+        }
+
+        .carousel-slide.active-slide {
+            opacity: 1;
+            display: block;
         }
 
         .search-card {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             max-width: 500px;
             margin: 0 auto;
         }
@@ -144,7 +182,7 @@
             display: block;
             font-size: 13px;
             font-weight: bold;
-            color: #444;
+            color: var(--dark-blue);
             margin-bottom: 6px;
         }
 
@@ -163,10 +201,11 @@
             margin: 15px 0;
             font-size: 13px;
             font-weight: bold;
+            color: var(--dark-blue);
         }
 
         .btn-main {
-            background-color: var(--primary-red);
+            background-color: var(--primary-orange);
             color: white;
             border: none;
             width: 100%;
@@ -179,7 +218,7 @@
         }
 
         .btn-main:hover {
-            background-color: #c2131b;
+            background-color: #e65c00;
         }
 
         .btn-main:disabled {
@@ -229,7 +268,7 @@
             align-items: center;
             margin-bottom: 12px;
             font-size: 13px;
-            color: var(--primary-red);
+            color: var(--primary-orange);
             font-weight: bold;
         }
 
@@ -263,7 +302,7 @@
         .price {
             font-size: 20px;
             font-weight: bold;
-            color: var(--primary-red);
+            color: var(--primary-orange);
         }
 
         .passenger-selector-box {
@@ -289,7 +328,6 @@
             margin: 0 auto;
         }
 
-        /* Indicadores Superiores de Servicio */
         .service-indicators {
             display: flex;
             justify-content: space-around;
@@ -320,14 +358,14 @@
 
         .badge-free {
             background: #e2e8f0;
-            color: #0f172a;
+            color: var(--dark-blue);
             border: 1px solid #cbd5e1;
         }
 
         .badge-occupied {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
+            background: #ffedd5;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
         }
 
         .floor-tabs {
@@ -348,8 +386,8 @@
         }
 
         .floor-tab.active-floor {
-            color: var(--primary-red);
-            border-bottom: 2px solid var(--primary-red);
+            color: var(--primary-orange);
+            border-bottom: 2px solid var(--primary-orange);
         }
 
         .bus-layout {
@@ -389,15 +427,15 @@
 
         .seat.occupied {
             background: var(--seat-occupied);
-            color: #94a3b8;
+            color: #fff;
             cursor: not-allowed;
-            border-color: #cbd5e1;
+            border-color: #94a3b8;
         }
 
         .seat.selected {
-            background: var(--seat-selected);
+            background: var(--primary-orange);
             color: white;
-            border-color: var(--dark-blue);
+            border-color: #c2410c;
         }
 
         .bus-element {
@@ -420,21 +458,66 @@
             margin-bottom: 15px;
         }
 
+        /* Pie de Página Profesional */
         footer {
-            background-color: var(--primary-red);
+            background-color: var(--dark-blue);
             color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
+            padding: 40px 20px 20px 20px;
+            margin-top: 40px;
+            border-top: 4px solid var(--primary-orange);
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-orange);
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
             font-size: 13px;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 900px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
 
+    <!-- Header con tu Logo y Enlace -->
     <header>
         <div class="logo-container">
-            <h1>VÍA MORENO</h1>
+            <!-- REEMPLAZA EL ENLACE Y LA IMAGEN CON LOS TUYOS -->
+            <a href="index.html">
+                <img src="https://via.placeholder.com/150x40/0b1d3a/ff6600?text=VIA+MORENO" alt="Logo Vía Moreno">
+                <!-- Si prefieres texto plano si no carga la imagen, borra la etiqueta <img> y descomenta la siguiente línea: -->
+                <!-- <span class="logo-fallback">VÍA MORENO</span> -->
+            </a>
         </div>
         <div class="currency-lang">
             ARS 🇦🇷
@@ -449,13 +532,16 @@
         <div class="step" id="step-5"><div class="step-icon">5</div><span>Pago</span></div>
     </div>
 
-    <!-- PASO 1: BUSCADOR -->
+    <!-- PASO 1: BUSCADOR CON CARRUSEL DE 3 FOTOS -->
     <div id="view-1" class="view-section active-view">
-        <div class="banner-section">
-            <p><strong>Personalizar Micro:</strong> Sube tu propia imagen del micro para mostrar en la web</p>
-            <input type="file" id="uploadMicro" accept="image/*" onchange="cargarImagenMicro(event)">
-            <br>
-            <img id="imagenPrevia" alt="Micro Vía Moreno">
+        
+        <!-- Carrusel automático de 3 imágenes -->
+        <div class="carousel-section">
+            <div class="carousel-container" id="sliderCarrousel">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80" class="carousel-slide active-slide" alt="Micro 1">
+                <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=600&q=80" class="carousel-slide" alt="Micro 2">
+                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" class="carousel-slide" alt="Micro 3">
+            </div>
         </div>
 
         <div class="search-card">
@@ -463,20 +549,24 @@
                 <div class="form-group">
                     <label for="origen">Terminal de Origen</label>
                     <select id="origen">
-                        <option value="Buenos Aires (Terminal Retiro)">Buenos Aires - Terminal Retiro</option>
-                        <option value="La Plata (Terminal Central)">La Plata - Terminal Central</option>
-                        <option value="Rosario (Terminal Mariano Moreno)">Rosario - Terminal Mariano Moreno</option>
-                        <option value="Córdoba (Terminal Bimodal)">Córdoba - Terminal Bimodal</option>
-                        <option value="Mar del Plata (Terminal Ferroautomotora)">Mar del Plata - Terminal Ferroautomotora</option>
+                        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
+                        <option value="Buenos Aires - Terminal Liniers">Buenos Aires - Terminal Liniers</option>
+                        <option value="Buenos Aires - Terminal Dellepiane">Buenos Aires - Terminal Dellepiane</option>
+                        <option value="Buenos Aires - Terminal Constitución">Buenos Aires - Terminal Constitución</option>
+                        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
+                        <option value="Rosario - Terminal Mariano Moreno">Rosario - Terminal Mariano Moreno</option>
+                        <option value="Córdoba - Terminal Bimodal">Córdoba - Terminal Bimodal</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="destino">Terminal de Destino</label>
                     <select id="destino">
-                        <option value="Mar del Plata (Terminal Ferroautomotora)">Mar del Plata - Terminal Ferroautomotora</option>
-                        <option value="San Carlos de Bariloche (Terminal San Carlos)">San Carlos de Bariloche - Terminal</option>
-                        <option value="Mendoza (Terminal del Sol)">Mendoza - Terminal del Sol</option>
-                        <option value="Córdoba (Terminal Bimodal)">Córdoba - Terminal Bimodal</option>
+                        <option value="Mar del Plata - Terminal Ferroautomotora">Mar del Plata - Terminal Ferroautomotora</option>
+                        <option value="San Carlos de Bariloche - Terminal San Carlos">San Carlos de Bariloche - Terminal</option>
+                        <option value="Mendoza - Terminal del Sol">Mendoza - Terminal del Sol</option>
+                        <option value="Córdoba - Terminal Bimodal">Córdoba - Terminal Bimodal</option>
+                        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
+                        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
                     </select>
                 </div>
             </div>
@@ -510,7 +600,7 @@
         <div id="listaResultadosHorarios"></div>
     </div>
 
-    <!-- PASO 3: BUTACAS Y INDICADORES -->
+    <<!-- PASO 3: BUTACAS -->
     <div id="view-3" class="view-section">
         <div class="route-header-info">
             <div>
@@ -536,15 +626,14 @@
         </div>
 
         <div class="bus-container">
-            <!-- Botones Indicadores Superiores de Servicio -->
             <div class="service-indicators">
                 <div class="indicator-item">
-                    <div class="indicator-badge badge-free" id="indDisp">5</div>
-                    <span id="txtLabelDisp">Semi Cama Disp.</span>
+                    <div class="indicator-badge badge-free" id="indDisp">6</div>
+                    <span id="txtLabelDisp">Disp.</span>
                 </div>
                 <div class="indicator-item">
                     <div class="indicator-badge badge-occupied" id="indOcup">3</div>
-                    <span id="txtLabelOcup">Semi Cama Ocup.</span>
+                    <span id="txtLabelOcup">Ocup.</span>
                 </div>
             </div>
 
@@ -565,7 +654,7 @@
         </div>
     </div>
 
-    <!-- PASO 4: DATOS DE PASAJEROS CON VALIDACIÓN -->
+    <!-- PASO 4: DATOS DE PASAJEROS -->
     <div id="view-4" class="view-section">
         <div class="search-card" style="max-width: 600px;">
             <h2 style="font-size: 16px; margin-bottom: 15px; color: var(--dark-blue);">Completar Datos de los Pasajeros</h2>
@@ -581,15 +670,36 @@
             <p id="resumenFinalTexto" style="font-size: 14px; color: #555; margin-bottom: 20px;"></p>
             <div style="background: #fff5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                 <p style="font-size: 14px;">Total a Pagar:</p>
-                <span id="precioTotalFinal" style="font-size: 24px; font-weight: bold; color: var(--primary-red);">$ 0</span>
+                <span id="precioTotalFinal" style="font-size: 24px; font-weight: bold; color: var(--primary-orange);">$ 0</span>
             </div>
             <button class="btn-main" onclick="alert('¡Compra y pago procesados con éxito en Vía Moreno! Se enviaron los pasajes digitales a sus correos.')">PAGAR CON MERCADO PAGO / TARJETA</button>
         </div>
     </div>
 
+    <!-- Pie de Página Profesional -->
     <footer>
-        <p>Vía Moreno - Todos los derechos reservados © 2026</p>
-        <p>consultas@viamoreno.com.ar</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Vía Moreno</h3>
+                <p>Conectando destinos de forma segura, rápida y cómoda en toda la región. Tu viaje comienza aquí.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="#origen">Buscar Pasajes</a>
+                <a href="#">Terminales Asociadas</a>
+                <a href="#">Estado de Servicios</a>
+                <a href="#">Términos y Condiciones</a>
+            </div>
+            <div class="footer-section">
+                <h3>Atención al Cliente</h3>
+                <p>📧 consultas@viamoreno.com.ar</p>
+                <p>📞 0800-333-MORENO</p>
+                <p>🕒 Lunes a Domingo de 06:00 a 23:00 hs</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Vía Moreno - Todos los derechos reservados © 2026</p>
+        </div>
     </footer>
 
     <script>
@@ -599,21 +709,21 @@
         let precioBaseViaje = 0;
         let maxPasajeros = 1;
 
+        // Script del Carrusel Automático de 3 imágenes
+        let indiceSlideActual = 0;
+        function iniciarCarrusel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (slides.length === 0) return;
+            setInterval(() => {
+                slides[indiceSlideActual].classList.remove('active-slide');
+                indiceSlideActual = (indiceSlideActual + 1) % slides.length;
+                slides[indiceSlideActual].classList.add('active-slide');
+            }, 3000); // Cambia cada 3 segundos
+        }
+        window.addEventListener('DOMContentLoaded', iniciarCarrusel);
+
         function toggleFechas(mostrar) {
             document.getElementById('groupFechaVuelta').style.display = mostrar ? 'block' : 'none';
-        }
-
-        function cargarImagenMicro(event) {
-            const archivo = event.target.files[0];
-            if (archivo) {
-                const lector = new FileReader();
-                lector.onload = function(e) {
-                    const img = document.getElementById('imagenPrevia');
-                    img.src = e.target.result;
-                    img.style.display = 'block';
-                }
-                lector.readAsDataURL(archivo);
-            }
         }
 
         function irPaso(paso) {
@@ -626,10 +736,12 @@
         }
 
         const tarifasDestinos = {
-            "Mar del Plata (Terminal Ferroautomotora)": 45000,
-            "San Carlos de Bariloche (Terminal San Carlos)": 135000,
-            "Mendoza (Terminal del Sol)": 90000,
-            "Córdoba (Terminal Bimodal)": 52000
+            "Mar del Plata - Terminal Ferroautomotora": 45000,
+            "San Carlos de Bariloche - Terminal San Carlos": 135000,
+            "Mendoza - Terminal del Sol": 90000,
+            "Córdoba - Terminal Bimodal": 52000,
+            "Buenos Aires - Terminal Retiro": 40000,
+            "La Plata - Terminal Central": 38000
         };
 
         function buscarViajes() {
@@ -640,7 +752,7 @@
             document.getElementById('txtRutaResumen').innerText = `${origen} ➔ ${destino}`;
 
             precioBaseViaje = tarifasDestinos[destino] || 50000;
-            if (tipoViaje === 'idaVuelta') precioBaseViaje *= 1.8;
+            if (tipoViaje === 'idaVuelta')precioBaseViaje *= 1.8;
 
             const horariosSimulados = [
                 { empresa: "Vía Moreno - Ejecutivo", salida: "06:30", llegada: "12:30", duracion: "06hs", tipo: "Semi-Cama", desc: "Refrigerio a bordo, Wi-Fi y puertos USB.", mult: 1.0 },
@@ -679,7 +791,6 @@
             viajeSeleccionado = { tipoServicio, precio };
             document.getElementById('infoSeleccionButacas').innerText = `Servicio ${tipoServicio}`;
             
-            // Actualizar textos dinámicos de los indicadores superiores según el servicio elegido
             document.getElementById('txtLabelDisp').innerText = `${tipoServicio} Disp.`;
             document.getElementById('txtLabelOcup').innerText = `${tipoServicio} Ocup.`;
             document.getElementById('indDisp').innerText = "6";
@@ -706,7 +817,6 @@
         }
 
         function generarAsientos() {
-            // Estructura realista con pasillo lateral (bloque de 1 y bloque de 3, o espejo)
             let htmlAlta = `<div class="bus-element">📺 Pantalla Principal / Frente</div>`;
             for (let i = 1; i <= 24; i++) {
                 const ocupado = (i === 4 || i === 9 || i === 14) ? 'occupied' : '';
@@ -772,11 +882,10 @@
                 `;
             }
             document.getElementById('contenedorFormulariosPasajeros').innerHTML = htmlForm;
-            validarFormularioPasajeros(); // Evaluar estado inicial del botón
+            validarFormularioPasajeros();
             irPaso(4);
         }
 
-        // Función para validar que todos los campos obligatorios estén llenos y desbloquear el botón
         function validarFormularioPasajeros() {
             let inputs = document.querySelectorAll('.input-valido');
             let botonContinuar = document.getElementById('btnContinuarPago');
