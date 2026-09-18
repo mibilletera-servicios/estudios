@@ -1119,20 +1119,38 @@
             }
         };
 
-        function buscarViajes() {
+                function buscarViajes() {
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
             const tipoViaje = document.querySelector('input[name="tipoViaje"]:checked').value;
 
-            document.getElementById('txtRutaResumen').innerText = `${origen} ➔${destino}`;
+            document.getElementById('txtRutaResumen').innerText = `${origen} ➔ ${destino}`;
 
-            const infoDestino = datosDestinos[destino] || { precioBase: 50000, horarios: [] };
+            // Verificamos si existe el destino directo, si no, invertimos o usamos base estándar
+            let infoDestino = datosDestinos[destino];
+            let esInverso = false;
+
+            if (!infoDestino) {
+                // Si seleccionaron una ruta inversa pura
+                infoDestino = datosDestinos[origen] || { precioBase: 50000, horarios: [] };
+                esInverso = true;
+            }
+
             precioBaseViaje = infoDestino.precioBase;
             if (tipoViaje === 'Ida y vuelta') precioBaseViaje *= 1.8;
 
             let html = "";
             infoDestino.horarios.forEach(h => {
                 const precioCalc = Math.round(precioBaseViaje * h.mult);
+                
+                // Si es inverso, intercambiamos visualmente la hora de salida y llegada para que tenga sentido
+                let horaSalida = h.salida;
+                let horaLlegada = h.llegada;
+                if (esInverso) {
+                    horaSalida = h.llegada.replace(" (+1)", "");
+                    horaLlegada = h.salida + (h.llegada.includes("+1") ? " (Día anterior)" : "");
+                }
+
                 html += `
                     <div class="result-card">
                         <div class="result-top">
@@ -1140,20 +1158,27 @@
                             <span>${h.tipo}</span>
                         </div>
                         <div class="trip-times">
-                            <div class="time-block"><span class="time">${h.salida}</span><span style="font-size:11px;">Salida</span></div>
+                            <div class="time-block"><span class="time">${horaSalida}</span><span style="font-size:11px;">Salida</span></div>
                             <div class="duration"><span>⏱ ${h.duracion}</span></div>
-                            <div class="time-block"><span class="time">${h.llegada}</span><span style="font-size:11px;">Llegada</span></div>
+                            <div class="time-block"><span class="time">${horaLlegada}</span><span style="font-size:11px;">Llegada</span></div>
                         </div>
-                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>                         <div class="result-footer">                             <span class="price">$ ${precioCalc.toLocaleString('es-AR')}</span>
+                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>
+                        <div class="result-footer">
+                            <span class="price">$ ${precioCalc.toLocaleString('es-AR')}</span>
                             <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}',${precioCalc})">Elegir</button>
                         </div>
                     </div>
                 `;
             });
 
+            if (html === "") {
+                html = `<div style="padding: 20px; text-align: center; color: #666;">No hay servicios directos disponibles para este tramo en este momento.</div>`;
+            }
+
             document.getElementById('listaResultadosHorarios').innerHTML = html;
             irPaso(2);
         }
+
         function seleccionarHorario(tipoServicio, precio) {
             viajeSeleccionado = { tipoServicio, precio };
             document.getElementById('infoSeleccionButacas').innerText = `Servicio ${tipoServicio}`;
