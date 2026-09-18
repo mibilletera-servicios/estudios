@@ -10,6 +10,9 @@
             --dark-blue: #0b1d3a;
             --light-bg: #f4f5f7;
             --gray-border: #ccd0d5;
+            --seat-free: #e2e8f0;
+            --seat-selected: #0b1d3a;
+            --seat-occupied: #cbd5e1;
         }
 
         * {
@@ -35,7 +38,7 @@
         }
 
         .logo-container h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-style: italic;
             font-weight: bold;
             letter-spacing: 1px;
@@ -46,38 +49,82 @@
             font-weight: bold;
         }
 
-        /* Sección de Banner e Imagen Personalizable */
+        /* Barra de Pasos (Stepper) estilo App */
+        .stepper-container {
+            background: white;
+            padding: 15px 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: 1px solid var(--gray-border);
+            overflow-x: auto;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.4;
+            font-size: 11px;
+            color: #555;
+            min-width: 50px;
+        }
+
+        .step.active {
+            opacity: 1;
+            font-weight: bold;
+            color: var(--primary-red);
+        }
+
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .step.active .step-icon {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        /* Contenedores de Vistas (Paso a Paso) */
+        .view-section {
+            display: none;
+            padding: 15px;
+        }
+
+        .view-section.active-view {
+            display: block;
+        }
+
+        /* Personalización de Imagen */
         .banner-section {
             background: white;
             padding: 15px;
             text-align: center;
-            border-bottom: 1px solid var(--gray-border);
-        }
-
-        .banner-upload-box {
-            border: 2px dashed var(--primary-red);
-            padding: 20px;
             border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px dashed var(--primary-red);
             background: #fff5f5;
-            margin-bottom: 10px;
         }
 
-        .banner-upload-box img {
+        .banner-section img {
             max-width: 100%;
-            max-height: 200px;
+            max-height: 180px;
             border-radius: 6px;
             display: none;
             margin-top: 10px;
         }
 
-        .banner-upload-box input[type="file"] {
-            margin-top: 10px;
-        }
-
-        /* Formulario de Buscador */
-        .search-container {
+        /* Buscador */
+        .search-card {
             background: white;
-            margin: 15px;
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
@@ -98,37 +145,30 @@
 
         label {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #444;
             margin-bottom: 6px;
         }
 
-        select, input[type="date"], input[type="text"] {
+        select, input[type="date"] {
             width: 100%;
             padding: 12px;
             border: 1px solid var(--gray-border);
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 14px;
             background: #fff;
         }
 
         .trip-type {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             margin: 15px 0;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
         }
 
-        .trip-type label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .btn-buscar {
+        .btn-main {
             background-color: var(--primary-red);
             color: white;
             border: none;
@@ -141,57 +181,198 @@
             transition: background 0.2s;
         }
 
-        .btn-buscar:hover {
+        .btn-main:hover {
             background-color: #c2131b;
         }
 
-        /* Resultados de la búsqueda */
-        .results-container {
-            margin: 15px;
+        /* Tarjetas de Resultados (Horarios) */
+        .route-header-info {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .btn-modify {
+            background: none;
+            border: 1px solid var(--dark-blue);
+            color: var(--dark-blue);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .result-card {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .result-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--primary-red);
+            font-weight: bold;
         }
 
-        .result-info h3 {
-            font-size: 16px;
+        .trip-times {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .time-block span {
+            display: block;
+        }
+
+        .time-block .time {
+            font-size: 18px;
+            font-weight: bold;
             color: var(--dark-blue);
-            margin-bottom: 5px;
         }
 
-        .result-info p {
-            font-size: 14px;
+        .duration {
+            font-size: 12px;
             color: #666;
+            text-align: center;
         }
 
-        .result-price {
-            text-align: right;
+        .result-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
         }
 
         .price {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             color: var(--primary-red);
-            display: block;
-            margin-bottom: 5px;
         }
 
-        .btn-seleccionar {
-            background: var(--dark-blue);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
+        /* Selección de Butacas (Estilo App Referencia) */
+        .bus-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .floor-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .floor-tab {
+            font-weight: bold;
+            font-size: 14px;
+            color: #888;
             cursor: pointer;
-            font-size: 13px;
+            padding-bottom: 5px;
+        }
+
+        .floor-tab.active-floor {
+            color: var(--primary-red);
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        .bus-layout {
+            display: none;
+            border: 2px solid #cbd5e1;
+            border-radius: 15px;
+            padding: 20px 10px;
+            background: #fafafa;
+            position: relative;
+        }
+
+        .bus-layout.active-layout {
+            display: block;
+        }
+
+        .bus-front {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 8px;
+        }
+
+        .seats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            justify-items: center;
+        }
+
+        .seat {
+            width: 42px;
+            height: 42px;
+            background: var(--seat-free);
+            border: 1px solid #94a3b8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #334155;
+        }
+
+        .seat.occupied {
+            background: var(--seat-occupied);
+            color: #94a3b8;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
+        }
+
+        .seat.selected {
+            background: var(--seat-selected);
+            color: white;
+            border-color: var(--dark-blue);
+        }
+
+        .seat-empty-space {
+            grid-column: span 1;
+        }
+
+        .seat-legend {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
         }
 
         /* Footer */
@@ -217,72 +398,178 @@
         </div>
     </header>
 
-    <!-- Sección de Imagen de Micro (Personalizable) -->
-    <div class="banner-section">
-        <div class="banner-upload-box">
-            <p><strong>Panel de Personalización:</strong> Sube aquí la imagen de tu micro para la portada</p>
+    <!-- Stepper de Pasos -->
+    <div class="stepper-container">
+        <div class="step active" id="step-1">
+            <div class="step-icon">1</div>
+            <span>Viaje</span>
+        </div>
+        <div class="step" id="step-2">
+            <div class="step-icon">2</div>
+            <span>Horarios</span>
+        </div>
+        <div class="step" id="step-3">
+            <div class="step-icon">3</div>
+            <span>Butacas</span>
+        </div>
+        <div class="step" id="step-4">
+            <div class="step-icon">4</div>
+            <span>Pasajeros</span>
+        </div>
+        <div class="step" id="step-5">
+            <div class="step-icon">5</div>
+            <span>Pago</span>
+        </div>
+    </div>
+
+    <!-- ================= PASO 1: BUSCADOR ================= -->
+    <div id="view-1" class="view-section active-view">
+        
+        <!-- Panel para subir la foto del micro -->
+        <div class="banner-section">
+            <p><strong>Personalizar Micro:</strong> Sube tu propia imagen del micro para mostrar en la web</p>
             <input type="file" id="uploadMicro" accept="image/*" onchange="cargarImagenMicro(event)">
             <br>
-            <img id="imagenPrevia" alt="Vista previa del micro">
+            <img id="imagenPrevia" alt="Micro Vía Moreno">
+        </div>
+
+        <div class="search-card">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="origen">Terminal de Origen</label>
+                    <select id="origen">
+                        <option value="Buenos Aires (Terminal Retiro)">Buenos Aires - Terminal Retiro</option>
+                        <option value="La Plata (Terminal Central)">La Plata - Terminal Central</option>
+                        <option value="Rosario (Terminal Mariano Moreno)">Rosario - Terminal Mariano Moreno</option>
+                        <option value="Córdoba (Terminal Bimodal)">Córdoba - Terminal Bimodal</option>
+                        <option value="Mar del Plata (Terminal Ferroautomotora)">Mar del Plata - Terminal Ferroautomotora</option>
+                        <option value="Mendoza (Terminal del Sol)">Mendoza - Terminal del Sol</option>
+                        <option value="San Carlos de Bariloche (Terminal San Carlos)">San Carlos de Bariloche - Terminal</option>
+                        <option value="Puerto Iguazú (Terminal Iguazú)">Puerto Iguazú - Terminal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="destino">Terminal de Destino</label>
+                    <select id="destino">
+                        <option value="Mar del Plata (Terminal Ferroautomotora)">Mar del Plata - Terminal Ferroautomotora</option>
+                        <option value="San Carlos de Bariloche (Terminal San Carlos)">San Carlos de Bariloche - Terminal</option>
+                        <option value="Mendoza (Terminal del Sol)">Mendoza - Terminal del Sol</option>
+                        <option value="Córdoba (Terminal Bimodal)">Córdoba - Terminal Bimodal</option>
+                        <option value="Puerto Iguazú (Terminal Iguazú)">Puerto Iguazú - Terminal</option>
+                        <option value="Buenos Aires (Terminal Retiro)">Buenos Aires - Terminal Retiro</option>
+                        <option value="La Plata (Terminal Central)">La Plata - Terminal Central</option>
+                        <option value="Rosario (Terminal Mariano Moreno)">Rosario - Terminal Mariano Moreno</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fechaIda">Fecha de Ida</label>
+                    <input type="date" id="fechaIda">
+                </div>
+                <div class="form-group" id="groupFechaVuelta">
+                    <label for="fechaVuelta">Fecha de Vuelta</label>
+                    <input type="date" id="fechaVuelta">
+                </div>
+            </div>
+
+            <div class="trip-type">
+                <label><input type="radio" name="tipoViaje" value="idaVuelta" checked onclick="toggleFechas(true)"> Ida y vuelta</label>
+                <label><input type="radio" name="tipoViaje" value="soloIda" onclick="toggleFechas(false)"> Sólo ida</label>
+            </div>
+
+            <button class="btn-main" onclick="buscarViajes()">BUSCAR VIAJE</button>
         </div>
     </div>
 
-    <!-- Buscador de Pasajes -->
-    <div class="search-container">
-        <div class="form-row">
-            <div class="form-group">
-                <label for="origen">Origen</label>
-                <select id="origen">
-                    <option value="Buenos Aires">Buenos Aires (Retiro)</option>
-                    <option value="La Plata">La Plata</option>
-                    <option value="Rosario">Rosario</option>
-                    <option value="Córdoba">Córdoba</option>
-                </select>
+    <!-- ================= PASO 2: SELECCIÓN DE HORARIOS ================= -->
+    <div id="view-2" class="view-section">
+        <div class="route-header-info">
+            <div>
+                <strong id="txtRutaResumen">Origen ➔ Destino</strong>
             </div>
-            <div class="form-group">
-                <label for="destino">Destino</label>
-                <select id="destino">
-                    <option value="Mar del Plata">Mar del Plata</option>
-                    <option value="Bariloche">San Carlos de Bariloche</option>
-                    <option value="Mendoza">Mendoza</option>
-                    <option value="Córdoba">Córdoba</option>
-                    <option value="Iguazú">Puerto Iguazú</option>
-                </select>
-            </div>
+            <button class="btn-modify" onclick="irPaso(1)">Modificar</button>
         </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="fechaIda">Fecha de Ida</label>
-                <input type="date" id="fechaIda">
-            </div>
-            <div class="form-group" id="groupFechaVuelta">
-                <label for="fechaVuelta">Fecha de Vuelta</label>
-                <input type="date" id="fechaVuelta">
-            </div>
+        <div id="listaResultadosHorarios">
+            <!-- Cargado dinámicamente -->
         </div>
-
-        <div class="trip-type">
-            <label><input type="radio" name="tipoViaje" value="idaVuelta" checked onclick="toggleVuelta(true)"> Ida y vuelta</label>
-            <label><input type="radio" name="tipoViaje" value="soloIda" onclick="toggleVuelta(false)"> Sólo ida</label>
-        </div>
-
-        <div class="form-group">
-            <label for="pasajeros">Pasajeros</label>
-            <select id="pasajeros">
-                <option value="1">1 Pasajero (Semi-cama)</option>
-                <option value="2">2 Pasajeros (Cama)</option>
-                <option value="3">3 Pasajeros</option>
-                <option value="4">4 Pasajeros</option>
-            </select>
-        </div>
-
-        <button class="btn-buscar" onclick="buscarPasajes()">BUSCAR PASAJES</button>
     </div>
 
-    <!-- Resultados -->
-    <div class="results-container" id="resultados">
-        <!-- Los resultados dinámicos se cargarán aquí -->
+    <!-- ================= PASO 3: SELECCIÓN DE BUTACAS ================= -->
+    <div id="view-3" class="view-section">
+        <div class="route-header-info">
+            <div>
+                <strong>Selecciona tus butacas</strong>
+                <p style="font-size: 12px; color: #666;" id="infoSeleccionButacas">Servicio Cama - Planta Alta</p>
+            </div>
+            <button class="btn-modify" onclick="irPaso(2)">Cambiar Horario</button>
+        </div>
+
+        <div class="bus-container">
+            <div class="floor-tabs">
+                <div class="floor-tab active-floor" onclick="cambiarPiso('alta')">Planta Alta</div>
+                <div class="floor-tab" onclick="cambiarPiso('baja')">Planta Baja</div>
+            </div>
+
+            <!-- Planta Alta -->
+            <div id="layout-alta" class="bus-layout active-layout">
+                <div class="bus-front">Frente del Micro 📺</div>
+                <div class="seats-grid" id="gridPlantaAlta">
+                    <!-- Generado por JS -->
+                </div>
+            </div>
+
+            <!-- Planta Baja -->
+            <div id="layout-baja" class="bus-layout">
+                <div class="bus-front">Frente del Micro 🚻</div>
+                <div class="seats-grid" id="gridPlantaBaja">
+                    <!-- Generado por JS -->
+                </div>
+            </div>
+
+            <div class="seat-legend">
+                <div class="legend-item"><div class="legend-box" style="background:var(--seat-free); border:1px solid #94a3b8;"></div> Libre</div>
+                <div class="legend-item"><div class="legend-box" style="background:var(--seat-selected)"></div> Seleccionada</div>
+                <div class="legend-item"><div class="legend-box" style="background:var(--seat-occupied)"></div> Ocupada</div>
+            </div>
+
+            <button class="btn-main" onclick="confirmarButacas()" style="margin-top: 15px;">CONFIRMAR BUTACAS</button>
+        </div>
+    </div>
+
+    <!-- ================= PASO 4: DATOS DE PASAJEROS ================= -->
+    <div id="view-4" class="view-section">
+        <div class="search-card">
+            <h2 style="font-size: 16px; margin-bottom: 15px; color: var(--dark-blue);">Datos del Pasajero Principal</h2>
+            <div class="form-group">
+                <label>Nombre y Apellido</label>
+                <input type="text" id="nombrePasajero" placeholder="Ej. Juan Pérez" value="Juan Pérez">
+            </div>
+            <div class="form-group">
+                <label>DNI / Pasaporte</label>
+                <input type="text" id="dniPasajero" placeholder="Ej. 35123456" value="35123456">
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico</label>
+                <input type="text" id="emailPasajero" placeholder="correo@dominio.com" value="cliente@viamoreno.com.ar">
+            </div>
+            <button class="btn-main" onclick="irPaso(5)">CONTINUAR AL PAGO</button>
+        </div>
+    </div>
+
+    <!-- ================= PASO 5: PAGO ================= -->
+    <div id="view-5" class="view-section">
+        <div class="search-card" style="text-align: center;">
+            <h2 style="font-size: 18px; margin-bottom: 10px; color: var(--dark-blue);">Resumen de Compra - Vía Moreno</h2>
+            <p id="resumenFinalTexto" style="font-size: 14px; color: #555; margin-bottom: 20px;"></p>
+            <div style="background: #fff5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="font-size: 14px;">Total a Pagar:</p>
+                <span id="precioTotalFinal" style="font-size: 24px; font-weight: bold; color: var(--primary-red);">$ 0</span>
+            </div>
+            <button class="btn-main" onclick="alert('¡Compra y pago procesados con éxito en Vía Moreno! Se envió el pasaje digital a tu correo.')">PAGAR CON MERCADO PAGO / TARJETA</button>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -291,18 +578,17 @@
         <p>consultas@viamoreno.com.ar</p>
     </footer>
 
-    <!-- JavaScript Funcional -->
+    <!-- JavaScript Avanzado -->
     <script>
-        // Establecer la fecha actual por defecto en el input de ida
         document.getElementById('fechaIda').valueAsDate = new Date();
+        let viajeSeleccionado = {};
+        let asientosSeleccionados = [];
+        let precioBaseViaje = 0;
 
-        // Función para mostrar u ocultar el campo de fecha de vuelta
-        function toggleVuelta(mostrar) {
-            const groupVuelta = document.getElementById('groupFechaVuelta');
-            groupVuelta.style.display = mostrar ? 'block' : 'none';
+        function toggleFechas(mostrar) {
+            document.getElementById('groupFechaVuelta').style.display = mostrar ? 'block' : 'none';
         }
 
-        // Función para subir y previsualizar la imagen del micro
         function cargarImagenMicro(event) {
             const archivo = event.target.files[0];
             if (archivo) {
@@ -316,62 +602,165 @@
             }
         }
 
-        // Base de datos simulada con precios reales aproximados en ARS para destinos de Argentina
-        const tarifasBase = {
-            "Mar del Plata": 35000,
-            "Bariloche": 125000,
-            "Mendoza": 85000,
-            "Córdoba": 48000,
-            "Iguazú": 110000
+        function irPaso(paso) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`view-${paso}`).classList.add('active-view');
+            document.getElementById(`step-${paso}`).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        const tarifasDestinos = {
+            "Mar del Plata (Terminal Ferroautomotora)": 45000,
+            "San Carlos de Bariloche (Terminal San Carlos)": 135000,
+            "Mendoza (Terminal del Sol)": 90000,
+            "Córdoba (Terminal Bimodal)": 52000,
+            "Puerto Iguazú (Terminal Iguazú)": 120000,
+            "Buenos Aires (Terminal Retiro)": 40000,
+            "La Plata (Terminal Central)": 38000,
+            "Rosario (Terminal Mariano Moreno)": 42000
         };
 
-        function buscarPasajes() {
+        function buscarViajes() {
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
-            const pasajeros = parseInt(document.getElementById('pasajeros').value);
-            const tipoViaje = document.querySelector('anim input[name="tipoViaje"]:checked') || document.querySelector('input[name="tipoViaje"]:checked').value;
-            
-            const contenedorResultados = document.getElementById('resultados');
-            contenedorResultados.innerHTML = "";
+            const tipoViaje = document.querySelector('input[name="tipoViaje"]:checked').value;
 
-            // Calcular precio base según destino
-            let precioUnitario = tarifasBase[destino] || 50000;
-            if (tipoViaje === 'idaVuelta') {
-                precioUnitario *= 1.8; // Descuento leve por ida y vuelta
-            }
+            document.getElementById('txtRutaResumen').innerText = `${origen} ➔ ${destino} (${tipoViaje === 'idaVuelta' ? 'Ida y Vuelta' : 'Sólo Ida'})`;
 
-            const precioTotal = precioUnitario * pasajeros;
+            precioBaseViaje = tarifasDestinos[destino] || 50000;
+            if (tipoViaje === 'idaVuelta') precioBaseViaje *= 1.8;
 
-            // Generar opciones de horarios simulados
-            const horarios = [
-                { empresa: "Vía Moreno - Ejecutivo", horaSalida: "08:00 Hs", servicio: "Semicama / Cama" },
-                { empresa: "Vía Moreno - Directo", horaSalida: "14:30 Hs", servicio: "Cama Total" },
-                { empresa: "Vía Moreno - Nocturno", horaSalida: "22:00 Hs", servicio: "Suite / Cama" }
+            const horariosSimulados = [
+                { empresa: "Vía Moreno - Ejecutivo", salida: "06:30", llegada: "12:30", duracion: "06hs 00min", tipo: "Semi-Cama", multiplicador: 1.0, disp: "Últimos 6 disponibles" },
+                { empresa: "Vía Moreno - Directo", salida: "14:00", llegada: "20:00", duracion: "06hs 00min", tipo: "Cama", multiplicador: 1.3, disp: "Últimos 3 disponibles" },
+                { empresa: "Vía Moreno - Nocturno", salida: "23:30", llegada: "05:30", duracion: "06hs 00min", tipo: "Suite Total", multiplicador: 1.6, disp: "Disponible" }
             ];
 
-            let htmlResultados = `<h2 style="font-size: 18px; margin-bottom: 10px; color: #0b1d3a;">Resultados para: ${origen} ➔ ${destino}</h2>`;
-
-            horarios.forEach((h, index) => {
-                // Variar ligeramente el precio por servicio
-                const precioFinalServicio = Math.round(precioTotal * (1 + (index * 0.1)));
-                
-                htmlResultados += `
+            let html = "";
+            horariosSimulados.forEach((h, index) => {
+                const precioCalculado = Math.round(precioBaseViaje * h.multiplicador);
+                html += `
                     <div class="result-card">
-                        <div class="result-info">
-                            <h3>${h.empresa}</h3>
-                            <p>Salida: <strong>${h.horaSalida}</strong> | ${h.servicio}</p>
-                            <p>${pasajeros} pasajero(s) - ${tipoViaje === 'idaVuelta' ? 'Ida y Vuelta' : 'Sólo Ida'}</p>
+                        <div class="result-top">
+                            <span>${h.empresa}</span>
+                            <span>${h.disp}</span>
                         </div>
-                        <div class="result-price">
-                            <span class="price">$ ${precioFinalServicio.toLocaleString('es-AR')}</span>
-                            <button class="btn-seleccionar" onclick="alert('¡Asiento seleccionado con éxito en Vía Moreno! Redirigiendo al pago...')">Seleccionar</button>
+                        <div class="trip-times">
+                            <div class="time-block">
+                                <span class="time">${h.salida}</span>
+                                <span style="font-size: 11px; color:#666;">Salida</span>
+                            </div>
+                            <div class="duration">
+                                <span>⏱ ${h.duracion}</span>
+                                <span style="font-size:11px; color:#0b1d3a; font-weight:bold;">Directo</span>
+                            </div>
+                            <div class="time-block">
+                                <span class="time">${h.llegada}</span>
+                                <span style="font-size: 11px; color:#666;">Llegada</span>
+                            </div>
+                        </div>
+                        <div class="result-footer">
+                            <div>
+                                <span style="font-size: 12px; color:#555;">${h.tipo}</span>
+                                <span class="price">$ ${precioCalculado.toLocaleString('es-AR')}</span>
+                            </div>
+                            <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}', ${precioCalculado})">Elegir</button>
                         </div>
                     </div>
                 `;
             });
 
-            contenedorResultados.innerHTML = htmlResultados;
+            document.getElementById('listaResultadosHorarios').innerHTML = html;
+            irPaso(2);
         }
+
+        function seleccionarHorario(tipoServicio, precio) {
+            viajeSeleccionado = { tipoServicio, precio };
+            document.getElementById('infoSeleccionButacas').innerText = `Servicio ${tipoServicio}`;
+            generarAsientos();
+            asientosSeleccionados = [];
+            irPaso(3);
+        }
+
+        function cambiarPiso(piso) {
+            document.querySelectorAll('.floor-tab').forEach(el => el.classList.remove('active-floor'));
+            document.querySelectorAll('.bus-layout').forEach(el => el.classList.remove('active-layout'));
+
+            if (piso === 'alta') {
+                document.querySelectorAll('.floor-tab')[0].classList.add('active-floor');
+                document.getElementById('layout-alta').classList.add('active-layout');
+            } else {
+                document.querySelectorAll('.floor-tab')[1].classList.add('active-floor');
+                document.getElementById('layout-baja').classList.add('active-layout');
+            }
+        }
+
+        function generarAsientos() {
+            // Generar grilla de planta alta (asientos 1 al 30)
+            let htmlAlta = "";
+            for (let i = 1; i <= 28; i++) {
+                if (i % 4 === 3) {
+                    htmlAlta += `<div class="seat-empty-space"></div>`; // Pasillo
+                }
+                const ocupado = (i === 4 || i === 9 || i === 15) ? 'occupied' : '';
+                htmlAlta += `<div class="seat ${ocupado}" id="seat-${i}" onclick="toggleAsiento(${i})">${i}</div>`;
+            }
+            document.getElementById('gridPlantaAlta').innerHTML = htmlAlta;
+
+            // Generar grilla de planta baja (asientos 29 al 40)
+            let htmlBaja = "";
+            for (let i = 29; i <= 40; i++) {
+                if (i % 4 === 3) {
+                    htmlBaja += `<div class="seat-empty-space"></div>`;
+                }
+                const ocupado = (i === 32) ? 'occupied' : '';
+                htmlBaja += `<div class="seat ${ocupado}" id="seat-${i}" onclick="toggleAsiento(${i})">${i}</div>`;
+            }
+            document.getElementById('gridPlantaBaja').innerHTML = htmlBaja;
+        }
+
+        function toggleAsiento(numero) {
+            const elem = document.getElementById(`seat-${numero}`);
+            if (elem.classList.contains('occupied')) return;
+
+            if (elem.classList.contains('selected')) {
+                elem.classList.remove('selected');
+                asientosSeleccionados = asientosSeleccionados.filter(s => s !== numero);
+            } else {
+                if (asientosSeleccionados.length >= 4) {
+                    alert("Solo puedes seleccionar hasta 4 butacas por compra.");
+                    return;
+                }
+                elem.classList.add('selected');
+                asientosSeleccionados.push(numero);
+            }
+        }
+
+        function confirmarButacas() {
+            if (asientosSeleccionados.length === 0) {
+                alert("Por favor, selecciona al menos una butaca para continuar.");
+                return;
+            }
+            irPaso(4);
+        }
+
+        // Interceptar paso 4 a 5 para armar resumen
+        const originalIrPaso = irPaso;
+        irPaso = function(paso) {
+            if (paso === 5) {
+                const nombre = document.getElementById('nombrePasajero').value;
+                const total = viajeSeleccionado.precio * asientosSeleccionados.length;
+                document.getElementById('resumenFinalTexto').innerHTML = `
+                    Pasajero: <strong>${nombre}</strong><br>
+                    Butaca(s) seleccionada(s): <strong>${asientosSeleccionados.join(', ')}</strong><br>
+                    Servicio: <strong>${viajeSeleccionado.tipoServicio}</strong>
+                `;
+                document.getElementById('precioTotalFinal').innerText = `$ ${total.toLocaleString('es-AR')}`;
+            }
+            originalIrPaso(paso);
+        };
     </script>
 </body>
 </html>
