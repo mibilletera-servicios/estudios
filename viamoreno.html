@@ -573,33 +573,103 @@
         <div class="search-card">
             <div class="form-row">
                 <div class="form-group">
-                    <label for="origen">Terminal de Origen</label>
-                    <select id="origen">
-                        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
-                        <option value="Buenos Aires - Terminal Liniers">Buenos Aires - Terminal Liniers</option>
-                        <option value="Buenos Aires - Terminal Dellepiane">Buenos Aires - Terminal Dellepiane</option>
-                        <option value="Buenos Aires - Terminal Constitución">Buenos Aires - Terminal Constitución</option>
-                        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
-                        <option value="Rosario - Terminal Mariano Moreno">Rosario - Terminal Mariano Moreno</option>
-                        <option value="Córdoba - Terminal Bimodal">Córdoba - Terminal Bimodal</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="destino">Terminal de Destino</label>
-                    <select id="destino">
-                        <option value="Mar del Plata - Terminal Ferroautomotora">Mar del Plata - Terminal Ferroautomotora</option>
-                        <option value="San Carlos de Bariloche - Terminal San Carlos">San Carlos de Bariloche - Terminal</option>
-                        <option value="Mendoza - Terminal del Sol">Mendoza - Terminal del Sol</option>
-                        <option value="Córdoba - Terminal Bimodal">Córdoba - Terminal Bimodal</option>
-                        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
-                        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
-                        <option value="Salta - Terminal de Ómnibus de Salta">Salta - Terminal de Ómnibus</option>
-                        <option value="San Miguel de Tucumán - Estación Central">San Miguel de Tucumán - Estación Central</option>
-                        <option value="Puerto Iguazú - Terminal de Buses">Puerto Iguazú - Terminal de Buses</option>
-                        <option value="Neuquén - Terminal de Ómnibus de Neuquén">Neuquén - Terminal de Ómnibus</option>
-                        <option value="Ushuaia - Terminal de Ómnibus de Ushuaia">Ushuaia - Terminal de Ómnibus</option>
-                    </select>
-                </div>
+    <label for="origen">Terminal de Origen</label>
+    <select id="origen">
+        <!-- Buenos Aires y Alrededores -->
+        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
+        <option value="Buenos Aires - Terminal Liniers">Buenos Aires - Terminal Liniers</option>
+        <option value="Buenos Aires - Terminal Dellepiane">Buenos Aires - Terminal Dellepiane</option>
+        <option value="Buenos Aires - Terminal Constitución">Buenos Aires - Terminal Constitución</option>
+        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
+
+        <!-- Costa Atlántica -->
+        <option value="San Clemente del Tuyú - Terminal de Ómnibus">San Clemente del Tuyú - Terminal de Ómnibus</option>
+        <option value="Las Toninas - Parada / Terminal">Las Toninas - Parada / Terminal</option>
+        <option value="Santa Teresita - Terminal de Ómnibus">Santa Teresita - Terminal de Ómnibus</option>
+        <option value="Mar del Tuyú - Terminal de Ómnibus">Mar del Tuyú - Terminal de Ómnibus</option>
+        <option value="Costa del Este - Parada Principal">Costa del Este - Parada Principal</option>
+        <option value="Aguas Verdes - Parada Principal">Aguas Verdes - Parada Principal</option>
+        <option value="San Bernardo - Terminal de Ómnibus">San Bernardo - Terminal de Ómnibus</option>
+        <option value="Mar de Ajó - Terminal de Ómnibus">Mar de Ajó - Terminal de Ómnibus</option>
+        <option value="Pinamar - Terminal de Ómnibus">Pinamar - Terminal de Ómnibus</option>
+        <option value="Villa Gesell - Terminal de Ómnibus">Villa Gesell - Terminal de Ómnibus</option>
+        <option value="Mar Chiquita (Balneario) - Centro">Mar Chiquita (Balneario) - Centro</option>
+        <option value="Mar del Plata - Terminal de Ómnibus Astor Piazzolla">Mar del Plata - Terminal de Ómnibus Astor Piazzolla</option>
+        <option value="Bahía Blanca - Terminal de Ómnibus">Bahía Blanca - Terminal de Ómnibus</option>
+
+        <!-- Resto del País -->
+        <option value="Rosario - Terminal de Ómnibus Mariano Moreno">Rosario - Terminal de Ómnibus Mariano Moreno</option>
+        <option value="Córdoba - Terminal de Ómnibus">Córdoba - Terminal de Ómnibus</option>
+        <option value="Mendoza - Terminal de Micros">Mendoza - Terminal de Micros</option>
+        <option value="San Miguel de Tucumán - Terminal de Ómnibus">San Miguel de Tucumán - Terminal de Ómnibus</option>
+        <option value="Salta - Terminal de Ómnibus de Salta">Salta - Terminal de Ómnibus de Salta</option>
+        <option value="Jujuy - Terminal de Ómnibus de San Salvador">Jujuy - Terminal de Ómnibus de San Salvador</option>
+        <option value="Santiago del Estero - Terminal de Ómnibus">Santiago del Estero - Terminal de Ómnibus</option>
+        <option value="Catamarca - Terminal de Ómnibus">Catamarca - Terminal de Ómnibus</option>
+        <option value="La Rioja - Terminal de Ómnibus">La Rioja - Terminal de Ómnibus</option>
+        <option value="Resistencia - Terminal de Ómnibus">Resistencia - Terminal de Ómnibus</option>
+        <option value="Corrientes - Terminal de Ómnibus">Corrientes - Terminal de Ómnibus</option>
+        <option value="Posadas - Terminal de Ómnibus">Posadas - Terminal de Ómnibus</option>
+        <option value="Puerto Iguazú - Terminal de Buses">Puerto Iguazú - Terminal de Buses</option>
+        <option value="Formosa - Terminal de Ómnibus">Formosa - Terminal de Ómnibus</option>
+        <option value="Neuquén - Terminal de Ómnibus de Neuquén">Neuquén - Terminal de Ómnibus de Neuquén</option>
+        <option value="San Carlos de Bariloche - Terminal de Ómnibus">San Carlos de Bariloche - Terminal de Ómnibus</option>
+        <option value="Trelew - Terminal de Ómnibus">Trelew - Terminal de Ómnibus</option>
+        <option value="Comodoro Rivadavia - Terminal de Ómnibus">Comodoro Rivadavia - Terminal de Ómnibus</option>
+        <option value="Río Gallegos - Terminal de Ómnibus">Río Gallegos - Terminal de Ómnibus</option>
+        <option value="Ushuaia - Terminal de Ómnibus de Ushuaia">Ushuaia - Terminal de Ómnibus de Ushuaia</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="destino">Terminal de Destino</label>
+    <select id="destino">
+        <!-- Buenos Aires y Alrededores -->
+        <option value="Buenos Aires - Terminal Retiro">Buenos Aires - Terminal Retiro</option>
+        <option value="Buenos Aires - Terminal Liniers">Buenos Aires - Terminal Liniers</option>
+        <option value="Buenos Aires - Terminal Dellepiane">Buenos Aires - Terminal Dellepiane</option>
+        <option value="Buenos Aires - Terminal Constitución">Buenos Aires - Terminal Constitución</option>
+        <option value="La Plata - Terminal Central">La Plata - Terminal Central</option>
+
+        <!-- Costa Atlántica -->
+        <option value="San Clemente del Tuyú - Terminal de Ómnibus">San Clemente del Tuyú - Terminal de Ómnibus</option>
+        <option value="Las Toninas - Parada / Terminal">Las Toninas - Parada / Terminal</option>
+        <option value="Santa Teresita - Terminal de Ómnibus">Santa Teresita - Terminal de Ómnibus</option>
+        <option value="Mar del Tuyú - Terminal de Ómnibus">Mar del Tuyú - Terminal de Ómnibus</option>
+        <option value="Costa del Este - Parada Principal">Costa del Este - Parada Principal</option>
+        <option value="Aguas Verdes - Parada Principal">Aguas Verdes - Parada Principal</option>
+        <option value="San Bernardo - Terminal de Ómnibus">San Bernardo - Terminal de Ómnibus</option>
+        <option value="Mar de Ajó - Terminal de Ómnibus">Mar de Ajó - Terminal de Ómnibus</option>
+        <option value="Pinamar - Terminal de Ómnibus">Pinamar - Terminal de Ómnibus</option>
+        <option value="Villa Gesell - Terminal de Ómnibus">Villa Gesell - Terminal de Ómnibus</option>
+        <option value="Mar Chiquita (Balneario) - Centro">Mar Chiquita (Balneario) - Centro</option>
+        <option value="Mar del Plata - Terminal de Ómnibus Astor Piazzolla">Mar del Plata - Terminal de Ómnibus Astor Piazzolla</option>
+        <option value="Bahía Blanca - Terminal de Ómnibus">Bahía Blanca - Terminal de Ómnibus</option>
+
+        <!-- Resto del País -->
+        <option value="Rosario - Terminal de Ómnibus Mariano Moreno">Rosario - Terminal de Ómnibus Mariano Moreno</option>
+        <option value="Córdoba - Terminal de Ómnibus">Córdoba - Terminal de Ómnibus</option>
+        <option value="Mendoza - Terminal de Micros">Mendoza - Terminal de Micros</option>
+        <option value="San Miguel de Tucumán - Terminal de Ómnibus">San Miguel de Tucumán - Terminal de Ómnibus</option>
+        <option value="Salta - Terminal de Ómnibus de Salta">Salta - Terminal de Ómnibus de Salta</option>
+        <option value="Jujuy - Terminal de Ómnibus de San Salvador">Jujuy - Terminal de Ómnibus de San Salvador</option>
+        <option value="Santiago del Estero - Terminal de Ómnibus">Santiago del Estero - Terminal de Ómnibus</option>
+        <option value="Catamarca - Terminal de Ómnibus">Catamarca - Terminal de Ómnibus</option>
+        <option value="La Rioja - Terminal de Ómnibus">La Rioja - Terminal de Ómnibus</option>
+        <option value="Resistencia - Terminal de Ómnibus">Resistencia - Terminal de Ómnibus</option>
+        <option value="Corrientes - Terminal de Ómnibus">Corrientes - Terminal de Ómnibus</option>
+        <option value="Posadas - Terminal de Ómnibus">Posadas - Terminal de Ómnibus</option>
+        <option value="Puerto Iguazú - Terminal de Buses">Puerto Iguazú - Terminal de Buses</option>
+        <option value="Formosa - Terminal de Ómnibus">Formosa - Terminal de Ómnibus</option>
+        <option value="Neuquén - Terminal de Ómnibus de Neuquén">Neuquén - Terminal de Ómnibus de Neuquén</option>
+        <option value="San Carlos de Bariloche - Terminal de Ómnibus">San Carlos de Bariloche - Terminal de Ómnibus</option>
+        <option value="Trelew - Terminal de Ómnibus">Trelew - Terminal de Ómnibus</option>
+        <option value="Comodoro Rivadavia - Terminal de Ómnibus">Comodoro Rivadavia - Terminal de Ómnibus</option>
+        <option value="Río Gallegos - Terminal de Ómnibus">Río Gallegos - Terminal de Ómnibus</option>
+        <option value="Ushuaia - Terminal de Ómnibus de Ushuaia">Ushuaia - Terminal de Ómnibus de Ushuaia</option>
+    </select>
+</div>
+
             </div>
 
             <div class="form-row">
