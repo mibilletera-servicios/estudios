@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vía Moreno - Pasajes de Micro</title>
+    VIA MORENO - Pasajes de Micro</title>
     <style>
         :root {
             --primary-orange: #ff6600;
@@ -117,7 +117,6 @@
             display: block;
         }
 
-        /* Carrusel Automático de Imágenes */
         .carousel-section {
             background: white;
             padding: 10px;
@@ -458,7 +457,49 @@
             margin-bottom: 15px;
         }
 
-        /* Pie de Página Profesional */
+        /* Estilos de Métodos de Pago y Ficha de Boleto Completa */
+        .ticket-summary-box {
+            background: #fff;
+            border: 1px solid var(--gray-border);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .payment-option {
+            border: 2px solid var(--gray-border);
+            border-radius: 8px;
+            padding: 12px 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--dark-blue);
+            transition: all 0.2s;
+            background: #fff;
+        }
+
+        .payment-option input {
+            display: none;
+        }
+
+        .payment-option.selected-payment {
+            border-color: var(--primary-orange);
+            background: #fff7ed;
+            color: var(--primary-orange);
+        }
+
         footer {
             background-color: var(--dark-blue);
             color: white;
@@ -509,14 +550,10 @@
 </head>
 <body>
 
-    <!-- Header con tu Logo y Enlace -->
     <header>
         <div class="logo-container">
-            <!-- REEMPLAZA EL ENLACE Y LA IMAGEN CON LOS TUYOS -->
             <a href="index.html">
-                <img src="https://i.postimg.cc/cLrfW3N1/IMG-20260918-WA0032.jpg" alt="Logo Vía Moreno">
-                <!-- Si prefieres texto plano si no carga la imagen, borra la etiqueta <img> y descomenta la siguiente línea: -->
-                <!-- <span class="logo-fallback">VÍA MORENO</span> -->
+                <img src="https://via.placeholder.com/150x40/0b1d3a/ff6600?text=DOCUTRACKING" alt="Logo DOCUTRACKING">
             </a>
         </div>
         <div class="currency-lang">
@@ -532,14 +569,12 @@
         <div class="step" id="step-5"><div class="step-icon">5</div><span>Pago</span></div>
     </div>
 
-    <!-- PASO 1: BUSCADOR CON CARRUSEL DE 3 FOTOS -->
+    <!-- PASO 1: BUSCADOR -->
     <div id="view-1" class="view-section active-view">
-        
-        <!-- Carrusel automático de 3 imágenes -->
         <div class="carousel-section">
             <div class="carousel-container" id="sliderCarrousel">
-                <img src="https://i.postimg.cc/tgJSLJBL/IMG-20260918-WA0031.jpg" class="carousel-slide active-slide" alt="Micro 1">
-                <img src="https://www.flechabus.com.ar/dw/image/v2/BKSP_PRD/on/demandware.static/-/Sites-FlechaBus-Library/default/dw183250f3/Banner%20principal%20carrousel/banner%20principal%20mobile/MOBILEL_MASCOTAS_flechabus.jpg?sw=768&sfrm=jpg" class="carousel-slide" alt="Micro 2">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80" class="carousel-slide active-slide" alt="Micro 1">
+                <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=600&q=80" class="carousel-slide" alt="Micro 2">
                 <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" class="carousel-slide" alt="Micro 3">
             </div>
         </div>
@@ -583,8 +618,8 @@
             </div>
 
             <div class="trip-type">
-                <label><input type="radio" name="tipoViaje" value="idaVuelta" checked onclick="toggleFechas(true)"> Ida y vuelta</label>
-                <label><input type="radio" name="tipoViaje" value="soloIda" onclick="toggleFechas(false)"> Sólo ida</label>
+                <label><input type="radio" name="tipoViaje" value="Ida y vuelta" checked onclick="toggleFechas(true)"> Ida y vuelta</label>
+                <label><input type="radio" name="tipoViaje" value="Sólo ida" onclick="toggleFechas(false)"> Sólo ida</label>
             </div>
 
             <button class="btn-main" onclick="buscarViajes()">BUSCAR VIAJE</button>
@@ -600,7 +635,7 @@
         <div id="listaResultadosHorarios"></div>
     </div>
 
-    <<!-- PASO 3: BUTACAS -->
+    <!-- PASO 3: BUTACAS -->
     <div id="view-3" class="view-section">
         <div class="route-header-info">
             <div>
@@ -663,42 +698,59 @@
         </div>
     </div>
 
-    <!-- PASO 5: PAGO -->
+    <!-- PASO 5: PAGO Y RESUMEN COMPLETO -->
     <div id="view-5" class="view-section">
-        <div class="search-card" style="text-align: center;">
-            <h2 style="font-size: 18px; margin-bottom: 10px; color: var(--dark-blue);">Resumen de Compra - Vía Moreno</h2>
-            <p id="resumenFinalTexto" style="font-size: 14px; color: #555; margin-bottom: 20px;"></p>
-            <div style="background: #fff5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                <p style="font-size: 14px;">Total a Pagar:</p>
-                <span id="precioTotalFinal" style="font-size: 24px; font-weight: bold; color: var(--primary-orange);">$ 0</span>
+        <div class="search-card" style="max-width: 550px; text-align: left;">
+            <h2 style="font-size: 18px; margin-bottom: 15px; color: var(--dark-blue); text-align: center;">Resumen del Boleto - DOCUTRACKING</h2>
+            
+            <!-- Ficha completa del boleto -->
+            <div class="ticket-summary-box" id="resumenBoletoCompleto"></div>
+
+            <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--dark-blue);">Seleccione Método de Pago:</h3>
+            <div class="payment-methods-grid">
+                <label class="payment-option selected-payment" onclick="seleccionarMetodoPago(this)">
+                    <input type="radio" name="metodoPago" value="Tarjeta Crédito/Débito" checked> 💳 Tarjeta Crédito / Débito
+                </label>
+                <label class="payment-option" onclick="seleccionarMetodoPago(this)">
+                    <input type="radio" name="metodoPago" value="Transferencia Bancaria"> 🏦 Transferencia
+                </label>
+                <label class="payment-option" onclick="seleccionarMetodoPago(this)">
+                    <input type="radio" name="metodoPago" value="Depósito Bancario"> 📄 Depósito
+                </label>
+                <label class="payment-option" onclick="seleccionarMetodoPago(this)">
+                    <input type="radio" name="metodoPago" value="Rapipago / Pago Fácil"> 🏪 Rapipago / Pago Fácil
+                </label>
             </div>
-            <button class="btn-main" onclick="alert('¡Compra y pago procesados con éxito en Vía Moreno! Se enviaron los pasajes digitales a sus correos.')">PAGAR CON MERCADO PAGO / TARJETA</button>
+
+            <div style="background: #fff7ed; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; border: 1px solid #fed7aa;">
+                <p style="font-size: 13px; color: #9a3412;">Total a Pagar:</p>
+                <span id="precioTotalFinal" style="font-size: 22px; font-weight: bold; color: var(--primary-orange);">$ 0</span>
+            </div>
+
+            <button class="btn-main" onclick="enviarWhatsApp()">Pagar ahora !</button>
         </div>
     </div>
 
-    <!-- Pie de Página Profesional -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Vía Moreno</h3>
-                <p>Conectando destinos de forma segura, rápida y cómoda en toda la región. Tu viaje comienza aquí.</p>
+                <h3>DOCUTRACKING</h3>
+                <p>Agencia de envíos y gestión de pasajes con cobertura en toda la región.</p>
             </div>
             <div class="footer-section">
                 <h3>Enlaces Rápidos</h3>
                 <a href="#origen">Buscar Pasajes</a>
                 <a href="#">Terminales Asociadas</a>
-                <a href="#">Estado de Servicios</a>
                 <a href="#">Términos y Condiciones</a>
             </div>
             <div class="footer-section">
                 <h3>Atención al Cliente</h3>
-                <p>📧 consultas@viamoreno.com.ar</p>
-                <p>📞 0800-333-MORENO</p>
+                <p>📧 consultas@docutracking.com.ar</p>
                 <p>🕒 Lunes a Domingo de 06:00 a 23:00 hs</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>Vía Moreno - Todos los derechos reservados © 2026</p>
+            <p>DOCUTRACKING - Todos los derechos reservados © 2026</p>
         </div>
     </footer>
 
@@ -709,7 +761,6 @@
         let precioBaseViaje = 0;
         let maxPasajeros = 1;
 
-        // Script del Carrusel Automático de 3 imágenes
         let indiceSlideActual = 0;
         function iniciarCarrusel() {
             const slides = document.querySelectorAll('.carousel-slide');
@@ -718,7 +769,7 @@
                 slides[indiceSlideActual].classList.remove('active-slide');
                 indiceSlideActual = (indiceSlideActual + 1) % slides.length;
                 slides[indiceSlideActual].classList.add('active-slide');
-            }, 3000); // Cambia cada 3 segundos
+            }, 3000);
         }
         window.addEventListener('DOMContentLoaded', iniciarCarrusel);
 
@@ -749,15 +800,15 @@
             const destino = document.getElementById('destino').value;
             const tipoViaje = document.querySelector('input[name="tipoViaje"]:checked').value;
 
-            document.getElementById('txtRutaResumen').innerText = `${origen} ➔ ${destino}`;
+            document.getElementById('txtRutaResumen').innerText = `${origen} ➔${destino}`;
 
             precioBaseViaje = tarifasDestinos[destino] || 50000;
-            if (tipoViaje === 'idaVuelta')precioBaseViaje *= 1.8;
+            if (tipoViaje === 'Ida y vuelta') precioBaseViaje *= 1.8;
 
             const horariosSimulados = [
-                { empresa: "Vía Moreno - Ejecutivo", salida: "06:30", llegada: "12:30", duracion: "06hs", tipo: "Semi-Cama", desc: "Refrigerio a bordo, Wi-Fi y puertos USB.", mult: 1.0 },
-                { empresa: "Vía Moreno - Directo", salida: "14:00", llegada: "20:00", duracion: "06hs", tipo: "Cama", desc: "Catering caliente, asientos reclinables 160°, Wi-Fi y Mantas.", mult: 1.3 },
-                { empresa: "Vía Moreno - Suite", salida: "23:30", llegada: "05:30", duracion: "06hs", tipo: "Suite Total", desc: "Servicio VIP, pantallas individuales, catering premium y bebida.", mult: 1.6 }
+                { empresa: "DOCUTRACKING - Ejecutivo", salida: "06:30", llegada: "12:30", duracion: "06hs", tipo: "Semi-Cama", desc: "Refrigerio a bordo, Wi-Fi y puertos USB.", mult: 1.0 },
+                { empresa: "DOCUTRACKING - Directo", salida: "14:00", llegada: "20:00", duracion: "06hs", tipo: "Cama", desc: "Catering caliente, asientos reclinables 160°, Wi-Fi y Mantas.", mult: 1.3 },
+                { empresa: "DOCUTRACKING - Suite", salida: "23:30", llegada: "05:30", duracion: "06hs", tipo: "Suite Total", desc: "Servicio VIP, pantallas individuales, catering premium y bebida.", mult: 1.6 }
             ];
 
             let html = "";
@@ -774,10 +825,8 @@
                             <div class="duration"><span>⏱ ${h.duracion}</span></div>
                             <div class="time-block"><span class="time">${h.llegada}</span><span style="font-size:11px;">Llegada</span></div>
                         </div>
-                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>
-                        <div class="result-footer">
-                            <span class="price">$ ${precioCalc.toLocaleString('es-AR')}</span>
-                            <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}', ${precioCalc})">Elegir</button>
+                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>                         <div class="result-footer">                             <span class="price">$ ${precioCalc.toLocaleString('es-AR')}</span>
+                            <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}',${precioCalc})">Elegir</button>
                         </div>
                     </div>
                 `;
@@ -869,7 +918,7 @@
             for (let i = 0; i < asientosSeleccionados.length; i++) {
                 htmlForm += `
                     <div class="passenger-card">
-                        <strong>Pasajero ${i + 1} (Butaca N° ${asientosSeleccionados[i]})</strong>
+                        <strong>Pasajero ${i + 1} (Butaca N°${asientosSeleccionados[i]})</strong>
                         <div class="form-row" style="margin-top: 10px;">
                             <div class="form-group"><label>Nombre y Apellido *</label><input type="text" class="input-valido" id="nombre_${i}" oninput="validarFormularioPasajeros()" placeholder="Nombre completo"></div>
                             <div class="form-group"><label>DNI / Pasaporte *</label><input type="text" class="input-valido" id="dni_${i}" oninput="validarFormularioPasajeros()" placeholder="N° de documento"></div>
@@ -904,26 +953,83 @@
             }
         }
 
+        function seleccionarMetodoPago(elemento) {
+            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected-payment'));
+            elemento.classList.add('selected-payment');
+            elemento.querySelector('input').checked = true;
+        }
+
         const originalIrPaso = irPaso;
         irPaso = function(paso) {
             if (paso === 5) {
-                let resumenPasajeros = "";
+                const origen = document.getElementById('origen').value;
+                const destino = document.getElementById('destino').value;
+                const tipoViaje = document.querySelector('input[name="tipoViaje"]:checked').value;
+                const fechaIda = document.getElementById('fechaIda').value;
+                const fechaVuelta = document.getElementById('fechaVuelta').value;
                 let total = viajeSeleccionado.precio * asientosSeleccionados.length;
-                
+
+                let detallesPasajeros = "";
                 for (let i = 0; i < asientosSeleccionados.length; i++) {
                     let nombre = document.getElementById(`nombre_${i}`).value;
+                    let dni = document.getElementById(`dni_${i}`).value;
+                    let email = document.getElementById(`email_${i}`).value;
                     let tel = document.getElementById(`tel_${i}`).value;
-                    resumenPasajeros += `• ${nombre} (Tel: ${tel}) - Butaca N° <strong>${asientosSeleccionados[i]}</strong><br>`;
+                    detallesPasajeros += `<br>• <strong>Pasajero ${i+1}:</strong>${nombre} | DNI: ${dni} \vert{} Butaca N°: <strong>${asientosSeleccionados[i]}</strong> | Tel: ${tel} \vert{} Email:${email}`;
                 }
 
-                document.getElementById('resumenFinalTexto').innerHTML = `
-                    Servicio: <strong>${viajeSeleccionado.tipoServicio}</strong><br><br>
-                    <strong>Pasajeros (${asientosSeleccionados.length}):</strong><br>${resumenPasajeros}
+                let textoFechas = `📅 <strong>Fecha de Ida:</strong> ${fechaIda}`;
+                if (tipoViaje === 'Ida y vuelta') {
+                    textoFechas += `<br>📅 <strong>Fecha de Vuelta:</strong> ${fechaVuelta || 'No especificada'}`;
+                }
+
+                document.getElementById('resumenBoletoCompleto').innerHTML = `
+                    🚌 <strong>Tipo de Viaje:</strong> ${tipoViaje}<br>
+                    📍 <strong>Origen:</strong> ${origen}<br>
+                    🏁 <strong>Destino:</strong> ${destino}<br>${textoFechas}<br>
+                    ⭐ <strong>Servicio:</strong> ${viajeSeleccionado.tipoServicio}<br>
+                    👥 <strong>Cantidad de Pasajeros:</strong> ${asientosSeleccionados.length}${detallesPasajeros}
                 `;
                 document.getElementById('precioTotalFinal').innerText = `$ ${total.toLocaleString('es-AR')}`;
             }
             originalIrPaso(paso);
         };
+
+        function enviarWhatsApp() {
+            const origen = document.getElementById('origen').value;
+            const destino = document.getElementById('destino').value;
+            const tipoViaje = document.querySelector('input[name="tipoViaje"]:checked').value;
+            const fechaIda = document.getElementById('fechaIda').value;
+            const fechaVuelta = document.getElementById('fechaVuelta').value;
+            const metodoPago = document.querySelector('input[name="metodoPago"]:checked').value;
+            let total = viajeSeleccionado.precio * asientosSeleccionados.length;
+
+            let infoPasajeros = "";
+            for (let i = 0; i < asientosSeleccionados.length; i++) {
+                let nombre = document.getElementById(`nombre_${i}`).value;
+                let dni = document.getElementById(`dni_${i}`).value;
+                let email = document.getElementById(`email_${i}`).value;
+                let tel = document.getElementById(`tel_${i}`).value;
+                infoPasajeros += `%0A- Pasajero ${i+1}:${nombre} (DNI: ${dni}) - Butaca N°${asientosSeleccionados[i]} - Tel: ${tel} - Email:${email}`;
+            }
+
+            let mensaje = `Hola VIA MORENO, quiero confirmar y emitir mi boleto de viaje:%0A` +
+                          `-----------------------------------%0A` +
+                          `*Tipo de Viaje:* ${tipoViaje}%0A` +
+                          `*Origen:* ${origen}%0A` +
+                          `*Destino:* ${destino}%0A` +
+                          `*Fecha de Ida:* ${fechaIda}%0A` +
+                          (tipoViaje === 'Ida y vuelta' ? `*Fecha de Vuelta:* ${fechaVuelta}%0A` : ``) +
+                          `*Servicio:* ${viajeSeleccionado.tipoServicio}%0A` +
+                          `*Método de Pago Elegido:* ${metodoPago}%0A` +
+                          `*Total:* $${total.toLocaleString('es-AR')}%0A` +
+                          `-----------------------------------%0A` +
+                          `*Datos de Pasajeros:*` + infoPasajeros;
+
+            // Reemplaza el número de teléfono con el de tu agencia de envíos
+            const numeroWhatsApp = "5491125624043"; 
+            window.open(`https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${mensaje}`, '_blank');
+        }
     </script>
 </body>
 </html>
