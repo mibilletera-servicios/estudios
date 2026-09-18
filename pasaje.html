@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticket Central de Pasajes - Editor en Vivo</title>
+    <!-- Librería para generar el código QR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Librería para exportar a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --panel-bg: #1e1e1e;
+            --ticket-bg: #1a1a1a;
+            --text-main: #e0e0e0;
+            --text-muted: #aaaaaa;
+            --accent: #d81b60;
+            --accent-hover: #ad1457;
+            --border-color: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Panel Izquierdo de Edición */
+        .editor-panel {
+            width: 450px;
+            background-color: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            overflow-y: auto;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        .editor-panel h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #fff;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-section h3 {
+            font-size: 0.95rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px 10px;
+            background-color: #2a2a2a;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Panel Derecho de Vista Previa */
+        .preview-container {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .actions-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Estilo del Boleto (Ticket) */
+        .ticket-wrapper {
+            width: 100%;
+            max-width: 650px;
+            background-color: #161616;
+            color: #e6e6e6;
+            padding: 30px 25px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .ticket-header-top {
+            text-align: center;
+            font-size: 11px;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+
+        .ticket-alert-box {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .ticket-sub-alert {
+            text-align: center;
+            font-size: 10.5px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        .ticket-important {
+            text-align: center;
+            font-size: 9.5px;
+            color: #888;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-grid {
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            margin-bottom: 4px;
+        }
+
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0;
+            background: white;
+            padding: 15px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 4px;
+        }
+
+        .payment-section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .legal-text {
+            font-size: 9.5px;
+            color: #888;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .warning-box {
+            display: flex;
+            gap: 10px;
+            background-color: #241414;
+            border-left: 4px solid #d32f2f;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 9px;
+            color: #ffcccc;
+            align-items: flex-start;
+        }
+
+        .warning-icon {
+            background-color: #d32f2f;
+            color: white;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        @media print {
+            .editor-panel { display: none; }
+            .preview-container { padding: 0; background: #161616; }
+            body { background: #161616; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PANEL DE EDICIÓN EN VIVO -->
+    <div class="editor-panel">
+        <h2>Editor de E-Ticket</h2>
+
+        <div class="form-section">
+            <h3>Encabezados y Alertas</h3>
+            <div class="form-group">
+                <label>Texto Superior</label>
+                <input type="text" id="in-top-header" value="¡Gracias por elegir Central de Pasajes!">
+            </div>
+            <div class="form-group">
+                <label>Alerta Principal</label>
+                <input type="text" id="in-main-alert" value="¡Ahora podés subir directo al bus presentando la siguiente info desde tu celular!">
+            </div>
+            <div class="form-group">
+                <label>Subalerta</label>
+                <input type="text" id="in-sub-alert" value="Recordá que es obligatorio presentar DNI o pasaporte antes de abordar.">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Datos del Viaje (IDA)</h3>
+            <div class="form-group">
+                <label>Empresa</label>
+                <input type="text" id="in-empresa" value="Union Platense">
+            </div>
+            <div class="form-group">
+                <label>Origen</label>
+                <input type="text" id="in-origen" value="La Plata Terminal">
+            </div>
+            <div class="form-group">
+                <label>Salida (Fecha y Hora)</label>
+                <input type="text" id="in-salida" value="14/08/2026 11:30 hs">
+            </div>
+            <div class="form-group">
+                <label>Se anuncia a</label>
+                <input type="text" id="in-anuncia" value="MAGDALENA">
+            </div>
+            <div class="form-group">
+                <label>Destino</label>
+                <input type="text" id="in-destino" value="Magdalena">
+            </div>
+            <div class="form-group">
+                <label>Llegada</label>
+                <input type="text" id="in-llegada" value="14/08/2026 12:30 hs">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Datos del Pasajero</h3>
+            <div class="form-group">
+                <label>Nombre del Pasajero</label>
+                <input type="text" id="in-pasajero" value="PANIAGUA CLAUDIO NAHUEL">
+            </div>
+            <div class="form-group">
+                <label>DNI</label>
+                <input type="text" id="in-dni" value="38638394">
+            </div>
+            <div class="form-group">
+                <label>Nacionalidad</label>
+                <input type="text" id="in-nacionalidad" value="Argentina">
+            </div>
+            <div class="form-group">
+                <label>Nº de Boleto</label>
+                <input type="text" id="in-boleto" value="AI2-70010">
+            </div>
+            <div class="form-group">
+                <label>Asiento</label>
+                <input type="text" id="in-asiento" value="29">
+            </div>
+            <div class="form-group">
+                <label>Precio</label>
+                <input type="text" id="in-precio" value="$5,900.00">
+            </div>
+            <div class="form-group">
+                <label>Cargo de emisión</label>
+                <input type="text" id="in-cargo" value="$427.75">
+            </div>
+            <div class="form-group">
+                <label>Total</label>
+                <input type="text" id="in-total" value="$6,327.75">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Código QR</h3>
+            <div class="form-group">
+                <label>Contenido / URL del Código QR</label>
+                <input type="text" id="in-qr-content" value="https://centraldepasajes.com.ar/ticket/AI2-70010">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Información de Pago</h3>
+            <div class="form-group">
+                <label>Monto Pago</label>
+                <input type="text" id="in-pago-monto" value="$6,327.75 Moneda: Pesos">
+            </div>
+            <div class="form-group">
+                <label>Boletos Cantidad</label>
+                <input type="text" id="in-pago-boletos" value="1">
+            </div>
+            <div class="form-group">
+                <label>Nº de comprobante</label>
+                <input type="text" id="in-comprobante" value="172870034335">
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA PREVIA Y ACCIONES -->
+    <div class="preview-container">
+        <div class="actions-bar">
+            <button class="btn" id="btn-download">📥 Descargar PDF</button>
+        </div>
+
+        <!-- TICKET RENDER -->
+        <div class="ticket-wrapper" id="ticket-content">
+            <div class="ticket-header-top" id="out-top-header">¡Gracias por elegir Central de Pasajes!</div>
+            
+            <div class="ticket-alert-box" id="out-main-alert">¡Ahora podés subir directo al bus presentando la siguiente info desde tu celular!</div>
+            <div class="ticket-sub-alert" id="out-sub-alert">Recordá que es obligatorio presentar DNI o pasaporte antes de abordar.</div>
+            <div class="ticket-important">Importante: Debido a la situación actual, es imprescindible que revises los Requisitos e información para tu viaje...</div>
+
+            <div class="section-title">IDA</div>
+            
+            <div class="info-grid">
+                <div class="info-row">Empresa: <span id="out-empresa">Union Platense</span></div>
+                <div class="info-row">Origen: <span id="out-origen">La Plata Terminal</span></div>
+                <div class="info-row">Salida: <span id="out-salida">14/08/2026 11:30 hs</span></div>
+                <div class="info-row">Se anuncia a: <span id="out-anuncia">MAGDALENA</span></div>
+                <br>
+                <div class="info-row">Destino: <span id="out-destino">Magdalena</span></div>
+                <div class="info-row">Llegada: <span id="out-llegada">14/08/2026 12:30 hs</span></div>
+                <br>
+                <div class="info-row">Pasajero 1: <span id="out-pasajero">PANIAGUA CLAUDIO NAHUEL</span></div>
+                <div class="info-row">DNI: <span id="out-dni">38638394</span></div>
+                <div class="info-row">Nacionalidad: <span id="out-nacionalidad">Argentina</span></div>
+                <div class="info-row">Nº de Boleto: <span id="out-boleto">AI2-70010</span></div>
+                <div class="info-row">Asiento: <span id="out-asiento">29</span></div>
+                <div class="info-row">Precio: <span id="out-precio">$5,900.00</span></div>
+                <div class="info-row">Cargo de emisión: <span id="out-cargo">$427.75</span></div>
+                <div class="info-row">Total: <span id="out-total">$6,327.75</span></div>
+            </div>
+
+            <!-- Contenedor QR -->
+            <div class="qr-container" id="qrcode"></div>
+
+            <div class="payment-section">
+                <div class="section-title" style="font-size: 13px; border-bottom: 1px solid #444; margin-bottom: 8px;">Información de tu Pago:</div>
+                <div class="info-row">Monto: <span id="out-pago-monto">$6,327.75 Moneda: Pesos</span></div>
+                <div class="info-row">Boletos: <span id="out-pago-boletos">1</span></div>
+                <div class="info-row">Nº de comprobante: <span id="out-comprobante">172870034335</span></div>
+            </div>
+
+            <div class="legal-text">Tasas establecidas por la empresa de transporte.</div>
+            <div class="legal-text">El e-ticket adquirido online (adjunto) tiene la misma validez que un boleto emitido en boletería.</div>
+            <div class="legal-text">Equipaje permitido: Equipaje de Mano: Hasta 5 kg. Equipaje en Bodega: Hasta 15 kg.</div>
+            <div class="legal-text">Recordá chequear las plataformas de salida, así como también el destino final donde se anuncia el viaje.</div>
+
+            <div class="warning-box">
+                <div class="warning-icon">!</div>
+                <div>Según lo informado en la Resolución 43-E/2016: Los menores de DOCE (12) años... podrán viajar acompañados por al menos UN (1) representante legal...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inicializar QR
+        let qrCodeInstance = new QRCode(document.getElementById("qrcode"), {
+            text: document.getElementById("in-qr-content").value,
+            width: 140,
+            height: 140,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // Mapeo de inputs en vivo
+        const bindings = [
+            ['in-top-header', 'out-top-header'],
+            ['in-main-alert', 'out-main-alert'],
+            ['in-sub-alert', 'out-sub-alert'],
+            ['in-empresa', 'out-empresa'],
+            ['in-origen', 'out-origen'],
+            ['in-salida', 'out-salida'],
+            ['in-anuncia', 'out-anuncia'],
+            ['in-destino', 'out-destino'],
+            ['in-llegada', 'out-llegada'],
+            ['in-pasajero', 'out-pasajero'],
+            ['in-dni', 'out-dni'],
+            ['in-nacionalidad', 'out-nacionalidad'],
+            ['in-boleto', 'out-boleto'],
+            ['in-asiento', 'out-asiento'],
+            ['in-precio', 'out-precio'],
+            ['in-cargo', 'out-cargo'],
+            ['in-total', 'out-total'],
+            ['in-pago-monto', 'out-pago-monto'],
+            ['in-pago-boletos', 'out-pago-boletos'],
+            ['in-comprobante', 'out-comprobante']
+        ];
+
+        bindings.forEach(([inId, outId]) => {
+            const input = document.getElementById(inId);
+            const output = document.getElementById(outId);
+            input.addEventListener('input', () => {
+                output.textContent = input.value;
+            });
+        });
+
+        // Actualizar QR en tiempo real
+        document.getElementById('in-qr-content').addEventListener('input', (e) => {
+            document.getElementById('qrcode').innerHTML = "";
+            new QRCode(document.getElementById("qrcode"), {
+                text: e.target.value,
+                width: 140,
+                height: 140,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+
+        // Descargar PDF con html2pdf
+        document.getElementById('btn-download').addEventListener('click', () => {
+            const element = document.getElementById('ticket-content');
+            const opt = {
+                margin:       10,
+                filename:     'e-ticket-pasaje.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        });
+    </script>
+</body>
+                  </html>
+              
