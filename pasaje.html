@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Ticket Central de Pasajes - Editor en Vivo</title>
+    <title>E-Ticket Central de Pasajes - Editor Múltiple</title>
     <!-- Librería para generar el código QR -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <!-- Librería para exportar a PDF -->
@@ -12,7 +12,7 @@
         :root {
             --bg-dark: #121212;
             --panel-bg: #1e1e1e;
-            --ticket-bg: #1a1a1a;
+            --ticket-bg: #161616;
             --text-main: #e0e0e0;
             --text-muted: #aaaaaa;
             --accent: #d81b60;
@@ -36,7 +36,7 @@
 
         /* Panel Izquierdo de Edición */
         .editor-panel {
-            width: 450px;
+            width: 460px;
             background-color: var(--panel-bg);
             border-right: 1px solid var(--border-color);
             padding: 20px;
@@ -56,10 +56,14 @@
 
         .form-section {
             margin-bottom: 20px;
+            background: #252525;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #333;
         }
 
         .form-section h3 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--accent);
             margin-bottom: 10px;
             text-transform: uppercase;
@@ -67,19 +71,19 @@
         }
 
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 8px 10px;
+            padding: 7px 10px;
             background-color: #2a2a2a;
             border: 1px solid var(--border-color);
             border-radius: 4px;
@@ -87,7 +91,7 @@
             font-size: 0.85rem;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-group input:focus {
             outline: none;
             border-color: var(--accent);
         }
@@ -132,7 +136,7 @@
         .ticket-wrapper {
             width: 100%;
             max-width: 650px;
-            background-color: #161616;
+            background-color: var(--ticket-bg);
             color: #e6e6e6;
             padding: 30px 25px;
             border-radius: 8px;
@@ -191,6 +195,16 @@
 
         .info-row {
             margin-bottom: 4px;
+        }
+
+        .pasajero-item {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #333;
+        }
+        
+        .pasajero-item:last-child {
+            border-bottom: none;
         }
 
         .qr-container {
@@ -253,7 +267,7 @@
 
     <!-- PANEL DE EDICIÓN EN VIVO -->
     <div class="editor-panel">
-        <h2>Editor de E-Ticket</h2>
+        <h2>Editor de E-Ticket Múltiple</h2>
 
         <div class="form-section">
             <h3>Encabezados y Alertas</h3>
@@ -273,90 +287,65 @@
 
         <div class="form-section">
             <h3>Datos del Viaje (IDA)</h3>
-            <div class="form-group">
-                <label>Empresa</label>
-                <input type="text" id="in-empresa" value="Union Platense">
-            </div>
-            <div class="form-group">
-                <label>Origen</label>
-                <input type="text" id="in-origen" value="La Plata Terminal">
-            </div>
-            <div class="form-group">
-                <label>Salida (Fecha y Hora)</label>
-                <input type="text" id="in-salida" value="14/08/2026 11:30 hs">
-            </div>
-            <div class="form-group">
-                <label>Se anuncia a</label>
-                <input type="text" id="in-anuncia" value="MAGDALENA">
-            </div>
-            <div class="form-group">
-                <label>Destino</label>
-                <input type="text" id="in-destino" value="Magdalena">
-            </div>
-            <div class="form-group">
-                <label>Llegada</label>
-                <input type="text" id="in-llegada" value="14/08/2026 12:30 hs">
-            </div>
+            <div class="form-group"><label>Empresa</label><input type="text" id="in-empresa" value="Union Platense"></div>
+            <div class="form-group"><label>Origen</label><input type="text" id="in-origen" value="La Plata Terminal"></div>
+            <div class="form-group"><label>Salida</label><input type="text" id="in-salida" value="14/08/2026 11:30 hs"></div>
+            <div class="form-group"><label>Se anuncia a</label><input type="text" id="in-anuncia" value="MAGDALENA"></div>
+            <div class="form-group"><label>Destino</label><input type="text" id="in-destino" value="Magdalena"></div>
+            <div class="form-group"><label>Llegada</label><input type="text" id="in-llegada" value="14/08/2026 12:30 hs"></div>
+            <div class="form-group"><label>Nº de Boleto General</label><input type="text" id="in-boleto" value="AI2-70010"></div>
+            <div class="form-group"><label>Cargo de Emisión ($)</label><input type="number" id="in-cargo" value="427.75"></div>
+        </div>
+
+        <!-- PASAJERO 1 -->
+        <div class="form-section">
+            <h3>Pasajero 1 (Principal)</h3>
+            <div class="form-group"><label>Nombre Completo</label><input type="text" id="in-p1-nombre" value="PANIAGUA CLAUDIO NAHUEL"></div>
+            <div class="form-group"><label>DNI</label><input type="text" id="in-p1-dni" value="38638394"></div>
+            <div class="form-group"><label>Asiento</label><input type="text" id="in-p1-asiento" value="29"></div>
+            <div class="form-group"><label>Precio del Pasaje ($)</label><input type="number" id="in-p1-precio" value="5900"></div>
+        </div>
+
+        <!-- PASAJERO 2 -->
+        <div class="form-section">
+            <h3>Pasajero 2 (Opcional)</h3>
+            <div class="form-group"><label>Nombre Completo</label><input type="text" id="in-p2-nombre" value=""></div>
+            <div class="form-group"><label>DNI</label><input type="text" id="in-p2-dni" value=""></div>
+            <div class="form-group"><label>Asiento</label><input type="text" id="in-p2-asiento" value=""></div>
+            <div class="form-group"><label>Precio del Pasaje ($)</label><input type="number" id="in-p2-precio" value="0"></div>
+        </div>
+
+        <!-- PASAJERO 3 -->
+        <div class="form-section">
+            <h3>Pasajero 3 (Opcional)</h3>
+            <div class="form-group"><label>Nombre Completo</label><input type="text" id="in-p3-nombre" value=""></div>
+            <div class="form-group"><label>DNI</label><input type="text" id="in-p3-dni" value=""></div>
+            <div class="form-group"><label>Asiento</label><input type="text" id="in-p3-asiento" value=""></div>
+            <div class="form-group"><label>Precio del Pasaje ($)</label><input type="number" id="in-p3-precio" value="0"></div>
+        </div>
+
+        <!-- PASAJERO 4 -->
+        <div class="form-section">
+            <h3>Pasajero 4 (Opcional)</h3>
+            <div class="form-group"><label>Nombre Completo</label><input type="text" id="in-p4-nombre" value=""></div>
+            <div class="form-group"><label>DNI</label><input type="text" id="in-p4-dni" value=""></div>
+            <div class="form-group"><label>Asiento</label><input type="text" id="in-p4-asiento" value=""></div>
+            <div class="form-group"><label>Precio del Pasaje ($)</label><input type="number" id="in-p4-precio" value="0"></div>
+        </div>
+
+        <!-- PASAJERO 5 -->
+        <div class="form-section">
+            <h3>Pasajero 5 (Opcional)</h3>
+            <div class="form-group"><label>Nombre Completo</label><input type="text" id="in-p5-nombre" value=""></div>
+            <div class="form-group"><label>DNI</label><input type="text" id="in-p5-dni" value=""></div>
+            <div class="form-group"><label>Asiento</label><input type="text" id="in-p5-asiento" value=""></div>
+            <div class="form-group"><label>Precio del Pasaje ($)</label><input type="number" id="in-p5-precio" value="0"></div>
         </div>
 
         <div class="form-section">
-            <h3>Datos del Pasajero</h3>
-            <div class="form-group">
-                <label>Nombre del Pasajero</label>
-                <input type="text" id="in-pasajero" value="PANIAGUA CLAUDIO NAHUEL">
-            </div>
-            <div class="form-group">
-                <label>DNI</label>
-                <input type="text" id="in-dni" value="38638394">
-            </div>
-            <div class="form-group">
-                <label>Nacionalidad</label>
-                <input type="text" id="in-nacionalidad" value="Argentina">
-            </div>
-            <div class="form-group">
-                <label>Nº de Boleto</label>
-                <input type="text" id="in-boleto" value="AI2-70010">
-            </div>
-            <div class="form-group">
-                <label>Asiento</label>
-                <input type="text" id="in-asiento" value="29">
-            </div>
-            <div class="form-group">
-                <label>Precio</label>
-                <input type="text" id="in-precio" value="$5,900.00">
-            </div>
-            <div class="form-group">
-                <label>Cargo de emisión</label>
-                <input type="text" id="in-cargo" value="$427.75">
-            </div>
-            <div class="form-group">
-                <label>Total</label>
-                <input type="text" id="in-total" value="$6,327.75">
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h3>Código QR</h3>
-            <div class="form-group">
-                <label>Contenido / URL del Código QR</label>
-                <input type="text" id="in-qr-content" value="https://centraldepasajes.com.ar/ticket/AI2-70010">
-            </div>
-        </div>
-
-        <div class="form-section">
-            <h3>Información de Pago</h3>
-            <div class="form-group">
-                <label>Monto Pago</label>
-                <input type="text" id="in-pago-monto" value="$6,327.75 Moneda: Pesos">
-            </div>
-            <div class="form-group">
-                <label>Boletos Cantidad</label>
-                <input type="text" id="in-pago-boletos" value="1">
-            </div>
-            <div class="form-group">
-                <label>Nº de comprobante</label>
-                <input type="text" id="in-comprobante" value="172870034335">
-            </div>
+            <h3>Código QR y Pago</h3>
+            <div class="form-group"><label>URL / Contenido QR</label><input type="text" id="in-qr-content" value="https://centraldepasajes.com.ar/ticket/AI2-70010"></div>
+            <div class="form-group"><label>Nº de Comprobante</label><input type="text" id="in-comprobante" value="172870034335"></div>
         </div>
     </div>
 
@@ -384,15 +373,18 @@
                 <br>
                 <div class="info-row">Destino: <span id="out-destino">Magdalena</span></div>
                 <div class="info-row">Llegada: <span id="out-llegada">14/08/2026 12:30 hs</span></div>
-                <br>
-                <div class="info-row">Pasajero 1: <span id="out-pasajero">PANIAGUA CLAUDIO NAHUEL</span></div>
-                <div class="info-row">DNI: <span id="out-dni">38638394</span></div>
-                <div class="info-row">Nacionalidad: <span id="out-nacionalidad">Argentina</span></div>
                 <div class="info-row">Nº de Boleto: <span id="out-boleto">AI2-70010</span></div>
-                <div class="info-row">Asiento: <span id="out-asiento">29</span></div>
-                <div class="info-row">Precio: <span id="out-precio">$5,900.00</span></div>
-                <div class="info-row">Cargo de emisión: <span id="out-cargo">$427.75</span></div>
-                <div class="info-row">Total: <span id="out-total">$6,327.75</span></div>
+                <br>
+                
+                <div style="font-weight: bold; margin-bottom: 6px; color: #fff;">PASAJEROS:</div>
+                <div id="pasajeros-container">
+                    <!-- Contenedor dinámico de pasajeros -->
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <div class="info-row">Cargo de emisión: $<span id="out-cargo">427.75</span></div>
+                    <div class="info-row" style="font-size: 14px; font-weight: bold; color: #fff; margin-top: 4px;">Total a Pagar: $<span id="out-total">6327.75</span></div>
+                </div>
             </div>
 
             <!-- Contenedor QR -->
@@ -400,8 +392,7 @@
 
             <div class="payment-section">
                 <div class="section-title" style="font-size: 13px; border-bottom: 1px solid #444; margin-bottom: 8px;">Información de tu Pago:</div>
-                <div class="info-row">Monto: <span id="out-pago-monto">$6,327.75 Moneda: Pesos</span></div>
-                <div class="info-row">Boletos: <span id="out-pago-boletos">1</span></div>
+                <div class="info-row">Boletos Cantidad: <span id="out-cant-boletos">1</span></div>
                 <div class="info-row">Nº de comprobante: <span id="out-comprobante">172870034335</span></div>
             </div>
 
@@ -428,7 +419,7 @@
             correctLevel : QRCode.CorrectLevel.H
         });
 
-        // Mapeo de inputs en vivo
+        // Textos generales simples
         const bindings = [
             ['in-top-header', 'out-top-header'],
             ['in-main-alert', 'out-main-alert'],
@@ -439,26 +430,71 @@
             ['in-anuncia', 'out-anuncia'],
             ['in-destino', 'out-destino'],
             ['in-llegada', 'out-llegada'],
-            ['in-pasajero', 'out-pasajero'],
-            ['in-dni', 'out-dni'],
-            ['in-nacionalidad', 'out-nacionalidad'],
             ['in-boleto', 'out-boleto'],
-            ['in-asiento', 'out-asiento'],
-            ['in-precio', 'out-precio'],
             ['in-cargo', 'out-cargo'],
-            ['in-total', 'out-total'],
-            ['in-pago-monto', 'out-pago-monto'],
-            ['in-pago-boletos', 'out-pago-boletos'],
             ['in-comprobante', 'out-comprobante']
         ];
 
         bindings.forEach(([inId, outId]) => {
             const input = document.getElementById(inId);
             const output = document.getElementById(outId);
-            input.addEventListener('input', () => {
-                output.textContent = input.value;
-            });
+            input.addEventListener('input', updateTicket);
         });
+
+        // Escuchar cambios en pasajeros y precios para calcular totales en vivo
+        const passengerInputs = document.querySelectorAll('input[id^="in-p"], #in-cargo');
+        passengerInputs.forEach(input => {
+            input.addEventListener('input', updateTicket);
+        });
+
+        function updateTicket() {
+            // Actualizar campos de texto generales
+            bindings.forEach(([inId, outId]) => {
+                document.getElementById(outId).textContent = document.getElementById(inId).value;
+            });
+
+            const container = document.getElementById('pasajeros-container');
+            container.innerHTML = '';
+            
+            let totalPrecios = 0;
+            let cantidadPasajerosActivos = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                const nombre = document.getElementById(`in-p${i}-nombre`).value.trim();
+                const dni = document.getElementById(`in-p${i}-dni`).value.trim();
+                const asiento = document.getElementById(`in-p${i}-asiento`).value.trim();
+                const precio = parseFloat(document.getElementById(`in-p${i}-precio`).value) || 0;
+
+                // Solo procesamos si tiene al menos el nombre o DNI completo
+                if (nombre !== "" || dni !== "" || asiento !== "") {
+                    cantidadPasajerosActivos++;
+                    totalPrecios += precio;
+
+                    const div = document.createElement('div');
+                    div.className = 'pasajero-item';
+                    // Atributo data-empty para filtrarlo si está vacío en el PDF por seguridad extra
+                    div.innerHTML = `
+                        <div>Pasajero ${cantidadPasajerosActivos}: <strong>${nombre || 'Sin nombre'}</strong></div>
+                        <div>DNI: ${dni || '-'} | Asiento: ${asiento || '-'} | Precio: $${precio.toFixed(2)}</div>
+                    `;
+                    container.appendChild(div);
+                }
+            }
+
+            // Si no hay ninguno cargado, mostrar al menos un aviso visual en pantalla
+            if (cantidadPasajerosActivos === 0) {
+                container.innerHTML = '<div style="color: #ff6b6b; font-size: 11px;">No hay pasajeros cargados.</div>';
+            }
+
+            const cargoEmision = parseFloat(document.getElementById('in-cargo').value) || 0;
+            const totalGeneral = totalPrecios + cargoEmision;
+
+            document.getElementById('out-total').textContent = totalGeneral.toFixed(2);
+            document.getElementById('out-cant-boletos').textContent = cantidadPasajerosActivos > 0 ? cantidadPasajerosActivos : 1;
+        }
+
+        // Ejecutar al iniciar
+        updateTicket();
 
         // Actualizar QR en tiempo real
         document.getElementById('in-qr-content').addEventListener('input', (e) => {
@@ -473,9 +509,34 @@
             });
         });
 
-        // Descargar PDF con html2pdf
+        // Descargar PDF Ocultando Automáticamente Pasajeros Vacíos
         document.getElementById('btn-download').addEventListener('click', () => {
-            const element = document.getElementById('ticket-content');
+            // Creamos una copia limpia temporal del ticket para el PDF donde removemos los bloques vacíos de los 5 pasajeros por completo
+            const ticketElement = document.getElementById('ticket-content').cloneNode(true);
+            
+            // Limpiamos los pasajeros en el clon y solo inyectamos los que tengan datos reales
+            const containerClon = ticketElement.querySelector('#pasajeros-container');
+            containerClon.innerHTML = '';
+            
+            let countValid = 0;
+            for (let i = 1; i <= 5; i++) {
+                const nombre = document.getElementById(`in-p${i}-nombre`).value.trim();
+                const dni = document.getElementById(`in-p${i}-dni`).value.trim();
+                const asiento = document.getElementById(`in-p${i}-asiento`).value.trim();
+                const precio = parseFloat(document.getElementById(`in-p${i}-precio`).value) || 0;
+
+                if (nombre !== "" || dni !== "" || asiento !== "") {
+                    countValid++;
+                    const div = document.createElement('div');
+                    div.className = 'pasajero-item';
+                    div.innerHTML = `
+                        <div>Pasajero ${countValid}: <strong>${nombre}</strong></div>
+                        <div>DNI: ${dni} | Asiento: ${asiento} | Precio: $${precio.toFixed(2)}</div>
+                    `;
+                    containerClon.appendChild(div);
+                }
+            }
+
             const opt = {
                 margin:       10,
                 filename:     'e-ticket-pasaje.pdf',
@@ -483,9 +544,9 @@
                 html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
-            html2pdf().from(element).set(opt).save();
+            
+            html2pdf().from(ticketElement).set(opt).save();
         });
     </script>
 </body>
-                  </html>
-              
+</html>
