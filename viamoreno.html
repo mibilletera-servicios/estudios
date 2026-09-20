@@ -242,6 +242,34 @@
             cursor: pointer;
         }
 
+        /* Filtros rápidos de horarios */
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            max-width: 500px;
+            margin: 0 auto 15px auto;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .filter-pill {
+            background: white;
+            border: 1px solid var(--gray-border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--dark-blue);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .filter-pill.active-filter {
+            background: var(--dark-blue);
+            color: white;
+            border-color: var(--dark-blue);
+        }
+
         .result-card {
             background: white;
             padding: 18px;
@@ -302,7 +330,7 @@
             border-radius: 10px;
             margin-bottom: 15px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            max-width: 400px;
+            max-width: 450px;
             margin-left: auto;
             margin-right: auto;
             display: flex;
@@ -315,7 +343,7 @@
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            max-width: 400px;
+            max-width: 450px;
             margin: 0 auto;
         }
 
@@ -394,10 +422,11 @@
             display: block;
         }
 
+        /* Grilla de 4 columnas (2 asientos | pasillo | 2 asientos) */
         .seats-grid-flecha {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            gap: 10px;
             justify-items: center;
         }
 
@@ -414,6 +443,7 @@
             font-weight: bold;
             cursor: pointer;
             color: #334155;
+            transition: all 0.15s ease;
         }
 
         .seat.occupied {
@@ -437,8 +467,9 @@
             background: #edf2f7;
             padding: 6px;
             border-radius: 6px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             border: 1px dashed #cbd5e1;
+            font-weight: bold;
         }
 
         .passenger-card {
@@ -459,6 +490,17 @@
             font-size: 13px;
             color: #333;
             line-height: 1.6;
+        }
+
+        .info-box-legal {
+            background: #f1f5f9;
+            border-left: 4px solid var(--dark-blue);
+            padding: 10px 12px;
+            font-size: 11px;
+            color: #475569;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 15px;
+            line-height: 1.4;
         }
 
         .payment-methods-grid {
@@ -687,6 +729,14 @@
             <div><strong id="txtRutaResumen">Origen ➔ Destino</strong></div>
             <button class="btn-modify" onclick="irPaso(1)">Modificar</button>
         </div>
+
+        <div class="filter-bar">
+            <div class="filter-pill active-filter" onclick="filtrarHorarios('Todos', this)">Todos</div>
+            <div class="filter-pill" onclick="filtrarHorarios('Semi-Cama', this)">Semi-Cama</div>
+            <div class="filter-pill" onclick="filtrarHorarios('Cama', this)">Cama</div>
+            <div class="filter-pill" onclick="filtrarHorarios('Suite Total', this)">Suite Total</div>
+        </div>
+
         <div id="listaResultadosHorarios"></div>
     </div>
 
@@ -714,22 +764,21 @@
                 </select>
             </div>
         </div>
-
         <div class="bus-container">
             <div class="service-indicators">
                 <div class="indicator-item">
-                    <div class="indicator-badge badge-free" id="indDisp">6</div>
+                    <div class="indicator-badge badge-free" id="indDisp">12</div>
                     <span id="txtLabelDisp">Disp.</span>
                 </div>
                 <div class="indicator-item">
-                    <div class="indicator-badge badge-occupied" id="indOcup">3</div>
+                    <div class="indicator-badge badge-occupied" id="indOcup">4</div>
                     <span id="txtLabelOcup">Ocup.</span>
                 </div>
             </div>
 
             <div class="floor-tabs">
-                <div class="floor-tab active-floor" onclick="cambiarPiso('alta')">Planta Alta</div>
-                <div class="floor-tab" onclick="cambiarPiso('baja')">Planta Baja</div>
+                <div class="floor-tab active-floor" onclick="cambiarPiso('alta')">Planta Alta (Panorámica)</div>
+                <div class="floor-tab" onclick="cambiarPiso('baja')">Planta Baja (Ejecutiva)</div>
             </div>
 
             <div id="layout-alta" class="bus-layout active-layout">
@@ -760,6 +809,10 @@
             
             <div class="ticket-summary-box" id="resumenBoletoCompleto"></div>
 
+            <div class="info-box-legal">
+                📦 <strong>Equipaje incluido:</strong> 1 valija en bodega (hasta 15kg) y 1 bolso de mano por pasajero. Presentarse 45 minutos antes en la plataforma.
+            </div>
+
             <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--dark-blue);">Seleccione Método de Pago:</h3>
             <div class="payment-methods-grid">
                 <label class="payment-option selected-payment" onclick="seleccionarMetodoPago(this)">
@@ -784,6 +837,7 @@
             <button class="btn-main" onclick="enviarWhatsApp()">Pagar ahora !</button>
         </div>
     </div>
+
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -808,11 +862,17 @@
     </footer>
 
     <script>
-        document.getElementById('fechaIda').valueAsDate = new Date();
+        // Configurar fechas mínimas automáticas para evitar fechas pasadas
+        const hoy = new Date().toISOString().split('T')[0];
+        document.getElementById('fechaIda').value = hoy;
+        document.getElementById('fechaIda').min = hoy;
+        document.getElementById('fechaVuelta').min = hoy;
+
         let viajeSeleccionado = {};
         let asientosSeleccionados = [];
         let precioBaseViaje = 0;
         let maxPasajeros = 1;
+        let horariosOriginalesCache = [];
 
         let indiceSlideActual = 0;
         function iniciarCarrusel() {
@@ -834,12 +894,10 @@
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
 
-            document.getElementById(`view-${paso}`).classList.add('active-view');
-            document.getElementById(`step-${paso}`).classList.add('active');
+            document.getElementById(`view-${paso}`).classList.add('active-view');             document.getElementById(`step-${paso}`).classList.add('active');
             window.scrollTo(0, 0);
         }
 
-                                                // Base de datos principal de tramos desde Buenos Aires con TIEMPOS REALES DE RUTA
         const datosDestinos = {
             "San Clemente del Tuyú - Terminal de Ómnibus": {
                 precioBase: 24000,
@@ -847,86 +905,6 @@
                     { salida: "06:00", llegada: "10:30", duracion: "4h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
                     { salida: "13:00", llegada: "17:30", duracion: "4h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
                     { salida: "18:30", llegada: "23:00", duracion: "4h 30m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Las Toninas - Parada / Terminal": {
-                precioBase: 25000,
-                horarios: [
-                    { salida: "06:00", llegada: "11:00", duracion: "5h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "18:00", duracion: "5h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "18:30", llegada: "23:30", duracion: "5h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Santa Teresita - Terminal de Ómnibus": {
-                precioBase: 26000,
-                horarios: [
-                    { salida: "06:00", llegada: "11:15", duracion: "5h 15m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "18:15", duracion: "5h 15m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "18:30", llegada: "23:45", duracion: "5h 15m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Mar del Tuyú - Terminal de Ómnibus": {
-                precioBase: 26500,
-                horarios: [
-                    { salida: "06:00", llegada: "11:30", duracion: "5h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "18:30", duracion: "5h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "18:30", llegada: "00:00 (+1)", duracion: "5h 30m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "San Bernardo - Terminal de Ómnibus": {
-                precioBase: 28000,
-                horarios: [
-                    { salida: "06:00", llegada: "12:00", duracion: "6h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "19:00", duracion: "6h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "23:30", llegada: "05:30 (+1)", duracion: "6h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Mar de Ajó - Terminal de Ómnibus": {
-                precioBase: 28500,
-                horarios: [
-                    { salida: "06:00", llegada: "12:15", duracion: "6h 15m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "19:15", duracion: "6h 15m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "23:30", llegada: "05:45 (+1)", duracion: "6h 15m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Costa del Este - Parada Principal": {
-                precioBase: 27000,
-                horarios: [
-                    { salida: "06:00", llegada: "11:45", duracion: "5h 45m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "18:45", duracion: "5h 45m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "18:30", llegada: "00:15 (+1)", duracion: "5h 45m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Aguas Verdes - Parada Principal": {
-                precioBase: 27500,
-                horarios: [
-                    { salida: "06:00", llegada: "11:55", duracion: "5h 55m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "18:55", duracion: "5h 55m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "18:30", llegada: "00:25 (+1)", duracion: "5h 55m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Pinamar - Terminal de Ómnibus": {
-                precioBase: 31000,
-                horarios: [
-                    { salida: "07:00", llegada: "12:30", duracion: "5h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "14:00", llegada: "19:30", duracion: "5h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "23:59", llegada: "05:29 (+1)", duracion: "5h 30m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Villa Gesell - Terminal de Ómnibus": {
-                precioBase: 33000,
-                horarios: [
-                    { salida: "07:00", llegada: "13:00", duracion: "6h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "14:00", llegada: "20:00", duracion: "6h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "23:59", llegada: "05:59 (+1)", duracion: "6h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Mar Chiquita (Balneario) - Centro": {
-                precioBase: 34500,
-                horarios: [
-                    { salida: "06:30", llegada: "12:15", duracion: "5h 45m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "11:00", llegada: "16:45", duracion: "5h 45m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "23:59", llegada: "05:44 (+1)", duracion: "5h 45m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
                 ]
             },
             "Mar del Plata - Terminal de Ómnibus Astor Piazzolla": {
@@ -960,190 +938,15 @@
                     { salida: "18:50", llegada: "08:50 (+1)", duracion: "14h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
                     { salida: "21:00", llegada: "11:00 (+1)", duracion: "14h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
                 ]
-            },
-            "San Miguel de Tucumán - Terminal de Ómnibus": {
-                precioBase: 78000,
-                horarios: [
-                    { salida: "09:00", llegada: "03:00 (+1)", duracion: "18h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "15:30", llegada: "09:00 (+1)", duracion: "17h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "21:00", llegada: "14:30 (+1)", duracion: "17h 30m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Salta - Terminal de Ómnibus de Salta": {
-                precioBase: 90000,
-                horarios: [
-                    { salida: "10:30", llegada: "07:30 (+1)", duracion: "21h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "16:00", llegada: "12:30 (+1)", duracion: "20h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "20:00", llegada: "16:00 (+1)", duracion: "20h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Jujuy - Terminal de Ómnibus de San Salvador": {
-                precioBase: 95000,
-                horarios: [
-                    { salida: "09:30", llegada: "08:00 (+1)", duracion: "22h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "15:00", llegada: "13:00 (+1)", duracion: "22h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "19:00", llegada: "17:00 (+1)", duracion: "22h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Santiago del Estero - Terminal de Ómnibus": {
-                precioBase: 68000,
-                horarios: [
-                    { salida: "09:00", llegada: "22:00", duracion: "13h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "16:00", llegada: "05:00 (+1)", duracion: "13h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "21:00", llegada: "10:00 (+1)", duracion: "13h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Catamarca - Terminal de Ómnibus": {
-                precioBase: 72000,
-                horarios: [
-                    { salida: "08:00", llegada: "22:30", duracion: "14h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "14:30", llegada: "05:00 (+1)", duracion: "14h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "20:30", llegada: "11:00 (+1)", duracion: "14h 30m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "La Rioja - Terminal de Ómnibus": {
-                precioBase: 75000,
-                horarios: [
-                    { salida: "08:30", llegada: "23:30", duracion: "15h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "15:00", llegada: "06:00 (+1)", duracion: "15h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "21:00", llegada: "12:00 (+1)", duracion: "15h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Resistencia - Terminal de Ómnibus": {
-                precioBase: 60000,
-                horarios: [
-                    { salida: "09:00", llegada: "20:30", duracion: "11h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "18:00", llegada: "05:30 (+1)", duracion: "11h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "21:30", llegada: "09:00 (+1)", duracion: "11h 30m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Corrientes - Terminal de Ómnibus": {
-                precioBase: 58000,
-                horarios: [
-                    { salida: "09:00", llegada: "20:00", duracion: "11h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "18:00", llegada: "05:00 (+1)", duracion: "11h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "21:30", llegada: "08:30 (+1)", duracion: "11h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Posadas - Terminal de Ómnibus": {
-                precioBase: 85000,
-                horarios: [
-                    { salida: "08:00", llegada: "22:30", duracion: "14h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "14:30", llegada: "05:00 (+1)", duracion: "14h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "20:00", llegada: "10:30 (+1)", duracion: "14h 30m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Puerto Iguazú - Terminal de Buses": {
-                precioBase: 120000,
-                horarios: [
-                    { salida: "10:00", llegada: "08:00 (+1)", duracion: "22h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "16:00", llegada: "14:00 (+1)", duracion: "22h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "20:30", llegada: "18:30 (+1)", duracion: "22h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Formosa - Terminal de Ómnibus": {
-                precioBase: 79000,
-                horarios: [
-                    { salida: "08:30", llegada: "00:30 (+1)", duracion: "16h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "15:00", llegada: "07:00 (+1)", duracion: "16h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "20:30", llegada: "12:30 (+1)", duracion: "16h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Neuquén - Terminal de Ómnibus de Neuquén": {
-                precioBase: 135000,
-                horarios: [
-                    { salida: "06:00", llegada: "00:00 (+1)", duracion: "18h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:30", llegada: "07:30 (+1)", duracion: "18h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "18:15", llegada: "12:15 (+1)", duracion: "18h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "San Carlos de Bariloche - Terminal de Ómnibus": {
-                precioBase: 160000,
-                horarios: [
-                    { salida: "12:30", llegada: "12:30 (+1)", duracion: "24h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:15", llegada: "13:15 (+1)", duracion: "24h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "15:15", llegada: "15:15 (+1)", duracion: "24h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Bahía Blanca - Terminal de Ómnibus": {
-                precioBase: 48000,
-                horarios: [
-                    { salida: "07:00", llegada: "18:00", duracion: "11h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "00:00 (+1)", duracion: "11h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "22:30", llegada: "09:30 (+1)", duracion: "11h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Trelew - Terminal de Ómnibus": {
-                precioBase: 125000,
-                horarios: [
-                    { salida: "08:00", llegada: "06:00 (+1)", duracion: "22h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "14:00", llegada: "12:00 (+1)", duracion: "22h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "21:00", llegada: "19:00 (+1)", duracion: "22h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Comodoro Rivadavia - Terminal de Ómnibus": {
-                precioBase: 175000,
-                horarios: [
-                    { salida: "07:30", llegada: "08:30 (+1)", duracion: "25h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "13:00", llegada: "14:00 (+1)", duracion: "25h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "19:00", llegada: "20:00 (+1)", duracion: "25h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Río Gallegos - Terminal de Ómnibus": {
-                precioBase: 195000,
-                horarios: [
-                    { salida: "06:00", llegada: "12:00 (+1)", duracion: "30h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "12:00", llegada: "18:00 (+1)", duracion: "30h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "17:00", llegada: "23:00 (+1)", duracion: "30h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
-            },
-            "Ushuaia - Terminal de Ómnibus de Ushuaia": {
-                precioBase: 210000,
-                horarios: [
-                    { salida: "05:00", llegada: "17:00 (+1)", duracion: "36h 00m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                    { salida: "12:00", llegada: "00:00 (+2)", duracion: "36h 00m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Enchufes 220v, Baño.", mult: 1.3 },
-                    { salida: "18:00", llegada: "06:00 (+2)", duracion: "36h 00m", tipo: "Suite Total", desc: "Cama plana, pantallas individuales, Puertos USB, Atención a bordo.", mult: 1.6 }
-                ]
             }
         };
-
-        // Función inteligente para resolver tramos (Directos, Inversos y Regionales como MdP ➔ Villa Gesell)
         function obtenerDatosRuta(origen, destino) {
-            // 1. Si origen es Buenos Aires (Retiro o Central), toma directo la base de datos
             if (origen.includes("Buenos Aires") || origen.includes("La Plata")) {
-                return { info: datosDestinos[destino], invertido: false };
+                return { info: datosDestinos[destino] || datosDestinos["Mar del Plata - Terminal de Ómnibus Astor Piazzolla"], invertido: false };
             }
-            // 2. Si destino es Buenos Aires, es el inverso exacto de la ruta Baires ➔ Origen
             if (destino.includes("Buenos Aires") || destino.includes("La Plata")) {
-                return { info: datosDestinos[origen], invertido: true };
-        }
-            // 3. Tramos regionales directos especiales (Ej: Mar del Plata ➔ Villa Gesell o Costa Atlántica)
-            if (origen.includes("Mar del Plata") && destino.includes("Villa Gesell")) {
-                return {
-                    info: {
-                        precioBase: 9500,
-                        horarios: [
-                            { salida: "08:00", llegada: "09:30", duracion: "1h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                            { salida: "14:00", llegada: "15:30", duracion: "1h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Baño.", mult: 1.3 }
-                        ]
-                    },
-                    invertido: false
-                };
+                return { info: datosDestinos[origen] || datosDestinos["Mar del Plata - Terminal de Ómnibus Astor Piazzolla"], invertido: true };
             }
-            if (origen.includes("Villa Gesell") && destino.includes("Mar del Plata")) {
-                return {
-                    info: {
-                        precioBase: 9500,
-                        horarios: [
-                            { salida: "10:00", llegada: "11:30", duracion: "1h 30m", tipo: "Semi-Cama", desc: "A/C, Calefacción, Baño y TV Común.", mult: 1.0 },
-                            { salida: "17:00", llegada: "18:30", duracion: "1h 30m", tipo: "Cama", desc: "Apoya pies, asientos reclinables 160°, USB, Baño.", mult: 1.3 }
-                        ]
-                    },
-                    invertido: false
-                };
-            }
-
-            // 4. Si es otro tramo regional entre ciudades del interior/costa, estimamos proporcionalmente usando Buenos Aires como nexo
             let baseOrigen = datosDestinos[origen]?.precioBase || 40000;
             let baseDestino = datosDestinos[destino]?.precioBase || 40000;
             let precioEstimado = Math.round(Math.abs(baseDestino - baseOrigen) * 0.8) + 12000;
@@ -1180,19 +983,27 @@
             precioBaseViaje = infoDestino.precioBase;
             if (tipoViaje === 'Ida y vuelta') precioBaseViaje *= 1.8;
 
-            let html = "";
+            horariosOriginalesCache = [];
             infoDestino.horarios.forEach(h => {
                 const precioCalc = Math.round(precioBaseViaje * h.mult);
-                
                 let horaSalida = h.salida;
                 let horaLlegada = h.llegada;
                 
-                // Si es un tramo inverso exacto desde Baires, invertimos los horarios de salida y llegada coherentemente
                 if (esInverso) {
                     horaSalida = h.llegada.replace(" (+1)", "").replace(" (+2)", "");
                     horaLlegada = h.salida + (h.llegada.includes("+1") ? " (Día anterior)" : "");
                 }
 
+                horariosOriginalesCache.push({ ...h, salida: horaSalida, llegada: horaLlegada, precioCalc });
+            });
+
+            renderizarListaHorarios(horariosOriginalesCache);
+            irPaso(2);
+        }
+
+        function renderizarListaHorarios(lista) {
+            let html = "";
+            lista.forEach(h => {
                 html += `
                     <div class="result-card">
                         <div class="result-top">
@@ -1200,35 +1011,45 @@
                             <span>${h.tipo}</span>
                         </div>
                         <div class="trip-times">
-                            <div class="time-block"><span class="time">${horaSalida}</span><span style="font-size:11px;">Salida</span></div>
+                            <div class="time-block"><span class="time">${h.salida}</span><span style="font-size:11px;">Salida</span></div>
                             <div class="duration"><span>⏱ ${h.duracion}</span></div>
-                            <div class="time-block"><span class="time">${horaLlegada}</span><span style="font-size:11px;">Llegada</span></div>
+                            <div class="time-block"><span class="time">${h.llegada}</span><span style="font-size:11px;">Llegada</span></div>
                         </div>
-                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>                         <div class="result-footer">                             <span class="price">$ ${precioCalc.toLocaleString('es-AR')}</span>
-                            <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}',${precioCalc})">Elegir</button>
+                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>                         <div class="result-footer">                             <span class="price">$ ${h.precioCalc.toLocaleString('es-AR')}</span>
+                            <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}',${h.precioCalc})">Elegir</button>
                         </div>
                     </div>
                 `;
             });
 
             if (html === "") {
-                html = `<div style="padding: 20px; text-align: center; color: #666;">No hay servicios directos disponibles para este tramo en este momento.</div>`;
+                html = `<div style="padding: 20px; text-align: center; color: #666;">No hay servicios para este filtro.</div>`;
             }
-
             document.getElementById('listaResultadosHorarios').innerHTML = html;
-            irPaso(2);
+        }
+
+        function filtrarHorarios(filtro, elemento) {
+            document.querySelectorAll('.filter-pill').forEach(el => el.classList.remove('active-filter'));
+            elemento.classList.add('active-filter');
+
+            if (filtro === 'Todos') {
+                renderizarListaHorarios(horariosOriginalesCache);
+            } else {
+                let filtrados = horariosOriginalesCache.filter(h => h.tipo === filtro);
+                renderizarListaHorarios(filtrados);
+            }
         }
 
         function seleccionarHorario(tipoServicio, precio) {
             viajeSeleccionado = { tipoServicio, precio };
             document.getElementById('infoSeleccionButacas').innerText = `Servicio ${tipoServicio}`;
             
-            document.getElementById('txtLabelDisp').innerText = `${tipoServicio} Disp.`;
-            document.getElementById('txtLabelOcup').innerText = `${tipoServicio} Ocup.`;
-            document.getElementById('indDisp').innerText = "6";
-            document.getElementById('indOcup').innerText = "3";
+            document.getElementById('txtLabelDisp').innerText = `Disp.`;
+            document.getElementById('txtLabelOcup').innerText = `Ocup.`;
+            document.getElementById('indDisp').innerText = "32";
+            document.getElementById('indOcup').innerText = "8";
 
-            generarAsientos();
+            generarAsientosRealistas();
             asientosSeleccionados = [];
             document.getElementById('cantidadPasajerosTotal').value = "1";
             maxPasajeros = 1;
@@ -1248,19 +1069,23 @@
             }
         }
 
-        function generarAsientos() {
-            let htmlAlta = `<div class="bus-element">📺 Pantalla Principal / Frente</div>`;
-            for (let i = 1; i <= 24; i++) {
-                const ocupado = (i === 4 || i === 9 || i === 14) ? 'occupied' : '';
+        // Reorganización realista de butacas de Micro de Dos Pisos (Double Decker)
+        function generarAsientosRealistas() {
+            // PLANTA ALTA: Asientos 1 al 32 (Configuración panorámica 2x2 con escalera adelante)
+            let htmlAlta = `<div class="bus-element">🪟 Parabrisas Panorámico / Escalera PA</div>`;
+            for (let i = 1; i <= 32; i++) {
+                const ocupado = (i === 3 || i === 8 || i === 15 || i === 22 || i === 29) ? 'occupied' : '';
                 htmlAlta += `<div class="seat ${ocupado}" id="seat-${i}" onclick="toggleAsiento(${i})">${i}</div>`;
             }
             document.getElementById('gridPlantaAlta').innerHTML = htmlAlta;
 
-            let htmlBaja = `<div class="bus-element">🚻 Baño / 🚪 Entrada Escalera</div>`;
-            for (let i = 25; i <= 32; i++) {
-                const ocupado = (i === 28) ? 'occupied' : '';
+            // PLANTA BAJA: Asientos 33 al 44 (Configuración ejecutiva más ancha, baño al fondo)
+            let htmlBaja = `<div class="bus-element">🚪 Acceso Principal / Cabina Conductor</div>`;
+            for (let i = 33; i <= 44; i++) {
+                const ocupado = (i === 35 || i === 40) ? 'occupied' : '';
                 htmlBaja += `<div class="seat ${ocupado}" id="seat-${i}" onclick="toggleAsiento(${i})">${i}</div>`;
             }
+            htmlBaja += `<div class="bus-element" style="margin-top: 8px;">🚻 Baño / Salida de Emergencia (Fondo)</div>`;
             document.getElementById('gridPlantaBaja').innerHTML = htmlBaja;
         }
 
@@ -1273,8 +1098,7 @@
                 }
             }
         }
-
-        function toggleAsiento(numero) {
+          function toggleAsiento(numero) {
             const elem = document.getElementById(`seat-${numero}`);
             if (elem.classList.contains('occupied')) return;
 
@@ -1312,7 +1136,7 @@
                         </div>
                     </div>
                 `;
-                }
+            }
             document.getElementById('contenedorFormulariosPasajeros').innerHTML = htmlForm;
             validarFormularioPasajeros();
             irPaso(4);
@@ -1358,7 +1182,7 @@
                     let dni = document.getElementById(`dni_${i}`).value;
                     let email = document.getElementById(`email_${i}`).value;
                     let tel = document.getElementById(`tel_${i}`).value;
-                    detallesPasajeros += `<br>• <strong>Pasajero ${i+1}:</strong>${nombre} | DNI: ${dni} \vert{} Butaca N°: <strong>${asientosSeleccionados[i]}</strong> | Tel: ${tel} \vert{} Email:${email}`;
+                    detallesPasajeros += `<br>• <strong>Pasajero ${i+1}:</strong> ${nombre} \vert{} DNI:${dni} | Butaca N°: <strong>${asientosSeleccionados[i]}</strong> \vert{} Tel:${tel}`;
                 }
 
                 let textoFechas = `📅 <strong>Fecha de Ida:</strong> ${fechaIda}`;
@@ -1391,9 +1215,8 @@
             for (let i = 0; i < asientosSeleccionados.length; i++) {
                 let nombre = document.getElementById(`nombre_${i}`).value;
                 let dni = document.getElementById(`dni_${i}`).value;
-                let email = document.getElementById(`email_${i}`).value;
                 let tel = document.getElementById(`tel_${i}`).value;
-                infoPasajeros += `%0A- Pasajero ${i+1}:${nombre} (DNI: ${dni}) - Butaca N°${asientosSeleccionados[i]} - Tel: ${tel} - Email:${email}`;
+                infoPasajeros += `%0A- Pasajero ${i+1}: ${nombre} (DNI:${dni}) - Butaca N°${asientosSeleccionados[i]} - Tel:${tel}`;
             }
 
             let mensaje = `Hola VIA MORENO, quiero confirmar y emitir mi boleto de viaje:%0A` +
