@@ -748,9 +748,8 @@
             <div class="filter-pill" onclick="filtrarHorarios('Cama', this)">Cama</div>
             <div class="filter-pill" onclick="filtrarHorarios('Suite Total', this)">Suite Total</div>
         </div>
-
         <div id="listaResultadosHorarios"></div>
-    </div>
+        </div>
 
     <!-- PASO 3: BUTACAS -->
     <div id="view-3" class="view-section">
@@ -872,7 +871,6 @@
             <p>VIA MORENO - Todos los derechos reservados © 2026</p>
         </div>
     </footer>
-
     <script>
         const hoy = new Date().toISOString().split('T')[0];
         document.getElementById('fechaIda').value = hoy;
@@ -910,7 +908,6 @@
             window.scrollTo(0, 0);
         }
 
-        // Base de datos ampliada con precios y tiempos reales aproximados para BA y pueblos de Bs.As.
         const datosDestinos = {
             "San Clemente del Tuyú - Terminal de Ómnibus": {
                 precioBase: 24000,
@@ -1032,12 +1029,18 @@
         };
 
         function obtenerDatosRuta(origen, destino) {
-            if (origen.includes("Buenos Aires") || origen.includes("La Plata")) {
+            const esOrigenCapital = origen.includes("Buenos Aires") || origen.includes("La Plata");
+            const esDestinoCapital = destino.includes("Buenos Aires") || destino.includes("La Plata");
+
+            // Caso 1: Sale de Capital hacia el interior
+            if (esOrigenCapital && !esDestinoCapital) {
                 return { info: datosDestinos[destino] || datosDestinos["Mar del Plata - Terminal de Ómnibus Astor Piazzolla"], invertido: false };
             }
-            if (destino.includes("Buenos Aires") || destino.includes("La Plata")) {
+            // Caso 2: Sale del interior hacia Capital (invertido)
+            if (!esOrigenCapital && esDestinoCapital) {
                 return { info: datosDestinos[origen] || datosDestinos["Mar del Plata - Terminal de Ómnibus Astor Piazzolla"], invertido: true };
             }
+            // Caso 3: Entre dos puntos del interior o ambas Capitales
             let baseOrigen = datosDestinos[origen]?.precioBase || 20000;
             let baseDestino = datosDestinos[destino]?.precioBase || 20000;
             let precioEstimado = Math.round(Math.abs(baseDestino - baseOrigen) * 0.9) + 10000;
@@ -1080,9 +1083,12 @@
                 let horaSalida = h.salida;
                 let horaLlegada = h.llegada;
                 
+                // Si el viaje es inverso (del pueblo hacia Capital), intercambiamos lógicamente los horarios
                 if (esInverso) {
-                    horaSalida = h.llegada.replace(" (+1)", "").replace(" (+2)", "");
-                    horaLlegada = h.salida + (h.llegada.includes("+1") ? " (Día anterior)" : "");
+                    // Limpiamos marcas de día siguiente si las tuviera la llegada original para ponerlas de salida si aplicara, o las recalculamos bien
+                    let llegadaLimpia = h.llegada.replace(" (+1)", "").replace(" (+2)", "");
+                    horaSalida = llegadaLimpia;
+                    horaLlegada = h.salida;
                 }
 
                 horariosOriginalesCache.push({ ...h, salida: horaSalida, llegada: horaLlegada, precioCalc });
@@ -1097,19 +1103,19 @@
             lista.forEach(h => {
                 html += `
                 <div class="result-card">
-                        <div class="result-top">
-                            <span>VIA MORENO - ${h.tipo}</span>
-                            <span>${h.tipo}</span>
-                        </div>
-                        <div class="trip-times">
-                            <div class="time-block"><span class="time">${h.salida}</span><span style="font-size:11px;">Salida</span></div>
-                            <div class="duration"><span>⏱ ${h.duracion}</span></div>
-                            <div class="time-block"><span class="time">${h.llegada}</span><span style="font-size:11px;">Llegada</span></div>
-                        </div>
-                        <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>                         <div class="result-footer">                             <span class="price">$ ${h.precioCalc.toLocaleString('es-AR')}</span>
-                            <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}',${h.precioCalc})">Elegir</button>
-                        </div>
+                    <div class="result-top">
+                        <span>VIA MORENO - ${h.tipo}</span>
+                        <span>${h.tipo}</span>
                     </div>
+                    <div class="trip-times">
+                        <div class="time-block"><span class="time">${h.salida}</span><span style="font-size:11px;">Salida</span></div>
+                        <div class="duration"><span>⏱ ${h.duracion}</span></div>
+                        <div class="time-block"><span class="time">${h.llegada}</span><span style="font-size:11px;">Llegada</span></div>
+                    </div>
+                    <div style="font-size: 11px; color: #555; margin-bottom: 10px;">Incluye: ${h.desc}</div>                     <div class="result-footer">                         <span class="price">$ ${h.precioCalc.toLocaleString('es-AR')}</span>
+                        <button class="btn-main" style="width: auto; padding: 10px 20px;" onclick="seleccionarHorario('${h.tipo}',${h.precioCalc})">Elegir</button>
+                    </div>
+                </div>
                 `;
             });
 
@@ -1130,7 +1136,6 @@
                 renderizarListaHorarios(filtrados);
             }
         }
-
         function seleccionarHorario(tipoServicio, precio) {
             viajeSeleccionado = { tipoServicio, precio };
             document.getElementById('infoSeleccionButacas').innerText = `Servicio ${tipoServicio}`;
@@ -1186,6 +1191,7 @@
                 }
             }
         }
+
         function toggleAsiento(numero) {
             const elem = document.getElementById(`seat-${numero}`);
             if (elem.classList.contains('occupied')) return;
@@ -1285,10 +1291,10 @@
                     ⭐ <strong>Servicio:</strong> ${viajeSeleccionado.tipoServicio}<br>
                     👥 <strong>Cantidad de Pasajeros:</strong> ${asientosSeleccionados.length}${detallesPasajeros}
                 `;
-                }
+                document.getElementById('precioTotalFinal').innerText = `$ ${total.toLocaleString('es-AR')}`;
+            }
             originalIrPaso(paso);
         };
-
         function enviarWhatsApp() {
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
