@@ -1176,14 +1176,15 @@
                 const fechaVuelta = document.getElementById('fechaVuelta').value;
                 let total = viajeSeleccionado.precio * asientosSeleccionados.length;
 
-                let detallesPasajeros = "";
+                                let detallesPasajeros = "";
                 for (let i = 0; i < asientosSeleccionados.length; i++) {
                     let nombre = document.getElementById(`nombre_${i}`).value;
                     let dni = document.getElementById(`dni_${i}`).value;
                     let email = document.getElementById(`email_${i}`).value;
                     let tel = document.getElementById(`tel_${i}`).value;
-                    detallesPasajeros += `<br>• <strong>Pasajero ${i+1}:</strong> ${nombre} \vert{} DNI:${dni} | Butaca N°: <strong>${asientosSeleccionados[i]}</strong> \vert{} Tel:${tel}`;
+                    detallesPasajeros += `<br>• <strong>Pasajero ${i+1}:</strong> ${nombre} | DNI: ${dni} | Butaca N°: <strong>${asientosSeleccionados[i]}</strong> | Tel: ${tel}`;
                 }
+
 
                 let textoFechas = `📅 <strong>Fecha de Ida:</strong> ${fechaIda}`;
                 if (tipoViaje === 'Ida y vuelta') {
@@ -1211,12 +1212,12 @@
             const metodoPago = document.querySelector('input[name="metodoPago"]:checked').value;
             let total = viajeSeleccionado.precio * asientosSeleccionados.length;
 
-            let infoPasajeros = "";
+                        let infoPasajeros = "";
             for (let i = 0; i < asientosSeleccionados.length; i++) {
                 let nombre = document.getElementById(`nombre_${i}`).value;
                 let dni = document.getElementById(`dni_${i}`).value;
                 let tel = document.getElementById(`tel_${i}`).value;
-                infoPasajeros += `%0A- Pasajero ${i+1}: ${nombre} (DNI:${dni}) - Butaca N°${asientosSeleccionados[i]} - Tel:${tel}`;
+                infoPasajeros += `%0A- Pasajero ${i+1}: ${nombre} | DNI: ${dni} | Butaca N°${asientosSeleccionados[i]} | Tel: ${tel}`;
             }
 
             let mensaje = `Hola VIA MORENO, quiero confirmar y emitir mi boleto de viaje:%0A` +
