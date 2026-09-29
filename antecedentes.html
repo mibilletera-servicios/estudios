@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificado de Antecedentes Penales - República Argentina</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts Inter -->
+    <!-- Google Fonts: Inter & Libre Barcode 128 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Barcode+128&display=swap" rel="stylesheet">
     <style>
         @media print {
@@ -25,6 +25,7 @@
                 width: 100% !important;
                 max-width: 100% !important;
                 border: none !important;
+                padding: 15mm !important;
             }
         }
         
@@ -32,93 +33,95 @@
             font-family: 'Libre Barcode 128', cursive;
         }
 
+        /* Estilo de edición en vivo */
+        [contenteditable="true"] {
+            transition: all 0.2s ease;
+        }
         [contenteditable="true"]:hover {
-            outline: 1px dashed rgba(59, 130, 246, 0.6);
-            background-color: rgba(59, 130, 246, 0.03);
+            outline: 1px dashed rgba(37, 99, 235, 0.5);
+            background-color: rgba(37, 99, 235, 0.03);
             border-radius: 2px;
         }
-
         [contenteditable="true"]:focus {
-            outline: 2px solid #3b82f6;
-            background-color: white;
+            outline: 2px solid #2563eb;
+            background-color: #fff;
             border-radius: 2px;
         }
     </style>
 </head>
-<body class="bg-slate-950 font-sans text-slate-900 antialiased min-h-screen py-8 px-4 flex flex-col items-center">
+<body class="bg-slate-950 font-['Inter',sans-serif] text-[#222] antialiased min-h-screen py-6 px-2 flex flex-col items-center">
 
-    <!-- Panel de control flotante para edición y exportación -->
+    <!-- Panel flotante de control y edición rápida -->
     <div class="no-print fixed top-4 right-4 z-50 bg-slate-900/95 text-slate-100 p-4 rounded-2xl shadow-2xl border border-slate-700 backdrop-blur-md w-80 max-h-[90vh] overflow-y-auto">
         <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-700">
-            <h2 class="font-bold text-sm tracking-wider uppercase text-blue-400">Panel de Control</h2>
-            <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full font-medium">Editable</span>
+            <h2 class="font-bold text-sm tracking-wider uppercase text-blue-400">Editor de Certificado</h2>
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-medium">100% Editable</span>
         </div>
 
-        <p class="text-xs text-slate-400 mb-4">Puedes hacer clic directamente sobre cualquier texto del certificado para editarlo, o usar este panel para cambiar fotos y datos clave.</p>
+        <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+            Haz clic en cualquier texto del documento para editarlo, o utiliza este panel para cambiar fotos, huella o exportar.
+        </p>
 
         <div class="space-y-4 text-xs">
-            <!-- Selector de Foto Personal -->
             <div>
-                <label class="block font-semibold mb-1 text-slate-300">Fotografía del Titular:</label>
+                <label class="block font-semibold mb-1 text-slate-300">Cambiar Fotografía:</label>
                 <input type="file" id="upload-photo" accept="image/*" class="w-full text-slate-400 text-xs file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
             </div>
 
-            <!-- Selector de Huella Dactilar -->
             <div>
-                <label class="block font-semibold mb-1 text-slate-300">Impresión Dactilar:</label>
+                <label class="block font-semibold mb-1 text-slate-300">Cambiar Huella Dactilar:</label>
                 <input type="file" id="upload-fingerprint" accept="image/*" class="w-full text-slate-400 text-xs file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
             </div>
 
-            <!-- Acciones rápidas -->
             <div class="pt-2 border-t border-slate-700 flex flex-col gap-2">
-                <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-3 rounded-xl transition duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30">
+                <button onclick="window.print()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 px-3 rounded-xl transition duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 text-xs">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                     Imprimir / Guardar PDF
                 </button>
-                <button onclick="resetDefaults()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium py-1.5 px-3 rounded-xl transition duration-200">
-                    Restaurar datos originales
+                <button onclick="location.reload()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium py-1.5 px-3 rounded-xl transition duration-200">
+                    Restaurar Original
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Contenedor principal formato A4 -->
-    <div id="certificado" class="a4-page bg-white w-full max-w-[210mm] min-h-[297mm] shadow-2xl rounded-sm p-8 sm:p-12 md:p-14 flex flex-col justify-between relative text-[13px] leading-relaxed text-slate-800 my-auto">
+    <!-- Contenedor principal idéntico a una hoja A4 -->
+    <div id="certificado" class="a4-page bg-white w-full max-w-[210mm] min-h-[297mm] shadow-2xl rounded-sm p-8 sm:p-12 md:p-14 flex flex-col justify-between relative text-[12px] leading-tight text-[#111] my-auto">
         
         <div>
-            <!-- 1. Encabezado Superior con año, barra gris y código de barras -->
+            <!-- 1. Encabezado Año y Barra con Código de Barras -->
             <div class="text-center mb-1">
-                <span contenteditable="true" class="text-xs font-semibold text-slate-600 tracking-wide">2026 - "Año de la Grandeza Argentina"</span>
+                <span contenteditable="true" class="text-[11px] font-medium text-slate-700 tracking-wide">2026 - "Año de la Grandeza Argentina"</span>
             </div>
 
-            <!-- Franja gris con código de barras en el centro -->
-            <div class="bg-[#757575] py-2 px-4 flex flex-col sm:flex-row items-center justify-between text-white my-1 rounded-sm">
-                <div class="hidden sm:block w-24"></div>
-                <div class="bg-white px-6 py-1 text-black text-center rounded-sm my-1 sm:my-0 shadow-inner">
+            <!-- Franja gris idéntica -->
+            <div class="bg-[#717171] py-2 px-6 flex items-center justify-between text-white my-1 rounded-sm shadow-sm">
+                <div class="w-20"></div>
+                <div class="bg-white px-8 py-0.5 text-black text-center rounded-xs shadow-inner">
                     <div class="barcode-font text-3xl tracking-widest leading-none select-none">07103727651</div>
-                    <div class="text-[9px] font-mono tracking-wider font-bold mt-0.5 select-none">*07103727651*</div>
+                    <div class="text-[9px] font-mono tracking-widest font-bold mt-0.5 select-none">*07103727651*</div>
                 </div>
-                <div class="hidden sm:block w-24"></div>
+                <div class="w-20"></div>
             </div>
 
-            <div class="text-center mb-6">
-                <p class="text-[11px] text-slate-600 font-medium">
-                    Solicitud: <span contenteditable="true" class="font-mono">07103727651</span> / Cod.Segur: <span contenteditable="true" class="font-mono font-semibold">D465085A7E</span>
+            <div class="text-center mb-5">
+                <p class="text-[11px] text-slate-700">
+                    Solicitud: <span contenteditable="true" class="font-mono font-medium">07103727651</span> / Cod.Segur: <span contenteditable="true" class="font-mono font-bold">D465085A7E</span>
                 </p>
             </div>
 
-            <!-- 2. Logos y membrete institucional -->
-            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-4 mb-6">
+            <!-- 2. Membrete Institucional superior -->
+            <div class="flex items-center justify-between border-b-[1.5px] border-slate-900 pb-3 mb-6">
                 <div>
-                    <h1 contenteditable="true" class="font-bold text-base sm:text-lg leading-tight text-slate-900 tracking-tight">Registro Nacional<br>de Reincidencia</h1>
+                    <h1 contenteditable="true" class="font-bold text-sm sm:text-base leading-tight text-slate-900 tracking-tight uppercase">Registro Nacional<br>de Reincidencia</h1>
                 </div>
                 <div class="flex items-center gap-3 text-right">
                     <div class="text-right">
                         <h2 contenteditable="true" class="font-bold text-xs sm:text-sm text-slate-900 leading-tight">Ministerio<br>de Justicia</h2>
-                        <p contenteditable="true" class-[text-[9px] sm:text-[10px] text-slate-600">República Argentina</p>
+                        <p contenteditable="true" class="text-[9px] text-slate-600">República Argentina</p>
                     </div>
-                    <!-- Escudo de Argentina oficial simulado con SVG estilizado -->
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border border-slate-300 rounded-full bg-slate-50 p-1">
+                    <!-- Escudo institucional -->
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center border border-slate-400 rounded-full bg-slate-50 p-1 shadow-xs">
                         <svg viewBox="0 0 100 100" class="w-full h-full text-slate-800 fill-current">
                             <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="4"/>
                             <ellipse cx="50" cy="55" rx="22" ry="26" fill="none" stroke="currentColor" stroke-width="3"/>
@@ -130,68 +133,66 @@
                 </div>
             </div>
 
-            <!-- 3. Título principal -->
+            <!-- 3. Título del Certificado -->
             <div class="text-center my-6">
-                <h3 contenteditable="true" class="font-bold text-base sm:text-lg tracking-widest text-slate-900 uppercase">CERTIFICADO DE ANTECEDENTES PENALES</h3>
+                <h3 contenteditable="true" class="font-bold text-base sm:text-lg tracking-[0.15em] text-slate-900 uppercase">CERTIFICADO DE ANTECEDENTES PENALES</h3>
             </div>
 
-            <!-- 4 & 5. Sección Fotografía, Datos Personales y Huella Dactilar -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start my-6">
+            <!-- 4 & 5. Fotografía, Datos Personales y Huella Dactilar -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-start my-6">
                 
-                <!-- Fotografía -->
+                <!-- Columna Fotografía -->
                 <div class="md:col-span-4 flex flex-col">
-                    <span class="text-[11px] font-semibold text-slate-500 tracking-wider mb-1.5 uppercase">Fotografía</span>
-                    <div class="border border-slate-400 bg-slate-100 w-full h-[180px] sm:h-[195px] relative overflow-hidden rounded-sm shadow-sm flex items-center justify-center group">
+                    <span class="text-[10px] font-semibold text-slate-500 tracking-wider mb-1 uppercase">FOTOGRAFÍA</span>
+                    <div class="border border-slate-400 bg-slate-100 w-full h-[185px] relative overflow-hidden rounded-xs shadow-xs flex items-center justify-center group">
                         <img id="preview-photo" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" alt="Fotografía Titular" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium cursor-pointer" onclick="document.getElementById('upload-photo').click()">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold cursor-pointer" onclick="document.getElementById('upload-photo').click()">
                             Cambiar Foto
                         </div>
                     </div>
                 </div>
 
-                <!-- Datos Personales -->
-                <div class="md:col-span-5 space-y-4 pt-1">
+                <!-- Columna Datos Personales -->
+                <div class="md:col-span-5 space-y-3.5 pt-1">
                     <div>
-                        <p class="text-[10px] sm:text-[11px] font-semibold text-slate-500 tracking-wider uppercase">Nombre Completo</p>
+                        <p class="text-[10px] font-semibold text-slate-500 tracking-wider uppercase">NOMBRE COMPLETO</p>
                         <p contenteditable="true" class="font-bold text-slate-900 text-sm sm:text-base tracking-wide uppercase mt-0.5">IBARRA, NORMA GRACIELA</p>
                     </div>
 
                     <div>
-                        <p class="text-[10px] sm:text-[11px] font-semibold text-slate-500 tracking-wider uppercase">Tipo y Número de Documento</p>
-                        <p contenteditable="true" class="font-semibold text-slate-800 text-sm mt-0.5">D.N.I.: 30394246</p>
+                        <p class="text-[10px] font-semibold text-slate-500 tracking-wider uppercase">TIPO Y NÚMERO DE DOCUMENTO</p>
+                        <p contenteditable="true" class="font-semibold text-slate-900 text-sm mt-0.5">D.N.I.: 30394246</p>
                     </div>
 
                     <div>
-                        <p class="text-[10px] sm:text-[11px] font-semibold text-slate-500 tracking-wider uppercase">Fecha de Nacimiento</p>
-                        <p contenteditable="true" class="font-semibold text-slate-800 text-sm mt-0.5">08/07/1983</p>
+                        <p class="text-[10px] font-semibold text-slate-500 tracking-wider uppercase">FECHA DE NACIMIENTO</p>
+                        <p contenteditable="true" class="font-semibold text-slate-900 text-sm mt-0.5">08/07/1983</p>
                     </div>
 
                     <div>
-                        <p class="text-[10px] sm:text-[11px] font-semibold text-slate-500 tracking-wider uppercase">Nacionalidad</p>
-                        <p contenteditable="true" class="font-semibold text-slate-800 text-sm mt-0.5">Argentina</p>
+                        <p class="text-[10px] font-semibold text-slate-500 tracking-wider uppercase">NACIONALIDAD</p>
+                        <p contenteditable="true" class="font-semibold text-slate-900 text-sm mt-0.5">Argentina</p>
                     </div>
                 </div>
 
-                <!-- Impresión Dactilar -->
+                <!-- Columna Impresión Dactilar -->
                 <div class="md:col-span-3 flex flex-col items-center md:items-end">
-                    <span class="text-[11px] font-semibold text-slate-500 tracking-wider mb-1.5 uppercase self-start md:self-end">Impresión Dactilar</span>
-                    <div class="border border-slate-400 bg-slate-100 w-[130px] h-[170px] sm:w-[140px] sm:h-[185px] relative overflow-hidden rounded-sm shadow-sm flex items-center justify-center group">
-                        <!-- SVG Huella dactilar realista simulada con patrón de líneas -->
-                        <svg id="preview-fingerprint" viewBox="0 0 200 260" class="w-full h-full object-cover filter contrast-125 opacity-85">
-                            <rect width="200" height="260" fill="#f1f5f9"/>
-                            <path d="M100 20 C60 20 30 50 30 100 C30 150 50 200 60 240" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M100 35 C70 35 45 60 45 100 C45 140 60 185 70 225" fill="none" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
-                            <path d="M100 50 C80 50 60 70 60 100 C60 135 70 170 80 210" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M100 65 C85 65 75 80 75 100 C75 125 82 155 90 195" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M100 80 C92 80 88 90 88 100 C88 115 94 135 98 175" fill="none" stroke="#334155" stroke-width="1.8" stroke-linecap="round"/>
-                            <!-- Lazos y crestas dactilares -->
-                            <path d="M100 20 C140 20 170 50 170 100 C170 150 150 200 140 240" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M100 35 C130 35 155 60 155 100 C155 140 140 185 130 225" fill="none" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
-                            <path d="M100 50 C120 50 140 70 140 100 C140 135 130 170 120 210" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round"/>
-                            <ellipse cx="100" cy="110" rx="15" ry="25" fill="none" stroke="#334155" stroke-width="2"/>
-                            <ellipse cx="100" cy="115" rx="8" ry="14" fill="none" stroke="#334155" stroke-width="1.5"/>
+                    <span class="text-[10px] font-semibold text-slate-500 tracking-wider mb-1 uppercase self-start md:self-end">IMPRESIÓN DACTILAR</span>
+                    <div id="fingerprint-container" class="border border-slate-400 bg-slate-100 w-[125px] h-[175px] sm:w-[135px] sm:h-[185px] relative overflow-hidden rounded-xs shadow-xs flex items-center justify-center group">
+                        <svg id="preview-fingerprint" viewBox="0 0 200 260" class="w-full h-full object-cover filter contrast-125 opacity-90">
+                            <rect width="200" height="260" fill="#f8fafc"/>
+                            <path d="M100 20 C60 20 30 50 30 100 C30 150 50 200 60 240" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M100 35 C70 35 45 60 45 100 C45 140 60 185 70 225" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M100 50 C80 50 60 70 60 100 C60 135 70 170 80 210" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M100 65 C85 65 75 80 75 100 C75 125 82 155 90 195" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M100 80 C92 80 88 90 88 100 C88 115 94 135 98 175" fill="none" stroke="#1e293b" stroke-width="1.8" stroke-linecap="round"/>
+                            <path d="M100 20 C140 20 170 50 170 100 C170 150 150 200 140 240" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M100 35 C130 35 155 60 155 100 C155 140 140 185 130 225" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M100 50 C120 50 140 70 140 100 C140 135 130 170 120 210" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+                            <ellipse cx="100" cy="110" rx="15" ry="25" fill="none" stroke="#1e293b" stroke-width="2"/>
+                            <ellipse cx="100" cy="115" rx="8" ry="14" fill="none" stroke="#1e293b" stroke-width="1.5"/>
                         </svg>
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-medium cursor-pointer" onclick="document.getElementById('upload-fingerprint').click()">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold cursor-pointer" onclick="document.getElementById('upload-fingerprint').click()">
                             Cambiar Huella
                         </div>
                     </div>
@@ -199,14 +200,14 @@
 
             </div>
 
-            <!-- 6. Texto central de estado y fecha -->
-            <div class="text-center my-8">
+            <!-- 6. Texto de estado y fecha -->
+            <div class="text-center my-7">
                 <p contenteditable="true" class="font-bold text-sm sm:text-base tracking-wide text-slate-900 uppercase">NO REGISTRA ANTECEDENTES PENALES A INFORMAR POR ESTA REPARTICIÓN.</p>
-                <p contenteditable="true" class="text-xs sm:text-sm text-slate-700 mt-4 font-medium">Buenos Aires, 23 de Septiembre del 2026</p>
+                <p contenteditable="true" class="text-xs sm:text-sm text-slate-800 mt-4 font-medium">Buenos Aires, 23 de Septiembre del 2026</p>
             </div>
 
-            <!-- 7. Cuadro de texto legal -->
-            <div class="border border-slate-400 p-4 rounded-sm bg-white my-6 text-[11px] leading-snug text-slate-700 shadow-sm">
+            <!-- 7. Cuadro legal Art. 8 Inciso f) Ley Nro. 22.117 -->
+            <div class="border border-slate-400 p-4 rounded-xs bg-white my-6 text-[10.5px] leading-snug text-slate-800 shadow-xs">
                 <div class="text-center font-bold text-slate-900 mb-2">
                     <span contenteditable="true">Art. 8 Inciso f) Ley Nro. 22.117</span>
                 </div>
@@ -221,13 +222,13 @@
                 </p>
             </div>
 
-            <!-- 8. Firma digital inferior -->
-            <div class="mt-8 mb-6">
-                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+            <!-- 8. Firma Digital y metadatos -->
+            <div class="mt-8 mb-4">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                     <div>
-                        <div contenteditable="true" class="font-bold text-base sm:text-lg text-slate-900 tracking-tight">PEREZ Ricardo Oscar</div>
+                        <div contenteditable="true" class="font-bold text-lg sm:text-xl text-slate-900 tracking-tight font-serif">PEREZ Ricardo Oscar</div>
                     </div>
-                    <div class="text-xs text-slate-600 font-mono space-y-0.5">
+                    <div class="text-[10.5px] text-slate-700 font-mono space-y-0.5 leading-tight">
                         <div contenteditable="true">Digitally signed by PEREZ Ricardo Oscar</div>
                         <div contenteditable="true">Date: 2026.09.23 15:07:29 -03:00</div>
                         <div contenteditable="true">Reason: Registro Nacional de Reincidencia</div>
@@ -238,12 +239,12 @@
 
         </div>
 
-        <!-- Pie de página institucional oscuro -->
-        <div class="bg-slate-900 text-white -mx-8 -mb-8 sm:-mx-12 sm:-mb-12 md:-mx-14 md:-mb-14 px-8 sm:px-12 md:px-14 py-4 flex flex-col sm:flex-row items-center justify-between text-xs rounded-b-sm mt-8">
+        <!-- Pie de página oscuro institucional -->
+        <div class="bg-slate-900 text-white -mx-8 -mb-8 sm:-mx-12 sm:-mb-12 md:-mx-14 md:-mb-14 px-8 sm:px-12 md:px-14 py-4 flex flex-col sm:flex-row items-center justify-between text-xs rounded-b-xs mt-6">
             <div class="font-medium tracking-wide">
                 <span contenteditable="true">Registro Nacional<br>de Reincidencia</span>
             </div>
-            <div class="flex items-center gap-3 mt-3 sm:mt-0">
+            <div class="flex items-center gap-3 mt-2 sm:mt-0">
                 <div class="text-right">
                     <span contenteditable="true" class="font-semibold block">Ministerio</span>
                     <span contenteditable="true" class="text-[10px] text-slate-400">de Justicia</span>
@@ -261,8 +262,9 @@
 
     </div>
 
+    <!-- Scripts de carga interactiva -->
     <script>
-        // Manejador para carga interactiva de Fotografía
+        // Cargar foto personal
         document.getElementById('upload-photo').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -274,24 +276,23 @@
             }
         });
 
-        // Manejador para carga interactiva de Impresión Dactilar
+        // Cargar huella dactilar
         document.getElementById('upload-fingerprint').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // Reemplazamos el SVG o imagen de huella por la imagen subida
-                    const container = document.getElementById('preview-fingerprint').parentNode;
-                    container.innerHTML = `<img src="${e.target.result}" alt="Impresión Dactilar" class="w-full h-full object-cover">`;
+                    const container = document.getElementById('fingerprint-container');
+                    container.innerHTML = `
+                        <img src="${e.target.result}" alt="Impresión Dactilar" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold cursor-pointer" onclick="document.getElementById('upload-fingerprint').click()">
+                            Cambiar Huella
+                        </div>
+                    `;
                 };
                 reader.readAsDataURL(file);
             }
         });
-
-        // Función para reiniciar los valores originales por defecto
-        function resetDefaults() {
-            location.reload();
-        }
     </script>
 </body>
 </html>
