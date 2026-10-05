@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIDZ MOTORS | Vehículos Eléctricos de Alta Gama</title>
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e63946;
+            --primary-dark: #c5222f;
+            --dark: #121212;
+            --dark-card: #1e1e1e;
+            --gray: #8d99ae;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --accent: #ffb703;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* HEADER & HERO */
+        header {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            border-bottom: 3px solid var(--primary);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .slogan {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        /* BANNER ENVÍOS */
+        .shipping-banner {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 0.75rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* GRILLA DE PRODUCTOS */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--dark-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.2);
+            border-color: var(--primary);
+        }
+
+        .product-image-container {
+            position: relative;
+            height: 240px;
+            background-color: #2a2a2a;
+            overflow: hidden;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .badge-licence {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(0, 0, 0, 0.75);
+            color: var(--accent);
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            text-transform: uppercase;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.35rem;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+        }
+
+        /* SELECTOR DE COLORES */
+        .color-selector {
+            margin-bottom: 1rem;
+        }
+
+        .color-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-btn {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #2b2b2b;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .color-btn.active {
+            border-color: var(--primary);
+            background-color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ESPECIFICACIONES */
+        .specs-list {
+            list-style: none;
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            padding: 0.75rem 0;
+        }
+
+        .specs-list li {
+            margin-bottom: 4px;
+        }
+
+        .specs-list strong {
+            color: var(--white);
+        }
+
+        /* PRECIOS Y DESCUENTOS */
+        .pricing-box {
+            background-color: #151515;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .price-row.discount {
+            color: #2a9d8f;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 6px;
+            border-top: 1px dashed #333;
+            padding-top: 6px;
+        }
+
+        .price-list {
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+
+        /* CHECKOUT / SELECTOR MEDIO DE PAGO */
+        .payment-choice {
+            margin-bottom: 1rem;
+        }
+
+        .payment-choice label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .payment-select {
+            width: 100%;
+            padding: 8px 12px;
+            background-color: #2b2b2b;
+            color: var(--white);
+            border: 1px solid #444;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        /* BOTÓN DE WHATSAPP */
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            background-color: #25d366;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #20ba5a;
+            transform: scale(1.02);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #0a0a0a;
+            border-top: 1px solid #222;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.8rem;
+            color: #666;
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">KIDZ <span>MOTORS</span></div>
+        <div class="slogan">Los primeros vehículos de lujo de tus hijos. Potencia, estilo y elegancia a escala.</div>
+    </header>
+
+    <!-- BANNER DE ENVÍOS -->
+    <div class="shipping-banner">
+        📦 TIENDA 100% ONLINE — Envíos a todo el país directos a tu domicilio con embalaje seguro.
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="container">
+        <h2 class="section-title">Catálogo Exclusivo de Alta Gama</h2>
+
+        <div class="products-grid" id="productGrid">
+            <!-- Los productos se cargan dinámicamente o se estructuran vía HTML puro como este ejemplo -->
+            
+            <!-- PRODUCTO 1 -->
+            <div class="product-card" data-product="Mercedes-Benz G63 AMG">
+                <div class="product-image-container">
+                    <span class="badge-licence">Licencia Oficial</span>
+                    <img id="img-1" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80" alt="Mercedes-Benz G63 AMG">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Mercedes-Benz G63 AMG</h3>
+                    
+                    <div class="color-selector">
+                        <span class="color-label">Color seleccionado: <strong id="color-name-1">Rojo Fuego</strong></span>
+                        <div class="color-options">
+                            <button class="color-btn active" onclick="changeColor(1, 'Rojo Fuego', 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80', this)">Rojo Fuego</button>
+                            <button class="color-btn" onclick="changeColor(1, 'Negro Obsidiana', 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80', this)">Negro Obsidiana</button>
+                            <button class="color-btn" onclick="changeColor(1, 'Plata Iridio', 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=80', this)">Plata Iridio</button>
+                        </div>
+                    </div>
+
+                    <ul class="specs-list">
+                        <li><strong>Motor:</strong> Doble motor 12V / 45W</li>
+                        <li><strong>Batería:</strong> 12V 7Ah (1.5 - 2h autonomía)</li>
+                        <li><strong>Velocidad:</strong> 3 a 7 km/h con reversa</li>
+                        <li><strong>Extras:</strong> Asiento de cuero, ruedas EVA, luces LED y control remoto parental</li>
+                    </ul>
+
+                    <div class="pricing-box">
+                        <div class="price-row">
+                            <span>Precio Lista Tarjetas:</span>
+                            <span>$399.990</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Precio Transferencia:</span>
+                            <span>$359.990</span>
+                        </div>
+                        <div class="price-row discount">
+                            <span>Efectivo / Depósito (20% OFF):</span>
+                            <span id="price-1">$319.990</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-choice">
+                        <label for="pay-1">Método de pago para tu compra:</label>
+                        <select id="pay-1" class="payment-select" onchange="updatePrice(1, 319990, 359990, 399990)">
+                            <option value="Efectivo / Depósito (20% OFF) - $319.990">Efectivo / Depósito ($319.990)</option>
+                            <option value="Transferencia Bancaria - $359.990">Transferencia Bancaria ($359.990)</option>
+                            <option value="Tarjeta de Crédito / Lista - $399.990">Tarjeta de Crédito / Lista ($399.990)</option>
+                        </select>
+                    </div>
+
+                    <a href="#" id="whatsapp-btn-1" class="btn-whatsapp" onclick="sendWhatsApp(1, 'Mercedes-Benz G63 AMG')">💬 Comprar por WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 2 -->
+            <div class="product-card" data-product="RAM 1500 Laramie">
+                <div class="product-image-container">
+                    <span class="badge-licence">Licencia Oficial</span>
+                    <img id="img-2" src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" alt="RAM 1500 Laramie">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">RAM 1500 Laramie (Doble Plaza)</h3>
+                    
+                    <div class="color-selector">
+                        <span class="color-label">Color seleccionado: <strong id="color-name-2">Rojo Deportivo</strong></span>
+                        <div class="color-options">
+                            <button class="color-btn active" onclick="changeColor(2, 'Rojo Deportivo', 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80', this)">Rojo Deportivo</button>
+                            <button class="color-btn" onclick="changeColor(2, 'Blanco Perlado', 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80', this)">Blanco Perlado</button>
+                            <button class="color-btn" onclick="changeColor(2, 'Negro Brillante', 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&q=80', this)">Negro Brillante</button>
+                        </div>
+                    </div>
+
+                    <ul class="specs-list">
+                        <li><strong>Motor:</strong> Cuatro motores 12V (4x4 real)</li>
+                        <li><strong>Batería:</strong> 12V 10Ah de gran capacidad</li>
+                        <li><strong>Velocidad:</strong> Hasta 8 km/h</li>
+                        <li><strong>Extras:</strong> Doble plaza, caja de carga rebatible, puertas con traba, Bluetooth</li>
+                    </ul>
+
+                    <div class="pricing-box">
+                        <div class="price-row">
+                            <span>Precio Lista Tarjetas:</span>
+                            <span>$449.990</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Precio Transferencia:</span>
+                            <span>$399.990</span>
+                        </div>
+                        <div class="price-row discount">
+                            <span>Efectivo / Depósito (20% OFF):</span>
+                            <span id="price-2">$359.990</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-choice">
+                        <label for="pay-2">Método de pago para tu compra:</label>
+                        <select id="pay-2" class="payment-select" onchange="updatePrice(2, 359990, 399990, 449990)">
+                            <option value="Efectivo / Depósito (20% OFF) - $359.990">Efectivo / Depósito ($359.990)</option>
+                            <option value="Transferencia Bancaria - $399.990">Transferencia Bancaria ($399.990)</option>
+                            <option value="Tarjeta de Crédito / Lista - $449.990">Tarjeta de Crédito / Lista ($449.990)</option>
+                        </select>
+                    </div>
+
+                    <a href="#" id="whatsapp-btn-2" class="btn-whatsapp" onclick="sendWhatsApp(2, 'RAM 1500 Laramie')">💬 Comprar por WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 3 -->
+            <div class="product-card" data-product="Mercedes-Benz GLC Coupe">
+                <div class="product-image-container">
+                    <span class="badge-licence">Licencia Oficial</span>
+                    <img id="img-3" src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80" alt="Mercedes-Benz GLC Coupe">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Mercedes-Benz GLC Coupe AMG</h3>
+                    
+                    <div class="color-selector">
+                        <span class="color-label">Color seleccionado: <strong id="color-name-3">Rojo Metalizado</strong></span>
+                        <div class="color-options">
+                            <button class="color-btn active" onclick="changeColor(3, 'Rojo Metalizado', 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80', this)">Rojo Metalizado</button>
+                            <button class="color-btn" onclick="changeColor(3, 'Gris Selenita', 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80', this)">Gris Selenita</button>
+                            <button class="color-btn" onclick="changeColor(3, 'Azul Metálico', 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80', this)">Azul Metálico</button>
+                        </div>
+                    </div>
+
+                    <ul class="specs-list">
+                        <li><strong>Motor:</strong> Doble motor trasero alto rendimiento</li>
+                        <li><strong>Batería:</strong> 12V 7Ah</li>
+                        <li><strong>Velocidad:</strong> 3 a 6 km/h con arranque suave</li>
+                        <li><strong>Extras:</strong> Diseño aerodinámico, apertura lateral, cinturón 5 puntos</li>
+                    </ul>
+
+                    <div class="pricing-box">
+                        <div class="price-row">
+                            <span>Precio Lista Tarjetas:</span>
+                            <span>$349.990</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Precio Transferencia:</span>
+                            <span>$319.990</span>
+                        </div>
+                        <div class="price-row discount">
+                            <span>Efectivo / Depósito (20% OFF):</span>
+                            <span id="price-3">$279.990</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-choice">
+                        <label for="pay-3">Método de pago para tu compra:</label>
+                        <select id="pay-3" class="payment-select" onchange="updatePrice(3, 279990, 319990, 349990)">
+                            <option value="Efectivo / Depósito (20% OFF) - $279.990">Efectivo / Depósito ($279.990)</option>
+                            <option value="Transferencia Bancaria - $319.990">Transferencia Bancaria ($319.990)</option>
+                            <option value="Tarjeta de Crédito / Lista - $349.990">Tarjeta de Crédito / Lista ($349.990)</option>
+                        </select>
+                    </div>
+
+                    <a href="#" id="whatsapp-btn-3" class="btn-whatsapp" onclick="sendWhatsApp(3, 'Mercedes-Benz GLC Coupe AMG')">💬 Comprar por WhatsApp</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+   <!-- FOOTER -->
+    <footer>
+        <p><strong>KIDZ MOTORS — Vehículos Eléctricos Infantiles de Alta Gama</strong></p>
+        <p>📦 Tienda 100% Online | Envíos a todo del país directos a tu domicilio (Embalaje seguro y protegido).</p>
+        <p>🚫 Sin local físico ni atención al público presencial.</p>
+        <p>💳 Medios de pago: Efectivo (20% OFF por depósito), Transferencia y Tarjetas.</p>
+        <p class="footer-disclaimer">© 2026 Kidz Motors. Todos los derechos reservados. Licencias oficiales exclusivas.</p>
+    </footer>
+
+    <!-- JAVASCRIPT PARA INTERACTIVIDAD -->
+    <script>
+        // Objeto para guardar el estado actual de cada producto (color seleccionado)
+        const productStates = {
+            1: { color: 'Rojo Fuego' },
+            2: { color: 'Rojo Deportivo' },
+            3: { color: 'Rojo Metalizado' }
+        };
+
+        function changeColor(productId, colorName, imageUrl, buttonElement) {
+            // Cambiar imagen
+            document.getElementById(`img-${productId}`).src = imageUrl;
+            // Cambiar texto de color seleccionado
+            document.getElementById(`color-name-${productId}`).innerText = colorName;
+            
+            // Actualizar estado en memoria
+            productStates[productId].color = colorName;
+
+            // Cambiar clase active en botones de color
+            const buttons = buttonElement.parentElement.getElementsByClassName('color-btn');
+            for (let btn of buttons) {
+                btn.classList.remove('active');
+            }
+            buttonElement.classList.add('active');
+        }
+
+        function updatePrice(productId, cashPrice, transferPrice, listPrice) {
+            // Esta función se puede expandir si querés mostrar el precio grande cambiando dinámicamente
+        }
+
+        function sendWhatsApp(productId, productName) {
+            // Reemplazá este número con tu número de WhatsApp real (formato internacional sin espacios ni símbolos extra, ej: 5491112345678)
+            const phoneNumber = "5491100000000"; 
+            
+            const selectedColor = productStates[productId].color;
+            const paymentSelect = document.getElementById(`pay-${productId}`);
+            const selectedPayment = paymentSelect.value;
+
+            // Armar mensaje claro para WhatsApp
+            const message = `¡Hola! 👋 Estoy interesado/a en comprar este vehículo en KIDZ MOTORS:
+            
+🚗 *Modelo:* ${productName}
+🎨 *Color elegido:* ${selectedColor}
+💳 *Medio de pago:* ${selectedPayment}
+
+¿Me comunican los pasos para coordinar el envío a domicilio? ¡Gracias!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Abrir WhatsApp
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+</html>
