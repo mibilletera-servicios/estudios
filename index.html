@@ -1,143 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Acceso - Servicios Digitales</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        /* Configuración de paleta optimizada y moderna */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { 
-                        argAzul: '#1B2A4A',     /* Azul institucional profundo */
-                        argAzulHover: '#131F36',/* Tono más oscuro para estados hover */
-                        argCeleste: '#3B82F6',  /* Azul dinámico moderno / Celeste institucional */
-                        argFondo: '#F8FAFC',    /* Fondo gris muy suave y limpio */
-                        argTexto: '#1E293B'     /* Texto principal de alta legibilidad */
-                    }
-                }
-            }
+    <title>Sitio en Mantenimiento</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
         }
-    </script>
+        .container {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        p {
+            color: #7f8c8d;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-<body class="bg-argFondo text-argTexto font-sans min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+<body>
 
-    <!-- Franja superior institucional con degradado -->
-    <div class="h-1.5 w-full bg-gradient-to-r from-blue-600 via-sky-400 to-indigo-900"></div>
-
-    <!-- Encabezado del Portal -->
-    <header class="bg-argAzul text-white shadow-lg border-b border-blue-900/50">
-        <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-                <div class="inline-flex items-center gap-2 bg-blue-900/80 border border-blue-700/50 text-sky-300 text-xs uppercase tracking-wider px-3 py-1 rounded-full font-medium mb-3 shadow-inner">
-                    <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-                    Portal Oficial de Accesos
-                </div>
-                <h1 class="text-3xl font-extrabold tracking-tight text-white">Panel de Servicios</h1>
-            </div>
-            <div class="text-sm text-slate-300 bg-slate-800/60 px-4 py-2 rounded-lg border border-slate-700/50 backdrop-blur-sm">
-                Plataforma integrada de gestión
-            </div>
-        </div>
-    </header>
-
-    <!-- Contenido Principal -->
-    <main class="max-w-5xl mx-auto px-6 py-14 flex-grow w-full">
-        <div class="grid md:grid-cols-2 gap-8">
-
-            <!-- Tarjeta SISA-RTE -->
-            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                <div>
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-argAzul flex items-center justify-center font-bold text-2xl shadow-sm border border-blue-100">
-                            🇦🇷
-                        </div>
-                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-md">Salud y Trayectorias</span>
-                    </div>
-                    
-                    <h2 class="text-2xl font-bold text-argAzul mb-2">SISA-RTE</h2>
-                    <p class="text-xs text-blue-600 font-semibold uppercase tracking-wider mb-4">
-                        Sistema Integrado de Información Sanitaria Argentino
-                    </p>
-                    <p class="text-slate-600 mb-6 leading-relaxed text-sm">
-                        Herramienta oficial destinada a la gestión, seguimiento y validación de trayectorias formativas y excepciones dentro del ámbito de la salud. Permite verificar registros de manera centralizada bajo normativas vigentes.
-                    </p>
-                </div>
-                
-                <a href="https://mibilletera-servicios.com.ar/sisarte.html" target="_blank" rel="noopener noreferrer" 
-                   class="group relative inline-flex items-center justify-center bg-argAzul hover:bg-argAzulHover text-white font-medium py-3.5 px-6 rounded-xl transition-all duration-200 shadow-md shadow-blue-900/20 text-sm overflow-hidden">
-                    <span class="relative z-10 flex items-center gap-2">
-                        Ingresar a SISA-RTE
-                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                </a>
-            </div>
-
-            <!-- Tarjeta miBilletera / miArgentina -->
-            <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                <div>
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-xl shadow-sm border border-sky-100">
-                            📱
-                        </div>
-                        <span class="text-xs font-semibold px-2.5 py-1 bg-sky-50 text-sky-700 rounded-md">Identidad Digital</span>
-                    </div>
-
-                    <h2 class="text-2xl font-bold text-argAzul mb-2">miBilletera / miArgentina</h2>
-                    <p class="text-xs text-sky-600 font-semibold uppercase tracking-wider mb-4">
-                        Documentación digital con validez oficial
-                    </p>
-                    <p class="text-slate-600 mb-6 leading-relaxed text-sm">
-                        Visualizá, verificá y gestioná tus credenciales personales de forma ágil y segura desde cualquier dispositivo móvil las 24 horas del día.
-                    </p>
-                    
-                    <!-- Lista de servicios habilitados -->
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mb-6">
-                        <p class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Servicios habilitados:</p>
-                        <ul class="text-xs text-slate-600 space-y-2">
-                            <li class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-[10px]">✓</span> 
-                                Sincronización inmediata del DNI Digital
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-[10px]">✓</span> 
-                                Certificados Académicos, Títulos y Analíticos
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-[10px]">✓</span> 
-                                Carnet de Manipulación de Alimentos
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-[10px]">✓</span> 
-                                Licencia Nacional de Conducir digital
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <a href="https://mibilletera-servicios.com.ar/mibilletera.html" target="_blank" rel="noopener noreferrer" 
-                   class="group relative inline-flex items-center justify-center bg-sky-600 hover:bg-sky-700 text-white font-medium py-3.5 px-6 rounded-xl transition-all duration-200 shadow-md shadow-sky-600/20 text-sm overflow-hidden">
-                    <span class="relative z-10 flex items-center gap-2">
-                        Ingresar a miBilletera
-                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                </a>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- Pie de página institucional -->
-    <footer class="bg-argAzul text-slate-400 py-8 text-xs border-t border-blue-900/40">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-            <p>Gestión centralizada de accesos y herramientas digitales del Estado.</p>
-            <p class="text-slate-500">&copy; 2026 - Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <div class="container">
+        <div class="icon">🛠️</div>
+        <h1>Sitio Web en Mantenimiento</h1>
+        <p>Estamos trabajando para mejorar tu experiencia. Volveremos a estar en línea muy pronto. ¡Gracias por tu paciencia!</p>
+    </div>
 
 </body>
-    </html>
-                        
+</html>
