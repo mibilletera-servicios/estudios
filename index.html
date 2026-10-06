@@ -59,9 +59,6 @@ body{
     flex-direction: row;
     padding-right: 20px;
   }
-  .diagonal-flag {
-    display: none;
-  }
 }
 
 .header{
@@ -392,7 +389,7 @@ footer{
   <!-- INFORMACIÓN DEL ANEXO Y VALIDEZ -->
   <div class="info-box">
     <strong>¿Qué es el anexo miBilletera y cuál es su validez?</strong><br>
-    El anexo digital en <strong>miBilletera</strong> es un registro complementario seguro que centraliza su historial educativo verificado. La documentación emitida a través de este portal cuenta con validez administrativa mediante protocolos de verificación y constancias oficiales registradas en bases de datos educativas autorizadas.
+    El anexo digital en <strong>miBilletera</strong> is un registro complementario seguro que centraliza su historial educativo verificado. La documentación emitida a través de este portal cuenta con validez administrativa mediante protocolos de verificación y constancias oficiales registradas en bases de datos educativas autorizadas.
   </div>
 
   <div class="card">
@@ -521,7 +518,7 @@ footer{
 <!-- MODAL TÉRMINOS Y CONDICIONES -->
 <div class="modal-bg" id="modalTerminos">
   <div class="modal-box">
-    <h2>Términos, Condiciones y Validez Documental</h2>
+    <h2 id="modalTitulo">Términos, Condiciones y Validez Documental</h2>
     <div class="modal-texto">
       <strong>Marco Legal y Validez de la Documentación</strong><br><br>
       Esta plataforma opera como un servicio de asistencia privada para la gestión, recopilación, formato digital y sincronización de expedientes y certificados académicos ante las entidades competentes.<br><br>
@@ -532,7 +529,8 @@ footer{
       Al presionar “Aceptar y Enviar”, el usuario confirma que la información proporcionada es legítima y autoriza la tramitación formal de su certificado digital.
     </div>
 
-    <div class="check-box">
+    <!-- Checkbox y botón de envío solo visibles al enviar el formulario -->
+    <div class="check-box" id="modalCheckContainer">
       <label>
         <input type="checkbox" id="aceptoTerminos">
         He leído, comprendido y acepto íntegramente los términos y condiciones de validez del servicio.
@@ -540,8 +538,8 @@ footer{
     </div>
 
     <div class="modal-btns">
-      <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
-      <button type="button" class="btn-licencia" style="width: auto; padding: 12px 25px; font-size: 14px;" onclick="confirmarEnvio()">Aceptar y Enviar</button>
+      <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cerrar</button>
+      <button type="button" id="btnConfirmarModal" class="btn-licencia" style="width: auto; padding: 12px 25px; font-size: 14px;" onclick="confirmarEnvio()">Aceptar y Enviar</button>
     </div>
   </div>
 </div>
@@ -567,9 +565,7 @@ function validarFormulario(){
     document.getElementById("fecha").value &&
     document.getElementById("lugarNacimiento").value &&
     validarDNI(document.getElementById("dni").value) &&
-    document.getElementById("provincia").value &&
-    document.getElementById("localidad").value &&
-    document.getElementById("finalizacion").value &&
+    // El punto 3 (provincia, localidad, finalizacion) ya NO bloquea la habilitación si no se completa
     document.getElementById("tramite").value &&
     document.getElementById("cargaSistema").value;
 
@@ -584,10 +580,16 @@ function validarFormulario(){
 
 function abrirModal(e){
   e.preventDefault();
+  // Modo envío: muestra el checkbox y el botón de confirmar
+  document.getElementById("modalCheckContainer").style.display = "block";
+  document.getElementById("btnConfirmarModal").style.display = "inline-block";
   document.getElementById("modalTerminos").style.display="flex";
 }
 
 function abrirTerminosFooter(){
+  // Modo lectura: oculta el checkbox y el botón de confirmar para que solo se pueda leer y cerrar
+  document.getElementById("modalCheckContainer").style.display = "none";
+  document.getElementById("btnConfirmarModal").style.display = "none";
   document.getElementById("modalTerminos").style.display="flex";
 }
 
@@ -637,8 +639,8 @@ function enviarWhatsApp(){
 📧 *Email:* ${document.getElementById("email").value}
 🎂 *Nacimiento:* ${document.getElementById("fecha").value} (${document.getElementById("lugarNacimiento").value})
 
-📍 *Procedencia:* ${document.getElementById("localidad").value}, ${document.getElementById("provincia").value}
-📅 *Año de egreso:* ${document.getElementById("finalizacion").value}
+📍 *Procedencia:* ${document.getElementById("localidad").value || "No especificada"}, ${document.getElementById("provincia").value || "No especificada"}
+📅 *Año de egreso:* ${document.getElementById("finalizacion").value || "No especificado"}
 🏫 *Institución:* ${document.getElementById("institucion").value || "A asignar según localidad"}
 
 📄 *Modalidad:* ${modalidadTexto}
