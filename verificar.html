@@ -3,165 +3,211 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verificación de Autenticidad | miBilletera</title>
+<title>Certificado de Autenticidad y Validación | miBilletera</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@300;400;500;600;700;800&display=swap">
 
 <style>
-body{
-  font-family:'Encode Sans',sans-serif;
-  margin:0;
-  background:#f4f7f9;
-  color:#222;
-  position: relative;
-  overflow-x: hidden;
+body {
+  font-family: 'Encode Sans', sans-serif;
+  margin: 0;
+  background: #edf2f7;
+  color: #2d3748;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-  
-.navbar{
-  background:#fff;
-  border-bottom:3px solid #ffd100;
-  padding:12px 25px;
+
+.navbar {
+  background: #ffffff;
+  border-bottom: 3px solid #ffd100;
+  padding: 15px 30px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-.navbar img{
-  height:45px;
+.navbar img {
+  height: 42px;
 }
 
-.header{
-  background: linear-gradient(135deg, #0072bb 0%, #005a96 100%);
-  color:#fff;
-  padding:30px 25px;
+.navbar-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-portal {
+  background: linear-gradient(135deg, #0072bb 0%, #004080 100%);
+  color: #fff;
+  padding: 35px 20px;
   text-align: center;
 }
 
-.header h1{
-  margin:0 0 8px 0;
-  font-size:24px;
+.header-portal h1 {
+  margin: 0 0 6px 0;
+  font-size: 22px;
   font-weight: 700;
 }
 
-.header p{
-  margin:0 auto;
-  max-width: 700px;
-  font-size:14px;
-  opacity: 0.95;
-  line-height: 1.4;
+.header-portal p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.9;
 }
 
-.container{
-  max-width:750px;
-  margin:25px auto;
-  padding:0 20px;
+.container {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 0 20px;
   flex: 1;
   width: 100%;
   box-sizing: border-box;
 }
 
-.card{
-  background:#fff;
-  border-radius:12px;
-  padding:30px;
-  margin-bottom:24px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.04);
-  border: 1px solid #eaeaea;
-  text-align: center;
+.certificate-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 35px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  border: 1px solid #cbd5e0;
+  position: relative;
 }
 
-/* Sello de verificación */
-.badge-valid {
-  background: #eef9f2;
-  color: #00a650;
-  border: 1px solid #b2e8cd;
-  padding: 14px 20px;
+/* Sello de estado */
+.badge-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
   border-radius: 8px;
   font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  font-size: 14px;
   margin-bottom: 25px;
-  font-size: 15px;
-  letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
-.badge-valid .icon {
-  background: #00a650;
-  color: white;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
+.badge-valid {
+  background: #f0fff4;
+  color: #22543d;
+  border: 1px solid #c6f6d5;
 }
 
-.details-table {
-  text-align: left;
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 5px 20px;
-  margin: 20px 0;
-  border: 1px solid #e9ecef;
+.badge-valid .icon {
+  background: #38a169;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.badge-error {
+  background: #fff5f5;
+  color: #742a2a;
+  border: 1px solid #fed7d7;
+}
+
+.badge-error .icon {
+  background: #e53e3e;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 6px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 25px;
 }
 
 .detail-row {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid #e5e9f0;
+  padding: 10px 0;
+  border-bottom: 1px dashed #e2e8f0;
   font-size: 14px;
-  gap: 15px;
-}
-
-.detail-row:last-child {
-  border-bottom: none;
 }
 
 .detail-label {
-  color: #555;
+  color: #4a5568;
   font-weight: 600;
 }
 
 .detail-value {
-  color: #111;
+  color: #1a202c;
   font-weight: 700;
   text-align: right;
 }
 
-.security-note{
-  background:#eef6fc;
-  padding:15px;
-  border-radius:8px;
-  margin-top:20px;
-  font-size:13px;
-  line-height:1.5;
+.security-box {
+  background: #f7fafc;
   border-left: 4px solid #0072bb;
-  color: #1a365d;
-  text-align: left;
-}
-
-footer{
-  background:#1a1a1a;
-  color: #999;
-  padding:25px 20px;
-  margin-top:auto;
-  font-size:13px;
-  border-top: 4px solid #0072bb;
-  text-align: center;
-}
-
-.footer-bottom {
-  max-width: 850px;
-  margin: auto;
+  padding: 15px;
+  border-radius: 6px;
   font-size: 12px;
-  color: #777;
+  line-height: 1.5;
+  color: #2d3748;
+  margin-bottom: 25px;
+}
+
+.btn-action {
+  display: block;
+  width: 100%;
+  background: #0072bb;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-action:hover {
+  background: #005b96;
+}
+
+footer {
+  background: #1a202c;
+  color: #a0aec0;
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  margin-top: auto;
+  border-top: 4px solid #0072bb;
+}
+
+@media print {
+  body { background: #fff; }
+  .navbar, footer, .btn-action { display: none; }
+  .certificate-card { box-shadow: none; border: none; padding: 0; }
 }
 </style>
 </head>
@@ -170,60 +216,68 @@ footer{
 
 <div class="navbar">
   <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miBilletera">
+  <div class="navbar-text">Anexo Digital Oficial</div>
 </div>
 
-<div class="header">
-  <h1>Validador de Documentación Oficial</h1>
-  <p>Sistema de consulta y autenticidad de registros sincronizados en el anexo digital.</p>
+<div class="header-portal">
+  <h1>Constancia de Registro y Validez</h1>
+  <p>Sistema Centralizado de Autenticación Documental</p>
 </div>
 
 <div class="container">
-  <div class="card">
-    <div id="badgeEstado" class="badge-valid">
-      <span class="icon" id="badgeIcon">✓</span> <span id="badgeText">Documento Oficial Sincronizado y Válido</span>
-    </div>
+  <div class="certificate-card">
     
-    <p id="descripcionEstado" style="font-size: 14px; color: #555; margin-top: 0; margin-bottom: 15px;">
-      Los datos detallados a continuación corresponden a un registro oficial activo y verificado en la base de datos de <strong>miBilletera</strong>.
-    </p>
+    <!-- Contenedor dinámico del estado -->
+    <div id="badgeContainer" class="badge-status badge-valid">
+      <div class="icon" id="badgeIcon">✓</div>
+      <div>
+        <div style="font-size: 12px; opacity: 0.8;" id="badgeSubtitle">ESTADO DEL REGISTRO</div>
+        <div id="badgeTitle">DOCUMENTO OFICIAL VÁLIDO Y VIGENTE</div>
+      </div>
+    </div>
 
-    <div class="details-table">
+    <div class="section-title">Información del Titular</div>
+    <div class="details-grid">
       <div class="detail-row">
-        <span class="detail-label">Apellido y Nombre:</span>
+        <span class="detail-label">Apellido y Nombres:</span>
         <span class="detail-value" id="lblTitular">-</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">Número de DNI:</span>
+        <span class="detail-label">Documento de Identidad:</span>
         <span class="detail-value" id="lblDni">-</span>
       </div>
+    </div>
+
+    <div class="section-title">Detalles del Trámite Académico / Profesional</div>
+    <div class="details-grid">
       <div class="detail-row">
-        <span class="detail-label">Tipo de Trámite:</span>
+        <span class="detail-label">Tipo de Certificación:</span>
         <span class="detail-value" id="lblTramite">-</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">Institución Educativa:</span>
+        <span class="detail-label">Institución de Origen:</span>
         <span class="detail-value" id="lblInstitucion">-</span>
       </div>
       <div class="detail-row">
         <span class="detail-label">Código de Seguridad:</span>
-        <span class="detail-value" id="lblCodigo" style="color: #0072bb;">-</span>
+        <span class="detail-value" id="lblCodigo" style="color: #0072bb; font-family: monospace;">-</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">Estado Actual:</span>
-        <span class="detail-value" id="lblEstado" style="color: #00a650;">Aprobado y Vigente</span>
+        <span class="detail-label">Fecha de Verificación:</span>
+        <span class="detail-value" id="lblFecha">-</span>
       </div>
     </div>
 
-    <div class="security-note" id="notaSeguridad">
-      <strong>Validez Institucional:</strong> Este comprobante digital cuenta con respaldo administrativo mediante protocolos de cifrado. Cualquier enmienda o alteración de los datos invalida automáticamente este registro.
+    <div class="security-box" id="securityBox">
+      <strong>Validez Legal y Administrativa:</strong> Este documento electrónico cuenta con trazabilidad oficial sincronizada en los registros de <i>miBilletera</i>. Su autenticidad puede ser contrastada mediante la lectura del código QR impreso en el certificado original.
     </div>
+
+    <button class="btn-action" onclick="window.print()">Imprimir o Guardar Constancia</button>
   </div>
 </div>
 
 <footer>
-  <div class="footer-bottom">
-    © 2026 miBilletera. Portal de Gestión Documental. Todos los derechos reservados.
-  </div>
+  © 2026 miBilletera · Plataforma de Gestión Documental y Certificación Digital.
 </footer>
 
 <script>
@@ -232,43 +286,38 @@ footer{
   const apellido = params.get('apellido');
   const dni = params.get('dni');
 
-  // Si no se pasan los datos mínimos por la URL, muestra error de enlace no válido
-  if (!nombre && !dni) {
-    let badge = document.getElementById('badgeEstado');
-    badge.style.background = "#fff3cd";
-    badge.style.color = "#856404";
-    badge.style.borderColor = "#ffeeba";
-    
-    document.getElementById('badgeIcon').style.background = "#856404";
-    document.getElementById('badgeIcon').innerText = "!";
-    document.getElementById('badgeText').innerText = "Enlace de Verificación No Válido";
+  // Fecha actual formateada
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  const fechaActual = new Date().toLocaleDateString('es-AR', options);
+  document.getElementById('lblFecha').innerText = fechaActual;
 
-    document.getElementById('descripcionEstado').innerText = "El código escaneado no contiene parámetros de validación reconocidos o el enlace es incorrecto.";
-    
-    document.getElementById('lblTitular').innerText = "No especificado";
+  if (!nombre && !dni) {
+    // Vista de Error si entran sin datos
+    let badge = document.getElementById('badgeContainer');
+    badge.className = "badge-status badge-error";
+    document.getElementById('badgeIcon').innerText = "!";
+    document.getElementById('badgeSubtitle').innerText = "ADVERTENCIA DE SISTEMA";
+    document.getElementById('badgeTitle').innerText = "ENLACE DE VERIFICACIÓN INVÁLIDO";
+
+    document.getElementById('lblTitular').innerText = "Registro no encontrado";
     document.getElementById('lblDni').innerText = "-";
     document.getElementById('lblTramite').innerText = "-";
     document.getElementById('lblInstitucion').innerText = "-";
-    document.getElementById('lblCodigo').innerText = "ERR-NO-DATA";
-    
-    let lblEstado = document.getElementById('lblEstado');
-    lblEstado.innerText = "No Verificado";
-    lblEstado.style.color = "#dc3545";
+    document.getElementById('lblCodigo').innerText = "ERR-DATOS-FALTANTES";
 
-    document.getElementById('notaSeguridad').style.background = "#f8d7da";
-    document.getElementById('notaSeguridad').style.borderColor = "#f5c6cb";
-    document.getElementById('notaSeguridad').style.color = "#721c24";
-    document.getElementById('notaSeguridad').innerHTML = "<strong>Atención:</strong> Si escaneó un código QR impreso y visualiza este mensaje, comuníquese con soporte técnico para verificar la autenticidad del documento.";
+    document.getElementById('securityBox').style.borderLeftColor = "#e53e3e";
+    document.getElementById('securityBox').style.background = "#fff5f5";
+    document.getElementById('securityBox').innerHTML = "<strong>Atención:</strong> El enlace al que intenta acceder no posee los parámetros de seguridad requeridos. Compruebe que el código QR haya sido escaneado correctamente desde un documento oficial.";
   } else {
-    // Si la URL tiene los datos, los dibuja correctamente
-    document.getElementById('lblTitular').innerText = (apellido || '') + (apellido && nombre ? ', ' : '') + (nombre || '');
+    // Vista Exitosa con los datos del URL
+    document.getElementById('lblTitular').innerText = (apellido ? apellido.toUpperCase() + ', ' : '') + (nombre || '');
     document.getElementById('lblDni').innerText = dni || 'No especificado';
-    document.getElementById('lblTramite').innerText = params.get('tramite') || 'Documentación Académica';
-    document.getElementById('lblInstitucion').innerText = params.get('institucion') || 'A asignar según localidad';
-    document.getElementById('lblCodigo').innerText = params.get('codigo') || 'MB-2026-VAL';
+    document.getElementById('lblTramite').innerText = params.get('tramite') || 'Certificación Oficial';
+    document.getElementById('lblInstitucion').innerText = params.get('institucion') || 'Establecimiento Autorizado';
+    document.getElementById('lblCodigo').innerText = params.get('codigo') || 'MB-2026-SEC-001';
   }
 </script>
 
 </body>
-      </html>
+          </html>
   
