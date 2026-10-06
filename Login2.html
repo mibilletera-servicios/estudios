@@ -197,8 +197,6 @@ input:focus {
 .item:active { transform: scale(.95); }
 .item .menu-icon { font-size: 26px; display: block; margin-bottom: 8px; }
 
-.icon svg { width: 32px; height: 32px; stroke: #0072bb; }
-
 .info {
   background: #eef6fc;
   border-left: 5px solid #0072bb;
@@ -693,62 +691,69 @@ setTimeout(() => {
   document.getElementById("login").style.display = "flex";
 }, 1500);
 
+/* 
+  ESTRUCTURA DE DATOS ORDENADA POR SECCIONES
+  Cada usuario contiene bloques perfectamente separados para cada credencial.
+*/
 const usuarios = [
   {
+    /* --- DATOS GENERALES DE ACCESO Y PERFIL --- */
     email: "matitolo@gmail.com",
     dni: "12345678",
     nombre: "Agustín Ignacio",
     apellido: "Rabbia",
     foto: "https://i.postimg.cc/PqYPdyX0/Screenshot-20260728-152131-Chrome.jpg",
-    dniFrenteLink: "",
-    dniDorsoLink: "",
-    ejemplar: "",
-    dniVencimiento: "",
-    dniEstado: "",
-    dniQr: "",
-    qr: "https://i.postimg.cc/cCG8GjGw/July28-022912PM.png",
-    estadoLicencia: "vigente",
-    vencimientoLicencia: "10/12/2028",
-    titulo: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
-    analitico: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
-    fechaEgreso: "10/12/2026",
-    modalidad: "Universitaria",
-    escuela: "Universidad Maimónides",
-    qrTitulo: "https://i.postimg.cc/cCG8GjGw/July28-022912PM.png",
-    manipulacionEstado: "",
-    manipulacionDesde: "",
-    manipulacionHasta: "",
-    carnetFrenteLink: "",
-    carnetDorsoLink: "",
-    qrManipulacion: ""
+
+/* --- SECCIÓN 1: DOCUMENTO NACIONAL DE IDENTIDAD (DNI) --- */
+    dniGrupo: {
+      numero: "12345678",
+      ejemplar: "A",
+      vencimiento: "10/12/2030",
+      estado: "Vigente",
+      qr: "https://i.postimg.cc/cCG8GjGw/July28-022912PM.png", // QR exclusivo de DNI
+      frenteLink: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
+      dorsoLink: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png"
+    },
+
+    /* --- SECCIÓN 2: LICENCIA NACIONAL DE CONDUCIR (LNC) --- */
+    licenciaGrupo: {
+      estado: "vigente",
+      vencimiento: "10/12/2028",
+      qr: "https://i.postimg.cc/RZL3SMKW/April16-014726PM.png" // QR exclusivo de Licencia
+    },
+
+    /* --- SECCIÓN 3: TÍTULOS Y FORMACIÓN ACADÉMICA --- */
+    tituloGrupo: {
+      tituloDoc: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
+      analiticoDoc: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
+      fechaEgreso: "10/12/2026",
+      modalidad: "Universitaria",
+      escuela: "Universidad Maimónides",
+      qr: "https://i.postimg.cc/cCG8GjGw/July28-022912PM.png" // QR exclusivo de Títulos
+    },
+
+    /* --- SECCIÓN 4: MANIPULACIÓN DE ALIMENTOS --- */
+    manipulacionGrupo: {
+      estado: "Aprobado",
+      desde: "15/01/2025",
+      hasta: "15/01/2028",
+      qr: "https://i.postimg.cc/RZL3SMKW/April16-014726PM.png", // QR exclusivo de Manipulación
+      frenteLink: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
+      dorsoLink: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png"
+    }
   },
   {
+    /* --- SEGUNDO USUARIO (PLANTILLA VACÍA / EJEMPLO) --- */
     email: "@gmail.com",
     dni: "",
     nombre: "",
     apellido: "",
     foto: "https://i.postimg.cc/PqYPdyX0/Screenshot-20260728-152131-Chrome.jpg",
-    dniFrenteLink: "",
-    dniDorsoLink: "",
-    ejemplar: "",
-    dniVencimiento: "",
-    dniEstado: "",
-    dniQr: "",
-    qr: "https://i.postimg.cc/RZL3SMKW/April16-014726PM.png",
-    estadoLicencia: "",
-    vencimientoLicencia: "",
-    titulo: "",
-    analitico: "",
-    fechaEgreso: "",
-    modalidad: "",
-    escuela: "",
-    qrTitulo: "",
-    manipulacionEstado: "",
-    manipulacionDesde: "",
-    manipulacionHasta: "",
-    carnetFrenteLink: "",
-    carnetDorsoLink: "",
-    qrManipulacion: ""
+
+    dniGrupo: { numero: "", ejemplar: "", vencimiento: "", estado: "", qr: "", frenteLink: "", dorsoLink: "" },
+    licenciaGrupo: { estado: "", vencimiento: "", qr: "" },
+    tituloGrupo: { tituloDoc: "", analiticoDoc: "", fechaEgreso: "", modalidad: "", escuela: "", qr: "" },
+    manipulacionGrupo: { estado: "", desde: "", hasta: "", qr: "", frenteLink: "", dorsoLink: "" }
   }
 ];
 
@@ -813,7 +818,8 @@ function mostrarDni() {
   document.getElementById("verDni").style.display = "block";
 
   const contenedor = document.getElementById("dniBoxContent");
-  const tieneDatos = usuarioActual.dniFrenteLink && usuarioActual.dniDorsoLink && usuarioActual.dniNumero;
+  const datos = usuarioActual.dniGrupo;
+  const tieneDatos = datos.frenteLink && datos.dorsoLink && datos.numero;
 
   if (!tieneDatos) {
     contenedor.innerHTML = `
@@ -827,20 +833,20 @@ function mostrarDni() {
   contenedor.innerHTML = `
     <div class="licencia-box">
       <div class="licencia-top">Documento Nacional de Identidad</div>
-      <div class="qr-box"><img src="${usuarioActual.dniQr}"></div>
+      <div class="qr-box"><img src="${datos.qr}" alt="QR DNI"></div>
       <div class="licencia-datos">
         <div class="campo"><small>Nombre completo</small><strong>${usuarioActual.nombre} ${usuarioActual.apellido}</strong></div>
-        <div class="campo"><small>Número de DNI</small><strong>${usuarioActual.dni}</strong></div>
-        <div class="campo"><small>Ejemplar</small><strong>${usuarioActual.ejemplar}</strong></div>
-        <div class="campo"><small>Vencimiento</small><strong>${usuarioActual.dniVencimiento}</strong></div>
-        <div class="campo full"><small>Estado</small><strong class="estado-ok">${usuarioActual.dniEstado}</strong></div>
+        <div class="campo"><small>Número de DNI</small><strong>${datos.numero}</strong></div>
+        <div class="campo"><small>Ejemplar</small><strong>${datos.ejemplar}</strong></div>
+        <div class="campo"><small>Vencimiento</small><strong>${datos.vencimiento}</strong></div>
+        <div class="campo full"><small>Estado</small><strong class="estado-ok">${datos.estado}</strong></div>
       </div>
       <div style="padding:20px"><button class="btn btn-principal" onclick="abrirModalDni()">Ver DNI Digital</button></div>
       <div class="info-extra"><strong>Datos suministrados por</strong> <span>RENAPER (Anexo).</span></div>
     </div>`;
 
-  document.getElementById("dniFrente").src = usuarioActual.dniFrenteLink;
-  document.getElementById("dniDorso").src = usuarioActual.dniDorsoLink;
+  document.getElementById("dniFrente").src = datos.frenteLink;
+  document.getElementById("dniDorso").src = datos.dorsoLink;
 }
 
 function mostrarLicencia() {
@@ -848,7 +854,8 @@ function mostrarLicencia() {
   document.getElementById("verLicencia").style.display = "block";
 
   const contenedor = document.getElementById("licenciaBoxContent");
-  const tieneDatos = usuarioActual.qr;
+  const datos = usuarioActual.licenciaGrupo;
+  const tieneDatos = datos.qr;
 
   if (!tieneDatos) {
     contenedor.innerHTML = `
@@ -863,24 +870,24 @@ function mostrarLicencia() {
     <div class="licencia-box">
       <div class="licencia-top">Licencia Nacional de Conducir</div>
       <div class="licencia-alerta">Si le retuvieron o inhabilitaron su licencia física, recuerde que no se encuentra apto para circular.</div>
-      <div class="qr-box"><img src="${usuarioActual.qr}" alt="Código QR de verificación"></div>
+      <div class="qr-box"><img src="${datos.qr}" alt="Código QR de Licencia"></div>
       <div class="licencia-datos">
         <div class="campo"><small>Nombre</small><strong>${usuarioActual.nombre}</strong></div>
         <div class="campo"><small>Apellido</small><strong>${usuarioActual.apellido}</strong></div>
         <div class="campo full"><small>Número de DNI</small><strong>${usuarioActual.dni}</strong></div>
-        <div class="campo"><small>Estado Habilitación</small><strong class="estado-ok">${usuarioActual.estadoLicencia}</strong></div>
-        <div class="campo"><small>Vencimiento</small><strong>${usuarioActual.vencimientoLicencia}</strong></div>
+        <div class="campo"><small>Estado Habilitación</small><strong class="estado-ok">${datos.estado}</strong></div>
+        <div class="campo"><small>Vencimiento</small><strong>${datos.vencimiento}</strong></div>
       </div>
       <div class="info-extra"><strong>Datos suministrados por</strong> <span>Ministerio de Transporte de la Nación.</span></div>
     </div>`;
-}
-
-function mostrarTitulo() {
+  }
+  function mostrarTitulo() {
   document.getElementById("seccionDocumentos").style.display = "none";
   document.getElementById("verTitulo").style.display = "block";
 
   const contenedor = document.getElementById("tituloBoxContent");
-  const tieneDatos = usuarioActual.titulo && usuarioActual.qrTitulo;
+  const datos = usuarioActual.tituloGrupo;
+  const tieneDatos = datos.tituloDoc && datos.qr;
 
   if (!tieneDatos) {
     contenedor.innerHTML = `
@@ -894,12 +901,12 @@ function mostrarTitulo() {
   contenedor.innerHTML = `
     <div class="licencia-box">
       <div class="licencia-top">Historial Educativo Convalidado</div>
-      <div class="qr-box"><img src="${usuarioActual.qrTitulo}" alt="QR Académico"></div>
+      <div class="qr-box"><img src="${datos.qr}" alt="QR Académico"></div>
       <div class="licencia-datos">
         <div class="campo full"><small>Nombre y Apellido Titular</small><strong>${usuarioActual.nombre} ${usuarioActual.apellido}</strong></div>
-        <div class="campo"><small>Fecha de Egreso</small><strong>${usuarioActual.fechaEgreso}</strong></div>
-        <div class="campo"><small>Modalidad</small><strong>${usuarioActual.modalidad}</strong></div>
-        <div class="campo full"><small>Institución Educativa Emisora</small><strong>${usuarioActual.escuela}</strong></div>
+        <div class="campo"><small>Fecha de Egreso</small><strong>${datos.fechaEgreso}</strong></div>
+        <div class="campo"><small>Modalidad</small><strong>${datos.modalidad}</strong></div>
+        <div class="campo full"><small>Institución Educativa Emisora</small><strong>${datos.escuela}</strong></div>
       </div>
       <div style="padding:0 20px 20px 20px;">
         <button class="btn btn-principal btn-licencia" onclick="verTituloDoc()">Visualizar Título Oficial</button>
@@ -913,7 +920,8 @@ function mostrarManipulacion() {
   document.getElementById("verManipulacion").style.display = "block";
 
   const contenedor = document.getElementById("manipulacionBoxContent");
-  const tieneDatos = usuarioActual.carnetFrenteLink && usuarioActual.qrManipulacion;
+  const datos = usuarioActual.manipulacionGrupo;
+  const tieneDatos = datos.frenteLink && datos.qr;
 
   if (!tieneDatos) {
     contenedor.innerHTML = `
@@ -927,28 +935,28 @@ function mostrarManipulacion() {
   contenedor.innerHTML = `
     <div class="licencia-box">
       <div class="licencia-top">Control de Sanidad y Alimentos</div>
-      <div class="qr-box"><img src="${usuarioActual.qrManipulacion}" alt="QR Manipulación"></div>
+      <div class="qr-box"><img src="${datos.qr}" alt="QR Manipulación"></div>
       <div class="licencia-datos">
         <div class="campo"><small>Nombre</small><strong>${usuarioActual.nombre}</strong></div>
         <div class="campo"><small>Apellido</small><strong>${usuarioActual.apellido}</strong></div>
-        <div class="campo full"><small>Estado Habilitación</small><strong class="estado-ok">${usuarioActual.manipulacionEstado}</strong></div>
-        <div class="campo"><small>Fecha Desde</small><strong>${usuarioActual.manipulacionDesde}</strong></div>
-        <div class="campo"><small>Fecha Hasta</small><strong>${usuarioActual.manipulacionHasta}</strong></div>
+        <div class="campo full"><small>Estado Habilitación</small><strong class="estado-ok">${datos.estado}</strong></div>
+        <div class="campo"><small>Fecha Desde</small><strong>${datos.desde}</strong></div>
+        <div class="campo"><small>Fecha Hasta</small><strong>${datos.hasta}</strong></div>
       </div>
       <div style="padding:0 20px 20px 20px;">
         <button class="btn btn-principal" onclick="abrirModalCarnet()">Ver Credencial</button>
       </div>
     </div>`;
 
-  document.getElementById("carnetFrente").src = usuarioActual.carnetFrenteLink;
-  document.getElementById("carnetDorso").src = usuarioActual.carnetDorsoLink;
+  document.getElementById("carnetFrente").src = datos.frenteLink;
+  document.getElementById("carnetDorso").src = datos.dorsoLink;
 }
 
 function abrirModalCarnet() { document.getElementById("modalCarnet").style.display = "flex"; }
 function cerrarModalCarnet() { document.getElementById("modalCarnet").style.display = "none"; document.getElementById("flipCard").classList.remove("flipped"); }
 function voltearCarnet() { document.getElementById("flipCard").classList.toggle("flipped"); }
-function verTituloDoc() { if(usuarioActual.titulo) window.open(usuarioActual.titulo); }
-function verAnalitico() { if(usuarioActual.analitico) window.open(usuarioActual.analitico); }
+function verTituloDoc() { if(usuarioActual.tituloGrupo.tituloDoc) window.open(usuarioActual.tituloGrupo.tituloDoc); }
+function verAnalitico() { if(usuarioActual.tituloGrupo.analiticoDoc) window.open(usuarioActual.tituloGrupo.analiticoDoc); }
 function abrirModalDni() { document.getElementById("modalDni").style.display = "flex"; }
 function cerrarModalDni() { document.getElementById("modalDni").style.display = "none"; document.getElementById("flipCardDni").classList.remove("flipped"); }
 function girarDni() { document.getElementById("flipCardDni").classList.toggle("flipped"); }
