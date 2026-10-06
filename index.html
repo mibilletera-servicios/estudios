@@ -412,7 +412,7 @@ footer{
       <!-- PASO 1 -->
       <div class="step-container">
         <div class="step-title"><span class="step-number">1</span> Seleccione el Tipo de Trámite</div>
-        <select id="tramite" onchange="cambiarTipoTramite(); validarFormulario();" required>
+        <select id="tramite" onchange="cambiarTramite(); validarFormulario();" required>
           <option value="">-- Seleccionar opción --</option>
           <option value="Certificado de Analítico y Título Secundario (Modalidad Tradicional / 6 años)">Certificado de Analítico y Título Secundario (Modalidad Tradicional / 6 años)</option>
           <option value="Certificado de Analítico y Título Secundario Técnico (Modalidad Tradicional / 7 años)">Certificado de Analítico y Título Secundario Técnico (Modalidad Tradicional / 7 años)</option>
@@ -476,8 +476,8 @@ footer{
       <div class="step-container">
         <div class="step-title"><span class="step-number">4</span> Modalidad de Entrega y Formato</div>
         
-        <!-- SECCIÓN NORMAL DE MODALIDAD -->
-        <div id="seccionModalidadNormal">
+        <!-- SELECTOR ESTÁNDAR -->
+        <div id="contenedorModalidadEstandar">
           <select id="cargaSistema" onchange="actualizarPrecio(); validarFormulario()" required>
             <option value="">-- Seleccionar modalidad --</option>
             <option value="PDF">Solo Formato PDF Digital — $100.000 (No incluye código QR)</option>
@@ -489,15 +489,15 @@ footer{
           </div>
         </div>
 
-        <!-- SECCIÓN EXCLUSIVA PARA CONSTANCIA DE ANALÍTICO EN TRÁMITE -->
-        <div id="seccionValidezTramite" style="display: none;">
+        <!-- SELECTOR TIEMPO DE VALIDEZ (SOLO PARA ANALÍTICO EN TRÁMITE) -->
+        <div id="contenedorValidezTramite" style="display: none;">
           <select id="validezTramite" onchange="actualizarPrecio(); validarFormulario()">
             <option value="">-- Seleccionar tiempo de validez --</option>
-            <option value="30">30 días — $50.000 (Formato PDF Digital)</option>
-            <option value="90">90 días — $100.000 (Formato PDF Digital)</option>
+            <option value="30">Constancia 30 días — $50.000</option>
+            <option value="90">Constancia 90 días — $100.000</option>
           </select>
-          <div class="field-hint" style="margin-top: 6px;">
-            • <strong>Constancia en trámite:</strong> Documento digital en formato PDF con la vigencia temporal seleccionada.
+          <div class="field-hint" style="margin-top: 6px; color: #d9534f;">
+            ⚠️ <strong>Aviso importante:</strong> Las constancias no poseen código QR, por ende no se cargan al anexo.
           </div>
         </div>
 
@@ -594,38 +594,32 @@ function validarEmail(email){
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function cambiarTipoTramite() {
+function cambiarTramite(){
   let tramiteVal = document.getElementById("tramite").value;
-  let seccionNormal = document.getElementById("seccionModalidadNormal");
-  let seccionTramite = document.getElementById("seccionValidezTramite");
-  let cargaSelect = document.getElementById("cargaSistema");
-  let validezSelect = document.getElementById("validezTramite");
+  let contEstandar = document.getElementById("contenedorModalidadEstandar");
+  let contValidez = document.getElementById("contenedorValidezTramite");
+  let selectCarga = document.getElementById("cargaSistema");
+  let selectValidez = document.getElementById("validezTramite");
 
-  if (tramiteVal === "Constancia de Analítico en Trámite") {
-    seccionNormal.style.display = "none";
-    seccionTramite.style.display = "block";
-    cargaSelect.value = ""; // Limpiar selección anterior
-    cargaSelect.removeAttribute("required");
-    validezSelect.setAttribute("required", "true");
+  if(tramiteVal === "Constancia de Analítico en Trámite"){
+    contEstandar.style.display = "none";
+    contValidez.style.display = "block";
+    selectCarga.required = false;
+    selectValidez.required = true;
+    selectCarga.value = ""; // limpiar selección anterior
   } else {
-    seccionNormal.style.display = "block";
-    seccionTramite.style.display = "none";
-    validezSelect.value = ""; // Limpiar selección anterior
-    validezSelect.removeAttribute("required");
-    cargaSelect.setAttribute("required", "true");
+    contEstandar.style.display = "block";
+    contValidez.style.display = "none";
+    selectCarga.required = true;
+    selectValidez.required = false;
+    selectValidez.value = ""; // limpiar selección anterior
   }
   actualizarPrecio();
 }
 
 function validarFormulario(){
   let tramiteVal = document.getElementById("tramite").value;
-  let modalidadValida = false;
-
-  if (tramiteVal === "Constancia de Analítico en Trámite") {
-    modalidadValida = document.getElementById("validezTramite").value !== "";
-  } else {
-    modalidadValida = document.getElementById("cargaSistema").value !== "";
-  }
+  let modalidadVal = tramiteVal === "Constancia de Analítico en Trámite" ? document.getElementById("validezTramite").value : document.getElementById("cargaSistema").value;
 
   let valido =
     document.getElementById("nombre").value &&
@@ -639,7 +633,7 @@ function validarFormulario(){
     document.getElementById("localidad").value &&
     document.getElementById("finalizacion").value &&
     document.getElementById("tipoBachiller").value &&
-    modalidadValida;
+    modalidadVal;
 
   document.getElementById("errorEmail").style.display =
     document.getElementById("email").value && !validarEmail(document.getElementById("email").value) ? "block" : "none";
@@ -686,26 +680,26 @@ function confirmarEnvio(){
 
 function actualizarPrecio(){
   let tramiteVal = document.getElementById("tramite").value;
-  let precioBox = document.getElementById("precioFinalBox");
+  let precioFinalBox = document.getElementById("precioFinalBox");
 
-  if (tramiteVal === "Constancia de Analítico en Trámite") {
+  if(tramiteVal === "Constancia de Analítico en Trámite"){
     let validez = document.getElementById("validezTramite").value;
-    if (validez === "") {
-      precioBox.innerHTML = "<strong>Total liquidado:</strong> Seleccione el tiempo de validez para ver el importe final.";
+    if(validez === ""){
+      precioFinalBox.innerHTML = "<strong>Total liquidado:</strong> Seleccione el tiempo de validez para ver el importe final.";
       return;
     }
     let total = validez === "30" ? 50000 : 100000;
-    let detalle = " (Constancia de Analítico en Trámite - Validez por " + validez + " días, Formato PDF Digital)";
-    precioBox.innerHTML = "<strong>Total a liquidar:</strong> $" + total.toLocaleString("es-AR") + "<span style='font-weight: normal; font-size: 13px; color: #555; display: block; margin-top: 3px;'>" + detalle + "</span>";
+    let detalle = `Constancia de analítico en trámite con validez de ${validez} días (No posee código QR / No se carga al anexo)`;
+    precioFinalBox.innerHTML = `<strong>Total a liquidar:</strong> $` + total.toLocaleString("es-AR") + `<span style='font-weight: normal; font-size: 13px; color: #555; display: block; margin-top: 3px;'>(${detalle})</span>`;
   } else {
     let carga = document.getElementById("cargaSistema").value;
-    if (carga === "") {
-      precioBox.innerHTML = "<strong>Total liquidado:</strong> Seleccione la modalidad de entrega para ver el importe final.";
+    if(carga === ""){
+      precioFinalBox.innerHTML = "<strong>Total liquidado:</strong> Seleccione la modalidad de entrega para ver el importe final.";
       return;
     }
     let total = carga === "miBilletera" ? 135000 : 100000;
     let detalle = carga === "miBilletera" ? " ($100.000 trámite base + $35.000 carga al anexo con código QR)" : " (Solo formato PDF digital)";
-    precioBox.innerHTML = "<strong>Total a liquidar:</strong> $" + total.toLocaleString("es-AR") + "<span style='font-weight: normal; font-size: 13px; color: #555; display: block; margin-top: 3px;'>" + detalle + "</span>";
+    precioFinalBox.innerHTML = `<strong>Total a liquidar:</strong> $` + total.toLocaleString("es-AR") + `<span style='font-weight: normal; font-size: 13px; color: #555; display: block; margin-top: 3px;'>${detalle}</span>`;
   }
 }
 
@@ -713,13 +707,15 @@ function enviarWhatsApp(){
   let tramite = document.getElementById("tramite");
   let tramiteVal = tramite.value;
   let tramiteTexto = tramite.options[tramite.selectedIndex].text;
+  
   let modalidadTexto = "";
   let total = 0;
 
-  if (tramiteVal === "Constancia de Analítico en Trámite") {
-    let validez = document.getElementById("validezTramite").value;
-    modalidadTexto = "Constancia en Trámite — Validez de " + validez + " días";
-    total = validez === "30" ? 50000 : 100000;
+  if(tramiteVal === "Constancia de Analítico en Trámite"){
+    let validezSelect = document.getElementById("validezTramite");
+    let diasValidez = validezSelect.value;
+    modalidadTexto = `Constancia de Analítico en Trámite (${diasValidez} días de validez - Sin código QR / No se carga al anexo)`;
+    total = diasValidez === "30" ? 50000 : 100000;
   } else {
     let carga = document.getElementById("cargaSistema");
     modalidadTexto = carga.options[carga.selectedIndex].text;
