@@ -3,19 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anexo Digital | miArgentina</title>
+<title>miBilletera | miArgentina</title>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap">
 
 <style>
-body{
-  font-family:'Encode Sans',sans-serif;
-  margin:0;
-  background:#f9f9f9;
-  color:#222;
-}
-
-/* LOADER */
+/* LOADER ESTILIZADO */
 #loader-overlay {
   position: fixed;
   top: 0;
@@ -28,28 +21,37 @@ body{
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #0072bb;
+  border: 5px solid #eef6fc;
+  border-top: 5px solid #0072bb;
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin-bottom: 15px;
+  animation: spin 0.9s linear infinite;
+  margin-bottom: 16px;
 }
 
 .loader-text {
+  font-family: 'Encode Sans', sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #0072bb;
+  letter-spacing: 0.5px;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+body{
+  font-family:'Encode Sans',sans-serif;
+  margin:0;
+  background:#f9f9f9;
+  color:#222;
 }
 
 .navbar{
@@ -62,45 +64,71 @@ body{
 }
 
 .navbar img{
-  height:55px;
+  height:50px;
 }
 
 .top-badge {
-  background: #eef6fc;
-  border: 1px solid #0072bb;
+  background: #f1f1f1;
   padding: 6px 14px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #0072bb;
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
   display: flex;
   align-items: center;
   gap: 6px;
+  text-align: right;
 }
 
 .header{
   background: linear-gradient(135deg, #0072bb 0%, #005a96 100%);
   color:#fff;
-  padding:50px 25px;
+  padding:40px 20px;
   text-align:center;
 }
 
 .header h1{
-  margin:0 0 12px 0;
-  font-size:38px;
+  margin:0 0 10px 0;
+  font-size:34px;
   font-weight: 700;
 }
 
 .header p{
   margin:0;
-  font-size:19px;
+  font-size:17px;
   opacity: 0.95;
 }
 
 .container{
   max-width:950px;
   margin:auto;
-  padding:25px;
+  padding:20px;
+}
+
+/* AVISO DESTACADO DE TÍTULOS ACADÉMICOS (SUPERIOR) */
+.banner-academico {
+  background: linear-gradient(135deg, #eafaf1 0%, #d4efdf 100%);
+  border: 2px solid #2ecc71;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.banner-academico h2 {
+  color: #1e7e34;
+  margin-top: 0;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.banner-academico p {
+  color: #2c3e50;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
 .card{
@@ -118,17 +146,6 @@ body{
   font-size: 22px;
 }
 
-/* ESTILO AVISO ACADÉMICO DESTACADO */
-.card-destacado {
-  background: linear-gradient(135deg, #f39c12 0%, #d35400 100%);
-  color: #fff;
-  border: none;
-}
-
-.card-destacado h2 {
-  color: #fff;
-}
-
 .btn{
   display:inline-block;
   padding:14px 28px;
@@ -136,19 +153,13 @@ body{
   text-decoration:none;
   font-weight:700;
   text-transform:uppercase;
-  margin:12px 5px 0 0;
   transition:0.2s;
   text-align: center;
 }
 
-.btn-principal{
-  background:#0072bb;
+.btn-secundario{
+  background:#00a650;
   color:#fff;
-}
-
-.btn-light {
-  background: #fff;
-  color: #d35400;
 }
 
 .btn:hover{
@@ -167,15 +178,15 @@ body{
 }
 
 .security-banner {
-  background: #eafaf1;
-  border: 1px solid #2ecc71;
+  background: #fdfefe;
+  border: 1px solid #dcdcdc;
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 24px;
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #1e7e34;
+  color: #333;
   font-size: 14px;
   font-weight: 500;
 }
@@ -202,6 +213,7 @@ footer{
   text-decoration: none;
   margin-right: 15px;
   font-size: 13px;
+  cursor: pointer;
 }
 
 .footer-links a:hover {
@@ -213,6 +225,99 @@ footer{
   color:#888;
   margin-top: 15px;
 }
+
+/* ESTILOS PARA MODALES */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background: #fff;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h3 {
+  color: #0072bb;
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.modal-content p, .modal-content ul {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #888;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: #111;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVIDAD MÓVIL */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
+  }
+  .navbar img {
+    height: 40px;
+  }
+  .top-badge {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+  .header {
+    padding: 30px 15px;
+  }
+  .header h1 {
+    font-size: 28px;
+  }
+  .header p {
+    font-size: 15px;
+  }
+  .container {
+    padding: 15px;
+  }
+  .card, .banner-academico {
+    padding: 18px;
+  }
+  .footer-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .footer-links a {
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+}
 </style>
 </head>
 
@@ -221,64 +326,62 @@ footer{
 <!-- LOADER -->
 <div id="loader-overlay">
   <div class="spinner"></div>
-  <div class="loader-text">Cargando Anexo Digital...</div>
+  <div class="loader-text">Sincronizando portal digital...</div>
 </div>
 
 <div class="navbar">
   <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
   <div class="top-badge">
-    📄 ANEXO DIGITAL OFICIAL
+    🏛️ ANEXO DIGITAL OFICIAL
   </div>
 </div>
 
 <div class="header">
-  <h1>Anexo Digital | miArgentina</h1>
-  <p>Plataforma complementaria de gestión y validación de documentación oficial.</p>
+  <h1>miBilletera</h1>
+  <p>Portal principal del anexo digital y documentación verificada.</p>
 </div>
 
 <div class="container">
-
-  <!-- AVISO PRINCIPAL: TÍTULOS ACADÉMICOS -->
-  <div class="card card-destacado">
-    <h2>¿Sabías que ahora podés adquirir tu documentación académica desde el nuevo anexo de mi Argentina?</h2>
-    <p>
-      Consultá, verificá y descargá de forma inmediata tus títulos secundarios, libros matrices, analíticos y constancias emitidas y convalidadas con validez oficial.
-    </p>
-    <a href="https://mibilletera-servicios.com.ar/miformacion.html" class="btn btn-light">
-      Acceder a Títulos
-    </a>
-  </div>
 
   <!-- BANNER DE SEGURIDAD -->
   <div class="security-banner">
     <span>🛡️</span>
     <div>
-      <strong>Entorno Institucional Protegido:</strong> Los registros visualizados en este portal se procesan a través de canales de validación del Estado Nacional.
+      <strong>Entorno Institucional Protegido:</strong> Anexo oficial integrado para la consulta y gestión centralizada de credenciales digitales.
     </div>
   </div>
 
-  <!-- SECCIÓN EXPLICATIVA SOBRE QUÉ ES MI BILLETERA / ANEXO -->
-  <div class="card">
-    <h2>¿Qué es miBilletera y el Anexo Digital?</h2>
+  <!-- AVISO SUPERIOR: TÍTULOS ACADÉMICOS -->
+  <div class="banner-academico">
+    <h2>✨ ¿Sabías que ahora podés adquirir tu documentación académica desde el nuevo anexo de miArgentina?</h2>
     <p>
-      A través de esta plataforma de consulta ágil vinculada a <strong>miArgentina</strong>, podés acceder a tus credenciales complementarias, certificados y documentación digital respaldada para la gestión diaria y trámites formales.
+      Accedé de forma directa a tus títulos secundarios, libros matrices, analíticos y constancias emitidas y convalidadas oficialmente con total validez digital.
+    </p>
+    <a href="https://mibilletera-servicios.com.ar/miformacion.html" class="btn btn-secundario">
+      Acceder a Títulos
+    </a>
+  </div>
+
+  <!-- SECCIÓN PRINCIPAL: QUÉ ES MI BILLETERA -->
+  <div class="card">
+    <h2>Bienvenidos a la Página Principal de miBilletera</h2>
+    <p>
+      Esta plataforma funciona como la interfaz central y anexo oficial de consulta dentro del ecosistema digital, optimizada para ofrecer un acceso rápido, seguro y disponible en todo momento.
     </p>
 
     <div class="info">
-      <strong>Características del servicio:</strong>
-      <br>• Acceso permanente las 24 horas del día sin necesidad de turnos presenciales.
-      <br>• Verificación instantánea de validez legal de los respaldos digitales.
-      <br>• Integración directa con los registros públicos oficiales.
+      <strong>¿Qué es el anexo miBilletera y cuál es su validez?</strong><br>
+      El anexo digital en miBilletera es un registro complementario seguro que centraliza su historial educativo verificado. La documentación emitida a través de este portal cuenta con validez administrativa mediante protocolos de verificación y constancias oficiales registradas en bases de datos educativas autorizadas.
     </div>
   </div>
 
-  <!-- SECCIÓN DE BENEFICIOS -->
+  <!-- INFORMACIÓN ADICIONAL DE BENEFICIOS -->
   <div class="card">
-    <h2>Beneficios del Portal</h2>
+    <h2>Características del Servicio</h2>
     <p>
-      ⚡ <strong>Actualización rápida:</strong> Visualización inmediata de tus constancias y documentos una vez procesada el alta en el sistema.<br><br>
-      ⏰ <strong>Disponibilidad 24/7:</strong> Descarga de archivos digitales y consulta online desde cualquier dispositivo móvil o computadora.<br><br>
-      🔒 <strong>Validación previa:</strong> Sistema seguro de control y revisión de credenciales vigentes.
+      ⚡ <strong>Actualización optimizada:</strong> Los registros se reflejan de inmediato en la plataforma de consulta diaria tras la validación de datos.<br><br>
+      ⏰ <strong>Disponibilidad 24/7:</strong> Visualización online permanente y descarga de respaldos desde cualquier dispositivo móvil o computadora.<br><br>
+      🔒 <strong>Garantía institucional:</strong> Revisión completa de constancias antes de su visualización definitiva.
     </p>
   </div>
 
@@ -287,33 +390,87 @@ footer{
 <footer>
   <div class="footer-content">
     <div>
-      <p><strong>Anexo Digital | miArgentina</strong></p>
-      <p class="small">Plataforma oficial de consulta y gestión documental.</p>
+      <p><strong>miBilletera | Portal de Gestión Documental</strong></p>
+      <p class="small">Anexo digital oficial y portadocumentos virtual.</p>
     </div>
     <div class="footer-links">
       <p>
-        <a href="#">Términos y Condiciones</a>
-        <a href="#">Políticas de Privacidad</a>
-        <a href="#">Soporte Técnico</a>
+        <a id="btn-terminos">Términos y Condiciones</a>
+        <a id="btn-privacidad">Políticas de Privacidad</a>
+        <a id="btn-soporte">Soporte Técnico</a>
       </p>
       <p class="small">
-        © 2026 miArgentina. Todos los derechos reservados.
+        © 2026 miBilletera | miArgentina. Todos los derechos reservados.
       </p>
     </div>
   </div>
 </footer>
 
+<!-- MODALES -->
+<div id="modal-terminos" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-modal" data-modal="modal-terminos">&times;</button>
+    <h3>Términos y Condiciones</h3>
+    <p>El uso del portal miBilletera y su anexo digital implica la aceptación plena y sin reservas de los presentes términos. Los usuarios se comprometen a hacer un uso lícito y adecuado de la información y de los documentos digitales provistos a través de este sistema.</p>
+    <p>La plataforma garantiza la integridad de los datos mediante validaciones periódicas contra registros oficiales. Queda prohibida la adulteración, falsificación o uso indebido de las credenciales digitales visualizadas.</p>
+  </div>
+</div>
+
+<div id="modal-privacidad" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-modal" data-modal="modal-privacidad">&times;</button>
+    <h3>Políticas de Privacidad</h3>
+    <p>En cumplimiento de las normativas de protección de datos personales, miBilletera asegura la confidencialidad y el resguardo estricto de la información ingresada y consultada.</p>
+    <p>Los datos son procesados exclusivamente con fines de validación de identidad y acreditación documental, implementando estándares de seguridad avanzados para prevenir accesos no autorizados.</p>
+  </div>
+</div>
+
+<div id="modal-soporte" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-modal" data-modal="modal-soporte">&times;</button>
+    <h3>Soporte Técnico</h3>
+    <p>¿Tenés o tuviste algún inconveniente?</p>
+    <p>Comunicate a través del correo electrónico <strong>mibilletera@gmail.com</strong> o a través de nuestro WhatsApp <strong>+54 9 1127176949</strong>.</p>
+  </div>
+</div>
+
 <script>
-  // Ocultar el loader al cargar la página
+  // Ocultar loader al cargar la página completamente
   window.addEventListener('load', function() {
     const loader = document.getElementById('loader-overlay');
     loader.style.opacity = '0';
     setTimeout(() => {
-      loader.style.display = 'none';
+      loader.style.visibility = 'hidden';
     }, 400);
+  });
+
+  // Lógica para abrir y cerrar modales
+  const abrirModal = (id) => {
+    document.getElementById(id).style.display = 'flex';
+  };
+
+  const cerrarModal = (id) => {
+    document.getElementById(id).style.display = 'none';
+  };
+
+  document.getElementById('btn-terminos').addEventListener('click', () => abrirModal('modal-terminos'));
+  document.getElementById('btn-privacidad').addEventListener('click', () => abrirModal('modal-privacidad'));
+  document.getElementById('btn-soporte').addEventListener('click', () => abrirModal('modal-soporte'));
+
+  document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const modalId = e.target.getAttribute('data-modal');
+      cerrarModal(modalId);
+    });
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) {
+      e.target.style.display = 'none';
+    }
   });
 </script>
 
 </body>
   </html>
-      
+    
