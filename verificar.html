@@ -269,7 +269,7 @@ footer {
       </div>
     </div>
 
-    <div class="section-title">Detalles del Trámite Académico / Profesional</div>
+    <div class="section-title">Detalles Académicos</div>
     <div class="details-grid">
       <div class="detail-row">
         <span class="detail-label">Tipo de Certificación:</span>
@@ -288,8 +288,8 @@ footer {
         <span class="detail-value" id="lblInstitucion">-</span>
       </div>
       <div class="detail-row">
-        <span class="detail-label">Código de Seguridad:</span>
-        <span class="detail-value" id="lblCodigo" style="color: #0072bb; font-family: monospace;">-</span>
+        <span class="detail-label">Número de Serie:</span>
+        <span class="detail-value" id="lblSerie" style="color: #0072bb; font-family: monospace;">-</span>
       </div>
       <div class="detail-row">
         <span class="detail-label">Huella de Integridad (Hash):</span>
@@ -339,7 +339,7 @@ footer {
     document.getElementById('lblBachiller').innerText = "-";
     document.getElementById('lblEgreso').innerText = "-";
     document.getElementById('lblInstitucion').innerText = "-";
-    document.getElementById('lblCodigo').innerText = "ERR-DATOS-FALTANTES";
+    document.getElementById('lblSerie').innerText = "ERR-DATOS";
     document.getElementById('lblHash').innerText = "---";
 
     document.getElementById('securityBox').style.borderLeftColor = "#e53e3e";
@@ -347,7 +347,7 @@ footer {
     document.getElementById('securityBox').innerHTML = "<strong>Atención:</strong> El enlace al que intenta acceder no posee los parámetros de seguridad requeridos. Compruebe que el código QR haya sido escaneado correctamente desde un documento oficial.";
   } else {
     // Vista Exitosa con los datos del URL
-    const codSeg = params.get('codigo') || 'MB-2026-SEC-001';
+    const numSerie = params.get('serie') || '632504/09';
     document.getElementById('lblTitular').innerText = (apellido ? apellido.toUpperCase() + ', ' : '') + (nombre || '');
     document.getElementById('lblDni').innerText = dni || 'No especificado';
     document.getElementById('lblProvincia').innerText = params.get('provincia') || 'Buenos Aires';
@@ -355,13 +355,13 @@ footer {
     document.getElementById('lblBachiller').innerText = params.get('bachiller') || 'Bachiller en Economía y Administración';
     document.getElementById('lblEgreso').innerText = params.get('egreso') || '2020';
     document.getElementById('lblInstitucion').innerText = params.get('institucion') || 'Establecimiento Autorizado';
-    document.getElementById('lblCodigo').innerText = codSeg;
+    document.getElementById('lblSerie').innerText = numSerie;
     
-    // Genera una huella hash simulada única basada en los datos
-    document.getElementById('lblHash').innerText = "SHA256: 7a8b9f..." + codSeg.toLowerCase() + "e412";
+    // Genera una huella hash simulada única basada en el número de serie
+    document.getElementById('lblHash').innerText = "SHA256: 7a8b9f..." + numSerie.toLowerCase().replace('/', '') + "e412";
   }
 
-  // Configuración de html2pdf ajustada para renderizar de manera exacta en una sola página A4
+  // Configuración de html2pdf ajustada para renderizar en una sola página A4
   function descargarPDF() {
     const element = document.getElementById('pdfContent');
     const opt = {
