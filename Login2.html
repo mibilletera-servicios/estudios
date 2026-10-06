@@ -31,19 +31,6 @@ body {
 }
 .navbar img { height: 55px; }
 
-/* ANEXO BADGE HEADER */
-.anexo-badge {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  background: #eef6fc;
-  color: #0072bb;
-  padding: 4px 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(0,114,187,0.2);
-  letter-spacing: 0.5px;
-}
-
 /* ENCABEZADOS DE SECCIÓN */
 .header {
   background: linear-gradient(135deg, #0072bb 0%, #005a96 100%);
@@ -94,7 +81,7 @@ h1 { font-size: 24px; margin-bottom: 8px; color: #111; }
 h2 { color: #0072bb; font-size: 22px; margin-top: 0; }
 .subtitle { color: #666; font-size: 15px; margin-bottom: 25px; }
 
-/* SECCIÓN LOGIN MEJORADA */
+/* SECCIÓN LOGIN */
 #login {
   padding: 40px 20px;
   min-height: calc(100vh - 82px);
@@ -150,7 +137,7 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(0,114,187,0.1);
 }
 
-/* BOTONES ESTILO PORTAL */
+/* BOTONES */
 .btn {
   display: block;
   width: 100%;
@@ -166,22 +153,15 @@ input:focus {
   font-family: 'Encode Sans', sans-serif;
 }
 
-.btn-principal {
-  background: #0072bb;
-  color: #fff;
-}
-
-.btn-secundario {
-  background: #00a650;
-  color: #fff;
-}
+.btn-principal { background: #0072bb; color: #fff; }
+.btn-secundario { background: #00a650; color: #fff; }
 
 .btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* COMPONENTES DE DISEÑO INTERNO */
+/* COMPONENTES */
 .card {
   background: #fff;
   border-radius: 12px;
@@ -192,18 +172,6 @@ input:focus {
   display: flex;
   align-items: center;
   gap: 20px;
-}
-
-.card button {
-  margin-top: 10px;
-  background: #0072bb;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
 }
 
 .grid {
@@ -227,20 +195,10 @@ input:focus {
 
 .item:hover { background: #e2f0fd; }
 .item:active { transform: scale(.95); }
+.item .menu-icon { font-size: 26px; display: block; margin-bottom: 8px; }
 
-.item .menu-icon {
-  font-size: 26px;
-  display: block;
-  margin-bottom: 8px;
-}
+.icon svg { width: 32px; height: 32px; stroke: #0072bb; }
 
-.icon svg {
-  width: 32px;
-  height: 32px;
-  stroke: #0072bb;
-}
-
-/* BANNERS DE INFORMACIÓN Y SEGURIDAD */
 .info {
   background: #eef6fc;
   border-left: 5px solid #0072bb;
@@ -268,7 +226,6 @@ input:focus {
   text-align: left;
 }
 
-/* FOOTER GENERAL */
 .footer {
   background: #111;
   color: #bbb;
@@ -282,8 +239,8 @@ input:focus {
 .footer p { margin: 5px 0; }
 .footer strong { color: #fff; }
 
-/* PANTALLA DE CARGA (LOADER) */
-#loader {
+/* LOADER */
+#loader, #pageLoader {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
@@ -306,11 +263,7 @@ input:focus {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* VISTAS DE LA APP */
-#seccionDocumentos, #verLicencia, #verDni, #verTitulo, #verManipulacion {
-  display: none;
-}
-
+/* VISTAS Y TARJETAS DE DOCUMENTOS */
 .doc-card {
   background: #fff;
   border-radius: 12px;
@@ -325,7 +278,7 @@ input:focus {
   transition: 0.2s;
 }
 .doc-card:hover { border-color: #0072bb; }
-.doc-card:active, .card:active, .item:active { transform: scale(.97); }
+.doc-card:active { transform: scale(.97); }
 
 .doc-left {
   display: flex;
@@ -336,10 +289,8 @@ input:focus {
   color: #333;
 }
 
-.doc-icon { font-size: 24px; }
 .doc-arrow { font-size: 20px; color: #0072bb; font-weight: bold; }
 
-/* CREDENCIALES INTERNAS (LNC / TÍTULOS) */
 .licencia-box {
   background: #fff;
   border-radius: 14px;
@@ -400,11 +351,7 @@ input:focus {
   font-weight: 600;
 }
 
-.campo strong {
-  font-size: 16px;
-  color: #111;
-}
-
+.campo strong { font-size: 16px; color: #111; }
 .full { grid-column: 1 / 3; }
 .estado-ok { color: #00a650; font-weight: 700; }
 .estado-no { color: #dc3545; font-weight: 700; }
@@ -430,18 +377,18 @@ input:focus {
   box-shadow: 0 4px 12px rgba(0,0,0,.05);
   border: 1px solid #eaeaea;
   margin-top: 20px;
+  line-height: 1.5;
 }
 
-#dniImg {
-  width: 100%;
-  max-width: 380px;
+.no-dni span {
   display: block;
-  margin: 20px auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,.1);
+  font-weight: 400;
+  font-size: 13px;
+  color: #666;
+  margin-top: 8px;
 }
 
-/* VENTANA EMERGENTE (MODAL) Y EFECTO CONTENEDOR 3D */
+/* MODALES Y FLIP CARDS */
 .modal {
   display: none;
   position: fixed;
@@ -469,7 +416,6 @@ input:focus {
   to { transform: scale(1); opacity: 1; }
 }
 
-/* Estructura Flip 3D Card */
 .flip-card {
   background-color: transparent;
   width: 100%;
@@ -501,15 +447,8 @@ input:focus {
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.flip-card-front img, .flip-card-back img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.flip-card-back {
-  transform: rotateY(180deg);
-}
+.flip-card-front img, .flip-card-back img { width: 100%; height: 100%; object-fit: cover; }
+.flip-card-back { transform: rotateY(180deg); }
 
 .close-modal {
   color: #fff;
@@ -521,35 +460,12 @@ input:focus {
   line-height: 1;
 }
 
-.dark-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #0072bb;
-}
+.dark-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #0072bb; }
 
-/* MODO OSCURO REFINADO Y HOMOGÉNEO */
-body.dark-mode {
-  background: #121212;
-  color: #e0e0e0;
-}
-
-body.dark-mode .navbar {
-  background: #1a1a1a;
-  border-bottom: 3px solid #ffd100;
-}
-
-body.dark-mode .anexo-badge {
-  background: #1e293b;
-  color: #38bdf8;
-  border-color: rgba(56,189,248,0.3);
-}
-
-body.dark-mode .header {
-  background: #0b4f7a;
-}
-
+/* MODO OSCURO */
+body.dark-mode { background: #121212; color: #e0e0e0; }
+body.dark-mode .navbar { background: #1a1a1a; border-bottom: 3px solid #ffd100; }
+body.dark-mode .header { background: #0b4f7a; }
 body.dark-mode .card,
 body.dark-mode .doc-card,
 body.dark-mode .licencia-box,
@@ -560,92 +476,22 @@ body.dark-mode .no-dni {
   border-color: #333;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
-
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode .doc-left,
-body.dark-mode .campo strong,
-body.dark-mode .licencia-top {
-  color: #f1f5f9 !important;
-}
-
-body.dark-mode .subtitle,
-body.dark-mode small,
-body.dark-mode .campo small,
-body.dark-mode .info-extra {
-  background: #161616;
-  color: #aaa;
-  border-color: #333;
-}
-
-body.dark-mode input {
-  background: #2a2a2a;
-  color: #fff;
-  border-color: #555;
-}
-
-body.dark-mode .item {
-  background: #222;
-  color: #5ab7ff;
-  border-color: #333;
-}
-
-body.dark-mode .item:hover {
-  background: #282828;
-}
-
-body.dark-mode .qr-box {
-  background: #161616;
-  border-color: #333;
-}
-
-body.dark-mode .footer {
-  background: #000;
-  color: #888;
-}
-
-.progress-line {
-  height: 8px;
-  background: #ddd;
-  border-radius: 10px;
-  margin: 10px 0 20px 0;
-}
-
-.progress-line.activo {
-  background: #00a650;
-}
-
-/* ANIMACIONES */
-.container { animation: aparecer .25s ease; }
-.doc-card, .card, .item { animation: subir .35s ease; }
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3,
+body.dark-mode .doc-left, body.dark-mode .campo strong, body.dark-mode .licencia-top { color: #f1f5f9 !important; }
+body.dark-mode .subtitle, body.dark-mode small, body.dark-mode .campo small, body.dark-mode .info-extra { background: #161616; color: #aaa; border-color: #333; }
+body.dark-mode input { background: #2a2a2a; color: #fff; border-color: #555; }
+body.dark-mode .item { background: #222; color: #5ab7ff; border-color: #333; }
+body.dark-mode .item:hover { background: #282828; }
+body.dark-mode .qr-box { background: #161616; border-color: #333; }
+body.dark-mode .footer { background: #000; color: #888; }
 
 @keyframes aparecer {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes subir {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-#pageLoader {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: #fff;
-  z-index: 10000;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-#pageLoader p {
-  font-size: 14px;
-  color: #666;
-}
+#pageLoader { display: none; }
+#pageLoader p { font-size: 14px; color: #666; }
 </style>
 </head>
 
@@ -653,13 +499,11 @@ body.dark-mode .footer {
 
 <div class="navbar">
   <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
-  <button id="darkToggle" onclick="toggleDarkMode()" class="dark-btn">
-    🌙
-  </button>
+  <button id="darkToggle" onclick="toggleDarkMode()" class="dark-btn">🌙</button>
 </div>
 
 <div id="loader">
-  <div style="font-size:24px; color:#0072bb; font-weight:700; letter-spacing: -0.5px;">miBilletera</div>
+  <div style="font-size:24px; color:#0072bb; font-weight:700;">miBilletera</div>
   <div class="spinner"></div>
   <div style="margin-top:15px; font-size:14px; color:#666;">Iniciando entorno protegido...</div>
 </div>
@@ -707,7 +551,7 @@ body.dark-mode .footer {
     <div class="subtitle">Gestioná tus datos y accedé de inmediato a tus credenciales convalidadas desde este anexo.</div>
     
     <div class="card" id="perfilCard">
-      <div style="width:70px;height:70px;border-radius:50%;overflow:hidden;">
+      <div style="width:70px;height:70px;border-radius:50%;overflow:hidden;flex-shrink:0;">
         <img id="fotoPerfil" src="" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div>
@@ -716,206 +560,91 @@ body.dark-mode .footer {
         <div style="margin-top:8px;">
           <span class="estado-ok">✔ Identidad validada (Anexo)</span>
         </div>
+        <div style="margin-top:6px; font-size:12px; color:#666; line-height:1.4;">
+          Por cuestiones de seguridad, su cuenta es constantemente verificada, y esto puede que algunas opciones no estén disponibles. Por favor espere a que esté actualizada en su totalidad o comuníquese con soporte técnico.
+        </div>
       </div>
-    </div>
-    
-    <div class="card">
-      <div class="icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="currentColor">
-          <path d="M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4V7z"/>
-        </svg>
-      </div>
-      <div>
-        <div style="font-weight: 600; font-size: 15px;">No tenés turnos programados</div>
-        <button>Solicitar nuevo turno</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div style="width:100%;">
-        <h3 style="margin-top:0;color:#0072bb;">Estado de credenciales</h3>
-        <div id="estadoCredenciales"></div>
-      </div>
-    </div>
-
-    <div class="info">
-      <strong>Última sincronización</strong><br>
-      <span id="ultimaActualizacion"></span>
-    </div>
-
-    <div class="security-banner">
-      🟢 Todos los servicios del anexo funcionan normalmente.
-    </div>
-
-    <div class="info">
-      <h3 style="margin-top:0;color:#0072bb;">Avisos</h3>
-      <div id="avisosSistema">✔ Anexo vinculado de forma correcta al sistema principal.</div>
     </div>
 
     <h2>Mis Credenciales Disponibles</h2>
     <div class="grid">
-      <div class="item" onclick="abrirDocumentos()">
-        <i class="bi bi-person-vcard menu-icon"></i>
-        Documentos
-      </div>
-      <div class="item" onclick="abrirVehiculos()">
-        <i class="bi bi-car-front menu-icon"></i>
-        Vehículos
-      </div>
-      <div class="item" onclick="abrirTrabajo()">
-        <i class="bi bi-briefcase menu-icon"></i>
-        Trabajo
-      </div>
-      <div class="item" onclick="abrirSalud()">
-        <i class="bi bi-heart-pulse menu-icon"></i>
-        Salud
-      </div>
-      <div class="item" onclick="abrirPagos()">
-        <i class="bi bi-credit-card menu-icon"></i>
-        Pagos
-      </div>
-      <div class="item" onclick="abrirTramites()">
-        <i class="bi bi-file-earmark-text menu-icon"></i>
-        Trámites
-      </div>
+      <div class="item" onclick="abrirDocumentos()"><i class="bi bi-person-vcard menu-icon"></i>Documentos</div>
+      <div class="item" onclick="abrirVehiculos()"><i class="bi bi-car-front menu-icon"></i>Vehículos</div>
+      <div class="item" onclick="abrirTrabajo()"><i class="bi bi-briefcase menu-icon"></i>Trabajo</div>
+      <div class="item" onclick="abrirSalud()"><i class="bi bi-heart-pulse menu-icon"></i>Salud</div>
+      <div class="item" onclick="abrirPagos()"><i class="bi bi-credit-card menu-icon"></i>Pagos</div>
+      <div class="item" onclick="abrirTramites()"><i class="bi bi-file-earmark-text menu-icon"></i>Trámites</div>
     </div>
   </div>
 
   <!-- SECCIONES INTERNAS -->
   <div class="container" id="seccionVehiculos" style="display:none;">
     <h2>Mis Vehículos</h2>
-    <div class="doc-card">
-      <div class="doc-left"><i class="bi bi-car-front doc-icon"></i><div><strong>Vehículo registrado</strong><br><span>Sin vehículos asociados</span></div></div>
-      <div class="doc-arrow">›</div>
-    </div>
+    <div class="doc-card"><div class="doc-left"><i class="bi bi-car-front doc-icon" style="font-size:24px;"></i><div><strong>Vehículo registrado</strong><br><span>Sin vehículos asociados</span></div></div><div class="doc-arrow">›</div></div>
   </div>
 
   <div class="container" id="seccionTrabajo" style="display:none;">
     <h2>Mi Información Laboral</h2>
-    <div class="doc-card">
-      <div class="doc-left"><i class="bi bi-person-badge doc-icon"></i><div><strong>Datos laborales</strong><br><span>Consultar información registrada</span></div></div>
-      <div class="doc-arrow">›</div>
-    </div>
+    <div class="doc-card"><div class="doc-left"><i class="bi bi-person-badge doc-icon" style="font-size:24px;"></i><div><strong>Datos laborales</strong><br><span>Consultar información registrada</span></div></div><div class="doc-arrow">›</div></div>
   </div>
 
   <div class="container" id="seccionSalud" style="display:none;">
     <h2>Mi Salud Digital</h2>
-    <div class="doc-card">
-      <div class="doc-left"><i class="bi bi-heart-pulse doc-icon"></i><div><strong>Cobertura médica</strong><br><span>Obra social / prepaga asociada</span></div></div>
-      <div class="doc-arrow">›</div>
-    </div>
+    <div class="doc-card"><div class="doc-left"><i class="bi bi-heart-pulse doc-icon" style="font-size:24px;"></i><div><strong>Cobertura médica</strong><br><span>Obra social / prepaga asociada</span></div></div><div class="doc-arrow">›</div></div>
   </div>
 
   <div class="container" id="seccionPagos" style="display:none;">
     <h2>Mis Pagos</h2>
-    <div class="doc-card">
-      <div class="doc-left"><i class="bi bi-credit-card doc-icon"></i><div><strong>Medios de pago</strong><br><span>Tarjetas y cuentas asociadas</span></div></div>
-      <div class="doc-arrow">›</div>
-    </div>
+    <div class="doc-card"><div class="doc-left"><i class="bi bi-credit-card doc-icon" style="font-size:24px;"></i><div><strong>Medios de pago</strong><br><span>Tarjetas y cuentas asociadas</span></div></div><div class="doc-arrow">›</div></div>
   </div>
 
   <div class="container" id="seccionTramites" style="display:none;">
     <h2>Mis Trámites</h2>
-    <div class="doc-card">
-      <div class="doc-left"><i class="bi bi-folder2-open doc-icon"></i><div><strong>Solicitud de documentación</strong><br><span>Estado: En revisión</span></div></div>
-      <div class="doc-arrow">›</div>
-    </div>
+    <div class="doc-card"><div class="doc-left"><i class="bi bi-folder2-open doc-icon" style="font-size:24px;"></i><div><strong>Solicitud de documentación</strong><br><span>Estado: En revisión</span></div></div><div class="doc-arrow">›</div></div>
   </div>
 
-  <div class="container" id="seccionDocumentos">
+  <div class="container" id="seccionDocumentos" style="display:none;">
     <h2>Elegí el documento a visualizar</h2>
     <div class="doc-card" onclick="mostrarDni()">
-      <div class="doc-left"><div class="doc-icon"><i class="bi bi-person-vcard"></i></div><div>Documento Nacional de Identidad (DNI)</div></div>
+      <div class="doc-left"><i class="bi bi-person-vcard" style="font-size:24px;"></i><div>Documento Nacional de Identidad (DNI)</div></div>
       <div class="doc-arrow">›</div>
     </div>
     <div class="doc-card" onclick="mostrarLicencia()">
-      <div class="doc-left"><div class="doc-icon"><i class="bi bi-person-vcard"></i></div><div>Licencia Nacional de Conducir (LNC)</div></div>
+      <div class="doc-left"><i class="bi bi-person-vcard" style="font-size:24px;"></i><div>Licencia Nacional de Conducir (LNC)</div></div>
       <div class="doc-arrow">›</div>
     </div>
     <div class="doc-card" onclick="mostrarTitulo()">
-      <div class="doc-left"><div class="doc-icon"><i class="bi bi-mortarboard"></i></div><div>Formación Académica (Títulos)</div></div>
+      <div class="doc-left"><i class="bi bi-mortarboard" style="font-size:24px;"></i><div>Formación Académica (Títulos)</div></div>
       <div class="doc-arrow">›</div>
     </div>
     <div class="doc-card" onclick="mostrarManipulacion()">
-      <div class="doc-left"><div class="doc-icon"><i class="bi bi-shield-check"></i></div><div>Carnet de Manipulación de Alimentos</div></div>
+      <div class="doc-left"><i class="bi bi-shield-check" style="font-size:24px;"></i><div>Carnet de Manipulación de Alimentos</div></div>
       <div class="doc-arrow">›</div>
     </div>
   </div>
 
+  <!-- VISTA DNI -->
   <div class="container" id="verDni" style="display:none;">
     <h2>Documento Nacional de Identidad</h2>
-    <div id="dniContenido"></div>
-    <div id="dniAviso" class="no-dni" style="display:none;">ESTADO: NO DISPONIBLE</div>
-    <div class="licencia-box">
-      <div class="licencia-top">Documento Nacional de Identidad</div>
-      <div class="qr-box"><img id="dniQrImg" src=""></div>
-      <div class="licencia-datos">
-        <div class="campo"><small>Nombre completo</small><strong id="dniNombre"></strong></div>
-        <div class="campo"><small>Número de DNI</small><strong id="dniNumero"></strong></div>
-        <div class="campo"><small>Ejemplar</small><strong id="dniEjemplar"></strong></div>
-        <div class="campo"><small>Vencimiento</small><strong id="dniVence"></strong></div>
-        <div class="campo full"><small>Estado</small><strong id="dniEstadoTexto" class="estado-ok"></strong></div>
-      </div>
-      <div style="padding:20px"><button class="btn btn-principal" onclick="abrirModalDni()">Ver DNI Digital</button></div>
-      <div class="info-extra"><strong>Datos suministrados por</strong> <span>RENAPER (Anexo).</span></div>
-    </div>
+    <div id="dniBoxContent"></div>
   </div>
 
+  <!-- VISTA LICENCIA -->
   <div class="container" id="verLicencia" style="display:none;">
     <h2>Licencia de Conducir Digital (LNC)</h2>
-    <div id="licenciaContenido">
-      <div class="licencia-box">
-        <div class="licencia-top">Licencia Nacional de Conducir</div>
-        <div class="licencia-alerta">Si le retuvieron o inhabilitaron su licencia física, recuerde que no se encuentra apto para circular.</div>
-        <div class="qr-box"><img id="qrImg" alt="Código QR de verificación"></div>
-        <div class="licencia-datos">
-          <div class="campo"><small>Nombre</small><strong id="licNombre"></strong></div>
-          <div class="campo"><small>Apellido</small><strong id="licApellido"></strong></div>
-          <div class="campo full"><small>Número de DNI</small><strong id="licDni"></strong></div>
-          <div class="campo"><small>Estado Habilitación</small><strong id="licEstado" class="estado-ok"></strong></div>
-          <div class="campo"><small>Vencimiento</small><strong id="licVence"></strong></div>
-        </div>
-        <div class="info-extra"><strong>Datos suministrados por</strong> <span>Ministerio de Transporte de la Nación.</span></div>
-      </div>
-    </div>
-    <div id="licenciaAviso" class="no-dni" style="display:none;">LICENCIA DE CONDUCIR AÚN NO DISPONIBLE</div>
+    <div id="licenciaBoxContent"></div>
   </div>
 
+  <!-- VISTA TÍTULO -->
   <div class="container" id="verTitulo" style="display:none;">
     <h2>Certificaciones de Formación Académica</h2>
-    <div class="licencia-box">
-      <div id="tituloNoDisponible" class="no-dni" style="display:none;">ESTADO: NO DISPONIBLE</div>
-      <div class="licencia-top">Historial Educativo Convalidado</div>
-      <div class="qr-box"><img id="qrTitulo" alt="QR Académico"></div>
-      <div class="licencia-datos">
-        <div class="campo full"><small>Nombre y Apellido Titular</small><strong id="titNombre"></strong></div>
-        <div class="campo"><small>Fecha de Egreso</small><strong id="titFecha"></strong></div>
-        <div class="campo"><small>Modalidad</small><strong id="titModalidad"></strong></div>
-        <div class="campo full"><small>Institución Educativa Emisora</small><strong id="titEscuela"></strong></div>
-      </div>
-      <div style="padding:0 20px 20px 20px;">
-        <button class="btn btn-principal btn-licencia" onclick="verTituloDoc()">Visualizar Título Oficial</button>
-        <button class="btn btn-secundario btn-licencia" onclick="verAnalitico()" style="margin-top:10px;">Visualizar Libro Matriz / Analítico</button>
-      </div>
-    </div>
+    <div id="tituloBoxContent"></div>
   </div>
 
+  <!-- VISTA MANIPULACIÓN -->
   <div class="container" id="verManipulacion" style="display:none;">
     <h2>Carnet de Manipulador de Alimentos Federal</h2>
-    <div class="licencia-box">
-      <div class="licencia-top">Control de Sanidad y Alimentos</div>
-      <div class="qr-box"><img id="qrManipulacion" alt="QR Manipulación"></div>
-      <div class="licencia-datos">
-        <div class="campo"><small>Nombre</small><strong id="manNombre"></strong></div>
-        <div class="campo"><small>Apellido</small><strong id="manApellido"></strong></div>
-        <div class="campo full"><small>Estado Habilitación</small><strong id="manEstado"></strong></div>
-        <div class="campo"><small>Fecha Desde</small><strong id="manDesde"></strong></div>
-        <div class="campo"><small>Fecha Hasta</small><strong id="manHasta"></strong></div>
-      </div>
-      <div style="padding:0 20px 20px 20px;">
-        <button class="btn btn-principal" onclick="abrirModalCarnet()">Ver Credencial</button>
-      </div>
-    </div>
+    <div id="manipulacionBoxContent"></div>
   </div>
 
   <!-- MODALES -->
@@ -949,8 +678,9 @@ body.dark-mode .footer {
   <div id="pageLoader">
     <div class="spinner"></div>
     <p>Cargando...</p>
-          </div>
-          <div class="footer">
+  </div>
+
+  <div class="footer">
     <p><strong>miBilletera | Anexo Tecnológico miArgentina</strong></p>
     <p style="font-size:12px; color: #888;">Subsistema integrado para consulta de credenciales institucionales.</p>
     <p style="font-size:12px; color: #666;">© 2026 miBilletera | Todos los derechos reservados.</p>
@@ -966,12 +696,10 @@ setTimeout(() => {
 const usuarios = [
   {
     email: "matitolo@gmail.com",
-    dni: "37119320",
+    dni: "12345678",
     nombre: "Agustín Ignacio",
     apellido: "Rabbia",
     foto: "https://i.postimg.cc/PqYPdyX0/Screenshot-20260728-152131-Chrome.jpg",
-    vencimiento: "N/A",
-    estadoLicencia: "no disponible",
     dniFrenteLink: "",
     dniDorsoLink: "",
     ejemplar: "",
@@ -979,42 +707,48 @@ const usuarios = [
     dniEstado: "",
     dniQr: "",
     qr: "https://i.postimg.cc/cCG8GjGw/July28-022912PM.png",
+    estadoLicencia: "vigente",
+    vencimientoLicencia: "10/12/2028",
     titulo: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
     analitico: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
     fechaEgreso: "10/12/2026",
     modalidad: "Universitaria",
     escuela: "Universidad Maimónides",
+    qrTitulo: "https://i.postimg.cc/cCG8GjGw/July28-022912PM.png",
     manipulacionEstado: "",
     manipulacionDesde: "",
     manipulacionHasta: "",
     carnetFrenteLink: "",
-    carnetDorsoLink: ""
+    carnetDorsoLink: "",
+    qrManipulacion: ""
   },
   {
-    email: "catitaelvi2020@gmail.com",
-    dni: "25678472",
-    nombre: "Héctor Ulises",
-    apellido: "Cabrera",
+    email: "@gmail.com",
+    dni: "",
+    nombre: "",
+    apellido: "",
     foto: "https://i.postimg.cc/PqYPdyX0/Screenshot-20260728-152131-Chrome.jpg",
-    vencimiento: "N/A",
-    estadoLicencia: "no disponible",
     dniFrenteLink: "",
     dniDorsoLink: "",
     ejemplar: "",
     dniVencimiento: "",
     dniEstado: "",
-    dniQr: "https://i.postimg.cc/RZL3SMKW/April16-014726PM.png",
+    dniQr: "",
     qr: "https://i.postimg.cc/RZL3SMKW/April16-014726PM.png",
+    estadoLicencia: "",
+    vencimientoLicencia: "",
     titulo: "",
     analitico: "",
-    fechaEgreso: "10/12/2025",
-    modalidad: "Universitario",
-    escuela: "Universidad Maimonides",
+    fechaEgreso: "",
+    modalidad: "",
+    escuela: "",
+    qrTitulo: "",
     manipulacionEstado: "",
     manipulacionDesde: "",
     manipulacionHasta: "",
     carnetFrenteLink: "",
-    carnetDorsoLink: ""
+    carnetDorsoLink: "",
+    qrManipulacion: ""
   }
 ];
 
@@ -1036,7 +770,6 @@ function login() {
   document.getElementById("perfilNombre").innerText = usuarioActual.nombre + " " + usuarioActual.apellido;
   document.getElementById("perfilDni").innerText = "DNI " + usuarioActual.dni;
   document.getElementById("fotoPerfil").src = usuarioActual.foto || "";
-  document.getElementById("ultimaActualizacion").innerHTML = new Date().toLocaleString("es-AR");
 
   document.getElementById("login").style.display = "none";
   document.getElementById("loader").style.display = "flex";
@@ -1046,7 +779,7 @@ function login() {
     document.getElementById("app").style.display = "block";
     document.getElementById("saludo").innerText = "¡Hola, " + usuarioActual.nombre + "!";
     volverHome();
-  }, 1500);
+  }, 1200);
 }
 
 function abrirDocumentos() {
@@ -1079,43 +812,136 @@ function mostrarDni() {
   document.getElementById("seccionDocumentos").style.display = "none";
   document.getElementById("verDni").style.display = "block";
 
-  const tieneDni = usuarioActual.dniFrenteLink && usuarioActual.dniDorsoLink;
+  const contenedor = document.getElementById("dniBoxContent");
+  const tieneDatos = usuarioActual.dniFrenteLink && usuarioActual.dniDorsoLink && usuarioActual.dniNumero;
 
-  if(!tieneDni){
-    document.getElementById("dniContenido").style.display = "none";
-    document.getElementById("dniAviso").style.display = "block";
+  if (!tieneDatos) {
+    contenedor.innerHTML = `
+      <div class="no-dni">
+        DOCUMENTO AÚN NO DISPONIBLE
+        <span>Algunos datos puede que no se visualicen, espere mientras finalizamos la vinculación con miArgentina.</span>
+      </div>`;
     return;
   }
 
-  document.getElementById("dniContenido").style.display = "block";
-  document.getElementById("dniAviso").style.display = "none";
-
-  document.getElementById("dniQrImg").src = usuarioActual.dniQr;
-  document.getElementById("dniNombre").innerText = usuarioActual.nombre + " " + usuarioActual.apellido;
-  document.getElementById("dniNumero").innerText = usuarioActual.dni;
-  document.getElementById("dniEjemplar").innerText = usuarioActual.ejemplar;
-  document.getElementById("dniVence").innerText = usuarioActual.dniVencimiento;
-
-  const estado = document.getElementById("dniEstadoTexto");
-  estado.innerText = usuarioActual.dniEstado;
-  estado.className = usuarioActual.dniEstado.toUpperCase() == "VIGENTE" ? "estado-ok" : "estado-no";
+  contenedor.innerHTML = `
+    <div class="licencia-box">
+      <div class="licencia-top">Documento Nacional de Identidad</div>
+      <div class="qr-box"><img src="${usuarioActual.dniQr}"></div>
+      <div class="licencia-datos">
+        <div class="campo"><small>Nombre completo</small><strong>${usuarioActual.nombre} ${usuarioActual.apellido}</strong></div>
+        <div class="campo"><small>Número de DNI</small><strong>${usuarioActual.dni}</strong></div>
+        <div class="campo"><small>Ejemplar</small><strong>${usuarioActual.ejemplar}</strong></div>
+        <div class="campo"><small>Vencimiento</small><strong>${usuarioActual.dniVencimiento}</strong></div>
+        <div class="campo full"><small>Estado</small><strong class="estado-ok">${usuarioActual.dniEstado}</strong></div>
+      </div>
+      <div style="padding:20px"><button class="btn btn-principal" onclick="abrirModalDni()">Ver DNI Digital</button></div>
+      <div class="info-extra"><strong>Datos suministrados por</strong> <span>RENAPER (Anexo).</span></div>
+    </div>`;
 
   document.getElementById("dniFrente").src = usuarioActual.dniFrenteLink;
   document.getElementById("dniDorso").src = usuarioActual.dniDorsoLink;
 }
-  function mostrarLicencia() {
+
+function mostrarLicencia() {
   document.getElementById("seccionDocumentos").style.display = "none";
   document.getElementById("verLicencia").style.display = "block";
+
+  const contenedor = document.getElementById("licenciaBoxContent");
+  const tieneDatos = usuarioActual.qr;
+
+  if (!tieneDatos) {
+    contenedor.innerHTML = `
+      <div class="no-dni">
+        DOCUMENTO AÚN NO DISPONIBLE
+        <span>Algunos datos puede que no se visualicen, espere mientras finalizamos la vinculación con miArgentina.</span>
+      </div>`;
+    return;
+  }
+
+  contenedor.innerHTML = `
+    <div class="licencia-box">
+      <div class="licencia-top">Licencia Nacional de Conducir</div>
+      <div class="licencia-alerta">Si le retuvieron o inhabilitaron su licencia física, recuerde que no se encuentra apto para circular.</div>
+      <div class="qr-box"><img src="${usuarioActual.qr}" alt="Código QR de verificación"></div>
+      <div class="licencia-datos">
+        <div class="campo"><small>Nombre</small><strong>${usuarioActual.nombre}</strong></div>
+        <div class="campo"><small>Apellido</small><strong>${usuarioActual.apellido}</strong></div>
+        <div class="campo full"><small>Número de DNI</small><strong>${usuarioActual.dni}</strong></div>
+        <div class="campo"><small>Estado Habilitación</small><strong class="estado-ok">${usuarioActual.estadoLicencia}</strong></div>
+        <div class="campo"><small>Vencimiento</small><strong>${usuarioActual.vencimientoLicencia}</strong></div>
+      </div>
+      <div class="info-extra"><strong>Datos suministrados por</strong> <span>Ministerio de Transporte de la Nación.</span></div>
+    </div>`;
 }
 
 function mostrarTitulo() {
   document.getElementById("seccionDocumentos").style.display = "none";
   document.getElementById("verTitulo").style.display = "block";
+
+  const contenedor = document.getElementById("tituloBoxContent");
+  const tieneDatos = usuarioActual.titulo && usuarioActual.qrTitulo;
+
+  if (!tieneDatos) {
+    contenedor.innerHTML = `
+      <div class="no-dni">
+        DOCUMENTO AÚN NO DISPONIBLE
+        <span>Algunos datos puede que no se visualicen, espere mientras finalizamos la vinculación con miArgentina.</span>
+      </div>`;
+    return;
+  }
+
+  contenedor.innerHTML = `
+    <div class="licencia-box">
+      <div class="licencia-top">Historial Educativo Convalidado</div>
+      <div class="qr-box"><img src="${usuarioActual.qrTitulo}" alt="QR Académico"></div>
+      <div class="licencia-datos">
+        <div class="campo full"><small>Nombre y Apellido Titular</small><strong>${usuarioActual.nombre} ${usuarioActual.apellido}</strong></div>
+        <div class="campo"><small>Fecha de Egreso</small><strong>${usuarioActual.fechaEgreso}</strong></div>
+        <div class="campo"><small>Modalidad</small><strong>${usuarioActual.modalidad}</strong></div>
+        <div class="campo full"><small>Institución Educativa Emisora</small><strong>${usuarioActual.escuela}</strong></div>
+      </div>
+      <div style="padding:0 20px 20px 20px;">
+        <button class="btn btn-principal btn-licencia" onclick="verTituloDoc()">Visualizar Título Oficial</button>
+        <button class="btn btn-secundario btn-licencia" onclick="verAnalitico()" style="margin-top:10px;">Visualizar Libro Matriz / Analítico</button>
+      </div>
+    </div>`;
 }
 
 function mostrarManipulacion() {
-  document.getElementById("verManipulacion").style.display = "block";
   document.getElementById("seccionDocumentos").style.display = "none";
+  document.getElementById("verManipulacion").style.display = "block";
+
+  const contenedor = document.getElementById("manipulacionBoxContent");
+  const tieneDatos = usuarioActual.carnetFrenteLink && usuarioActual.qrManipulacion;
+
+  if (!tieneDatos) {
+    contenedor.innerHTML = `
+      <div class="no-dni">
+        DOCUMENTO AÚN NO DISPONIBLE
+        <span>Algunos datos puede que no se visualicen, espere mientras finalizamos la vinculación con miArgentina.</span>
+      </div>`;
+    return;
+  }
+
+  contenedor.innerHTML = `
+    <div class="licencia-box">
+      <div class="licencia-top">Control de Sanidad y Alimentos</div>
+      <div class="qr-box"><img src="${usuarioActual.qrManipulacion}" alt="QR Manipulación"></div>
+      <div class="licencia-datos">
+        <div class="campo"><small>Nombre</small><strong>${usuarioActual.nombre}</strong></div>
+        <div class="campo"><small>Apellido</small><strong>${usuarioActual.apellido}</strong></div>
+        <div class="campo full"><small>Estado Habilitación</small><strong class="estado-ok">${usuarioActual.manipulacionEstado}</strong></div>
+        <div class="campo"><small>Fecha Desde</small><strong>${usuarioActual.manipulacionDesde}</strong></div>
+        <div class="campo"><small>Fecha Hasta</small><strong>${usuarioActual.manipulacionHasta}</strong></div>
+      </div>
+      <div style="padding:0 20px 20px 20px;">
+        <button class="btn btn-principal" onclick="abrirModalCarnet()">Ver Credencial</button>
+      </div>
+    </div>`;
+
+  document.getElementById("carnetFrente").src = usuarioActual.carnetFrenteLink;
+  document.getElementById("carnetDorso").src = usuarioActual.carnetDorsoLink;
 }
 
 function abrirModalCarnet() { document.getElementById("modalCarnet").style.display = "flex"; }
@@ -1143,7 +969,7 @@ window.onload = function() {
 
 function pantallaCompletaDni() {
   let imagen = document.querySelector("#flipCardDni img");
-  if(imagen.requestFullscreen) imagen.requestFullscreen();
+  if(imagen && imagen.requestFullscreen) imagen.requestFullscreen();
 }
 
 function abrirVehiculos() { cargarPantalla(); cambiarTitulo("Mis Vehículos"); document.getElementById("home").style.display="none"; document.getElementById("seccionVehiculos").style.display="block"; document.getElementById("backBtn").style.display="flex"; }
@@ -1157,7 +983,7 @@ function cargarPantalla() {
   const loader = document.getElementById("pageLoader");
   if(!loader) return;
   loader.style.display = "flex";
-  setTimeout(() => { loader.style.display = "none"; }, 600);
+  setTimeout(() => { loader.style.display = "none"; }, 400);
 }
 </script>
 
