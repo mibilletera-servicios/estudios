@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificado de Autenticidad y Validación | miBilletera</title>
 
-<!-- Importar Google Fonts -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@300;400;500;600;700;800&display=swap">
-
-<!-- Importar html2pdf.js desde CDN -->
+<!-- Librería para exportar a PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
@@ -207,6 +205,12 @@ footer {
   margin-top: auto;
   border-top: 4px solid #0072bb;
 }
+
+@media print {
+  body { background: #fff; }
+  .navbar, footer, .btn-action { display: none; }
+  .certificate-card { box-shadow: none; border: none; padding: 0; }
+}
 </style>
 </head>
 
@@ -223,8 +227,8 @@ footer {
 </div>
 
 <div class="container">
-  <!-- Contenedor que será convertido a PDF -->
-  <div class="certificate-card" id="certificateCard">
+  <!-- Contenedor principal que se exportará a PDF -->
+  <div class="certificate-card" id="pdfContent">
     
     <!-- Contenedor dinámico del estado -->
     <div id="badgeContainer" class="badge-status badge-valid">
@@ -245,6 +249,10 @@ footer {
         <span class="detail-label">Documento de Identidad:</span>
         <span class="detail-value" id="lblDni">-</span>
       </div>
+      <div class="detail-row">
+        <span class="detail-label">Provincia:</span>
+        <span class="detail-value" id="lblProvincia">-</span>
+      </div>
     </div>
 
     <div class="section-title">Detalles del Trámite Académico / Profesional</div>
@@ -252,6 +260,14 @@ footer {
       <div class="detail-row">
         <span class="detail-label">Tipo de Certificación:</span>
         <span class="detail-value" id="lblTramite">-</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Tipo de Bachiller:</span>
+        <span class="detail-value" id="lblBachiller">-</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Año de Egreso:</span>
+        <span class="detail-value" id="lblEgreso">-</span>
       </div>
       <div class="detail-row">
         <span class="detail-label">Institución de Origen:</span>
@@ -274,13 +290,9 @@ footer {
     <div class="security-box" id="securityBox">
       <strong>Validez Legal y Administrativa:</strong> Este documento electrónico cuenta con trazabilidad oficial sincronizada en los registros de <i>miBilletera</i>. Su autenticidad puede ser contrastada mediante la lectura del código QR impreso en el certificado original.
     </div>
-
   </div>
 
-  <!-- Botón fuera de la tarjeta para que no salga impreso en el PDF -->
-  <div style="margin-top: 20px;">
-    <button class="btn-action" id="btnDescargar" onclick="descargarPDF()">Descargar Constancia en PDF</button>
-  </div>
+  <button class="btn-action" onclick="descargarPDF()" style="margin-top: 20px;">Descargar Constancia en PDF</button>
 </div>
 
 <footer>
@@ -308,7 +320,10 @@ footer {
 
     document.getElementById('lblTitular').innerText = "Registro no encontrado";
     document.getElementById('lblDni').innerText = "-";
+    document.getElementById('lblProvincia').innerText = "-";
     document.getElementById('lblTramite').innerText = "-";
+    document.getElementById('lblBachiller').innerText = "-";
+    document.getElementById('lblEgreso').innerText = "-";
     document.getElementById('lblInstitucion').innerText = "-";
     document.getElementById('lblCodigo').innerText = "ERR-DATOS-FALTANTES";
     document.getElementById('lblHash').innerText = "---";
@@ -321,22 +336,20 @@ footer {
     const codSeg = params.get('codigo') || 'MB-2026-SEC-001';
     document.getElementById('lblTitular').innerText = (apellido ? apellido.toUpperCase() + ', ' : '') + (nombre || '');
     document.getElementById('lblDni').innerText = dni || 'No especificado';
-    document.getElementById('lblTramite').innerText = params.get('tramite') || 'Certificación Oficial';
+    document.getElementById('lblProvincia').innerText = params.get('provincia') || 'Buenos Aires';
+    document.getElementById('lblTramite').innerText = params.get('tramite') || 'Título Secundario / Certificación Oficial';
+    document.getElementById('lblBachiller').innerText = params.get('bachiller') || 'Bachiller en Economía y Administración';
+    document.getElementById('lblEgreso').innerText = params.get('egreso') || '2020';
     document.getElementById('lblInstitucion').innerText = params.get('institucion') || 'Establecimiento Autorizado';
     document.getElementById('lblCodigo').innerText = codSeg;
     
-    // Huella hash simulada única
+    // Genera una huella hash simulada única basada en los datos
     document.getElementById('lblHash').innerText = "SHA256: 7a8b9f..." + codSeg.toLowerCase() + "e412";
   }
 
-  // Función para generar y descargar el PDF utilizando html2pdf.js
+  // Función para generar y descargar el PDF completo
   function descargarPDF() {
-    const elemento = document.getElementById('certificateCard');
-    const btn = document.getElementById('btnDescargar');
-    
-    btn.innerText = "Generando PDF...";
-    btn.disabled = true;
-
+    const element = document.getElementById('pdfContent');
     const opt = {
       margin:       10,
       filename:     'Constancia_miBilletera.pdf',
@@ -344,21 +357,9 @@ footer {
       html2canvas:  { scale: 2, useCORS: true },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
-
-    html2pdf().from(elemento).set(opt).save().then(() => {
-      btn.innerText = "Descargar Constancia en PDF";
-      btn.disabled = false;
-    }).catch(err => {
-      console.error(err);
-      btn.innerText = "Error al generar PDF";
-      setTimeout(() => {
-        btn.innerText = "Descargar Constancia en PDF";
-        btn.disabled = false;
-      }, 3000);
-    });
+    html2pdf().from(element).set(opt).save();
   }
 </script>
 
 </body>
-  </html>
-        
+</html>
