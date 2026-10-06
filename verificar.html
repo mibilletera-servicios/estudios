@@ -73,7 +73,7 @@ body{
   text-align: center;
 }
 
-/* Sello de verificación creíble */
+/* Sello de verificación */
 .badge-valid {
   background: #eef9f2;
   color: #00a650;
@@ -179,11 +179,11 @@ footer{
 
 <div class="container">
   <div class="card">
-    <div class="badge-valid">
-      <span class="icon">✓</span> Documento Oficial Sincronizado y Válido
+    <div id="badgeEstado" class="badge-valid">
+      <span class="icon" id="badgeIcon">✓</span> <span id="badgeText">Documento Oficial Sincronizado y Válido</span>
     </div>
     
-    <p style="font-size: 14px; color: #555; margin-top: 0; margin-bottom: 15px;">
+    <p id="descripcionEstado" style="font-size: 14px; color: #555; margin-top: 0; margin-bottom: 15px;">
       Los datos detallados a continuación corresponden a un registro oficial activo y verificado en la base de datos de <strong>miBilletera</strong>.
     </p>
 
@@ -210,11 +210,11 @@ footer{
       </div>
       <div class="detail-row">
         <span class="detail-label">Estado Actual:</span>
-        <span class="detail-value" style="color: #00a650;">Aprobado y Vigente</span>
+        <span class="detail-value" id="lblEstado" style="color: #00a650;">Aprobado y Vigente</span>
       </div>
     </div>
 
-    <div class="security-note">
+    <div class="security-note" id="notaSeguridad">
       <strong>Validez Institucional:</strong> Este comprobante digital cuenta con respaldo administrativo mediante protocolos de cifrado. Cualquier enmienda o alteración de los datos invalida automáticamente este registro.
     </div>
   </div>
@@ -227,20 +227,48 @@ footer{
 </footer>
 
 <script>
-  // Captura automática de los datos que viajan por la URL (GET)
   const params = new URLSearchParams(window.location.search);
+  const nombre = params.get('nombre');
+  const apellido = params.get('apellido');
+  const dni = params.get('dni');
 
-  // Si faltan datos en la URL, muestra un texto por defecto o los toma correctamente
-  const nombre = params.get('nombre') || '';
-  const apellido = params.get('apellido') || '';
-  
-  document.getElementById('lblTitular').innerText = (nombre || apellido) ? (apellido + ', ' + nombre) : 'Juan Carlos Pérez';
-  document.getElementById('lblDni').innerText = params.get('dni') || '35.489.123';
-  document.getElementById('lblTramite').innerText = params.get('tramite') || 'Certificado de Analítico y Título Secundario';
-  document.getElementById('lblInstitucion').innerText = params.get('institucion') || 'Escuela de Educación Técnica N° 1';
-  document.getElementById('lblCodigo').innerText = params.get('codigo') || 'MB-2026-8492-AX';
+  // Si no se pasan los datos mínimos por la URL, muestra error de enlace no válido
+  if (!nombre && !dni) {
+    let badge = document.getElementById('badgeEstado');
+    badge.style.background = "#fff3cd";
+    badge.style.color = "#856404";
+    badge.style.borderColor = "#ffeeba";
+    
+    document.getElementById('badgeIcon').style.background = "#856404";
+    document.getElementById('badgeIcon').innerText = "!";
+    document.getElementById('badgeText').innerText = "Enlace de Verificación No Válido";
+
+    document.getElementById('descripcionEstado').innerText = "El código escaneado no contiene parámetros de validación reconocidos o el enlace es incorrecto.";
+    
+    document.getElementById('lblTitular').innerText = "No especificado";
+    document.getElementById('lblDni').innerText = "-";
+    document.getElementById('lblTramite').innerText = "-";
+    document.getElementById('lblInstitucion').innerText = "-";
+    document.getElementById('lblCodigo').innerText = "ERR-NO-DATA";
+    
+    let lblEstado = document.getElementById('lblEstado');
+    lblEstado.innerText = "No Verificado";
+    lblEstado.style.color = "#dc3545";
+
+    document.getElementById('notaSeguridad').style.background = "#f8d7da";
+    document.getElementById('notaSeguridad').style.borderColor = "#f5c6cb";
+    document.getElementById('notaSeguridad').style.color = "#721c24";
+    document.getElementById('notaSeguridad').innerHTML = "<strong>Atención:</strong> Si escaneó un código QR impreso y visualiza este mensaje, comuníquese con soporte técnico para verificar la autenticidad del documento.";
+  } else {
+    // Si la URL tiene los datos, los dibuja correctamente
+    document.getElementById('lblTitular').innerText = (apellido || '') + (apellido && nombre ? ', ' : '') + (nombre || '');
+    document.getElementById('lblDni').innerText = dni || 'No especificado';
+    document.getElementById('lblTramite').innerText = params.get('tramite') || 'Documentación Académica';
+    document.getElementById('lblInstitucion').innerText = params.get('institucion') || 'A asignar según localidad';
+    document.getElementById('lblCodigo').innerText = params.get('codigo') || 'MB-2026-VAL';
+  }
 </script>
 
 </body>
-        </html>
+      </html>
   
