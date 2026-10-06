@@ -697,32 +697,25 @@ setTimeout(() => {
 */
 const usuarios = [
   {
-    /* --- DATOS GENERALES DE ACCESO Y PERFIL --- */
     email: "matitolo@gmail.com",
     dni: "12345678",
-    nombre: "Agustín Ignacio",
+    nombre: "Agustin Ignacio",
     apellido: "Rabbia",
     foto: "https://i.postimg.cc/PqYPdyX0/Screenshot-20260728-152131-Chrome.jpg",
-
-/* --- SECCIÓN 1: DOCUMENTO NACIONAL DE IDENTIDAD (DNI) --- */
     dniGrupo: {
-      numero: "12345678",
-      ejemplar: "A",
-      vencimiento: "10/12/2030",
+      numero: "",
+      ejemplar: "",
+      vencimiento: "",
       estado: "Vigente",
-      qr: "https://i.postimg.cc/cCG8GjGw/July28-022912PM.png", // QR exclusivo de DNI
-      frenteLink: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
-      dorsoLink: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png"
+      qr: "", // QR exclusivo de DNI
+      frenteLink: "",
+      dorsoLink: ""
     },
-
-    /* --- SECCIÓN 2: LICENCIA NACIONAL DE CONDUCIR (LNC) --- */
     licenciaGrupo: {
-      estado: "vigente",
-      vencimiento: "10/12/2028",
-      qr: "https://i.postimg.cc/RZL3SMKW/April16-014726PM.png" // QR exclusivo de Licencia
+      estado: "",
+      vencimiento: "",
+      qr: "" // QR exclusivo de Licencia
     },
-
-    /* --- SECCIÓN 3: TÍTULOS Y FORMACIÓN ACADÉMICA --- */
     tituloGrupo: {
       tituloDoc: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
       analiticoDoc: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
@@ -731,30 +724,15 @@ const usuarios = [
       escuela: "Universidad Maimónides",
       qr: "https://i.postimg.cc/cCG8GjGw/July28-022912PM.png" // QR exclusivo de Títulos
     },
-
-    /* --- SECCIÓN 4: MANIPULACIÓN DE ALIMENTOS --- */
     manipulacionGrupo: {
-      estado: "Aprobado",
-      desde: "15/01/2025",
-      hasta: "15/01/2028",
-      qr: "https://i.postimg.cc/RZL3SMKW/April16-014726PM.png", // QR exclusivo de Manipulación
-      frenteLink: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png",
-      dorsoLink: "https://i.postimg.cc/bNbtcN2t/carnet-frente.png"
+      estado: "",
+      desde: "",
+      hasta: "",
+      qr: "", // QR exclusivo de Manipulación
+      frenteLink: "",
+      dorsoLink: ""
     }
   },
-  {
-    /* --- SEGUNDO USUARIO (PLANTILLA VACÍA / EJEMPLO) --- */
-    email: "@gmail.com",
-    dni: "",
-    nombre: "",
-    apellido: "",
-    foto: "https://i.postimg.cc/PqYPdyX0/Screenshot-20260728-152131-Chrome.jpg",
-
-    dniGrupo: { numero: "", ejemplar: "", vencimiento: "", estado: "", qr: "", frenteLink: "", dorsoLink: "" },
-    licenciaGrupo: { estado: "", vencimiento: "", qr: "" },
-    tituloGrupo: { tituloDoc: "", analiticoDoc: "", fechaEgreso: "", modalidad: "", escuela: "", qr: "" },
-    manipulacionGrupo: { estado: "", desde: "", hasta: "", qr: "", frenteLink: "", dorsoLink: "" }
-  }
 ];
 
 let usuarioActual = null;
