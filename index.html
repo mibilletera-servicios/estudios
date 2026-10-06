@@ -1,54 +1,663 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitio en Mantenimiento</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 50px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 90%;
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        p {
-            color: #7f8c8d;
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-        .icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificados Académicos Digitales | miBilletera</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap">
+
+<style>
+body{
+  font-family:'Encode Sans',sans-serif;
+  margin:0;
+  background:#f9f9f9;
+  color:#222;
+  padding-bottom: 60px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Franja diagonal en la esquina superior derecha */
+.diagonal-flag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #74acdf 33%, #fff 33%, #fff 66%, #74acdf 66%);
+  transform: translate(35%, -35%) rotate(45deg);
+  transform-origin: center;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diagonal-stars {
+  color: #ffd100;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 14px;
+  transform: rotate(-45deg);
+  margin-top: 15px;
+  text-shadow: 0px 0px 2px rgba(0,0,0,0.2);
+}
+
+.navbar{
+  background:#fff;
+  border-bottom:3px solid #ffd100;
+  padding:12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding-right: 120px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar img{
+  height:55px;
+}
+
+.top-right-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Botón Iniciar Sesión */
+.btn-login {
+  background: #0072bb;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+
+.btn-login:hover {
+  background: #005a96;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+    padding-right: 20px;
+  }
+  .top-right-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .diagonal-flag {
+    display: none;
+  }
+}
+
+.header{
+  background: linear-gradient(135deg, #0072bb 0%, #005a96 100%);
+  color:#fff;
+  padding:40px 25px;
+}
+
+.header h1{
+  margin:0 0 10px 0;
+  font-size:32px;
+  font-weight: 700;
+}
+
+.header p{
+  margin:0;
+  font-size:17px;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:25px;
+}
+
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:25px;
+  margin-bottom:24px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #eaeaea;
+}
+
+.card h2{
+  margin-top:0;
+  color:#0072bb;
+  font-size:22px;
+}
+
+/* Pasos visuales del formulario */
+.form-step {
+  background: #fdfdfd;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.form-step-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0072bb;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-licencia{
+  background:#0072bb;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  padding:14px 30px;
+  font-weight:700;
+  text-transform:uppercase;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  transition: 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.btn-licencia:disabled{
+  background:#ccc;
+  cursor:not-allowed;
+}
+
+.btn-licencia:hover:not(:disabled){
+  background: #005a96;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  box-sizing:border-box;
+  font-family: 'Encode Sans', sans-serif;
+  font-size: 14px;
+}
+
+input:focus, select:focus, textarea:focus{
+  outline: none;
+  border-color: #0072bb;
+  box-shadow: 0 0 0 3px rgba(0,114,187,0.1);
+}
+
+.error{
+  color:#dc3545;
+  font-size:13px;
+  display:none;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.titulo-licencia{
+  text-align:center;
+  font-size:14px;
+  font-weight:700;
+  color:#555;
+  margin:25px 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.img-licencia{
+  width:100%;
+  border-radius:8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.aclaracion{
+  background:#f8f9fa;
+  padding:18px;
+  border-radius:8px;
+  margin-top:15px;
+  font-size:14px;
+  line-height:1.6;
+  border-left: 4px solid #00a650;
+}
+
+.info-box {
+  background: #eef6fc;
+  border: 1px solid #b8d9f5;
+  border-radius: 8px;
+  padding: 18px;
+  margin-bottom: 24px;
+  color: #004080;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* MODAL */
+.modal-bg{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.65);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  padding:15px;
+  box-sizing:border-box;
+}
+
+.modal-box{
+  background:#fff;
+  width:100%;
+  max-width:700px;
+  max-height:90vh;
+  overflow-y:auto;
+  border-radius:12px;
+  padding:25px;
+}
+
+.modal-box h2{
+  margin-top:0;
+  color:#0072bb;
+}
+
+.modal-texto{
+  background:#f8f8f8;
+  padding:15px;
+  border-radius:8px;
+  font-size:13px;
+  line-height:1.6;
+  height: 250px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+}
+
+.modal-btns{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.btn-cancelar{
+  background:#f1f1f1;
+  color:#333;
+  border:1px solid #ccc;
+  border-radius:6px;
+  padding:12px 20px;
+  cursor:pointer;
+  font-weight: 600;
+}
+
+.check-box{
+  margin-top:15px;
+  font-size: 14px;
+}
+
+/* BOTÓN FLOTANTE */
+.btn-flotante {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  z-index: 999;
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+
+.btn-flotante:hover {
+  transform: scale(1.05);
+  background: #20ba59;
+}
+
+footer{
+  background:#111;
+  color: #bbb;
+  padding:40px 20px;
+  margin-top:60px;
+  font-size:14px;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 15px;
+  font-size: 13px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.small{
+  font-size:12px;
+  color:#888;
+  margin-top: 15px;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="icon">🛠️</div>
-        <h1>Sitio Web en Mantenimiento</h1>
-        <p>Estamos trabajando para mejorar tu experiencia. Volveremos a estar en línea muy pronto. ¡Gracias por tu paciencia!</p>
+<!-- Esquina diagonal de bandera argentina con estrellas -->
+<div class="diagonal-flag">
+  <div class="diagonal-stars">⭐⭐⭐</div>
+</div>
+
+<div class="navbar">
+  <div class="top-right-container">
+    <a href="https://mibilletera-servicios.com.ar/login.html" class="btn-login">Iniciar Sesión</a>
+  </div>
+  
+  <div class="navbar-left">
+    <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miBilletera">
+  </div>
+</div>
+
+<div class="header">
+  <h1>Certificados académicos digitales</h1>
+  <p>Sincronización, validación y gestión de documentación educativa oficial con respaldo digital integrado.</p>
+</div>
+
+<div class="container">
+
+  <!-- INFORMACIÓN AMPLIADA SOBRE EL ANEXO MIBILLETERA Y VALIDEZ -->
+  <div class="info-box">
+    <strong>ℹ️ ¿Qué es el anexo miBilletera y cuál es su validez?</strong><br>
+    El sistema <strong>miBilletera</strong> funciona como un portadocumentos digital certificado. Al solicitar la sincronización con carga al anexo, su documentación queda vinculada a un registro web seguro provisto de <strong>Código QR de autenticidad</strong>. Esto permite que cualquier institución, empleador o entidad verifique de forma inmediata y fehaciente la vigencia, integridad y legalidad del certificado emitido, garantizando un acceso rápido desde cualquier dispositivo móvil.
+  </div>
+
+  <div class="card">
+    <h2>Muestras de Documentación Digital</h2>
+    <p>Consulte los formatos oficiales estandarizados disponibles para su gestión y visualización en pantalla.</p>
+
+    <div class="titulo-licencia">Certificado Analítico Convalidado (Ejemplo)</div>
+    <img src="https://i.postimg.cc/FHQq3MDZ/1777825440699.png" class="img-licencia">
+
+    <div class="titulo-licencia">Título Secundario Emitido (Ejemplo)</div>
+    <img src="https://i.postimg.cc/Xqpx68xC/1777825846228.png" class="img-licencia">
+  </div>
+
+  <div class="card">
+    <h2>Formulario de inicio de trámite</h2>
+    
+    <!-- PASO 1 -->
+    <div class="form-step">
+      <div class="form-step-title">1️⃣ Seleccione el Tipo de Trámite</div>
+      <select id="tramite" onchange="mostrarCampos(); validarFormulario();">
+        <option value="">-- Seleccionar opción --</option>
+        <option value="Certificado de Analítico y Título Secundario (Modalidad Tradicional / 6 años)">Certificado de Analítico y Título Secundario (Modalidad Tradicional / 6 años)</option>
+        <option value="Certificado de Analítico y Título Secundario Técnico (Modalidad Tradicional / 7 años)">Certificado de Analítico y Título Secundario Técnico (Modalidad Tradicional / 7 años)</option>
+        <option value="Certificado de Analítico y Título Secundario (Modalidad Adultos / 3 años)">Certificado de Analítico y Título Secundario (Modalidad Adultos / 3 años)</option>
+        <option value="Constancia de Alumno Regular">Constancia de Alumno Regular</option>
+        <option value="Constancia de Analítico en Trámite">Constancia de Analítico en Trámite</option>
+      </select>
     </div>
 
+    <form id="formulario" style="display:none;" oninput="validarFormulario()" onsubmit="abrirModal(event)">
+      
+      <!-- PASO 2 -->
+      <div class="form-step">
+        <div class="form-step-title">2️⃣ Datos Personales (Conforme a su DNI)</div>
+        <input type="text" id="nombre" placeholder="Nombre completo (tal cual figura en el DNI)" required>
+        <input type="text" id="apellido" placeholder="Apellido/s completo/s (tal cual figura en el DNI)" required>
+        <input type="text" id="dni" placeholder="Número de DNI (sin puntos ni espacios)" maxlength="8" required>
+        <div class="error" id="errorDni">El DNI debe contener entre 7 y 8 caracteres numéricos</div>
+        <input type="text" id="fecha" placeholder="Fecha de nacimiento (Ej: 15/03/1990)" required>
+        <input type="email" id="email" placeholder="Correo electrónico de contacto" required>
+        <div class="error" id="errorEmail">Ingrese un correo electrónico válido</div>
+      </div>
+
+      <!-- PASO 3 -->
+      <div class="form-step">
+        <div class="form-step-title">3️⃣ Datos Geográficos y de la Institución</div>
+        <p style="font-size:13px; color:#666; margin-top:0; margin-bottom:12px;">
+          Indique la provincia y localidad donde finalizó o cursa sus estudios. Si recuerda el nombre exacto de la institución o escuela, indíquelo; de lo contrario, puede dejarlo en blanco y nosotros asignaremos el establecimiento correspondiente a su zona.
+        </p>
+        <input type="text" id="provincia" placeholder="Provincia (Ej: Buenos Aires)" required>
+        <input type="text" id="localidad" placeholder="Localidad o Partido (Ej: San Martín / Caseros)" required>
+        <input type="text" id="finalizacion" placeholder="Año o período de egreso / cursada (Ej: 2023)" required>
+        <textarea id="institucion" rows="2" placeholder="Nombre de la institución educativa o escuela (Opcional: si no lo recuerda, déjelo en blanco)"></textarea>
+      </div>
+
+      <!-- PASO 4 -->
+      <div class="form-step">
+        <div class="form-step-title">4️⃣ Modalidad de Recepción y Formato</div>
+        
+        <label style="font-weight: 600; display: block; margin-bottom: 6px; font-size: 13px;">Seleccione formato del trámite:</label>
+        <select id="categoria" onchange="actualizarPrecio(); validarFormulario()" required>
+          <option value="">-- Seleccionar formato --</option>
+          <option value="Trámite Académico Oficial" data-precio="100000">Certificado / Título Oficial — $100.000</option>
+        </select>
+        
+        <label style="font-weight: 600; display: block; margin-bottom: 6px; font-size: 13px; margin-top: 10px;">Modalidad de entrega:</label>
+        <select id="cargaSistema" onchange="actualizarPrecio(); validarFormulario()" required>
+          <option value="">-- Seleccionar modalidad --</option>
+          <option value="PDF">Solo Formato PDF sin carga al anexo miBilletera (No incluye código QR)</option>
+          <option value="miBilletera">Carga al anexo miBilletera (Incluye código QR de validación)</option>
+        </select>
+
+        <div class="aclaracion" id="precioFinalBox" style="font-size: 15px; color: #111;">
+          <strong>Total liquidado:</strong> $100.000
+        </div>
+      </div>
+
+      <div class="aclaracion" style="border-left-color: #0072bb; background: #eef6fc;">
+        <strong>Información Importante del Proceso:</strong><br>
+        • Tiempo estimado de procesamiento y validación: **45 minutos**.<br>
+        • Recibirá una vista previa completa para su **revisión garantizada** antes de proceder con el pago.<br>
+        • Medios de pago disponibles: Transferencia Bancaria Directa o Depósito vía Pago Fácil.
+      </div>
+
+      <button id="btnEnviar" class="btn-licencia" style="margin-top: 20px;" disabled>
+        Enviar Solicitud de Trámite
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- BOTÓN FLOTANTE DE WHATSAPP -->
+<a href="https://wa.me/5491125018372?text=Hola,%20necesito%20ayuda%20con%20un%20trámite%20académico." class="btn-flotante" target="_blank">
+  <span>💬 ¿Necesitás ayuda? Hablá con un agente</span>
+</a>
+
+<footer>
+  <div class="footer-content">
+    <div>
+      <p><strong>miBilletera | Portal de Gestión Documental</strong></p>
+      <p class="small">Servicio privado de administración y portadocumentos virtual.</p>
+    </div>
+    <div class="footer-links">
+      <p>
+        <a href="#">Términos y Condiciones</a>
+        <a href="#">Políticas de Privacidad</a>
+        <a href="#">Soporte Técnico</a>
+      </p>
+      <p class="small">
+        © 2026 miBilletera. Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-bg" id="modalTerminos">
+  <div class="modal-box">
+    <h2>Términos, Condiciones y Garantía de Validez</h2>
+    <div class="modal-texto">
+      <strong>Compromiso de Transparencia y Validez Documental</strong><br><br>
+      La presente plataforma opera como un gestor de servicios administrativos y tecnológicos privados, orientados a facilitar la recopilación, digitalización y organización de documentación académica oficial.<br><br>
+      <strong>Garantía de Autenticidad y Emisión:</strong> Toda documentación tramitada a través de nuestro portal se genera sobre la base de registros institucionales legítimos y verificables. Los certificados y títulos emitidos cuentan con estándares de respaldo técnico orientados a garantizar su aceptación y validez ante organismos públicos y privados.<br><br>
+      <strong>Soporte Digital con Código QR:</strong> Los documentos sincronizados al anexo miBilletera incorporan un sistema de validación mediante Código QR único, permitiendo certificar de manera inmediata la integridad y veracidad del legajo presentado ante cualquier tercero o empleador.<br><br>
+      <strong>Transparencia Operativa:</strong> El usuario asume la responsabilidad sobre la veracidad de los datos personales y académicos provistos en el formulario para asegurar la correcta emisión del documento.<br><br>
+      Los importes abonados corresponden a honorarios profesionales por gestión, digitalización, soporte operativo y mantenimiento del sistema de validación en red.<br><br>
+      Al presionar “Aceptar y Enviar”, el usuario confirma haber verificado sus datos y acepta los términos del servicio de gestión documental.
+    </div>
+
+    <div class="check-box">
+      <label>
+        <input type="checkbox" id="aceptoTerminos">
+        He leído, comprendido y acepto las condiciones de validez y servicio.
+      </label>
+    </div>
+
+    <div class="modal-btns">
+      <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+      <button type="button" class="btn-licencia" style="width: auto;" onclick="confirmarEnvio()">Aceptar y Enviar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function mostrarCampos(){
+  document.getElementById("formulario").style.display="block";
+}
+
+document.getElementById("dni").addEventListener("input", function(e){
+  e.target.value = e.target.value.replace(/\D/g,"").substring(0,8);
+});
+
+function validarDNI(dni){
+  return /^\d{7,8}$/.test(dni);
+}
+
+function validarEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function validarFormulario(){
+  let valido =
+    document.getElementById("nombre").value &&
+    document.getElementById("apellido").value &&
+    validarDNI(document.getElementById("dni").value) &&
+    document.getElementById("fecha").value &&
+    validarEmail(document.getElementById("email").value) &&
+    document.getElementById("provincia").value &&
+    document.getElementById("localidad").value &&
+    document.getElementById("finalizacion").value &&
+    document.getElementById("tramite").value &&
+    document.getElementById("categoria").value &&
+    document.getElementById("cargaSistema").value;
+
+  document.getElementById("errorEmail").style.display =
+    document.getElementById("email").value && !validarEmail(document.getElementById("email").value) ? "block" : "none";
+
+  document.getElementById("errorDni").style.display =
+    document.getElementById("dni").value && !validarDNI(document.getElementById("dni").value) ? "block" : "none";
+
+  document.getElementById("btnEnviar").disabled = !valido;
+}
+
+function abrirModal(e){
+  e.preventDefault();
+  document.getElementById("modalTerminos").style.display="flex";
+}
+
+function cerrarModal(){
+  document.getElementById("modalTerminos").style.display="none";
+}
+
+function confirmarEnvio(){
+  if(!document.getElementById("aceptoTerminos").checked){
+    alert("Debe aceptar los términos para continuar.");
+    return;
+  }
+  cerrarModal();
+  enviarWhatsApp();
+}
+
+function actualizarPrecio(){
+  let carga = document.getElementById("cargaSistema").value;
+  let total = 100000;
+  let detalleModalidad = "";
+
+  if(carga === "PDF") {
+    detalleModalidad = "Solo Formato PDF (Sin código QR)";
+  } else if(carga === "miBilletera") {
+    detalleModalidad = "Carga al anexo miBilletera (Incluye Código QR)";
+  } else {
+    detalleModalidad = "Seleccione modalidad";
+  }
+
+  document.getElementById("precioFinalBox").innerHTML = `<strong>Total a liquidar:</strong> $100.000 <br><span style="font-size:13px; color:#555;">(Modalidad: ${detalleModalidad})</span>`;
+}
+
+function enviarWhatsApp(){
+  let tramite = document.getElementById("tramite");
+  let carga = document.getElementById("cargaSistema");
+
+  let tramiteTexto = tramite.options[tramite.selectedIndex].text;
+  let modalidad = carga.options[carga.selectedIndex].text;
+  let total = 100000;
+
+  let mensaje =
+`*SOLICITUD DE DOCUMENTACIÓN ACADÉMICA*
+
+📌 Trámite: ${tramiteTexto}
+
+👤 Nombre y Apellido: ${document.getElementById("nombre").value} ${document.getElementById("apellido").value}
+🆔 DNI: ${document.getElementById("dni").value}
+🎂 F. Nacimiento: ${document.getElementById("fecha").value}
+📧 Email: ${document.getElementById("email").value}
+
+📍 Provincia: ${document.getElementById("provincia").value}
+🏙️ Localidad: ${document.getElementById("localidad").value}
+📅 F. Egreso/Cursada: ${document.getElementById("finalizacion").value}
+🏫 Institución: ${document.getElementById("institucion").value || "A asignar por zona"}
+
+📄 Modalidad de Entrega: ${modalidad}
+💰 TOTAL LIQUIDADO: $${total.toLocaleString("es-AR")}`;
+
+  let url = "https://wa.me/5491127176949?text=" + encodeURIComponent(mensaje);
+  window.open(url, "_blank");
+}
+</script>
+
 </body>
-</html>
+    </html>
+                                     
