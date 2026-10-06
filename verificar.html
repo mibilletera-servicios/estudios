@@ -342,14 +342,19 @@ footer {
     document.getElementById('lblHash').innerText = "SHA256: 7a8b9f..." + codSeg.toLowerCase() + "e412";
   }
 
-  // Función corregida para exportar al 100% de la tarjeta completa sin cortes
+  // Función corregida y optimizada para capturar toda la tarjeta de manera íntegra
   function descargarPDF() {
     const element = document.getElementById('pdfContent');
     const opt = {
-      margin:       [5, 5, 5, 5],
+      margin:       10,
       filename:     'Constancia_miBilletera.pdf',
       image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+      html2canvas:  { 
+        scale: 2, 
+        useCORS: true, 
+        letterRendering: true,
+        windowWidth: document.documentElement.offsetWidth
+      },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     html2pdf().from(element).set(opt).save();
