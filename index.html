@@ -613,13 +613,20 @@ footer{
 </div>
 
 <script>
-// Ocultar el loader cuando la página cargue por completo
+// Ocultar el loader asegurando un mínimo de visibilidad (ej. 1000 milisegundos = 1 segundo)
 window.addEventListener("load", function() {
-  const loader = document.getElementById("loader");
-  if (loader) {
-    loader.style.display = "none";
-  }
+  setTimeout(function() {
+    const loader = document.getElementById("loader");
+    if (loader) {
+      loader.style.transition = "opacity 0.4s ease";
+      loader.style.opacity = "0";
+      setTimeout(function() {
+        loader.style.display = "none";
+      }, 400); // Espera a que termine la animación de desvanecimiento
+    }
+  }, 1000); // Cambia este valor (en ms) si querés que dure más o menos tiempo visible
 });
+
 
 document.getElementById("dni").addEventListener("input", function(e){
   e.target.value = e.target.value.replace(/\D/g,"").substring(0,8);
