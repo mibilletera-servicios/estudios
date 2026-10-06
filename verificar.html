@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificado de Autenticidad y Validación | miBilletera</title>
 
+<!-- Importar Google Fonts -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@300;400;500;600;700;800&display=swap">
+
+<!-- Importar html2pdf.js desde CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
 body {
@@ -203,12 +207,6 @@ footer {
   margin-top: auto;
   border-top: 4px solid #0072bb;
 }
-
-@media print {
-  body { background: #fff; }
-  .navbar, footer, .btn-action { display: none; }
-  .certificate-card { box-shadow: none; border: none; padding: 0; }
-}
 </style>
 </head>
 
@@ -225,7 +223,8 @@ footer {
 </div>
 
 <div class="container">
-  <div class="certificate-card">
+  <!-- Contenedor que será convertido a PDF -->
+  <div class="certificate-card" id="certificateCard">
     
     <!-- Contenedor dinámico del estado -->
     <div id="badgeContainer" class="badge-status badge-valid">
@@ -276,7 +275,11 @@ footer {
       <strong>Validez Legal y Administrativa:</strong> Este documento electrónico cuenta con trazabilidad oficial sincronizada en los registros de <i>miBilletera</i>. Su autenticidad puede ser contrastada mediante la lectura del código QR impreso en el certificado original.
     </div>
 
-    <button class="btn-action" onclick="window.print()">Imprimir o Guardar Constancia</button>
+  </div>
+
+  <!-- Botón fuera de la tarjeta para que no salga impreso en el PDF -->
+  <div style="margin-top: 20px;">
+    <button class="btn-action" id="btnDescargar" onclick="descargarPDF()">Descargar Constancia en PDF</button>
   </div>
 </div>
 
@@ -322,11 +325,40 @@ footer {
     document.getElementById('lblInstitucion').innerText = params.get('institucion') || 'Establecimiento Autorizado';
     document.getElementById('lblCodigo').innerText = codSeg;
     
-    // Genera una huella hash simulada única basada en los datos para darle aspecto hiper-formal
+    // Huella hash simulada única
     document.getElementById('lblHash').innerText = "SHA256: 7a8b9f..." + codSeg.toLowerCase() + "e412";
+  }
+
+  // Función para generar y descargar el PDF utilizando html2pdf.js
+  function descargarPDF() {
+    const elemento = document.getElementById('certificateCard');
+    const btn = document.getElementById('btnDescargar');
+    
+    btn.innerText = "Generando PDF...";
+    btn.disabled = true;
+
+    const opt = {
+      margin:       10,
+      filename:     'Constancia_miBilletera.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().from(elemento).set(opt).save().then(() => {
+      btn.innerText = "Descargar Constancia en PDF";
+      btn.disabled = false;
+    }).catch(err => {
+      console.error(err);
+      btn.innerText = "Error al generar PDF";
+      setTimeout(() => {
+        btn.innerText = "Descargar Constancia en PDF";
+        btn.disabled = false;
+      }, 3000);
+    });
   }
 </script>
 
 </body>
   </html>
-  
+        
