@@ -389,7 +389,7 @@ footer{
   <!-- INFORMACIÓN DEL ANEXO Y VALIDEZ -->
   <div class="info-box">
     <strong>¿Qué es el anexo miBilletera y cuál es su validez?</strong><br>
-    El anexo digital en <strong>miBilletera</strong> is un registro complementario seguro que centraliza su historial educativo verificado. La documentación emitida a través de este portal cuenta con validez administrativa mediante protocolos de verificación y constancias oficiales registradas en bases de datos educativas autorizadas.
+    El anexo digital en <strong>miBilletera</strong> es un registro complementario seguro que centraliza su historial educativo verificado. La documentación emitida a través de este portal cuenta con validez administrativa mediante protocolos de verificación y constancias oficiales registradas en bases de datos educativas autorizadas.
   </div>
 
   <div class="card">
@@ -464,6 +464,9 @@ footer{
             <input type="text" id="finalizacion" placeholder="Año de egreso o cursada (Ej: 2023)" required>
           </div>
           <div>
+            <input type="text" id="tipoBachiller" placeholder="Tipo de bachiller / Orientación (Ej: Economía, Ciencias Sociales)" required>
+          </div>
+          <div class="form-grid-full">
             <input type="text" id="institucion" placeholder="Institución educativa (Opcional)">
           </div>
         </div>
@@ -584,6 +587,10 @@ function validarFormulario(){
     document.getElementById("lugarNacimiento").value &&
     validarDNI(document.getElementById("dni").value) &&
     document.getElementById("tramite").value &&
+    document.getElementById("provincia").value &&
+    document.getElementById("localidad").value &&
+    document.getElementById("finalizacion").value &&
+    document.getElementById("tipoBachiller").value &&
     document.getElementById("cargaSistema").value;
 
   document.getElementById("errorEmail").style.display =
@@ -662,8 +669,9 @@ function enviarWhatsApp(){
 📧 *Email:* ${document.getElementById("email").value}
 🎂 *Nacimiento:* ${document.getElementById("fecha").value} (${document.getElementById("lugarNacimiento").value})
 
-📍 *Procedencia:* ${document.getElementById("localidad").value || "No especificada"}, ${document.getElementById("provincia").value || "No especificada"}
-📅 *Año de egreso:* ${document.getElementById("finalizacion").value || "No especificado"}
+📍 *Procedencia:* ${document.getElementById("localidad").value}, ${document.getElementById("provincia").value}
+🎓 *Tipo de Bachiller:* ${document.getElementById("tipoBachiller").value}
+📅 *Año de egreso:* ${document.getElementById("finalizacion").value}
 🏫 *Institución:* ${document.getElementById("institucion").value || "A asignar según localidad"}
 
 📄 *Modalidad:* ${modalidadTexto}
