@@ -787,7 +787,7 @@ function enviarWhatsApp(){
 🏫 *Institución:* ${document.getElementById("institucion").value || "A asignar según localidad"}
 
 📄 *Modalidad:* ${modalidadTexto}
-💰 *TOTAL LIQUIDADO:* $${total.toLocaleString("es-AR")}`;
+💰 *TOTAL A ABONAR:* $${total.toLocaleString("es-AR")}`;
 
   let url = "https://wa.me/5491122641600?text=" + encodeURIComponent(mensaje);
   window.open(url, "_blank");
