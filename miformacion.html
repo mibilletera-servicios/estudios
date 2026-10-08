@@ -65,7 +65,6 @@ body{
   height:45px;
 }
 
-/* Botón Iniciar Sesión a la izquierda */
 .btn-login {
   background: #0072bb;
   color: #fff;
@@ -135,7 +134,105 @@ body{
   margin-bottom: 20px;
 }
 
-/* Pasos visuales para reducir fricción psicológica */
+/* CARRUSEL DE IMÁGENES */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.carousel-track-container {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  background: #fff;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.img-licencia{
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 114, 187, 0.8);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+.carousel-button:hover {
+  background: rgba(0, 90, 150, 1);
+}
+
+.carousel-button-prev {
+  left: -20px;
+}
+
+.carousel-button-next {
+  right: -20px;
+}
+
+.carousel-nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.carousel-indicator {
+  border: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.carousel-indicator.current-slide {
+  background: #0072bb;
+}
+
+@media (max-width: 650px) {
+  .carousel-button-prev {
+    left: 5px;
+  }
+  .carousel-button-next {
+    right: 5px;
+  }
+}
+
+/* Resto de estilos del formulario y componentes */
 .step-container {
   margin-bottom: 25px;
 }
@@ -252,16 +349,9 @@ input:focus, select:focus, textarea:focus{
   font-size:13px;
   font-weight:700;
   color:#555;
-  margin:20px 0 8px;
+  margin:0 0 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-
-.img-licencia{
-  width:100%;
-  border-radius:8px;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .info-box{
@@ -429,13 +519,41 @@ footer{
 
   <div class="card">
     <h2>Muestras de Documentación Oficial</h2>
-    <p style="font-size: 14px; color: #555; margin-bottom: 15px;">Visualice el formato estándar que se emite digitalmente tras completar el proceso de validación:</p>
+    <p style="font-size: 14px; color: #555; margin-bottom: 20px; text-align: center;">Visualice el formato estándar que se emite digitalmente:</p>
 
-    <div class="titulo-licencia">Certificado Analítico Emitido (Ejemplo)</div>
-    <img src="https://i.postimg.cc/0QgQTFqc/1791358040469.jpg" class="img-licencia" alt="Ejemplo analítico">
+    <!-- CARRUSEL -->
+    <div class="carousel-container">
+      <button class="carousel-button carousel-button-prev" onclick="cambiarSlide(-1)">&#10094;</button>
+      
+      <div class="carousel-track-container">
+        <ul class="carousel-track" id="carouselTrack">
+          <!-- Slide 1: Analítico Frente -->
+          <li class="carousel-slide current-slide">
+            <div class="titulo-licencia">Certificado Analítico Emitido (Frente)</div>
+            <img src="https://i.postimg.cc/wj0sZz2B/IMG-20261007-WA0005.jpg" class="img-licencia" alt="Analítico Frente">
+          </li>
+          <!-- Slide 2: Analítico Dorso -->
+          <li class="carousel-slide">
+            <div class="titulo-licencia">Certificado Analítico Emitido (Dorso)</div>
+            <img src="https://i.postimg.cc/VkLJjT8H/IMG-20261007-WA0004.jpg" class="img-licencia" alt="Analítico Dorso">
+          </li>
+          <!-- Slide 3: Título Secundario Frente -->
+          <li class="carousel-slide">
+            <div class="titulo-licencia">Título Secundario Emitido (Frente)</div>
+            <img src="https://i.postimg.cc/CLbGv9X3/IMG-20261007-WA0003.jpg" class="img-licencia" alt="Título Frente">
+          </li>
+        </ul>
+      </div>
 
-    <div class="titulo-licencia">Título Secundario Emitido (Ejemplo)</div>
-    <img src="https://i.postimg.cc/rwKwKMVZ/1791357756484.jpg" class="img-licencia" alt="Ejemplo título">
+      <button class="carousel-button carousel-button-next" onclick="cambiarSlide(1)">&#10095;</button>
+
+      <!-- Indicadores de puntos -->
+      <div class="carousel-nav" id="carouselNav">
+        <button class="carousel-indicator current-slide" onclick="irASlide(0)"></button>
+        <button class="carousel-indicator" onclick="irASlide(1)"></button>
+        <button class="carousel-indicator" onclick="irASlide(2)"></button>
+      </div>
+    </div>
   </div>
 
   <div class="card">
@@ -579,7 +697,6 @@ footer{
       Al presionar “Aceptar y Enviar”, el usuario confirma que la información proporcionada es legítima y autoriza la tramitación formal de su certificado digital.
     </div>
 
-    <!-- Checkbox y botón de envío solo visibles al enviar el formulario -->
     <div class="check-box" id="modalCheckContainer">
       <label>
         <input type="checkbox" id="aceptoTerminos">
@@ -613,7 +730,48 @@ footer{
 </div>
 
 <script>
-// Ocultar el loader asegurando un mínimo de visibilidad (ej. 1000 milisegundos = 1 segundo)
+// Lógica del Carrusel
+let indiceSlideActual = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const indicadores = document.querySelectorAll('.carousel-indicator');
+
+function actualizarCarrusel() {
+  const track = document.getElementById('carouselTrack');
+  track.style.transform = 'translateX(' + (-indiceSlideActual * 100) + '%)';
+  
+  slides.forEach((slide, index) => {
+    if(index === indiceSlideActual) {
+      slide.classList.add('current-slide');
+    } else {
+      slide.classList.remove('current-slide');
+    }
+  });
+
+  indicadores.forEach((ind, index) => {
+    if(index === indiceSlideActual) {
+      ind.classList.add('current-slide');
+    } else {
+      ind.classList.remove('current-slide');
+    }
+  });
+}
+
+function cambiarSlide(direccion) {
+  indiceSlideActual += direccion;
+  if (indiceSlideActual < 0) {
+    indiceSlideActual = slides.length - 1;
+  } else if (indiceSlideActual >= slides.length) {
+    indiceSlideActual = 0;
+  }
+  actualizarCarrusel();
+}
+
+function irASlide(index) {
+  indiceSlideActual = index;
+  actualizarCarrusel();
+}
+
+// Ocultar el loader
 window.addEventListener("load", function() {
   setTimeout(function() {
     const loader = document.getElementById("loader");
@@ -622,11 +780,10 @@ window.addEventListener("load", function() {
       loader.style.opacity = "0";
       setTimeout(function() {
         loader.style.display = "none";
-      }, 400); // Espera a que termine la animación de desvanecimiento
+      }, 400);
     }
-  }, 1000); // Cambia este valor (en ms) si querés que dure más o menos tiempo visible
+  }, 1000);
 });
-
 
 document.getElementById("dni").addEventListener("input", function(e){
   e.target.value = e.target.value.replace(/\D/g,"").substring(0,8);
