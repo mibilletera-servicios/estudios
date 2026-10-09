@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValidAR | miArgentina - Anexo Digital Oficial</title>
+<title>ValidAR | miArgentina - Cooperación Tecnológica Oficial</title>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap">
 
@@ -106,7 +106,7 @@ body{
   top: 100%;
   right: 20px;
   background: #fff;
-  width: 280px;
+  width: 300px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   border-radius: 8px;
   border: 1px solid #eaeaea;
@@ -126,6 +126,7 @@ body{
   font-size: 14px;
   border-bottom: 1px solid #f1f1f1;
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .dropdown-menu a:hover {
@@ -158,6 +159,42 @@ body{
   padding:20px;
 }
 
+/* BANNER INSTITUCIONAL / COOPERACIÓN */
+.banner-secretaria {
+  background: linear-gradient(135deg, #eafaf1 0%, #d4efdf 100%);
+  border: 2px solid #2ecc71;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.banner-secretaria h2 {
+  color: #1e7e34;
+  margin-top: 0;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.banner-secretaria p {
+  color: #2c3e50;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.autoridades-box {
+  background: rgba(255, 255, 255, 0.7);
+  border-left: 4px solid #2ecc71;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #2c3e50;
+  line-height: 1.6;
+}
+
 .card{
   background:#fff;
   border-radius:12px;
@@ -171,6 +208,60 @@ body{
   margin-top:0;
   color:#0072bb;
   font-size: 22px;
+}
+
+.grid-modulos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.modulo-item {
+  background: #f8fbfe;
+  border: 1px solid #d5e6f8;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.modulo-item h4 {
+  margin-top: 0;
+  color: #005a96;
+  font-size: 16px;
+}
+
+.modulo-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.grid-cooperacion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.coop-item {
+  background: #fdfefe;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.coop-item h4 {
+  margin-top: 0;
+  color: #1e7e34;
+  font-size: 15px;
+}
+
+.coop-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
 }
 
 /* ACORDEÓN / FAQ */
@@ -198,36 +289,6 @@ body{
   color: #555;
   margin-top: 10px;
   line-height: 1.6;
-}
-
-.grid-modulos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.modulo-item {
-  background: #f8fbfe;
-  border: 1px solid #d5e6f8;
-  border-radius: 8px;
-  padding: 18px;
-}
-
-.modulo-item h4 {
-  margin-top: 0;
-  color: #005a96;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.modulo-item p {
-  margin: 0;
-  font-size: 14px;
-  color: #555;
-  line-height: 1.5;
 }
 
 .btn{
@@ -310,9 +371,11 @@ footer{
   margin-top: 15px;
 }
 
-/* MODALES */
+/* MODALES CON TRANSICIÓN SUAVE (FADE-IN) */
 .modal-overlay {
-  display: none;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
   position: fixed;
   top: 0;
   left: 0;
@@ -324,6 +387,12 @@ footer{
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .modal-content {
@@ -336,18 +405,12 @@ footer{
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
 }
 
-.modal-content h3 {
-  color: #0072bb;
-  margin-top: 0;
-  font-size: 22px;
-}
-
-.modal-content p, .modal-content ul {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #444;
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
 }
 
 .close-modal {
@@ -391,31 +454,31 @@ footer{
 <!-- LOADER -->
 <div id="loader-overlay">
   <div class="spinner"></div>
-  <div class="loader-text">Cargando portal ValidAR...</div>
+  <div class="loader-text">Sincronizando portal ValidAR...</div>
 </div>
 
 <div class="navbar">
   <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
   
   <div class="nav-right">
-    <a href="#login" class="btn-login-nav" id="btn-login-trigger">Iniciar Sesión</a>
+    <a href="mibilletera-servicios.com.ar/login.html" class="btn-login-nav">Iniciar Sesión</a>
     <button class="menu-toggle" id="menu-toggle-btn">&#9776;</button>
   </div>
 
   <!-- MENÚ DESPLEGABLE (HAMBURGUESA) -->
   <div class="dropdown-menu" id="dropdown-menu">
-    <a href="#login" id="menu-login">🔐 Iniciar Sesión</a>
-    <a href="#tramite" id="menu-tramite">🎓 Solicitar Trámite Académico</a>
-    <a href="#qr" id="menu-qr">📷 Cómo Verificar QR</a>
-    <a href="#validez" id="menu-validez">⚖️ Validez Documental</a>
-    <a href="#faq" id="menu-faq">❓ Preguntas Frecuentes</a>
-    <a id="menu-privacidad">🔒 Políticas de Privacidad</a>
+    <a href="mibilletera-servicios.com.ar/login.html">Iniciar Sesión</a>
+    <a href="mibilletera-servicios.com.ar/miformacion.html">Solicitar Trámite Académico</a>
+    <a id="menu-qr">Cómo Verificar Códigos QR</a>
+    <a id="menu-validez">Validez de la Documentación</a>
+    <a id="menu-mas-info">Más Información</a>
+    <a id="menu-soporte">Soporte Técnico</a>
   </div>
 </div>
 
 <div class="header">
   <h1>ValidAR | miArgentina</h1>
-  <p>Plataforma avanzada de gestión, visualización y validación segura de documentación personal.</p>
+  <p>Plataforma tecnológica de desarrollo privado en cooperación con la Secretaría de Innovación, Ciencia y Tecnología.</p>
 </div>
 
 <div class="container">
@@ -424,24 +487,56 @@ footer{
   <div class="security-banner">
     <span>🛡️</span>
     <div>
-      <strong>Entorno Cifrado y Seguro:</strong> Acceso protegido mediante protocolos de validación de identidad para ciudadanos.
+      <strong>Entorno Institucional Colaborativo:</strong> Estándares de seguridad avanzada y cumplimiento normativo bajo esquemas de vinculación tecnológica.
     </div>
   </div>
 
-  <!-- SECCIÓN: TRÁMITE ACADÉMICO -->
-  <div class="card" id="tramite-section">
-    <h2>🎓 Gestión de Trámites Académicos</h2>
+  <!-- AVISO SUPERIOR: COOPERACIÓN Y MARCO LEGAL -->
+  <div class="banner-secretaria">
+    <h2>Modelo de Cooperación Público-Privada (PPP)</h2>
     <p>
-      Accedé de forma directa a tus títulos secundarios, analíticos y constancias emitidas con validez digital oficial.
+      <strong>ValidAR</strong> opera como un desarrollo tecnológico independiente de iniciativa privada, articulado bajo convenios de asistencia y cooperación técnica con organismos del Estado para potenciar la digitalización ciudadana.
     </p>
-    <a href="https://mibilletera-servicios.com.ar/miformacion.html" class="btn btn-secundario">
-      Acceder a Títulos Académicos
-    </a>
+    <div class="autoridades-box">
+      <strong>Articulación institucional:</strong> Secretaría de Innovación, Ciencia y Tecnología.<br>
+      <strong>Titular responsable:</strong> Darío Genua (Secretario de Innovación, Ciencia y Tecnología).<br>
+      <strong>Marco Legal de Referencia:</strong> Ley N° 23.877 (Promoción y Fomento de la Innovación Tecnológica) y regímenes de convenios de cooperación de la Administración Pública Nacional.
+    </div>
   </div>
 
-  <!-- SECCIÓN 2: PREGUNTAS FRECUENTES (FAQ) -->
-  <div class="card" id="faq-section">
-    <h2>❓ Preguntas Frecuentes (FAQ)</h2>
+  <!-- SECCIÓN: POR QUÉ SE REALIZA ESTA COOPERACIÓN (PUNTOS 1 AL 4) -->
+  <div class="card">
+    <h2>Fundamentos de la Cooperación Tecnológica</h2>
+    <p>
+      Este esquema de trabajo conjunto entre el sector privado y el Estado se implementa formalmente bajo los siguientes motivos estratégicos y operativos:
+    </p>
+
+    <div class="grid-cooperacion">
+      <div class="coop-item">
+        <h4>1) Agilidad y Velocidad de Desarrollo</h4>
+        <p>Permite superar los tiempos burocráticos tradicionales, iterando y desplegando soluciones informáticas modernas con máxima rapidez.</p>
+      </div>
+
+      <div class="coop-item">
+        <h4>2) Innovación y Flexibilidad Técnica</h4>
+        <p>Incorpora talento externo especializado y arquitecturas de software avanzadas que optimizan la experiencia de usuario digital.</p>
+      </div>
+
+      <div class="coop-item">
+        <h4>3) Optimización de Costos y Eficiencia</h4>
+        <p>Aprovecha desarrollos privados ya iniciados que resuelven demandas ciudadanas reales sin requerir grandes licitaciones estatales masivas.</p>
+      </div>
+
+      <div class="coop-item">
+        <h4>4) Federalización y Escalabilidad</h4>
+        <p>Impulsa herramientas flexibles nacidas desde la comunidad que el Estado puede auditar, integrar y adoptar progresivamente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN DE PREGUNTAS FRECUENTES (FAQ) -->
+  <div class="card">
+    <h2>Preguntas Frecuentes (FAQ)</h2>
     
     <div class="faq-item">
       <div class="faq-question">¿Qué es exactamente ValidAR y para qué sirve?</div>
@@ -450,46 +545,25 @@ footer{
 
     <div class="faq-item">
       <div class="faq-question">¿Cómo se garantiza la seguridad de mis datos personales?</div>
-      <div class="faq-answer">Utilizamos estrictos estándares de encriptación de extremo a extremo y cumplimos con los lineamientos de la Ley N° 25.326 de Protección de Datos Personales, garantizando que tu información privada no sea compartida ni vulnerable.</div>
+      <div class="faq-answer">Utilizamos estrictos estándares de encriptación y cumplimos con los lineamientos de la Ley N° 25.326 de Protección de Datos Personales, garantizando que tu información privada esté totalmente protegida.</div>
     </div>
 
     <div class="faq-item">
       <div class="faq-question">¿Cómo funcionan los códigos QR de verificación?</div>
-      <div class="faq-answer">Cada credencial o documento generado cuenta con un código QR único. Al ser escaneado con cualquier dispositivo móvil, el sistema realiza una consulta en tiempo real para certificar la autenticidad y vigencia del documento presentado.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">¿Qué validez jurídica tienen los documentos visualizados?</div>
-      <div class="faq-answer">Los documentos respaldados en ValidAR cuentan con validez administrativa mediante sistemas de cotejo contra registros oficiales y firmas digitales autorizadas.</div>
+      <div class="faq-answer">Cada credencial cuenta con un código QR único que al ser escaneado con cualquier dispositivo móvil verifica instantáneamente la autenticidad y vigencia del documento.</div>
     </div>
   </div>
 
-  <!-- SECCIÓN 4: PRIVACIDAD, SEGURIDAD Y CUMPLIMIENTO -->
-  <div class="card" id="privacidad-section">
-    <h2>🔒 Privacidad, Seguridad y Marco Legal de Datos</h2>
+  <!-- SECCIÓN: PRIVACIDAD Y MARCO LEGAL DE DATOS -->
+  <div class="card">
+    <h2>Privacidad, Seguridad y Marco Legal de Datos</h2>
     <p>
       La protección de tu identidad digital es nuestra prioridad absoluta. ValidAR opera bajo un estricto marco de gobernanza de la información:
     </p>
     <div class="info">
       <strong>Compromiso de Confidencialidad:</strong><br>
-      • <strong>Ley N° 25.326:</strong> Cumplimiento riguroso de las normativas de Habeas Data y protección integral de datos personales.<br>
-      • <strong>Cero Almacenamiento Sensible:</strong> Los accesos y credenciales se procesan bajo pasarelas seguras sin retención innecesaria de claves privadas.<br>
-      • <strong>Auditoría Permanente:</strong> Controles de seguridad informáticos continuos para bloquear cualquier intento de acceso no autorizado.
-    </div>
-  </div>
-
-  <!-- MÓDULOS DE LA PLATAFORMA -->
-  <div class="card">
-    <h2>🔍 Módulos del Ecosistema</h2>
-    <div class="grid-modulos">
-      <div class="modulo-item">
-        <h4>🆔 Identidad</h4>
-        <p>Validación biométrica y de datos de perfil ciudadano.</p>
-      </div>
-      <div class="modulo-item">
-        <h4>📂 Portadocumentos</h4>
-        <p>Visualización offline y online de tus credenciales.</p>
-      </div>
+      • <strong>Ley N° 25.326:</strong> Cumplimiento riguroso de las normativas de protección integral de datos personales.<br>
+      • <strong>Seguridad Avanzada:</strong> Procesamiento seguro de credenciales mediante canales cifrados y auditorías permanentes.
     </div>
   </div>
 
@@ -499,13 +573,13 @@ footer{
   <div class="footer-content">
     <div>
       <p><strong>ValidAR | Portal de Gestión Documental</strong></p>
-      <p class="small">Anexo digital y portadocumentos virtual.</p>
+      <p class="small">Desarrollo privado en cooperación tecnológica con miArgentina.</p>
     </div>
     <div class="footer-links">
       <p>
-        <a id="btn-terminos">Términos y Condiciones</a>
-        <a id="btn-privacidad">Políticas de Privacidad</a>
-        <a id="btn-soporte">Soporte Técnico</a>
+        <a id="footer-terminos">Términos y Condiciones</a>
+        <a id="footer-privacidad">Políticas de Privacidad</a>
+        <a id="footer-soporte">Soporte Técnico</a>
       </p>
       <p class="small">
         © 2026 ValidAR. Todos los derechos reservados.
@@ -514,20 +588,28 @@ footer{
   </div>
 </footer>
 
-<!-- MODALES -->
-<div id="modal-terminos" class="modal-overlay">
+<!-- MODALES PARA LOS BOTONES DEL MENÚ -->
+<div id="modal-qr" class="modal-overlay">
   <div class="modal-content">
-    <button class="close-modal" data-modal="modal-terminos">&times;</button>
-    <h3>Términos y Condiciones</h3>
-    <p>El uso del portal ValidAR implica la aceptación de los protocolos de seguridad y validación establecidos. Queda prohibida la adulteración o uso indebido de los documentos.</p>
+    <button class="close-modal" data-modal="modal-qr">&times;</button>
+    <h3>Cómo Verificar Códigos QR</h3>
+    <p>Cada documento emitido en ValidAR incluye un código QR único de seguridad. Para verificarlo, simplemente abrís la cámara de tu teléfono celular o cualquier aplicación lectora de códigos QR, apuntás al recuadro del documento y el sistema te redirigirá automáticamente a nuestra pasarela de validación en línea para confirmar su autenticidad y vigencia en tiempo real.</p>
   </div>
 </div>
 
-<div id="modal-privacidad" class="modal-overlay">
+<div id="modal-validez" class="modal-overlay">
   <div class="modal-content">
-    <button class="close-modal" data-modal="modal-privacidad">&times;</button>
-    <h3>Políticas de Privacidad</h3>
-    <p>En cumplimiento de la Ley N° 25.326, ValidAR asegura el resguardo de la información procesada exclusivamente para fines de acreditación documental y seguridad ciudadana.</p>
+    <button class="close-modal" data-modal="modal-validez">&times;</button>
+    <h3>Validez de la Documentación</h3>
+    <p>La documentación obtenida y gestionada a través de ValidAR cuenta con validez administrativa basada en sistemas de cotejo contra registros oficiales y protocolos de autenticación avanzados. Permite acreditar identidad, títulos y credenciales de forma digital ante terceros de manera ágil y segura.</p>
+  </div>
+</div>
+
+<div id="modal-mas-info" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-modal" data-modal="modal-mas-info">&times;</button>
+    <h3>Más Información sobre ValidAR</h3>
+    <p>ValidAR es un proyecto de innovación tecnológica desarrollado bajo un modelo de cooperación público-privada. Su objetivo principal es ofrecer a la ciudadanía una herramienta moderna, interoperable y segura para la portabilidad de credenciales y certificados oficiales.</p>
   </div>
 </div>
 
@@ -535,8 +617,24 @@ footer{
   <div class="modal-content">
     <button class="close-modal" data-modal="modal-soporte">&times;</button>
     <h3>Soporte Técnico</h3>
-    <p>¿Tenés inconvenientes?</p>
-    <p>Comunicate a través del correo electrónico <strong>soporte@portalvalidar.com.ar</strong> o vía WhatsApp de asistencia.</p>
+    <p>¿Tenés o tuviste algún inconveniente técnico con tu cuenta o documentos?</p>
+    <p>Comunicate con nuestro equipo de asistencia a través del correo electrónico <strong>soporte@portalvalidar.com.ar</strong>.</p>
+  </div>
+</div>
+
+<div id="modal-privacidad" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-modal" data-modal="modal-privacidad">&times;</button>
+    <h3>Políticas de Privacidad</h3>
+    <p>En estricto cumplimiento de la Ley N° 25.326 de Protección de Datos Personales, ValidAR asegura el resguardo de la información procesada exclusivamente para fines de autenticación y acreditación documental.</p>
+  </div>
+</div>
+
+<div id="modal-terminos" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-modal" data-modal="modal-terminos">&times;</button>
+    <h3>Términos y Condiciones</h3>
+    <p>El uso del portal ValidAR implica la aceptación de los protocolos de seguridad y validación establecidos. Queda prohibida la adulteración o uso indebido de los documentos digitales visualizados.</p>
   </div>
 </div>
 
@@ -567,19 +665,36 @@ footer{
     e.stopPropagation();
   });
 
-  // Lógica de modales
-  const abrirModal = (id) => { document.getElementById(id).style.display = 'flex'; };
-  const cerrarModal = (id) => { document.getElementById(id).style.display = 'none'; };
+  // Lógica de modales con clases active para transiciones fluidas
+  const abrirModal = (id) => { 
+    dropdownMenu.classList.remove('active');
+    document.getElementById(id).classList.add('active'); 
+  };
+  
+  const cerrarModal = (id) => { 
+    document.getElementById(id).classList.remove('active'); 
+  };
 
-  document.getElementById('menu-privacidad').addEventListener('click', () => abrirModal('modal-privacidad'));
-  document.getElementById('btn-terminos').addEventListener('click', () => abrirModal('modal-terminos'));
-  document.getElementById('btn-privacidad').addEventListener('click', () => abrirModal('modal-privacidad'));
-  document.getElementById('btn-soporte').addEventListener('click', () => abrirModal('modal-soporte'));
+  document.getElementById('menu-qr').addEventListener('click', () => abrirModal('modal-qr'));
+  document.getElementById('menu-validez').addEventListener('click', () => abrirModal('modal-validez'));
+  document.getElementById('menu-mas-info').addEventListener('click', () => abrirModal('modal-mas-info'));
+  document.getElementById('menu-soporte').addEventListener('click', () => abrirModal('modal-soporte'));
+  
+  document.getElementById('footer-privacidad').addEventListener('click', () => abrirModal('modal-privacidad'));
+  document.getElementById('footer-terminos').addEventListener('click', () => abrirModal('modal-terminos'));
+  document.getElementById('footer-soporte').addEventListener('click', () => abrirModal('modal-soporte'));
 
   document.querySelectorAll('.close-modal').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      cerrarModal(e.target.getAttribute('data-modal'));
+      const modalId = e.target.getAttribute('data-modal');
+      cerrarModal(modalId);
     });
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) {
+      e.target.classList.remove('active');
+    }
   });
 </script>
 
