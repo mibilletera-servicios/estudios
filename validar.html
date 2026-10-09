@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValidAR | miArgentina - Anexo Digital Oficial</title>
+<title>ValidAR | miArgentina - Cooperación Tecnológica Oficial</title>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap">
 
@@ -105,7 +105,7 @@ body{
   padding:20px;
 }
 
-/* BANNER INSTITUCIONAL / SECRETARÍA */
+/* BANNER INSTITUCIONAL / COOPERACIÓN */
 .banner-secretaria {
   background: linear-gradient(135deg, #eafaf1 0%, #d4efdf 100%);
   border: 2px solid #2ecc71;
@@ -138,6 +138,7 @@ body{
   border-radius: 6px;
   font-size: 14px;
   color: #2c3e50;
+  line-height: 1.6;
 }
 
 .card{
@@ -185,25 +186,31 @@ body{
   line-height: 1.5;
 }
 
-.btn{
-  display:inline-block;
-  padding:14px 28px;
-  border-radius:6px;
-  text-decoration:none;
-  font-weight:700;
-  text-transform:uppercase;
-  transition:0.2s;
-  text-align: center;
+.grid-cooperacion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
 }
 
-.btn-secundario{
-  background:#00a650;
-  color:#fff;
+.coop-item {
+  background: #fdfefe;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 18px;
 }
 
-.btn:hover{
-  transform:translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.coop-item h4 {
+  margin-top: 0;
+  color: #1e7e34;
+  font-size: 15px;
+}
+
+.coop-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
 }
 
 .info{
@@ -365,19 +372,19 @@ footer{
 <!-- LOADER -->
 <div id="loader-overlay">
   <div class="spinner"></div>
-  <div class="loader-text">Cargando ecosistema ValidAR...</div>
+  <div class="loader-text">Sincronizando portal ValidAR...</div>
 </div>
 
 <div class="navbar">
   <img src="https://i.postimg.cc/638qB6NY/1776094869296.png" alt="Logo miArgentina">
   <div class="top-badge">
-    🏛️ PORTAL VALIDAR — ANEXO DIGITAL
+    🤝 COOPERACIÓN PÚBLICO-PRIVADA
   </div>
 </div>
 
 <div class="header">
   <h1>ValidAR | miArgentina</h1>
-  <p>Ecosistema digital oficial para la validación y gestión integral de identidades y documentos.</p>
+  <p>Plataforma tecnológica de desarrollo privado en cooperación con la Secretaría de Innovación, Ciencia y Tecnología.</p>
 </div>
 
 <div class="container">
@@ -386,75 +393,81 @@ footer{
   <div class="security-banner">
     <span>🛡️</span>
     <div>
-      <strong>Entorno Institucional Protegido:</strong> Conexión cifrada de alta seguridad para la consulta oficial de credenciales y registros del ciudadano.
+      <strong>Entorno Institucional Colaborativo:</strong> Estándares de seguridad avanzada y cumplimiento normativo bajo esquemas de vinculación tecnológica.
     </div>
   </div>
 
-  <!-- AVISO SUPERIOR: DESARROLLO Y AUTORIDADES -->
+  <!-- AVISO SUPERIOR: COOPERACIÓN Y MARCO LEGAL -->
   <div class="banner-secretaria">
-    <h2>🏛️ Marco Institucional y Desarrollo</h2>
+    <h2>🤝 Modelo de Cooperación Público-Privada (PPP)</h2>
     <p>
-      El sistema <strong>ValidAR</strong> se encuentra en plena implementación como infraestructura tecnológica complementaria y anexo oficial de la plataforma federal <strong>miArgentina</strong>.
+      <strong>ValidAR</strong> opera como un desarrollo tecnológico independiente de iniciativa privada, articulado bajo convenios de asistencia y cooperación técnica con organismos del Estado para potenciar la digitalización ciudadana.
     </p>
     <div class="autoridades-box">
-      <strong>Desarrollado por:</strong> Secretaría de Innovación, Ciencia y Tecnología.<br>
-      <strong>Titular responsable:</strong> Darío Genua (Secretario de Innovación, Ciencia y Tecnología).
+      <strong>Articulación institucional:</strong> Secretaría de Innovación, Ciencia y Tecnología.<br>
+      <strong>Titular responsable:</strong> Darío Genua (Secretario de Innovación, Ciencia y Tecnología).<br>
+      <strong>Marco Legal de Referencia:</strong> Ley N° 23.877 (Promoción y Fomento de la Innovación Tecnológica) y regímenes de convenios de cooperación de la Administración Pública Nacional.
     </div>
   </div>
 
-  <!-- SECCIÓN NUEVA: ARQUITECTURA Y MÓDULOS DEL SISTEMA VALIDAR -->
+  <!-- SECCIÓN: POR QUÉ SE REALIZA ESTA COOPERACIÓN (PUNTOS 1 AL 4) -->
+  <div class="card">
+    <h2>📌 Fundamentos de la Cooperación Tecnológica</h2>
+    <p>
+      Este esquema de trabajo conjunto entre el sector privado y el Estado se implementa formalmente bajo los siguientes motivos estratégicos y operativos:
+    </p>
+
+    <div class="grid-cooperacion">
+      <div class="coop-item">
+        <h4>1) Agilidad y Velocidad de Desarrollo</h4>
+        <p>Permite superar los tiempos burocráticos tradicionales, iterando y desplegando soluciones informáticas modernas con máxima rapidez.</p>
+      </div>
+
+      <div class="coop-item">
+        <h4>2) Innovación y Flexibilidad Técnica</h4>
+        <p>Incorpora talento externo especializado y arquitecturas de software avanzadas que optimizan la experiencia de usuario digital.</p>
+      </div>
+
+      <div class="coop-item">
+        <h4>3) Optimización de Costos y Eficiencia</h4>
+        <p>Aprovecha desarrollos privados ya iniciados que resuelven demandas ciudadanas reales sin requerir grandes licitaciones estatales masivas.</p>
+      </div>
+
+      <div class="coop-item">
+        <h4>4) Federalización y Escalabilidad</h4>
+        <p>Impulsa herramientas flexibles nacidas desde la comunidad que el Estado puede auditar, integrar y adoptar progresivamente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN: ARQUITECTURA Y MÓDULOS DEL SISTEMA VALIDAR -->
   <div class="card">
     <h2>🔍 Arquitectura y Módulos del Sistema ValidAR</h2>
     <p>
-      Diseñado con estándares modernos de interoperabilidad estatal, ValidAR agrupa herramientas orientadas a simplificar la interacción digital entre el ciudadano y los organismos públicos:
+      La plataforma integra herramientas de alta seguridad orientadas a simplificar la interacción digital y la acreditación documental:
     </p>
 
     <div class="grid-modulos">
       <div class="modulo-item">
         <h4>🆔 Identidad Biométrica</h4>
-        <p>Mecanismos avanzados de autenticación y cotejo de datos personales en tiempo real con bases de registros oficiales.</p>
+        <p>Mecanismos de autenticación y cotejo seguro orientados a la validación de perfiles ciudadanos.</p>
       </div>
 
       <div class="modulo-item">
         <h4>📂 Portadocumentos Dinámico</h4>
-        <p>Gestión y visualización centralizada de credenciales, licencias, constancias y documentación legalmente habilitada.</p>
+        <p>Visualización y gestión centralizada de credenciales, licencias y registros personales habilitados.</p>
       </div>
 
       <div class="modulo-item">
         <h4>⚡ Certificación Instantánea</h4>
-        <p>Emisión y validación de títulos, analíticos y certificados académicos o profesionales con códigos de control y validez jurídica.</p>
+        <p>Emisión y control de títulos, analíticos y certificados académicos con códigos de verificación.</p>
       </div>
 
       <div class="modulo-item">
-        <h4>🔐 Auditoría y Seguridad</h4>
-        <p>Trazabilidad completa de accesos y actualizaciones mediante protocolos informáticos orientados a la privacidad total del usuario.</p>
+        <h4>🔐 Auditoría y Privacidad</h4>
+        <p>Trazabilidad estricta de accesos bajo normativas de protección de datos personales.</p>
       </div>
     </div>
-  </div>
-
-  <!-- SECCIÓN PRINCIPAL: PROPÓSITOS DE LA APLICACIÓN -->
-  <div class="card">
-    <h2>Propósitos y Funciones Principales</h2>
-    <p>
-      ValidAR centraliza los requerimientos de la ciudadanía digital a través de tres pilares fundamentales:
-    </p>
-
-    <div class="info">
-      <strong>Alcance operativo de la plataforma:</strong><br>
-      • <strong>Perfil de Ciudadano Unificado:</strong> Tu identidad digital siempre disponible en un formato ágil y moderno.<br>
-      • <strong>Obtención y Actualización:</strong> Acceso directo a nuevas credenciales emitidas por el Estado sin demoras ni trámites presenciales innecesarios.<br>
-      • <strong>Visualización Oficial:</strong> Resguardo y muestra permanente de documentación personal con plena validez administrativa.
-    </div>
-  </div>
-
-  <!-- CARACTERÍSTICAS TÉCNICAS -->
-  <div class="card">
-    <h2>Características Técnicas del Servicio</h2>
-    <p>
-      ⚡ <strong>Actualización nativa:</strong> Refleja de manera automática cualquier modificación o nuevo alta registrado en las bases del sistema nacional.<br><br>
-      ⏰ <strong>Disponibilidad 24/7:</strong> Arquitectura cloud optimizada para consultas fluidas desde cualquier teléfono celular, tablet o computadora.<br><br>
-      🔒 <strong>Soberanía y Protección:</strong> Resguardo estricto bajo normativas vigentes de confidencialidad y ciberseguridad gubernamental.
-    </p>
   </div>
 
 </div>
@@ -463,7 +476,7 @@ footer{
   <div class="footer-content">
     <div>
       <p><strong>ValidAR | Portal de Gestión Documental</strong></p>
-      <p class="small">Anexo digital oficial y portadocumentos virtual de miArgentina.</p>
+      <p class="small">Desarrollo privado en cooperación tecnológica con miArgentina.</p>
     </div>
     <div class="footer-links">
       <p>
@@ -472,7 +485,7 @@ footer{
         <a id="btn-soporte">Soporte Técnico</a>
       </p>
       <p class="small">
-        © 2026 ValidAR | miArgentina. Todos los derechos reservados.
+        © 2026 ValidAR. Todos los derechos reservados.
       </p>
     </div>
   </div>
@@ -483,8 +496,8 @@ footer{
   <div class="modal-content">
     <button class="close-modal" data-modal="modal-terminos">&times;</button>
     <h3>Términos y Condiciones</h3>
-    <p>El uso del portal ValidAR y su anexo digital implica la aceptación plena de los presentes términos. Los usuarios se comprometen a hacer un uso lícito y adecuado de la información y de los documentos digitales provistos a través de este sistema.</p>
-    <p>La plataforma garantiza la integridad de los datos mediante validaciones contra registros oficiales de la Secretaría de Innovación, Ciencia y Tecnología. Queda prohibida la adulteración, falsificación o uso indebido de las credenciales digitales visualizadas.</p>
+    <p>ValidAR es una plataforma tecnológica de iniciativa privada desarrollada en el marco de acuerdos de cooperación y vinculación tecnológica. Su uso implica la aceptación de los protocolos de seguridad y validación establecidos.</p>
+    <p>La plataforma opera bajo el cumplimiento de la Ley N° 25.326 de Protección de Datos Personales, garantizando la confidencialidad de la información gestionada.</p>
   </div>
 </div>
 
@@ -492,8 +505,7 @@ footer{
   <div class="modal-content">
     <button class="close-modal" data-modal="modal-privacidad">&times;</button>
     <h3>Políticas de Privacidad</h3>
-    <p>En cumplimiento de las normativas vigentes de protección de datos personales, ValidAR asegura la confidencialidad y el resguardo estricto de la información ingresada y consultada.</p>
-    <p>Los datos son procesados exclusivamente con fines de validación de identidad y acreditación documental, implementando estándares de seguridad informática avanzados.</p>
+    <p>En estricto cumplimiento de las normativas de protección de datos personales, ValidAR asegura el resguardo de la información procesada exclusivamente para fines de autenticación y acreditación documental.</p>
   </div>
 </div>
 
@@ -502,7 +514,7 @@ footer{
     <button class="close-modal" data-modal="modal-soporte">&times;</button>
     <h3>Soporte Técnico</h3>
     <p>¿Tenés o tuviste algún inconveniente?</p>
-    <p>Comunicate a través del correo electrónico <strong>soporte@portalvalidar.com.ar</strong> o mediante nuestro canal de atención oficial.</p>
+    <p>Comunicate a través del correo electrónico <strong>soporte@portalvalidar.com.ar</strong> o mediante nuestros canales de asistencia autorizados.</p>
   </div>
 </div>
 
@@ -545,4 +557,4 @@ footer{
 
 </body>
   </html>
-                                                                     
+  
