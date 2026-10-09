@@ -155,6 +155,36 @@ body{
   font-size: 22px;
 }
 
+.grid-modulos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.modulo-item {
+  background: #f8fbfe;
+  border: 1px solid #d5e6f8;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.modulo-item h4 {
+  margin-top: 0;
+  color: #005a96;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modulo-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
 .btn{
   display:inline-block;
   padding:14px 28px;
@@ -335,7 +365,7 @@ footer{
 <!-- LOADER -->
 <div id="loader-overlay">
   <div class="spinner"></div>
-  <div class="loader-text">Sincronizando portal ValidAR...</div>
+  <div class="loader-text">Cargando ecosistema ValidAR...</div>
 </div>
 
 <div class="navbar">
@@ -347,7 +377,7 @@ footer{
 
 <div class="header">
   <h1>ValidAR | miArgentina</h1>
-  <p>Sistema digital oficial en desarrollo para el anexo de documentación personal.</p>
+  <p>Ecosistema digital oficial para la validación y gestión integral de identidades y documentos.</p>
 </div>
 
 <div class="container">
@@ -356,15 +386,15 @@ footer{
   <div class="security-banner">
     <span>🛡️</span>
     <div>
-      <strong>Entorno Institucional Protegido:</strong> Plataforma oficial segura para la gestión integral y validación de credenciales ciudadanas.
+      <strong>Entorno Institucional Protegido:</strong> Conexión cifrada de alta seguridad para la consulta oficial de credenciales y registros del ciudadano.
     </div>
   </div>
 
   <!-- AVISO SUPERIOR: DESARROLLO Y AUTORIDADES -->
   <div class="banner-secretaria">
-    <h2>🏛️ Desarrollo Institucional Oficial</h2>
+    <h2>🏛️ Marco Institucional y Desarrollo</h2>
     <p>
-      Este sistema se encuentra en desarrollo digital continuo como un anexo estratégico de <strong>miArgentina</strong>, impulsado para optimizar la soberanía tecnológica y la accesibilidad documental.
+      El sistema <strong>ValidAR</strong> se encuentra en plena implementación como infraestructura tecnológica complementaria y anexo oficial de la plataforma federal <strong>miArgentina</strong>.
     </p>
     <div class="autoridades-box">
       <strong>Desarrollado por:</strong> Secretaría de Innovación, Ciencia y Tecnología.<br>
@@ -372,28 +402,58 @@ footer{
     </div>
   </div>
 
-  <!-- SECCIÓN PRINCIPAL: PROPÓSITOS DE LA APLICACIÓN -->
+  <!-- SECCIÓN NUEVA: ARQUITECTURA Y MÓDULOS DEL SISTEMA VALIDAR -->
   <div class="card">
-    <h2>Propósitos y Funciones de ValidAR</h2>
+    <h2>🔍 Arquitectura y Módulos del Sistema ValidAR</h2>
     <p>
-      ValidAR está concebido como el ecosistema de perfil ciudadano que centraliza herramientas digitales de alta seguridad para la interacción con el Estado.
+      Diseñado con estándares modernos de interoperabilidad estatal, ValidAR agrupa herramientas orientadas a simplificar la interacción digital entre el ciudadano y los organismos públicos:
     </p>
 
-    <div class="info">
-      <strong>¿Qué permite realizar la plataforma?</strong><br>
-      • <strong>Perfil de Ciudadano:</strong> Consolidación de identidad digital unificada.<br>
-      • <strong>Obtención y Gestión:</strong> Emisión, solicitud y actualización automatizada de credenciales y registros.<br>
-      • <strong>Visualización Documental:</strong> Acceso permanente, seguro y oficial a toda la documentación personal desde cualquier dispositivo.
+    <div class="grid-modulos">
+      <div class="modulo-item">
+        <h4>🆔 Identidad Biométrica</h4>
+        <p>Mecanismos avanzados de autenticación y cotejo de datos personales en tiempo real con bases de registros oficiales.</p>
+      </div>
+
+      <div class="modulo-item">
+        <h4>📂 Portadocumentos Dinámico</h4>
+        <p>Gestión y visualización centralizada de credenciales, licencias, constancias y documentación legalmente habilitada.</p>
+      </div>
+
+      <div class="modulo-item">
+        <h4>⚡ Certificación Instantánea</h4>
+        <p>Emisión y validación de títulos, analíticos y certificados académicos o profesionales con códigos de control y validez jurídica.</p>
+      </div>
+
+      <div class="modulo-item">
+        <h4>🔐 Auditoría y Seguridad</h4>
+        <p>Trazabilidad completa de accesos y actualizaciones mediante protocolos informáticos orientados a la privacidad total del usuario.</p>
+      </div>
     </div>
   </div>
 
-  <!-- INFORMACIÓN ADICIONAL DE BENEFICIOS -->
+  <!-- SECCIÓN PRINCIPAL: PROPÓSITOS DE LA APLICACIÓN -->
   <div class="card">
-    <h2>Características del Sistema</h2>
+    <h2>Propósitos y Funciones Principales</h2>
     <p>
-      ⚡ <strong>Sincronización en tiempo real:</strong> Los datos y documentos se actualizan de inmediato en el perfil tras las validaciones oficiales correspondientes.<br><br>
-      ⏰ <strong>Disponibilidad 24/7:</strong> Consulta permanente de credenciales y certificados con validez legal garantizada.<br><br>
-      🔒 <strong>Garantía y Seguridad:</strong> Estándares de encriptación avanzados para la protección de la información sensible de los ciudadanos.
+      ValidAR centraliza los requerimientos de la ciudadanía digital a través de tres pilares fundamentales:
+    </p>
+
+    <div class="info">
+      <strong>Alcance operativo de la plataforma:</strong><br>
+      • <strong>Perfil de Ciudadano Unificado:</strong> Tu identidad digital siempre disponible en un formato ágil y moderno.<br>
+      • <strong>Obtención y Actualización:</strong> Acceso directo a nuevas credenciales emitidas por el Estado sin demoras ni trámites presenciales innecesarios.<br>
+      • <strong>Visualización Oficial:</strong> Resguardo y muestra permanente de documentación personal con plena validez administrativa.
+    </div>
+  </div>
+
+  <!-- CARACTERÍSTICAS TÉCNICAS -->
+  <div class="card">
+    <h2>Características Técnicas del Servicio</h2>
+    <p>
+      ⚡ <strong>Actualización nativa:</strong> Refleja de manera automática cualquier modificación o nuevo alta registrado en las bases del sistema nacional.<br><br>
+      ⏰ <strong>Disponibilidad 24/7:</strong> Arquitectura cloud optimizada para consultas fluidas desde cualquier teléfono celular, tablet o computadora.<br><br>
+      🔒 <strong>Soberanía y Protección:</strong> Resguardo estricto bajo normativas vigentes de confidencialidad y ciberseguridad gubernamental.
     </p>
   </div>
 
@@ -442,7 +502,7 @@ footer{
     <button class="close-modal" data-modal="modal-soporte">&times;</button>
     <h3>Soporte Técnico</h3>
     <p>¿Tenés o tuviste algún inconveniente?</p>
-    <p>Comunicate a través del correo electrónico <strong>soporte@portalvalidar.com.ar</strong> o mediante nuestro canal de atención.</p>
+    <p>Comunicate a través del correo electrónico <strong>soporte@portalvalidar.com.ar</strong> o mediante nuestro canal de atención oficial.</p>
   </div>
 </div>
 
@@ -485,4 +545,4 @@ footer{
 
 </body>
   </html>
-    
+                                                                     
