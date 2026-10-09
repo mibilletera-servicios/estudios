@@ -639,12 +639,23 @@ footer{
 </div>
 
 <script>
-  // Ocultar loader al cargar la página
-  window.addEventListener('load', function() {
+  // Función para ocultar el loader con seguridad
+  function ocultarLoader() {
     const loader = document.getElementById('loader-overlay');
-    loader.style.opacity = '0';
-    setTimeout(() => { loader.style.visibility = 'hidden'; }, 400);
-  });
+    if (loader && loader.style.visibility !== 'hidden') {
+      loader.style.opacity = '0';
+      setTimeout(() => { loader.style.visibility = 'hidden'; }, 400);
+    }
+  }
+
+  // Comprobar si la página ya cargó, o esperar al evento load o DOMContentLoaded
+  if (document.readyState === 'complete') {
+    ocultarLoader();
+  } else {
+    window.addEventListener('load', ocultarLoader);
+    // Fallback de seguridad por si el evento load se pierde
+    setTimeout(ocultarLoader, 2000);
+  }
 
   // Toggle del menú desplegable hamburguesa
   const menuToggleBtn = document.getElementById('menu-toggle-btn');
